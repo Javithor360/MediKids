@@ -67,6 +67,7 @@
 </table>
 
 <!-- Información -->
+
 ## ¿Qué es MediKids?
 
 Una solución tecnológica que utiliza herramientas modernas para proveer un sistema clínico-privado el cual pueda ser usado tanto por sus pacientes como sus médicos empleados. Por otra parte, también ofrecerá un sistema de compra de farmacéuticos en línea.
@@ -95,6 +96,14 @@ En desarrollo...
 	<a href="#"><img src="./assets/img/depayser-white-simplified.png" width="200px"  height="200px"></a>
 	<h3 align="center"> Dépayser Industries </h3>
 </p>
+
+<p>
+    Espacio de asignaciones <a href="https://javithor.notion.site/D-payser-Industries-1c803ba385ba4bf8b8c77b85f7523605">en Notion</a>
+</p>
+
+## Advertencia de uso
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">MediKids</span> por <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/Javithor360/MediKids" property="cc:attributionName" rel="cc:attributionURL">Dépayser Industries</a> se distribuye bajo una <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Licencia Creative Commons Atribución-NoComercial 4.0 Internacional</a>.
 
 ## Versión Alpha 0.0.1
 
