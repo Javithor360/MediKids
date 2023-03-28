@@ -1,0 +1,17 @@
+{
+  "name": "medikids-desktop",
+  "version": "1.0.0",
+  "description": "Aplicación de escritorio para MediKids",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "desktop"
+  ],
+  "author": "javithor360",
+  "license": "CC-BY-NC-4.0",
+  "devDependencies": {
+    "electron": "^23.2.0"
+  }
+}
