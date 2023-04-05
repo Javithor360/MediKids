@@ -1,0 +1,88 @@
+/* ==Footer== */
+.footerContainer{
+    width: 100%;
+    height: 55vh;
+    background-image: url(../img/footer-waves.png);
+    background-size: cover;
+    position: relative;
+    /* display: flex;
+    justify-content: center; */
+}
+.footerContent{
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    bottom: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+.logoSide{
+    height: 100%;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+}
+.logoSide img{
+    width: 8rem;
+    height: auto;
+    margin-left: 1.4rem;
+}
+.linksContainer{
+    display: flex;
+    justify-content: center;
+}
+.linksSide{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 7.5rem;
+}
+.linksSideRow1{
+    display: flex;
+    flex-direction: column;
+    gap: 1.9rem;
+}
+.footerLink{
+    font-size: 1.2rem;
+    text-decoration: none;
+    color: #ffffff;
+    position: relative;
+    transition: .2s ease;
+}
+.socialIcons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5625rem;
+}
+.footerSIcon{
+    color: #ffffff;
+    transition: .2s ease;   
+}
+.langSelector{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+.langSelector option{
+    color: black;
+}
+
+.footerSIcon:hover{
+    filter: opacity(.7);
+    transition: .3s ease;
+}
+.footerLink:hover{
+    color: #dfdfdf;
+    transition: .3s ease;
+}

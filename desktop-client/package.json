@@ -12,6 +12,6 @@
   "author": "javithor360",
   "license": "CC-BY-NC-4.0",
   "devDependencies": {
-    "electron": "^23.2.0"
+    "electron": "^23.2.2"
   }
 }
