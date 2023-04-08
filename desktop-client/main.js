@@ -7,7 +7,7 @@ function createMainWindow() {
     title: "MediKids",
     width: 1500,
     height: 800,
-    icon: "./app/src/assets/logos/imagotipo.png",
+    icon: "../global-assets/logos/MediKids_Colored-Isotype.png",
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: true,
