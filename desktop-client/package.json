@@ -4,7 +4,8 @@
   "description": "Aplicación de escritorio para MediKids",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "start:watch": "npx electronmon --trace-warnings ."
   },
   "keywords": [
     "desktop"
