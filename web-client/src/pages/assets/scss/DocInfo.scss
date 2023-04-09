@@ -1,0 +1,131 @@
+.acc-hero {
+    background-image: url(../img/banners/otorrinop.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 39.93rem;
+    width: 100%;
+    padding: 1.25rem;
+    position: relative;
+
+    .acc-hero-cont {
+        position: absolute;
+        background-color: rgba(0, 0, 0, .5);
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        p {
+            color:white;
+            font-size: 1.5rem;
+        }
+
+        h1 {
+            color:white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+    }
+}
+
+
+.tittle{
+    text-align: center;
+    font-size: 30pt;
+    margin-top: 2em;
+}
+.first{
+    height: 50em;
+    display: flex;
+}
+.sub{
+    text-align: justify;
+    width: 60em;
+    font-size: 14pt;
+    margin-top: 2em;
+    margin-right: 4em;
+    float: right;
+}
+span{
+    color: #D58C8C;
+}
+.boton{
+    border: solid #FEB962;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: rgb(59, 55, 55);
+    width: 10em;
+    height: 2em;
+    border-radius: 0.2em;
+    margin-right: 9em;
+    float: right;
+}
+.acc-hero2 {
+    background-image: url(../img/banners/gastro.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 39.93rem;
+    width: 100%;
+    padding: 1.25rem;
+    position: relative;
+    .acc-hero-cont {
+        position: absolute;
+        background-color: rgba(0, 0, 0, .5);
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        p {
+            color:white;
+            font-size: 1.5rem;
+        }
+
+        h1 {
+            color:white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+    }
+}
+.acc-hero3 {
+    background-image: url(../img/banners/neu.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 39.93rem;
+    width: 100%;
+    padding: 1.25rem;
+    position: relative;
+    .acc-hero-cont {
+        position: absolute;
+        background-color: rgba(0, 0, 0, .5);
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        p {
+            color:white;
+            font-size: 1.5rem;
+        }
+
+        h1 {
+            color:white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+    }
+}

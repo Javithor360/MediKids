@@ -83,7 +83,7 @@ export const HomePage = () => {
                     </div>
                     <div className="cardContent">
                         <p>Otorrinolaringología</p>
-                        <Link to="">Más información</Link>
+                        <Link to="/otorrinolaringologo">Más información</Link>
                     </div>
                 </div>
                 <div className="card">
@@ -92,7 +92,7 @@ export const HomePage = () => {
                     </div>
                     <div className="cardContent">
                         <p>Gastroenterología</p>
-                        <Link to="">Más información</Link>
+                        <Link to="/gastroenterología">Más información</Link>
                     </div>
                 </div>
                 <div className="card">
@@ -101,7 +101,7 @@ export const HomePage = () => {
                     </div>
                     <div className="cardContent">
                         <p>Neumología</p>
-                        <Link to="">Más información</Link>
+                        <Link to="/neumologia">Más información</Link>
                     </div>
                 </div>
             </div>
