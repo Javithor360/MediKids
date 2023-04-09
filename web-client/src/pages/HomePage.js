@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import "./assets/scss/main.scss";
 import IndexVideo from "./assets/img/banners/Index_Banner_Vid-1.mp4"
-import  {NavBar, Footer} from '../components';
+import  { NavBar, Footer } from '../components';
 const IndexImages = require.context("./assets/img", true);
 
 
@@ -22,7 +22,7 @@ export const HomePage = () => {
                     </div>
                     <div className="contentText">
                         <p>Salud y niñez integral</p>
-                        <Link to="">Descargar App</Link>
+                        <Link to="/download-app">Descargar App</Link>
                     </div>
                 </div>
             </div>
@@ -124,7 +124,7 @@ export const HomePage = () => {
                 <div className="docSpace">
                     <img src={IndexImages("./doctores/Dr_flores.png")} alt=""/>
                     <h2>Dr. Adrián Flores </h2>
-                    <Link class="readMoreBtn bgBtn5" to="">Conoce más</Link>
+                    <Link class="readMoreBtn bgBtn5" to="/dr-flores">Conoce más</Link>
                 </div>
             </article>
         </section>

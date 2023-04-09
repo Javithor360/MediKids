@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate, BrowserRouter } from "react-router-dom";
 
-import { HomePage } from './pages'
+import { HomePage, DownloadApp, DrFlores } from './pages'
 
 function App() {
   return (
@@ -10,6 +10,8 @@ function App() {
           		<Route>
             	    <Route path="/" element={<Navigate to="/index" replace />} />
                   <Route path="/index" element={<HomePage />} />
+                  <Route path="/download-app" element={<DownloadApp />} />
+                  <Route path="/dr-flores" element={<DrFlores />} />
           		</Route>
         	</Routes>
       </BrowserRouter>

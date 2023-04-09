@@ -1,0 +1,32 @@
+.__button-shadow{
+    box-shadow: 5px 4px 0px 2px #B2A4FF;
+    border: 1px solid #707070;
+    border-radius: 10px;
+    transition: all .3s ease;
+}
+.__button-shadow:hover{
+    box-shadow: 5px 4px 0px 2px #B2A4FF;
+    border-radius: 5px;
+    transition: all .3s ease;
+}
+.__download_list {
+    list-style: none; /* Remove default bullets */
+    margin-left: 5rem;
+    margin-top: 1.5rem;
+    max-width: 30rem;
+
+    li{
+        color: #707070;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    li::before {
+        content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+        color: #AC60E6; /* Change the color */
+        font-weight: bold; /* If you want it to be bold */
+        display: inline-block; /* Needed to add space between the bullet and the text */
+        width: 1em; /* Also needed for space (tweak if needed) */
+        margin-left: -1em; /* Also needed for space (tweak if needed) */
+    }
+}
