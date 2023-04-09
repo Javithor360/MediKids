@@ -24,7 +24,7 @@ export const NavBar = () => {
             <Link className="navLink" to="">Sobre Nosotros</Link>
         </div>
         <div className="navCol2">
-            <Link className={navScroll ? 'navLogo scrolled' : 'navLogo'} to=""><img src={ImagoType} alt=""/></Link>
+            <Link className={navScroll ? 'navLogo scrolled' : 'navLogo'} to="/index"><img src={ImagoType} alt=""/></Link>
         </div>
         <div className="navCol1">
             <Link className="navLink" to="">Contáctanos</Link>
