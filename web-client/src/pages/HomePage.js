@@ -114,12 +114,12 @@ export const HomePage = () => {
                 <div className="docSpace">
                     <img src={IndexImages("./doctores/Dr_guzman.png")} alt=""/>
                     <h2>Dr. Esteban Gúzman</h2>
-                    <Link className="readMoreBtn bgBtn3" to="">Conoce más</Link>
+                    <Link className="readMoreBtn bgBtn3" to="/dr-guzman">Conoce más</Link>
                 </div>
                 <div className="docSpace">
                     <img src={IndexImages("./doctores/Dra_garza.png")} alt=""/>
                     <h2>Dra. Fátima Garza</h2>
-                    <Link className="readMoreBtn bgBtn4" to="">Conoce más</Link>
+                    <Link className="readMoreBtn bgBtn4" to="/dra-garza">Conoce más</Link>
                 </div>
                 <div className="docSpace">
                     <img src={IndexImages("./doctores/Dr_flores.png")} alt=""/>

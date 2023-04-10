@@ -3,22 +3,22 @@ import { NavBar, Footer, DoctorContact, DownloadAppAdd } from "../../components"
 import { MdOutlineTipsAndUpdates } from "react-icons/md"
 const DocImages = require.context("../assets/img", true);
 
-export const DrFlores = () => {
+export const DrGuzman = () => {
   return (
     <>
         <NavBar />
         <div className="__docBannerContainer mb-[20rem]">
             <div className="__docBannerContent flex justify-center relative">
                 <div className="__contentText w-[55rem] h-[110%] absolute top-[10rem] flex justify-center">
-                    <div className="__layered-content __boxGreen w-[80%] h-[30rem] bg-[#FBFBFB] top-[40%] flex justify-center rounded-[65px] absolute">
+                    <div className="__layered-content __boxBlue w-[80%] h-[30rem] bg-[#FBFBFB] top-[40%] flex justify-center rounded-[65px] absolute">
                         <div className="rounded-[50%] bg-[#DDD7FF] w-[25rem] h-[25rem] mx-auto absolute overflow-hidden flex justify-center top-[-18rem]">
-                            <img src={DocImages("./doctores/dr-flores-2.png")} alt="" className=" bottom-0 w-auto h-[100%]"/>
+                            <img src={DocImages("./doctores/dr-guzman-2.png")} alt="" className=" bottom-0 w-auto h-[100%]"/>
                         </div>
-                        <p className="text-[2.2rem] text-[#A375FF] font-bold top-[8.2rem] text-center absolute">Dr. Adrian Flores
+                        <p className="text-[2.2rem] text-[#A375FF] font-bold top-[8.2rem] text-center absolute">Dr. Esteban Gúzman
                         <hr class="w-[10rem] h-1 bg-[#A375FF] border-0 rounded mx-auto mt-[1rem]" />
                         </p>
                         <p className="text-[#707070] text-[1.2rem] max-w-[70%] bottom-[4rem] absolute">
-                            El Dr. Adrián Flores es un médico neumólogo con una amplia experiencia en el manejo de enfermedades respiratorias. Se graduó con honores de la Facultad de Medicina de la Universidad Autónoma de Madrid, a lo largo de su carrera ha sido reconocido por su enfoque compasivo y centrado en el paciente pediátrico. 
+                            El Dr. Esteban Gúzman es un Otorrinolaringólogo que en afecciones como sinusitis, otitis, ronquidos, trastornos del equilibrio, etc. Es reconocido por su enfoque compasivo y su habilidad en la realización de procedimientos quirúrgicos especializados en otorrinolaringología y tratamientos a los pacientes pedriáticos.
                         </p>
                     </div>
                     
@@ -68,7 +68,7 @@ export const DrFlores = () => {
             </div>
         </div>
 
-        <DoctorContact details={{ cel: '2525 - 2525 | 7047 - 006', email: 'adriánneumologo@medikids.com' }}/>
+        <DoctorContact details={{ cel: '2525 - 2525 | 6757 - 946', email: 'estebanGuzOtorrino@medikids.com' }}/>
         <DownloadAppAdd />
         
         <Footer />

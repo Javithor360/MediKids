@@ -36,7 +36,7 @@ export const DownloadApp = () => {
             </div>
             <div className='h-[35rem] w-[80rem] mx-auto flex'>
                 <div className='h-full w-[35%]'>
-                    <img src={AppImages("./mockups/Phone mockup 1.png")} alt="" className='rounded-[3rem] w-auto h-[100%] m-auto'/>
+                    <img src={AppImages("./mockups/Phone-mockup-1.png")} alt="" className='rounded-[3rem] w-auto h-[100%] m-auto'/>
                 </div>
                 <div className='h-full w-[65%]'>
                     <div className='w-[34rem] h-[28rem] bg-[#B2A4FF] shadow-md rounded-[3rem] relative mx-auto'>

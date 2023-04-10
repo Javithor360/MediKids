@@ -12,8 +12,16 @@
     top: 0;
 }
 .__layered-content{
-    box-shadow: 20px 25px 5px 4px #DDD7FF;
-    border: 1px solid #707070;
+    border: 1px solid #BBBBBB;
+}
+.__boxBlue{
+    box-shadow: 20px 25px 5px 4px #C0DEFF;
+}
+.__boxYellow{
+    box-shadow: 20px 25px 5px 4px #FFDEB4;
+}
+.__boxGreen{
+    box-shadow: 20px 25px 5px 4px #C4DFAA;
 }
 .__medical-list{
     list-style: disc;
@@ -28,4 +36,22 @@
         margin-bottom: 1rem;
     }
 
+}
+.__DownloadAddImg{
+    background-image: url(../img/mockups/Phone-mockup-1.png);
+    background-size: cover;
+    border-top-left-radius: 80px;
+    border-bottom-left-radius: 80px;
+}
+.__moreView{
+    text-decoration: none;
+    color: #ffffff;
+    padding: .6rem .8rem .6rem .8rem;
+    background-color: #D58C8C;
+    border-radius: 40px;
+    transition: .2s ease-in-out;
+}
+.__moreView:hover{
+    transform: translateY(2px);
+    transition: .2s ease-in-out;
 }

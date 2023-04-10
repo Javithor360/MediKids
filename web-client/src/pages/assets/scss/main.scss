@@ -9,7 +9,7 @@ body{
   /* Firefox */
   * {
     scrollbar-width: auto;
-    scrollbar-color: #A375FF #ffffff00;
+    scrollbar-color: #FEB962 #ffffff00;
 }
 
   /* Chrome, Edge, and Safari */
@@ -269,10 +269,11 @@ body{
     margin-left: 5rem;
     margin-top: 3rem;
 }
-/* .especialidadesMain{
+.especialidadesMain{
     border-bottom: 1px solid #70707059;
-    height: 48rem;
-} */
+    height: fit-content;
+    padding-bottom: 1rem;
+}
 .especialidadesMain h1:nth-of-type(1){
     margin-left: 5rem;
     font-size: 2.25rem;
@@ -415,11 +416,11 @@ body{
 }
 .bgBtn4{
     background-color: #AC60E6;
-    box-shadow: 5px 4px 0px 2px #C4DFAA;
+    box-shadow: 5px 4px 0px 2px #FFDEB4;
 }
 .bgBtn5{
     background-color: #AC60E6;
-    box-shadow: 5px 4px 0px 2px #FFDEB4;
+    box-shadow: 5px 4px 0px 2px #C4DFAA;
 }
 @media(min-width: 1820px){
     .circleImg{
