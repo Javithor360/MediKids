@@ -13,8 +13,8 @@ export const Doc2 = () => {
             </section>
             <h1 className='tittle'>¿En que nos <span>especializamos</span>?</h1>
             <p className='sub'>La Gastroenterología pediátrica se enfoca en el diagnóstico y tratamiento de trastornos gastrointestinales
-             que afectan a los niños, desde recién nacidos hasta adolescentes.
-             Los gastroenterólogos pediátricos tratan una amplia variedad de enfermedades y afecciones, que incluyen, pero no se limitan a:
+                que afectan a los niños, desde recién nacidos hasta adolescentes.
+                Los gastroenterólogos pediátricos tratan una amplia variedad de enfermedades y afecciones, que incluyen, pero no se limitan a:
                 <br /><br /><br />
                 <div className="list-item">
                     <p className="roundedStep">1</p>

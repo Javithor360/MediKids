@@ -9,6 +9,9 @@ import {
   Doc3,
   DraGarza,
   DrGuzman,
+  Sobre,
+  Contact,
+  Citas
 } from "./pages";
 import { ScrollToTop } from "./components";
 import withSplashScreen from "./components/withSplashScreen";
@@ -29,6 +32,9 @@ function App() {
             <Route path="/dr-flores" element={<DrFlores />} />
             <Route path="/dra-garza" element={<DraGarza />} />
             <Route path="/dr-guzman" element={<DrGuzman />} />
+            <Route path="/Contact" element={<Contact />} />
+            <Route path="/citas" element={<Citas />} />
+            <Route path="/nosotros" element={<Sobre />} />
           </Route>
         </Routes>
       </BrowserRouter>

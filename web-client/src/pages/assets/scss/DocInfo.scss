@@ -129,3 +129,35 @@ span{
         }
     }
 }
+.acc-hero4 {
+    background-image: url(../img/banners/docs.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 39.93rem;
+    width: 100%;
+    padding: 1.25rem;
+    position: relative;
+    .acc-hero-cont {
+        position: absolute;
+        background-color: rgba(0, 0, 0, .5);
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        p {
+            color:white;
+            font-size: 1.5rem;
+        }
+
+        h1 {
+            color:white;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+    }
+}

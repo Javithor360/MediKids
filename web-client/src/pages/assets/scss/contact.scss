@@ -1,0 +1,73 @@
+.next{
+    text-align: center;
+    margin-top: 2em;
+    margin-left: -4em;
+    margin-bottom: 2em;
+    font-size: 40pt;
+}
+.next2{
+    text-align: center;
+    margin-top: 2em;
+    font-size: 40pt;
+}
+.cont-contact{
+    height: 45em;
+    width: 100%;
+}
+.kid3{
+    height: 44em;
+    display: flex;
+    margin-left: 2em;
+    float: right;
+    display: block;
+}
+.input{
+    border: solid 1px rgba(0, 0, 0, 0.24);
+    border-radius: 0.5em;
+    margin-bottom: 1em;
+    text-align: center;
+    width: 20em;
+    display: block;
+    margin: auto;
+    height: 2.5em;
+}
+.input:focus{
+    outline: none;
+}
+.texta:focus{
+    outline: none;
+}
+.texta{
+    border: solid 1px rgba(0, 0, 0, 0.24);
+    border-radius: 0.5em;
+    width: 30em;
+    height: 20em;
+    display: block;
+    margin: auto;
+    max-height: 40em;
+    text-align: center;
+}
+.form{
+    float: left;
+    border-radius: 0.5em;
+    background-color: rgb(253, 255, 255);
+    border: solid 1px rgba(128, 128, 128, 0.479);
+    height: 32em;
+    width: 40em;
+    box-shadow: 10px 15px 0px 0px #B2A3FF;
+    margin-left: 30em;
+    margin-top: 3em;
+}
+.sub3{
+    margin-left: 20em;
+    margin-right: 20em;
+    text-align: justify;
+}
+.bgBtnt2{
+    background-color: #A375FF;
+    box-shadow: 5px 4px 0px 2px #B2A4FF;
+    margin-right: 5rem;
+    float: right;
+    margin-top: 1em;
+    margin-right: 2em;
+}

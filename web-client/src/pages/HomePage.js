@@ -67,7 +67,7 @@ export const HomePage = () => {
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi, fuga.</p>
                         </div>
                         <div className="btnRight">
-                            <Link className="readMoreBtn bgBtn2" to="">Más información</Link>
+                            <Link className="readMoreBtn bgBtn2" to="/citas">Más información</Link>
                         </div>
                     </div>
                 </div>

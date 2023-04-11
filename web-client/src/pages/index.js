@@ -6,3 +6,6 @@ export { DraGarza } from "./Doctors/DraGarza"
 export { Doc1 } from "./Doc1";
 export { Doc2 } from "./Doc2";
 export { Doc3 } from "./Doc3"
+export { Citas } from "./Citas"
+export { Sobre } from "./Sobre"
+export { Contact } from "./Contact"
