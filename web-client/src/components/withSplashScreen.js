@@ -7,7 +7,7 @@ function LoadingMessage() {
     <div className="absolute bg-[#A375FF] h-full w-full">
       <div className="fade-in flex flex-col items-center justify-center min-h-screen w-full">
         <img src={MediKidsLogo} alt="" className="h-[20%] w-[20%]" />
-        <div class="fade-in lds-ring m-6">
+        <div className="fade-in lds-ring m-6">
           <div></div>
           <div></div>
           <div></div>
