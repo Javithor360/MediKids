@@ -1,1 +1,10 @@
-// let App = require("dani.io");
+// ENVIRONMENT VARIABLES
+import {config} from './utils/dotenv_conf.js'
+
+// IMPORT EXPRESS CONFIGS
+import app from './app.js';
+
+// RUNNING SERVER
+app.listen(process.env.PORT, () => {
+  console.log(`SERVER CONNECTED TO THE PORT: ${config.PORT}`);
+});
