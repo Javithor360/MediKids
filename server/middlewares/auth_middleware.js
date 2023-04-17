@@ -13,7 +13,7 @@ export const auth_midd = (req, res, next) => {
     // DECODIFIED TOKEN
     const decoded = jwt.verify(token, config.JWT_SECRET);
 
-    // SEDING TOKEN IN REQ STATMENT.
+    // SENDING TOKEN IN REQ STATEMENT.
     req.auth_token = decoded;
 
     // PASSING TO THE NEXT FUNCT
