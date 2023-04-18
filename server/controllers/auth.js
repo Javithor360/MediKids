@@ -7,6 +7,7 @@ import { create_code, send_verify_code_email } from '../utils/functions.js';
 const register = async (req, res, next) => {
   try {
     const {First_Names, Last_Names, Email, Password, DUI, Birthdate, Phone} = req.body;
+    const BD = new Date(Birthdate);
 
     //1 - CHECKING EMPTY VALUES
     if (!First_Names || !Last_Names || !Email || !Password || !DUI || !Birthdate || !Phone) {
@@ -37,12 +38,12 @@ const register = async (req, res, next) => {
     }
     // Age
     const ActualDate = new Date();
-    if ((ActualDate.getFullYear() - 18) < Birthdate.getFullYear()) {
+    if ((ActualDate.getFullYear() - 18) < BD.getFullYear()) {
       return res.status(500).json({message: 'Edad Invalida'});
     }
 
     // GET USER AGE
-    const Age = ActualDate.getFullYear() - Birthdate.getFullYear();
+    const Age = ActualDate.getFullYear() - BD.getFullYear();
 
     // HASH PASSWORD
     const HashedPass = await bcrypt.hash(Password, 12);
@@ -54,14 +55,15 @@ const register = async (req, res, next) => {
     const verify_code = create_code();
 
     // SAVE FIELDS
-    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate, Age, Phone, Profile_Photo: P_F, Reset_Pass_Token: null, Email_Verify_Code: verify_code });
+    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo: P_F, Reset_Pass_Token: null, Email_Verify_Code: verify_code });
 
     // SEND EMAIL
     send_verify_code_email(verify_code, Email, res);
 
-    return res.status(200).json({message: 'Registrado correctamente'})
+    return res.status(200).json({Email})
   } catch (error) {
-    return res.status(500).json({error});
+    console.log(error);
+    return res.status(500).json({error: error});
   }
 }
 
@@ -69,14 +71,12 @@ const login = async (req, res, next) => {
   try {
     const {Email, Password} = req.body;
 
-    //! DUI???
-
     // CHECKING EMPTY VALUES
     if (!Email || !Password) {
       return res.status(500).json({message: 'Valores Vacios'});
     }
 
-    // CHECKING IF USER EXIST
+    // CHECKING IF USER EXISTS
     const [query_user] = await pool.query('SELECT * FROM responsible WHERE Email = ? ', [Email]);
     if (query_user.length == 0) {
       return res.status(500).json({message: 'Este Email no ha sido registrado'});
@@ -103,7 +103,25 @@ const login = async (req, res, next) => {
 }
 
 const verify_email = async (req, res, next) => {
+  try {
+    const { verify_code, Email } = req.body;
 
+
+  } catch (error) {
+    return res.status(500).json({error});
+  }
 }
 
-export {register, login, verify_email};
+const get_email_verified = async (req, res, next) => {
+  try {
+    const { Email } = req.body;
+
+    const query_user = await pool.query('SELECT * FROM responsible WHERE Email = ?', [Email]);
+
+    return res.status(200).json({Responsible_user: query_user[0]});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
+export {register, login, verify_email, get_email_verified};
