@@ -18,6 +18,7 @@ app.use((_, res, next) => {
 // ROUTES CONFIGS
 app.use('/api/auth', router_login);
 
+// DEFAULT ROUTE (Err 404)
 app.use('/', (req, res, next) => {
   res.status(404).json({res: 'page not found'})
 });

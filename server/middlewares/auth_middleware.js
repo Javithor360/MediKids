@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { config } from "../utils/dotenv_conf.js";
+import { config_env } from "../utils/dotenv_conf.js";
 
 export const auth_midd = (req, res, next) => {
   try {
@@ -11,7 +11,7 @@ export const auth_midd = (req, res, next) => {
     }
 
     // DECODIFIED TOKEN
-    const decoded = jwt.verify(token, config.JWT_SECRET);
+    const decoded = jwt.verify(token, config_env.JWT_SECRET);
 
     // SENDING TOKEN IN REQ STATEMENT.
     req.auth_token = decoded;
