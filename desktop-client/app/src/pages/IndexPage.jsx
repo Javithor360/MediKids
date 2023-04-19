@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "../components/Modal.jsx";
 import { ModalTestComponent } from "../components/ModalTestComponent.jsx";
 
