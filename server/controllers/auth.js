@@ -203,7 +203,7 @@ const forgot_password = async (req, res, next) => {
     // UPDATE FIELDS IN THE DB
     await pool.query('UPDATE Responsible SET Reset_Pass_Token = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, forgot_pass_tokens.db_reset_expire, Email]);
 
-    // SEND EMAIL
+    // SEND EMAIL WITH THE TOKEN IN URL (CHANGE)
     send_forgot_pass_email(forgot_pass_tokens.reset_pass_token, Email, res);
 
     return res.status(200).json({success: true, message: 'Email Enviado Correctamente'});
@@ -212,6 +212,17 @@ const forgot_password = async (req, res, next) => {
   }
 }
 
+//! @route POST api/auth/check_reset_token
+//! @desc check if the token keep meeting with the parameters to reset the password
+//! @access Private!!
+
+const check_reset_token = async (req, res, next) => {
+  try {
+    const { reset_pass_token } = req.reset_pass_token;
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
 
 export {
   register, 
@@ -219,5 +230,6 @@ export {
   verify_email, 
   get_email_to_verify, 
   get_responsible, 
-  forgot_password
+  forgot_password,
+  check_reset_token
 };
