@@ -1,38 +1,19 @@
 import React from "react";
-import { Link, Router, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { RouteTranslator } from "../assets/js/RouteTranslator";
 
 export const Breadcrumbs = () => {
   const location = useLocation();
   let currentLink = "";
-
-  const routeTranslator = {
-    Index: "Inicio",
-    Inbox: "Comunicados",
-    Agenda: "Agenda",
-    Patients: "Pacientes",
-    Active: "Activos",
-    Records: "Expedientes",
-  };
-
-  function assign(obj) {
-    for (let key in routeTranslator) {
-      var res = key.match(/Index/g);
-      if (res) {
-        // match
-        console.log(routeTranslator[key]);
-      }
-    }
-  }
 
   const crumbs = location.pathname
     .split("/")
     .filter((crumb) => crumb !== "")
     .map((crumb) => {
       currentLink += `/${crumb}`;
-
       return (
         <Link
-          className="text-[#a375ff] after:content-['/'] after:text-[#A2A2A2] after:ml-[0.25rem] after:mr-[0.25rem] last:after:collapse"
+          className="after:inline-block text-[#a375ff] select-none hover:underline after:content-['/'] after:text-[#A2A2A2] after:ml-[0.25rem] after:mr-[0.25rem] last:after:collapse last:font-semibold"
           to={currentLink}
           key={crumb}
         >
@@ -42,3 +23,11 @@ export const Breadcrumbs = () => {
     });
   return <div>{crumbs}</div>;
 };
+
+function assign(obj) {
+  if (RouteTranslator[obj]) {
+    return RouteTranslator[obj];
+  }
+
+  return obj;
+}
