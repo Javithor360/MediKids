@@ -2,6 +2,8 @@ CREATE SCHEMA IF NOT EXISTS medikids_db DEFAULT CHARACTER SET utf8 ;
 
 USE medikids_db;
 
+DROP DATABASE medikids_db;
+
 CREATE TABLE IF NOT EXISTS medikids_db . Responsible (
 	id INT NOT NULL AUTO_INCREMENT,
     First_Names VARCHAR(45) NOT NULL,
@@ -14,6 +16,7 @@ CREATE TABLE IF NOT EXISTS medikids_db . Responsible (
 	Phone VARCHAR(45) NOT NULL,
 	Profile_Photo VARCHAR(200) NOT NULL,
 	Reset_Pass_Token VARCHAR(200),
+	Reset_Pass_Expire DATE,
 	Email_Verify_code VARCHAR(45),
 	PRIMARY KEY (id),
     UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE

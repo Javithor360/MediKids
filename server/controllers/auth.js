@@ -2,7 +2,11 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import {pool} from '../utils/db.js';
 import { config_env } from '../utils/dotenv_conf.js';
-import { create_code, send_verify_code_email } from '../utils/functions.js';
+import { create_code, create_reset_token, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
+
+//! @route POST api/auth/register
+//! @desc Responsible Register.
+//! @access public
 
 const register = async (req, res, next) => {
   try {
@@ -14,32 +18,32 @@ const register = async (req, res, next) => {
       return res.status(500).json({message: 'Valores Vacios'});
     }
     //>>2 - CHECK IF DUI EXISTS
-      //! EL DUI ES DE 9 DIGITOS 
-      // 12345678-9
+    //! EL DUI ES DE 9 DIGITOS 
+    // 12345678-9
 
     //3 - CHECKING IF VALUES ALREADY EXIST
     const [query_check] = await pool.query('SELECT * FROM responsible WHERE DUI = ?', [DUI]);
     if (query_check.length != 0) {
-      return res.status(500).json({message: 'Valores en uso'});
+      return res.status(500).json({success: false, message: 'Valores en uso'});
     } 
 
     //4 - CHECK VALID VALUES
     // Number Phone
     if (!/\D*\(?(\d{3})?\)?\D*(\d{4})\D*(\d{4})/.test(Phone)) {
-      return res.status(500).json({message: 'Telefono invalido'});
+      return res.status(500).json({success: false, message: 'Telefono invalido'});
     }
     // Email
     if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(Email)) {
-      return res.status(500).json({message: 'Email invalido'});
+      return res.status(500).json({success: false, message: 'Email invalido'});
     }
     // Password
     if(!/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(Password)){
-      return res.status(500).json({message: 'Contrasña invalido'});
+      return res.status(500).json({success: false, message: 'Contrasña invalido'});
     }
     // Age
     const ActualDate = new Date();
     if ((ActualDate.getFullYear() - 18) < BD.getFullYear()) {
-      return res.status(500).json({message: 'Edad Invalida'});
+      return res.status(500).json({success: false, message: 'Edad Invalida'});
     }
 
     // GET USER AGE
@@ -55,7 +59,7 @@ const register = async (req, res, next) => {
     const verify_code = create_code();
 
     // SAVE FIELDS
-    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo: P_F, Reset_Pass_Token: null, Email_Verify_Code: verify_code });
+    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo: P_F, Reset_Pass_Token: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
 
     // SEND EMAIL
     send_verify_code_email(verify_code, Email, res);
@@ -67,24 +71,28 @@ const register = async (req, res, next) => {
   }
 }
 
+//! @route POST api/auth/login
+//! @desc Responsible login.
+//! @access public
+
 const login = async (req, res, next) => {
   try {
     const {Email, Password} = req.body;
 
     // CHECKING EMPTY VALUES
     if (!Email || !Password) {
-      return res.status(500).json({message: 'Valores Vacios'});
+      return res.status(500).json({success: false, message: 'Valores Vacios'});
     }
 
     // CHECKING IF USER EXISTS
     const [query_user] = await pool.query('SELECT * FROM responsible WHERE Email = ? ', [Email]);
     if (query_user.length == 0) {
-      return res.status(500).json({message: 'Este Email no ha sido registrado'});
+      return res.status(500).json({success: false, message: 'Este Email no ha sido registrado'});
     }
 
     // CHECKING THE PASSWORD
     if (!await bcrypt.compare(Password,  query_user[0].Password)) {
-      return res.status(500).json({message: 'Contraseña Incorrecta'});
+      return res.status(500).json({success: false, message: 'Contraseña Incorrecta'});
     }
 
     // CREATE JWT TOKEN
@@ -102,26 +110,114 @@ const login = async (req, res, next) => {
   }
 }
 
+//! @route POST api/auth/verify_email
+//! @desc Verify the email of the responsible
+//! @access Public
+
 const verify_email = async (req, res, next) => {
   try {
     const { verify_code, Email } = req.body;
 
+    // GET THE USER WITH THE VERIFY CODE TO VALIDATE IT AT ONCE
+    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Email = ? AND Email_Verify_code = ?', [Email, verify_code]);
+    if (query_user.length == 0) {
+      return res.status(500).json({success: false, message: 'Codigo Incorrecto'});
+    }
 
+    // UPDATE THE USER SETTING THE VERIFY CODE IN NULL
+    await pool.query('UPDATE Responsible SET Email_Verify_code = NULL WHERE Email = ?', [Email]);
+
+    return res.status(200).json({success: true});
   } catch (error) {
     return res.status(500).json({error});
   }
 }
 
-const get_email_verified = async (req, res, next) => {
+//! @route POST api/auth/get_email_to_verify
+//! @desc Get the email of the responsible who has not still verified it
+//! @access Public
+
+const get_email_to_verify = async (req, res, next) => {
   try {
     const { Email } = req.body;
 
-    const query_user = await pool.query('SELECT * FROM responsible WHERE Email = ?', [Email]);
-
+    // QUERY TO GET THE USER
+    const [query_user] = await pool.query('SELECT * FROM responsible WHERE Email = ? AND Email_Verify_code != ""', [Email]);
+    if (query_user.length == 0) {
+      return res.status(500).json({sucess: false, message: 'Email verificado'});
+    }
+    // SEND THE USER TO THE FRONT.
     return res.status(200).json({Responsible_user: query_user[0]});
   } catch (error) {
     return res.status(500).json({error});
   }
 }
 
-export {register, login, verify_email, get_email_verified};
+//! @route POST api/auth/get_responsible
+//! @desc Get the user to know if already registered
+//! @access Public
+
+const get_responsible = async (req, res, next) => {
+  try {
+    const { Email } = req.body;
+
+    // QUERY TO GET THE USER
+    const [query_user] = await pool.query('SELECT * FROM responsible WHERE Email = ?', [Email]);
+    if (query_user.length == 0) {
+      return res.status(500).json({sucess: false, message: 'Email no registrado'});
+    }
+
+    // SEND THE USER TO THE FRONT.
+    return res.status(200).json({Responsible_user: query_user[0]});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
+//! @route POST api/auth/forgot_password
+//! @desc Send the token to reset the password
+//! @access Public
+
+const forgot_password = async (req, res, next) => {
+  try {
+    const { Email } = req.body;
+
+    // VERIFY EMPTY VALUES
+    if (!Email) {
+      return res.status(500).json({success: false, message: 'Valores Vacios'});
+    }
+
+    // QUERY TO GET THE USER
+    const [query_user] = await pool.query('SELECT * FROM responsible WHERE Email = ?', [Email]);
+    // VALIDATIONS
+    if (query_user.length == 0) {
+      return res.status(500).json({success: false, message: 'Email no registrado'});
+    }
+    if (query_user[0].Email_Verify_Code != null) {
+      return res.status(500).json({success: false, message: 'Email no verificado'});
+    }
+
+    // GET THE TOKENS
+    const forgot_pass_tokens = create_reset_token();
+
+    // UPDATE FIELDS IN THE DB
+    await pool.query('UPDATE Responsible SET Reset_Pass_Token = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, forgot_pass_tokens.db_reset_expire, Email]);
+
+    // SEND EMAIL
+    send_forgot_pass_email(forgot_pass_tokens.reset_pass_token, Email, res);
+
+    return res.status(200).json({success: true, message: 'Email Enviado Correctamente'});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
+
+export {
+  register, 
+  login, 
+  verify_email, 
+  get_email_to_verify, 
+  get_responsible, 
+  forgot_password
+};
