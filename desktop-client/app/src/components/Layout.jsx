@@ -8,7 +8,7 @@ export const Layout = () => {
     <>
       <div className="flex overflow-hidden bg-[#e6e3e3]">
         <Sidebar />
-        <div className="w-full m-10 min-h-[100%] h-[100%] relative">
+        <div className="w-full mx-6 min-h-[100%] h-[100%] relative">
           <div className="flex justify-end m-5">
             <Breadcrumbs />
           </div>
