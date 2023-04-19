@@ -11,7 +11,8 @@ import {
   DrGuzman,
   Sobre,
   Contact,
-  Citas
+  Citas,
+  Error404
 } from "./pages";
 import { ScrollToTop } from "./components";
 import withSplashScreen from "./components/withSplashScreen";
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route>
             <Route path="/" element={<Navigate to="/index" replace />} />
+            <Route path="*" element={<Error404 />} />
             <Route path="/index" element={<HomePage />} />
             <Route path="/download-app" element={<DownloadApp />} />
             <Route path="/otorrinolaringologo" element={<Doc1 />} />

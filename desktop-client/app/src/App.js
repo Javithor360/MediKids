@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Navigate to="/index" replace />} />
-          <Route path="*" element={<Error404 />} />
+          <Route path="*" element={<Navigate to="/index" replace />} />
           <Route path="/index" element={<IndexPage />} />
           <Route path="/inbox" element={<Inbox />} />
 
