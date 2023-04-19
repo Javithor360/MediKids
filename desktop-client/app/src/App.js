@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Layout } from "./components";
 import {
   IndexPage,
-  Error404,
+  // Error404,
   Inbox,
   MainAgenda,
   ActivePatients,

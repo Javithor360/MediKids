@@ -12,7 +12,7 @@ export const Layout = () => {
           <div className="flex justify-end m-5">
             <Breadcrumbs />
           </div>
-          <div className="w-full h-[85vh] bg-white overflow-y-auto overflow-x-hidden absolute p-[2rem] rounded-2xl">
+          <div className="w-full h-[75vh] bg-white overflow-y-auto overflow-x-hidden absolute p-[2rem] rounded-2xl">
             <Outlet />
           </div>
         </div>

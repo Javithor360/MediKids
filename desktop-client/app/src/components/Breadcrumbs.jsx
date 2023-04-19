@@ -6,6 +6,13 @@ export const Breadcrumbs = () => {
   const location = useLocation();
   let currentLink = "";
 
+  const assign = (obj) => {
+    if (RouteTranslator[obj]) {
+      return RouteTranslator[obj];
+    }
+    return obj;
+  };
+
   const crumbs = location.pathname
     .split("/")
     .filter((crumb) => crumb !== "")
@@ -23,11 +30,3 @@ export const Breadcrumbs = () => {
     });
   return <div>{crumbs}</div>;
 };
-
-function assign(obj) {
-  if (RouteTranslator[obj]) {
-    return RouteTranslator[obj];
-  }
-
-  return obj;
-}
