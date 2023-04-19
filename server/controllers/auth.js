@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import {pool} from '../utils/db.js';
 import { config_env } from '../utils/dotenv_conf.js';
 import { create_code, create_reset_token, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
+import crypto from 'crypto';
 
 //! @route POST api/auth/register
 //! @desc Responsible Register.
@@ -193,7 +194,7 @@ const forgot_password = async (req, res, next) => {
     if (query_user.length == 0) {
       return res.status(500).json({success: false, message: 'Email no registrado'});
     }
-    if (query_user[0].Email_Verify_Code != null) {
+    if (query_user[0].Email_Verify_code != null) {
       return res.status(500).json({success: false, message: 'Email no verificado'});
     }
 
@@ -201,7 +202,7 @@ const forgot_password = async (req, res, next) => {
     const forgot_pass_tokens = create_reset_token();
 
     // UPDATE FIELDS IN THE DB
-    await pool.query('UPDATE Responsible SET Reset_Pass_Token = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, forgot_pass_tokens.db_reset_expire, Email]);
+    await pool.query('UPDATE Responsible SET Reset_Pass_Token = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, new Date(forgot_pass_tokens.db_reset_expire), Email]);
 
     // SEND EMAIL WITH THE TOKEN IN URL (CHANGE)
     send_forgot_pass_email(forgot_pass_tokens.reset_pass_token, Email, res);
@@ -218,7 +219,24 @@ const forgot_password = async (req, res, next) => {
 
 const check_reset_token = async (req, res, next) => {
   try {
-    const { reset_pass_token } = req.reset_pass_token;
+    // const reset_pass_token  = req.params.reset_pass_token;
+    const {reset_pass_token} = req.body;
+
+    // CHECK IF THE TOKEN EXISTS
+    if (!reset_pass_token) {
+      return res.status(500).json({success: false, message: 'No hay token de reseteo'});
+    }
+
+    // CREATE MATCH TOKEN
+    const token_to_match = crypto.createHash('sha256').update(reset_pass_token).digest('hex');
+
+    // GET THE USER WITH THE EMAIL
+    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Reset_Pass_Token = ? AND Reset_Pass_Expire < GETDATE()', [token_to_match]);
+    if (query_user.length == 0) {
+      return res.status(500).json({success: false, message: 'Token Invalido'});
+    }
+
+    return res.status(200).json({success: true, data: query_user[0]});
   } catch (error) {
     return res.status(500).json({error});
   }
