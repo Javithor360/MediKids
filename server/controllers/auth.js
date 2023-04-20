@@ -96,6 +96,11 @@ const login = async (req, res, next) => {
       return res.status(500).json({success: false, message: 'Contraseña Incorrecta'});
     }
 
+    // CHECK IF THE EMAIL IT HAS BEEN VALIDATED
+    if (query_user[0].Email_Verify_code != null) {
+      return res.status(500).json({success: false, message: 'Email no verificado'});
+    }
+
     // CREATE JWT TOKEN
     const token = jwt.sign({
       user:{
@@ -229,14 +234,53 @@ const check_reset_token = async (req, res, next) => {
 
     // CREATE MATCH TOKEN
     const token_to_match = crypto.createHash('sha256').update(reset_pass_token).digest('hex');
+    // GET DATE OF NOW
+    const date_now = new Date();
 
     // GET THE USER WITH THE EMAIL
-    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Reset_Pass_Token = ? AND Reset_Pass_Expire < GETDATE()', [token_to_match]);
+    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Reset_Pass_Token = ? AND Reset_Pass_Expire < ?', [token_to_match, date_now]);
     if (query_user.length == 0) {
       return res.status(500).json({success: false, message: 'Token Invalido'});
     }
 
     return res.status(200).json({success: true, data: query_user[0]});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
+//! @route POST api/auth/reset_password
+//! @desc Reset the password and set null the tokens.
+//! @access Private!!
+
+const reset_password = async (req, res, next) => {
+  try {
+    // const reset_pass_token  = req.params.reset_pass_token;
+    const {Password, Email} = req.body;
+
+    // CHECK EMPTY VALUES
+    if (!Password) {
+      return res.status(500).json({success: false, message: 'Valor de contraseña vacia'});
+    }
+
+    // CHECK IF THE PASSWORD IS THE SAME WITH THE OLD ONE;
+    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Email = ?', [Email]);
+    if (!await bcrypt.compare(Password, query_user[0].Password)) {
+      return res.status(500).json({success: false, message: 'Contraseña no puede ser igual a la anterior'});
+    }
+
+    // CHECK THE PASSWORD
+    if (!/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(Password)) {
+      return res.status(500).json({success: false, message: 'La contraseña no es valda'});
+    }
+
+    // ENCRYPT THE PASSWORD:
+    const HashedPass = await bcrypt.hash(Password, 12);
+
+    // SAVE THE FIELDS IN THE DB
+    await pool.query('UPDATE Responsible SET Reset_Pass_Token = NULL, Reset_Pass_Expire = NULL, Password = ? WHERE Email = ?', [HashedPass, Email]);
+
+    res.status(201).json({success: true, message: 'contraseña reestablecida correctamente'});
   } catch (error) {
     return res.status(500).json({error});
   }
@@ -249,5 +293,6 @@ export {
   get_email_to_verify, 
   get_responsible, 
   forgot_password,
-  check_reset_token
+  check_reset_token,
+  reset_password
 };
