@@ -1,0 +1,43 @@
+.fondi{
+    background-image: url(../img/bg/footer-waves-08.png);
+    width: 100%;
+    height: 40vh;
+    background-size: cover;
+    position: absolute;
+    bottom: 0;
+}
+.bgBtnt3 {
+    background-color: #A375FF;
+    box-shadow: 5px 4px 0px 2px #B2A4FF;
+    font-size: 20pt;
+    float: right;
+    margin-top: 3em;
+    margin-right: 15em;
+}
+
+
+// error404
+.tittle3 {
+    font-size: 70pt;
+    text-align: center;
+}
+
+.infot {
+    display: flex;
+    font-size: 30pt;
+    text-align: center;
+}
+.kidt {
+    width: 40em;
+    height: 50em;
+    margin-top: -10em;
+    margin-left: 2em;
+    float: left;
+}
+.cont-err{
+    // background-color:#B2A3FF;
+    margin-top: 10em;
+    width: 80em;
+    float: right;
+    margin-right: 2em;
+}

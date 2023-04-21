@@ -130,7 +130,8 @@ const create_reset_token = () => {
   // CREATE THE TOKEN FOR THE USER
   const db_reset_token = crypto.createHash('sha256').update(reset_pass_token).digest('hex');
   // SET IN HOW LONG IT WILL EXPIRE
-  const db_reset_expire = Date.now() + 15 * (60 + 1000);
+  let db_reset_expire = new Date();
+  db_reset_expire.setMinutes(db_reset_expire.getMinutes() + 25);
 
   // RETURN THE VALUES
   return {
@@ -144,7 +145,7 @@ const create_reset_token = () => {
 
 const send_forgot_pass_email = async (reset_token, Email, res) => {
   // MESSAGE HTML
-  const reset_url = `http://localhost:3000/auth/reset-password/${reset_token}`;
+  const reset_url = `//${reset_token}`;
 
   const message_2 = `
   <head>
@@ -237,8 +238,6 @@ const send_forgot_pass_email = async (reset_token, Email, res) => {
       subject: 'Solicitud de cambio de contraseña',
       text: message_2
     })
-
-    res.status(200).json({ success: true, reset_token });
   } catch (error) {
     return res.status(500).json({error});
   }

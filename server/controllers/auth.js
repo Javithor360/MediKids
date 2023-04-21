@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import {pool} from '../utils/db.js';
 import { config_env } from '../utils/dotenv_conf.js';
 import { create_code, create_reset_token, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
+import crypto from 'crypto';
 
 //! @route POST api/auth/register
 //! @desc Responsible Register.
@@ -93,6 +94,11 @@ const login = async (req, res, next) => {
     // CHECKING THE PASSWORD
     if (!await bcrypt.compare(Password,  query_user[0].Password)) {
       return res.status(500).json({success: false, message: 'Contraseña Incorrecta'});
+    }
+
+    // CHECK IF THE EMAIL IT HAS BEEN VALIDATED
+    if (query_user[0].Email_Verify_code != null) {
+      return res.status(500).json({success: false, message: 'Email no verificado'});
     }
 
     // CREATE JWT TOKEN
@@ -193,7 +199,7 @@ const forgot_password = async (req, res, next) => {
     if (query_user.length == 0) {
       return res.status(500).json({success: false, message: 'Email no registrado'});
     }
-    if (query_user[0].Email_Verify_Code != null) {
+    if (query_user[0].Email_Verify_code != null) {
       return res.status(500).json({success: false, message: 'Email no verificado'});
     }
 
@@ -201,7 +207,7 @@ const forgot_password = async (req, res, next) => {
     const forgot_pass_tokens = create_reset_token();
 
     // UPDATE FIELDS IN THE DB
-    await pool.query('UPDATE Responsible SET Reset_Pass_Token = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, forgot_pass_tokens.db_reset_expire, Email]);
+    await pool.query('UPDATE Responsible SET Reset_Pass_Token = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, new Date(forgot_pass_tokens.db_reset_expire), Email]);
 
     // SEND EMAIL WITH THE TOKEN IN URL (CHANGE)
     send_forgot_pass_email(forgot_pass_tokens.reset_pass_token, Email, res);
@@ -218,7 +224,63 @@ const forgot_password = async (req, res, next) => {
 
 const check_reset_token = async (req, res, next) => {
   try {
-    const { reset_pass_token } = req.reset_pass_token;
+    // const reset_pass_token  = req.params.reset_pass_token;
+    const {reset_pass_token} = req.body;
+
+    // CHECK IF THE TOKEN EXISTS
+    if (!reset_pass_token) {
+      return res.status(500).json({success: false, message: 'No hay token de reseteo'});
+    }
+
+    // CREATE MATCH TOKEN
+    const token_to_match = crypto.createHash('sha256').update(reset_pass_token).digest('hex');
+    // GET DATE OF NOW
+    const date_now = new Date();
+
+    // GET THE USER WITH THE EMAIL
+    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Reset_Pass_Token = ? AND Reset_Pass_Expire < ?', [token_to_match, date_now]);
+    if (query_user.length == 0) {
+      return res.status(500).json({success: false, message: 'Token Invalido'});
+    }
+
+    return res.status(200).json({success: true, data: query_user[0]});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
+//! @route POST api/auth/reset_password
+//! @desc Reset the password and set null the tokens.
+//! @access Private!!
+
+const reset_password = async (req, res, next) => {
+  try {
+    // const reset_pass_token  = req.params.reset_pass_token;
+    const {Password, Email} = req.body;
+
+    // CHECK EMPTY VALUES
+    if (!Password) {
+      return res.status(500).json({success: false, message: 'Valor de contraseña vacia'});
+    }
+
+    // CHECK IF THE PASSWORD IS THE SAME WITH THE OLD ONE;
+    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Email = ?', [Email]);
+    if (!await bcrypt.compare(Password, query_user[0].Password)) {
+      return res.status(500).json({success: false, message: 'Contraseña no puede ser igual a la anterior'});
+    }
+
+    // CHECK THE PASSWORD
+    if (!/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(Password)) {
+      return res.status(500).json({success: false, message: 'La contraseña no es valda'});
+    }
+
+    // ENCRYPT THE PASSWORD:
+    const HashedPass = await bcrypt.hash(Password, 12);
+
+    // SAVE THE FIELDS IN THE DB
+    await pool.query('UPDATE Responsible SET Reset_Pass_Token = NULL, Reset_Pass_Expire = NULL, Password = ? WHERE Email = ?', [HashedPass, Email]);
+
+    res.status(201).json({success: true, message: 'contraseña reestablecida correctamente'});
   } catch (error) {
     return res.status(500).json({error});
   }
@@ -231,5 +293,6 @@ export {
   get_email_to_verify, 
   get_responsible, 
   forgot_password,
-  check_reset_token
+  check_reset_token,
+  reset_password
 };

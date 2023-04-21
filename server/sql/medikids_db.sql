@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS medikids_db . Responsible (
 	Phone VARCHAR(45) NOT NULL,
 	Profile_Photo VARCHAR(200) NOT NULL,
 	Reset_Pass_Token VARCHAR(200),
-	Reset_Pass_Expire DATE,
+	Reset_Pass_Expire DATETIME,
 	Email_Verify_code VARCHAR(45),
 	PRIMARY KEY (id),
   UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
@@ -34,6 +34,8 @@ CREATE TABLE IF NOT EXISTS medikids_db . Patient (
 	Height FLOAT NOT NULL,
 	Responsible_id INT NOT NULL,
 	Profile_Photo VARCHAR(200) NOT NULL,
+	Patient_Code VARCHAR(45) NOT NULL,
+	Medical_History_Code VARCHAR(45) NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
 	FOREIGN KEY(Responsible_id) REFERENCES medikids_db . Responsible(id)
@@ -58,6 +60,7 @@ CREATE TABLE IF NOT EXISTS medikids_db . Calendar (
 
 CREATE TABLE IF NOT EXISTS medikids_db . Medical_History (
 	id INT NOT NULL AUTO_INCREMENT,
+	Medical_History_Code VARCHAR(45) NOT NULL,
 	Date_Time DATETIME NOT NULL,
 	Diagnosis LONGTEXT NOT NULL,
 	Weight FLOAT NOT NULL,
@@ -73,6 +76,7 @@ CREATE TABLE IF NOT EXISTS medikids_db . Medical_History (
 
 CREATE TABLE IF NOT EXISTS medikids_db . Medical_Prescription (
 	id INT NOT NULL AUTO_INCREMENT,
+	Medical_Prescription_Code VARCHAR(45) NOT NULL,
 	Date_Time DATETIME NOT NULL,
 	Description MEDIUMTEXT NOT NULL,
 	Patient_id INT NOT NULL,

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "../components/Modal.jsx";
 import { Link } from "react-router-dom";
 import moment from 'moment';
