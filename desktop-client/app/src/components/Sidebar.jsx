@@ -11,7 +11,7 @@ import {
 } from "react-icons/ai";
 import { BsPersonCheck } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowUp } from "react-icons/io";
 import { IoPeopleOutline } from "react-icons/io5";
 import { MdOutlineAssignmentInd, MdOutlinePersonSearch } from "react-icons/md";
 
@@ -23,7 +23,7 @@ export const Sidebar = () => {
   const [patients, setPatients] = useState(false);
   return (
     <>
-      <nav className="fixed flex flex-col top-0 left-0 z-[1035] h-screen bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] -translate-x-0 w-80">
+      <nav className="flex flex-col top-0 left-0 h-screen bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] -translate-x-0 w-80 min-w-[20rem] max-w-[20rem] max-h-screen min-h-screen select-none">
         <div className="flex flex-col items-center">
           <img
             className="w-[50%] h-[50%] m-8"
@@ -70,7 +70,7 @@ export const Sidebar = () => {
                 className="absolute right-0 ml-auto mr-[0.8rem] transition-transform duration-300 ease-linear"
                 data-te-sidenav-rotate-icon-ref
               >
-                <IoIosArrowDown
+                <IoIosArrowUp
                   className={`w-4 h-4 transition-transform duration-300 ${
                     !calendar && `rotate-180`
                   }`}
@@ -123,7 +123,7 @@ export const Sidebar = () => {
                 className="absolute right-0 ml-auto mr-[0.8rem] transition-transform duration-300 ease-linear"
                 data-te-sidenav-rotate-icon-ref
               >
-                <IoIosArrowDown
+                <IoIosArrowUp
                   className={`w-4 h-4 transition-transform duration-300 ${
                     !patients && `rotate-180`
                   }`}

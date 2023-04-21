@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Layout } from "./components";
 import {
   IndexPage,
-  Error404,
+  // Error404,
   Inbox,
   MainAgenda,
   ActivePatients,
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Navigate to="/index" replace />} />
-          <Route path="*" element={<Error404 />} />
+          <Route path="*" element={<Navigate to="/index" replace />} />
           <Route path="/index" element={<IndexPage />} />
           <Route path="/inbox" element={<Inbox />} />
 
