@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../components/Modal.jsx";
 import { Link } from "react-router-dom";
 import moment from 'moment';
@@ -41,7 +41,7 @@ export const IndexPage = () => {
               <div className="w-[15%] h-full flex justify-center items-center">
                   {/* <MdNotifications className="text-[#707070] text-[2rem]"/> */}
                   <div className="indicator w-[2rem] h-[2rem]">
-                    <span className="indicator-item badge badge-xs badge-ghost bg-[red] top-1 right-2"></span> 
+                    <span className="indicator-item badge badge-xs badge-ghost bg-[red] border-[white] top-1 right-2"></span> 
                     <div className="grid place-items-center"><MdNotifications className="text-[#707070] text-[2rem]"/></div>
                   </div>
               </div>
