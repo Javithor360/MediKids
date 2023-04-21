@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text,Button, View,Image,TextInput,TouchableOpacity} from 'react-native';
 
-export default function Login({navigation}) {
+export default function ForgotPassword({navigation}) {
   return (
     <View style={styles.container}>
       <StatusBar  style="auto" />
@@ -14,36 +14,29 @@ export default function Login({navigation}) {
           source={require("../assets/LogoMK.png")}
         /> 
        
-          <Text style={styles.Text}>¡Bienvenido!</Text>
-          <TextInput
-        style={styles.input}
-      
-        placeholder="Usuario"
-        placeholderTextColor="gray"
-      />
+       <Text style={styles.Text}>Recuperar mi contraseña</Text>
         <TextInput
         style={styles.input}
-        secureTextEntry={true}
-        placeholder="Contraseña"
+        keyboardType='email-address'
+        placeholder="Correo electronico"
         placeholderTextColor="gray"
         
       
       />
-<TouchableOpacity>
-<Text style={styles.TextP} onPress={()=>navigation.navigate('ForgotPassword') }>Olvidé mi contraseña</Text>
-</TouchableOpacity>
+
+
+
 <TouchableOpacity
         
         style={styles.roundButton1}>
-        <Text style={styles.TextButton} onPress={()=>navigation.navigate('Home') } >Iniciar sesión</Text>
+        <Text style={styles.TextButton} onPress={()=>navigation.navigate('Cod') } >Recuperar</Text>
       </TouchableOpacity>
 
       <View style={styles.cont2} >
-        <Text style={styles.TextCount}>¿No tienes una cuenta?</Text>
+        <Text style={styles.TextCount}>Ya tengo una cuenta</Text>
         <TouchableOpacity>
-        <Text style={styles.TextReg} onPress={()=>navigation.navigate('Register')}>Regístrate</Text>
+        <Text style={styles.TextReg} onPress={()=>navigation.navigate('Login')}>Iniciar sesión</Text>
           </TouchableOpacity>
-        
       </View>
 
       <Image
@@ -141,6 +134,7 @@ cont2:{
       width: '100%',
      height:'20%',
       alignItems:'center',
+      margin:'15%',
      },
 
 });
