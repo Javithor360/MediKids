@@ -7,6 +7,7 @@ import {
   MainAgenda,
   ActivePatients,
   MedicalRecords,
+  PatientsDetails,
 } from "./pages";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           {/* Páginas referentes al control de pacientes */}
           <Route path="/patients/active" element={<ActivePatients />} />
           <Route path="/patients/records" element={<MedicalRecords />} />
+          <Route path="/patients/active/details" element={<PatientsDetails/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -5,4 +5,6 @@ export const RouteTranslator = {
   Patients: "Pacientes",
   Active: "Activos",
   Records: "Expedientes",
+  Details: "Detalles",
+  Patient: "Paciente"
 };

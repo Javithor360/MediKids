@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const ActivePatients = () => {
   return (
@@ -44,9 +45,12 @@ export const ActivePatients = () => {
             </td>
 
             <th>
-              <button className="btn btn-outline btn-xs hover:bg-[#a375ff]">
-                Ver detalles
-              </button>
+              <Link to="/patients/active/details">
+                <button className="btn btn-outline btn-xs hover:bg-[#a375ff]">
+                  Ver detalles
+                </button>
+              </Link>
+              
             </th>
           </tr>
 
@@ -79,9 +83,11 @@ export const ActivePatients = () => {
             </td>
 
             <th>
-              <button className="btn btn-outline btn-xs hover:bg-[#a375ff]">
-                Ver detalles
-              </button>
+              <Link to="/patients/active/details">
+                <button className="btn btn-outline btn-xs hover:bg-[#a375ff]">
+                  Ver detalles
+                </button>
+              </Link>
             </th>
           </tr>
         </table>
