@@ -2,9 +2,10 @@ export const RouteTranslator = {
   Index: "Inicio",
   Inbox: "Comunicados",
   Agenda: "Agenda",
-  Patients: "Pacientes",
-  Active: "Activos",
+  Patients: "Inicio",
+  Active: "Pacientes Activos",
   Records: "Expedientes",
   Details: "Detalles",
-  Patient: "Paciente"
+  Patient: "Paciente",
+  Appoinment: "Atender Cita"
 };

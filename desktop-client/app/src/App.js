@@ -8,6 +8,7 @@ import {
   ActivePatients,
   MedicalRecords,
   PatientsDetails,
+  MedicalAppoinment
 } from "./pages";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/patients/active" element={<ActivePatients />} />
           <Route path="/patients/records" element={<MedicalRecords />} />
           <Route path="/patients/active/details" element={<PatientsDetails/>}/>
+          <Route path="/patients/active/details/appoinment" element={<MedicalAppoinment />}/>
         </Route>
       </Routes>
     </BrowserRouter>
