@@ -1,0 +1,201 @@
+import bcrypt from "bcryptjs";
+import { pool } from "../utils/db.js";
+import { create_code } from "../utils/functions.js";
+
+// ! @route POST api/admin/new_doctor
+// ! @desc Simple doctor account register
+// ! @access public (temporaly)
+
+const create_doctor = async (req, res, next) => {
+  try {
+    // Getting requested data
+    const { First_Names, Last_Names, User, Email, Password, Speciality_id } =
+      req.body;
+
+    // Checking possible empty values
+    if (
+      !First_Names ||
+      !Last_Names ||
+      !User ||
+      !Email ||
+      !Password ||
+      !Speciality_id
+    ) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    // Checking if there's no other doctor with same email or user
+    const [query_check] = await pool.query(
+      "SELECT * FROM doctors WHERE Email = ? OR User = ?",
+      [Email, User]
+    );
+
+    if (query_check.length != 0) {
+      return res.status(500).json({
+        success: false,
+        message: "Some of the values provided are already in use",
+      });
+    }
+
+    // Extra validation related to valid values
+
+    // Password (extracted from auth.js)
+    // if (!/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(Password)) {
+    //   return res
+    //     .status(500)
+    //     .json({ success: false, message: "Contrasña invalido" });
+    // }
+
+    // Email
+    if (
+      !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        Email
+      )
+    ) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Email invalido" });
+    }
+
+    // Defining default pfp
+    const Profile_Photo = "NULL";
+
+    // Specialty
+    if (!/^[123]$/.test(Speciality_id)) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Invalid specialty id" });
+    }
+
+    // Hash Password
+    const HashedPw = await bcrypt.hash(Password, 12);
+
+    // Once everything seems to be OK, save the fields
+    await pool.query("INSERT INTO doctors SET ?", {
+      First_Names,
+      Last_Names,
+      User,
+      Email,
+      Password: HashedPw,
+      Profile_Photo,
+      Speciality_id,
+    });
+
+    return res
+      .status(200)
+      .json({ success: true, message: "New doctor has been created" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
+// ! @route POST api/admin/new_patient
+// ! @desc Complex patient register
+// ! @access public (temporaly)
+
+const create_patient = async (req, res, next) => {
+  try {
+    // Getting requested data
+    const {
+      First_Names,
+      Last_Names,
+      Birthdate,
+      Gender,
+      Blood_Type,
+      Weight,
+      Height,
+      Responsible_id,
+    } = req.body;
+
+    // Checking possible empty values
+    if (
+      !First_Names ||
+      !Last_Names ||
+      !Birthdate ||
+      !Gender ||
+      !Blood_Type ||
+      !Weight ||
+      !Height ||
+      !Responsible_id
+    ) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    // Checking if there's no other patient with the same data
+    // const [query_check] = await pool.query(
+    //   "SELECT * FROM patients WHERE Email = ? OR User = ?",
+    //   [Email, User]
+    // );
+    // if (query_check.length != 0) {
+    //   return res.status(500).json({
+    //     success: false,
+    //     message: "Some of the values provided are already in use",
+    //   });
+    // }
+
+    // Extra validation related to valid values
+
+    // Age
+    const BD = new Date(Birthdate);
+    const ActualDate = new Date();
+    if (ActualDate.getFullYear() - 18 > BD.getFullYear()) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Age isn't valid" });
+    }
+    const Age = ActualDate.getFullYear() - BD.getFullYear();
+
+    // Gender
+    const genders = ["Male", "Female"];
+    if (!genders.includes(Gender)) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided gender is not a valid gender.",
+      });
+    }
+
+    // Blood type
+    const blood_types = ["A+", "O+", "B+", "AB+", "A-", "O-", "B-", "AB-"];
+    if (!blood_types.includes(Blood_Type)) {
+      return res
+        .status(500)
+        .json({ success: false, message: "Blood type isn't valid" });
+    }
+
+    // WEIGHT MUST BE IN KILOGRAMS
+    // HEIGHT MUST BE IN METERS
+
+    const Profile_Photo = "NULL";
+    const Patient_Code = create_code();
+    const Medical_History_Code = "NULL";
+
+    await pool.query("INSERT INTO patient SET ?", {
+      First_Names,
+      Last_Names,
+      Birthdate,
+      Age,
+      Gender,
+      Blood_Type,
+      Weight,
+      Height,
+      Responsible_id,
+      Profile_Photo,
+      Patient_Code,
+      Medical_History_Code,
+    });
+
+    return res
+      .status(200)
+      .json({ success: true, message: "New patient has been created" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
+export { create_doctor, create_patient };

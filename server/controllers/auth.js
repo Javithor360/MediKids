@@ -38,7 +38,7 @@ const register = async (req, res, next) => {
       return res.status(500).json({success: false, message: 'Email invalido'});
     }
     // Password
-    if(!/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(Password)){
+    if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[,;.:-_{\[\]}`*+~¨´¡¿'?\=\)(/&%$#"!°|¬])\S{8,30}$/.test(Password)){
       return res.status(500).json({success: false, message: 'Contrasña invalido'});
     }
     // Age
