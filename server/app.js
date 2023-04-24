@@ -1,6 +1,7 @@
 import express from "express";
 import router_login from "./routes/login.routes.js";
 import router_admin from "./routes/admin.routes.js";
+import router_doctor from "./routes/doctor.routes.js";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use((_, res, next) => {
 // ROUTES CONFIGS
 app.use("/api/auth", router_login);
 app.use("/api/admin", router_admin);
+app.use("/api/doctor", router_doctor);
 
 // DEFAULT ROUTE (Err 404)
 app.use("/", (req, res, next) => {
