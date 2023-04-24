@@ -198,4 +198,46 @@ const create_patient = async (req, res, next) => {
   }
 };
 
-export { create_doctor, create_patient };
+const doctor_assign_patient = async (req, res, next) => {
+  try {
+    // Getting requested data
+    const { Doctor_id, Patient_id } = req.body;
+
+    // Checking possible empty values
+    if (!Doctor_id || !Patient_id) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    // Checking if the patient it's not already assigned to the same doctor
+    const [query_check] = await pool.query(
+      "SELECT * FROM active_patients WHERE Doctor_id = ? AND Patient_id = ?",
+      [Doctor_id, Patient_id]
+    );
+
+    if (query_check.length != 0) {
+      return res.status(500).json({
+        success: false,
+        message: "This patient is already assigned to this doctor",
+      });
+    }
+
+    await pool.query("INSERT INTO active_patients SET ?", {
+      Doctor_id,
+      Patient_id,
+    });
+
+    return res
+      .status(200)
+      .json({
+        success: true,
+        message: `Patient #${Patient_id} in the system was assigned to Doctor's ID ${Doctor_id}`,
+      });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
+export { create_doctor, create_patient, doctor_assign_patient };
