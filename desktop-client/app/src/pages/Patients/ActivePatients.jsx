@@ -50,7 +50,6 @@ export const ActivePatients = () => {
                   Ver detalles
                 </button>
               </Link>
-              
             </th>
           </tr>
 

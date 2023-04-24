@@ -198,6 +198,10 @@ const create_patient = async (req, res, next) => {
   }
 };
 
+// ! @route POST api/admin/assign_patient
+// ! @desc Get all patients active from a doctor
+// ! @access public (temporaly)
+
 const doctor_assign_patient = async (req, res, next) => {
   try {
     // Getting requested data
