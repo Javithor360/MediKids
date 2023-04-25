@@ -41,7 +41,7 @@ export const MedicalAppoinment = () => {
           }}>Referir paciente</div>
         </div>
       </div>
-      <div className='border border-[#BBBBBB] w-[90%] h-[30rem] mx-auto mt-5 rounded-2xl'>
+      <div className='border border-[#BBBBBB] w-[90%] h-fit mx-auto mt-5 rounded-2xl'>
         <div className={tabSelector === 1 ? "block" : "hidden"}><EditMedicalRecord /></div>
         <div className={tabSelector === 2 ? "block" : "hidden"}><EditMedicalPrescription /></div>
         <div className={tabSelector === 3 ? "block" : "hidden"}><ScheduleAppointment /></div>

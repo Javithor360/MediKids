@@ -18,10 +18,10 @@
         }
 
         .kid3 {
-            height: 44em;
+            width: auto;
+            height: 38rem;
             display: flex;
             margin-left: 2em;
-            float: right;
             display: block;
         }
 
@@ -56,14 +56,12 @@
         }
 
         .form {
-            float: left;
             border-radius: 0.5em;
             background-color: rgb(253, 255, 255);
             border: solid 1px rgba(128, 128, 128, 0.479);
-            height: 32em;
+            height: 38em;
             width: 40em;
             box-shadow: 10px 15px 0px 0px #B2A3FF;
-            margin-left: 30em;
             margin-top: 3em;
         }
 
@@ -76,9 +74,5 @@
         .bgBtnt2 {
             background-color: #A375FF;
             box-shadow: 5px 4px 0px 2px #B2A4FF;
-            margin-right: 5rem;
-            float: right;
-            margin-top: 1em;
-            margin-right: 2em;
         }
         
