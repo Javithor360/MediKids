@@ -7,11 +7,15 @@ const img = [Error("./niños/error.png"), Error("./niños/error1.png"), Error(".
   return (
     <>
     <h1 className='tittle3'>¡Algo salio <span>mal</span>!</h1>
-   <div className='cont-err'>
-   <p className='infot'>parece que has digitado una ruta que no es valida</p>
-   <button className="readMoreBtn bgBtnt3">volver</button>
+    <div className='cont-erro'>
+    <div className='cont-kidf'>
+   <img className='kidt' src={`${img[Math.floor(Math.random() * img.length)]}`} />
    </div>
-    <img className='kidt' src={`${img[Math.floor(Math.random() * img.length)]}`} />
+    <div className='cont-err'>
+   <p className='infot'>parece que has digitado una ruta que no es valida</p>
+   <div className='btnx'><button className="readMoreBtn bgBtnt3">volver</button></div>
+   </div> 
+    </div>
     <div className='fondi'></div>
 
     </>
