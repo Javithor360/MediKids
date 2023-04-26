@@ -1,11 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDash } from "../../context/DoctorContext";
 
-export const ActivePatients = () => {
+export const ActivePatients = (props) => {
   const { ActivePatientsQuery, activePatients } = useDash();
+  const datos = { nombre: "Juan", edad: 25 };
+  const [state, setState] = useState({
+    id: "",
+    name: "",
+    age: "",
+    blood_type: "",
+    weight: "",
+    height: "",
+  });
   useEffect(() => {
-    ActivePatientsQuery(2);
+    ActivePatientsQuery(1);
   }, []);
 
   return (
@@ -15,7 +24,7 @@ export const ActivePatients = () => {
       </h1>
 
       {activePatients.length !== 0 ? (
-        <div class="overflow-x-auto w-[80%] rounded-lg border border-[#000000] mx-auto">
+        <div className="overflow-x-auto w-[80%] rounded-lg border border-[#000000] mx-auto">
           <table className="table w-full">
             <thead className="bg-[#a375ff] text-white">
               <tr className="text-center">
@@ -28,6 +37,15 @@ export const ActivePatients = () => {
             </thead>
             <tbody>
               {activePatients.map((patient) => {
+                // setState({
+                //   id: patient.id,
+                //   first_names: patient.First_Names,
+                //   last_names: patient.Last_Names,
+                //   age: patient.Age,
+                //   blood_type: patient.Blood_Type,
+                //   weight: patient.Weight,
+                //   height: patient.Height,
+                // });
                 return (
                   <tr className="text-center" key={patient.id}>
                     <td className="border-r border-[#BBBBBB]">
@@ -56,16 +74,16 @@ export const ActivePatients = () => {
                       {patient.Patient_Code}
                     </td>
                     <td className="border-[#BBBBBB]">
-                      <Link
-                        to={{
-                          pathname: "/patients/active/details",
-                          state: patient,
-                        }}
-                      >
-                        <button className="btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white">
+                      <button className="btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white">
+                        <Link
+                          to={{
+                            pathname: "/patients/active/details",
+                            state: { datos: datos },
+                          }}
+                        >
                           Ver detalles
-                        </button>
-                      </Link>
+                        </Link>
+                      </button>
                     </td>
                   </tr>
                 );
