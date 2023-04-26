@@ -6,4 +6,7 @@ module.exports = {
   daisyui: {
     themes: [],
   },
+  corePlugins: {
+    preflight: true,
+  }
 };

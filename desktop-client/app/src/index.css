@@ -1,5 +1,26 @@
 @tailwind base;
-
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  h1 {
+    @apply text-2xl;
+    @apply font-bold;
+  }
+  h2 {
+    @apply text-xl;
+    @apply font-bold;
+  }
+  h3 {
+    @apply text-lg;
+    @apply font-bold;
+  }
+  ul {
+    @apply list-disc;
+  }
+  ol {
+    @apply list-decimal;
+  }
+}
 *::-webkit-scrollbar {
   width: 3px;
 }
@@ -21,8 +42,3 @@
     margin-top: 20px;
     margin-bottom: 20px; 
 }
-
-
-
-@tailwind components;
-@tailwind utilities;
