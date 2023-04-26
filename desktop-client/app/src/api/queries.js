@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const getActivePatientsEx = async (PrivateConfig) => {
-  return await axios.get("http://localhost:5005/api/doctor/active_patients", {
-    Doctor_id: 1,
+export const getActivePatientsEx = async (Doctor_id) => {
+  return await axios.post(`http://localhost:5005/api/doctor/active_patients`, {
+    Doctor_id,
   });
 };

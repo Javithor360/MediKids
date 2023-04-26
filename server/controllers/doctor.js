@@ -1,6 +1,6 @@
 import { pool } from "../utils/db.js";
 
-// ! @route GET api/doctor/active_patients
+// ! @route POST api/doctor/active_patients
 // ! @desc Get all active patients for the doctor
 // ! @access public
 
