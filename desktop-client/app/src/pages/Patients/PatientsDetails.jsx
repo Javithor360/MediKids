@@ -6,14 +6,15 @@ import profileAvatar from "../../assets/template/walt_jr.png";
 import Modal from "../../components/Modal"
 
 import { Link } from 'react-router-dom';
-export const PatientsDetails = () => {
+export const PatientsDetails = (props) => {
   const [active, setActive] = useState(false);
   const isModal = true;
   const toggle = () => {
     setActive(!active);
   };
   const [numbercomp, setNumbercomp] = useState(0);
-  console.log(numbercomp)
+  console.log(numbercomp);
+  console.log(props)
 
   const modalContent = () => {
     switch(numbercomp){

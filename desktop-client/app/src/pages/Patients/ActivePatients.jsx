@@ -5,7 +5,7 @@ import { useDash } from "../../context/DoctorContext";
 export const ActivePatients = () => {
   const { ActivePatientsQuery, activePatients } = useDash();
   useEffect(() => {
-    ActivePatientsQuery(1);
+    ActivePatientsQuery(2);
   }, []);
 
   return (
@@ -56,7 +56,12 @@ export const ActivePatients = () => {
                       {patient.Patient_Code}
                     </td>
                     <td className="border-[#BBBBBB]">
-                      <Link to="/patients/active/details" >
+                      <Link
+                        to={{
+                          pathname: "/patients/active/details",
+                          state: patient,
+                        }}
+                      >
                         <button className="btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white">
                           Ver detalles
                         </button>
