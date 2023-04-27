@@ -42,7 +42,7 @@ export const Doc1 = () => {
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi, fuga.</p>
                         </div>
                         <br/><br/><br/><br/>
-                        <button className='boton'>Solicitar una cita</button>
+                        <Link className="boton __moreView absolute bottom-30 right-11" to="/download-app">Descargar App</Link>
         </p>
       </div>
       </div>
