@@ -11,11 +11,12 @@ import profileAvatar from "../../assets/template/walt_jr.png";
 
 import Modal from "../../components/Modal";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-export const PatientsDetails = (props) => {
-  const datos = props.location.state.datos;
-  console.log(datos.nombre);
+export const PatientsDetails = () => {
+  const location = useLocation();
+  const { patient } = location.state;
+
   const [active, setActive] = useState(false);
   const isModal = true;
   const toggle = () => {
@@ -61,8 +62,8 @@ export const PatientsDetails = (props) => {
   return (
     <>
       <p className="text-[1.8rem] text-center text-[#707070]">
-        <span className="font-semibold">Paciente:</span> Walter Hartwell White
-        Jr.
+        <span className="font-semibold">Paciente:</span>{" "}
+        {`${patient.First_Names} ${patient.Last_Names}`}
       </p>
       <div className="mt-[6rem] mx-auto w-[95%] h-[40rem] rounded-3xl relative border border-[#707070] shadow-md">
         {/* HeaderSection */}
@@ -98,10 +99,16 @@ export const PatientsDetails = (props) => {
               <tbody className="">
                 {/* row 1 */}
                 <tr className="text-center">
-                  <td className="border-r border-[#BBBBBB]">9 años</td>
-                  <td className="border-r border-[#BBBBBB]">OH+</td>
-                  <td className="border-r border-[#BBBBBB]">3456 lb</td>
-                  <td className="">2.99 m</td>
+                  <td className="border-r border-[#BBBBBB]">
+                    {patient.Age} años
+                  </td>
+                  <td className="border-r border-[#BBBBBB]">
+                    {patient.Blood_Type}
+                  </td>
+                  <td className="border-r border-[#BBBBBB]">
+                    {patient.Weight} lb
+                  </td>
+                  <td className="">{patient.Height} m</td>
                 </tr>
               </tbody>
             </table>

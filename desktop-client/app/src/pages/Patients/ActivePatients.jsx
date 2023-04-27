@@ -4,15 +4,6 @@ import { useDash } from "../../context/DoctorContext";
 
 export const ActivePatients = (props) => {
   const { ActivePatientsQuery, activePatients } = useDash();
-  const datos = { nombre: "Juan", edad: 25 };
-  const [state, setState] = useState({
-    id: "",
-    name: "",
-    age: "",
-    blood_type: "",
-    weight: "",
-    height: "",
-  });
   useEffect(() => {
     ActivePatientsQuery(1);
   }, []);
@@ -76,10 +67,8 @@ export const ActivePatients = (props) => {
                     <td className="border-[#BBBBBB]">
                       <button className="btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white">
                         <Link
-                          to={{
-                            pathname: "/patients/active/details",
-                            state: { datos: datos },
-                          }}
+                          to="/patients/active/details"
+                          state={{ patient }}
                         >
                           Ver detalles
                         </Link>
