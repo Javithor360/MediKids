@@ -1,108 +1,141 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text,Button, View,Image,TextInput,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,Image, TextInput,TouchableOpacity, ScrollView} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Calendario = () => {
   return (
-    <View style={styles.container}>
-      <StatusBar  style="auto" />
-      
-     <Text>Estas en Calendario</Text>
-
-
-
-
-    </View>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView style={styles.fullScreenContainer}>
+        <View style={styles.sectionTitleContainer}>
+          <View style={styles.lineBefore}></View>
+          <Text style={styles.sectionTitle}>Calendario y recordatorios</Text>
+        </View>
+        <View View style={styles.reminderSectionContent}>
+          <View style={styles.contentTitle}>
+              <View style={styles.eventIconContainer}>
+                <Image style={styles.eventIcon} source={require("../assets/icons/calendarIcons/event.png")}/> 
+              </View>
+              <View style={styles.Text1Container}>
+                <Text style={styles.Text1}>Tiene 1 eventos programados para hoy</Text>
+              </View>
+          </View>
+          <TouchableOpacity style={styles.markButton}>
+            <View style={styles.markButtonContent}>
+                <Image style={styles.markIcon} source={require("../assets/icons/calendarIcons/task_comp.png")}/>
+                <Text style={styles.markText}>Marcar todo como completado</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 export default Calendario;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#999FFF',
-    alignItems: 'center',
+  sectionTitleContainer: {
+    marginTop: 20,
+    marginLeft: 10,
+    flexDirection: 'row',
+    gap: 10,
+  },
+  lineBefore: {
+    backgroundColor: '#707070', 
+    height: 3, 
+    width: 40,
+    alignSelf: 'center',
+  },
+  sectionTitle: {
+    fontSize: 20,
+    color: '#707070',
+    fontWeight: 600,
+  },
+  reminderSectionContent:{
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'column',
     justifyContent: 'center',
-  },
-  Image: {
-    width: '51%',
-  height:'27%',
-  marginLeft:5,
-     alignItems:'center',
-     justifyContent: 'center',
-  },
-  Text:{
-    color: 'white',
-    textAlign:'center',
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop:'5%',
-   
-    fontSize:30,
-  },
-  input:{
-    
-    width:'90%',
-    marginTop:'5%',
-  
+    gap: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 30,
+    marginBottom: 5,
+    width: '90%',
+    height: 'auto',
     borderWidth: 1,
-    padding: 10,
-    backgroundColor:'white',
-    borderColor: 'white',
-    borderStyle: 'solid',
-    borderRadius:20,
-    fontSize:20,
-   
+    borderColor: '#BBBBBB',
+    borderRadius: 20,
+    borderTopWidth: 8,
+    borderTopColor: '#D58C8C',
+    //iOS
+    shadowColor: '#BBBBBB',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    //Android
+    elevation: 5,
+    shadowColor: '#52006A',
   },
-
-  TextP:{
-    textDecorationLine:'underline',
-    color: 'white',
-    textAlign:'center',
+  contentTitle: {
+    flex: 1,
+    flexDirection: 'row',
+    gap: 2,
+    width: '90%',
+    height: '40%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  eventIconContainer: {
+    width: '10%',
+  },
+  eventIcon: {
+    width: '100%',
+    resizeMode: 'contain',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  Text1Container: {
+    height: 'auto',
+    width: '90%',
+    justifyContent: 'center',
+  },
+  Text1: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#707070',
+    textAlign: 'center',
+    width: '100%',
+  },
+  markButton:{
+    borderRadius: 10,
+    backgroundColor: '#F9F9F9',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    width: '70%',
+    height: 'auto',
+    paddingTop: 4,
+    paddingBottom: 4,
+    paddingLeft: 4,
+    paddingRight: 4,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  markButtonContent: {
+    alignSelf: 'auto',
+    width: '95%',
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
-    margin:'2%',
-   
-    marginRight:'55%',
-    fontSize:15,
   },
-  roundButton1:{
-    backgroundColor: '#765FF2',
-    textAlign:'center',
-    borderColor: 'white',
-    borderStyle: 'solid',
-    borderRadius:20,
-    
-    width:'50%',
-   margin:'5%',
-    
+  markIcon :{
+    resizeMode: 'contain',
+    height: '90%',
+    width: '10%',
   },
-  TextButton:{
-    color: 'white',
-    textAlign:'center',
- 
-    justifyContent: 'center',
-   margin:'5%',
-    fontSize:20,
-  },
-TextCount:{
-color:'white',
-fontSize:20,
-},
-TextReg:{
-  color:'white',
-  fontSize:20,
-  fontWeight:'bold',
-  
-  },
-cont2:{
-  marginTop:10,
-    flexDirection:'row',
-    gap:5,
-     },
-     waves:{
-      width: '100%',
-     height:'20%',
-      alignItems:'center',
-     },
-
+  markText :{
+    color: '#D48888',
+    width: '90%',
+    textAlign: 'center',
+  }
 });
