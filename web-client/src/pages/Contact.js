@@ -2,6 +2,7 @@ import React from 'react'
 import "./assets/scss/contact.scss";
 import { Footer, NavBar } from '../components'
 import { Link } from 'react-router-dom'
+import { MdEmail, MdRateReview } from 'react-icons/md'
 const Banner = require.context("./assets/img", true);
 export const Contact = () => {
   return (
@@ -19,17 +20,23 @@ export const Contact = () => {
                 <br /><br /><br />
                 <br /><br />
             </p>
-    <div className='cont-contact'>
+    <div className='cont-contact flex justify-center'>
         <div className='form'>
-        <form>
-            <br/>
-            <input className='input' placeholder='Digite su correo electronico' />
-            <br />
-            <textarea className='texta' placeholder='Digita tu duda'/>
-            <button className="readMoreBtn bgBtnt2">Enviar</button>
-        </form>
+          <form className='flex flex-col justify-center gap-7 pt-7'>
+              <div className='inline-flex items-center gap-3 mx-auto w-fit'>
+                <MdEmail className='text-[2rem] text-[#A375FF]'/>
+                  <input className='input' placeholder='Digite su correo electronico' required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" autoComplete='off'/> 
+              </div>
+              {/* <div className='inline-flex items-center justify-center gap-3 mx-auto'>
+                <MdRateReview className='text-[2rem] text-[#A375FF]'/>
+                <p className='w-[80%] text-[#707070]'> </p>
+              </div> */}
+              
+              <textarea className='texta' placeholder='Digita tu duda'/>
+              <button className="readMoreBtn bgBtnt2 w-[7rem] mx-auto block">Enviar</button>
+          </form>
         </div>
-    <img className='kid3' src={Banner("./niños/dochild.png")} />
+        <img className='kid3' src={Banner("./niños/dochild.png")} alt=''/>
     </div>
     <Footer />
     </>

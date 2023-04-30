@@ -9,6 +9,7 @@ export default function ForgotPassword({navigation}) {
             style={styles.waves}
           source={require("../assets/Wave-Top-Login_Mobile.png")}
         /> 
+    
    <Image
           style={styles.Image}
           source={require("../assets/LogoMK.png")}

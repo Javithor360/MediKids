@@ -15,6 +15,11 @@ export const Doc1 = () => {
         </div>
       </section>
       <h1 className='tittle'>¿En que nos <span>especializamos</span>?</h1>
+      <div className='cont-espk'>
+      <div className='w-[40%] h-[100%] flex items-center'>
+        <img className='first' src={Banner('./niños/kid1.png')} />
+      </div>
+      <div className='cont-esp'>
       <p className='sub'>La otorrinolaringología pediátrica se enfoca en el diagnóstico y tratamiento de trastornos
         relacionados con los oídos, nariz, garganta y áreas relacionadas en niños, desde recién nacidos hasta adolescentes.   
         Algunas de las afecciones más comunes que aborda la otorrinolaringología pediátrica son las infecciones del oído,
@@ -37,9 +42,10 @@ export const Doc1 = () => {
                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi, fuga.</p>
                         </div>
                         <br/><br/><br/><br/>
-                        <button className='boton'>Solicitar una cita</button>
+                        <Link className="boton __moreView absolute bottom-30 right-11" to="/download-app">Descargar App</Link>
         </p>
-      <img className='first' src={Banner('./niños/kid1.png')} />
+      </div>
+      </div>
       <Footer />
     </>
   )

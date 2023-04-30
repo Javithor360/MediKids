@@ -80,7 +80,7 @@ export const IndexPage = () => {
           <Link className="absolute right-7 bottom-5 bg-[#BB85D5] h-[2.5rem] w-[6.5rem] rounded-xl text-center table hover:-translate-y-[2px] hover:rounded-md ease-in transition-all"><span className="table-cell align-middle font-semibold">Ver más</span></Link>
         </div>
       </section>
-      {/* <button onClick={toggle}>Abrir modal</button> */}
+      <button onClick={toggle} >Abrir modal</button>
       {toggle && (
         <Modal active={active} toggle={toggle} onRequestClose={toggle}>
           <ModalTestComponent isModal={isModal} />
