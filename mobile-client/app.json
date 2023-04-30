@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "mobile-client",
-    "slug": "mobile-client",
+    "name": "MediKids_App",
+    "slug": "MediKids_App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-      "resizeMode": "cover",
+      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
