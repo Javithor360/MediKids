@@ -7,16 +7,10 @@ import { BottomTab } from './Navigators/BottomTab';
 export default function App(){
   return(
     <>
-    
-    <NavigationContainer>
-<Navigator></Navigator>
- 
-
-    </NavigationContainer>
-    
-    </>
-  
-
+      <NavigationContainer>
+        <Navigator></Navigator>
+      </NavigationContainer>
+    </>   
   )
  }
  

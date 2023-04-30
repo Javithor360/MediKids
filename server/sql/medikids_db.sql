@@ -178,7 +178,7 @@ CREATE TABLE IF NOT EXISTS medikids_db . Doctor_Appointment_Detail (
 	ON UPDATE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS medikids_db . active_patients (
+CREATE TABLE IF NOT EXISTS medikids_db . patients_monitoring (
 	id INT NOT NULL AUTO_INCREMENT,
 	Doctor_id INT NOT NULL,
 	Patient_id INT NOT NULL,

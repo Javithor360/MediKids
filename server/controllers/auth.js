@@ -1,8 +1,6 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import {pool} from '../utils/db.js';
-import { config_env } from '../utils/dotenv_conf.js';
-import { create_code, create_reset_token, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
+import { create_code, create_jwt, create_reset_token, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
 import crypto from 'crypto';
 
 //! @route POST api/auth/register
@@ -102,13 +100,7 @@ const login = async (req, res, next) => {
     }
 
     // CREATE JWT TOKEN
-    const token = jwt.sign({
-      user:{
-        id: query_user[0].Id,
-        Email: query_user[0].Email,
-        DUI: query_user[0].DUI
-      }
-    }, config_env.JWT_SECRET, { expiresIn: config_env.JWT_EXPIRE })
+    const token = create_jwt(query_user);
 
     return res.status(200).json({success: true, token});
   } catch (error) {
@@ -123,6 +115,12 @@ const login = async (req, res, next) => {
 const verify_email = async (req, res, next) => {
   try {
     const { verify_code, Email } = req.body;
+
+    // CHECK IF EMAIL HAS ALREADY VERIFIED
+    const [query_check_ve_co] = await pool.query('SELECT * FROM Responsible WHERE Email = ? ', [Email]);
+    if (query_check_ve_co[0].Email_Verify_Code == null) {
+      return res.status(500).json({success: false, message: 'Email ya vericado'});
+    }
 
     // GET THE USER WITH THE VERIFY CODE TO VALIDATE IT AT ONCE
     const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Email = ? AND Email_Verify_code = ?', [Email, verify_code]);
@@ -238,7 +236,7 @@ const check_reset_token = async (req, res, next) => {
     const date_now = new Date();
 
     // GET THE USER WITH THE EMAIL
-    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Reset_Pass_Token = ? AND Reset_Pass_Expire < ?', [token_to_match, date_now]);
+    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Reset_Pass_Token = ? AND Reset_Pass_Expire > ?', [token_to_match, date_now]);
     if (query_user.length == 0) {
       return res.status(500).json({success: false, message: 'Token Invalido'});
     }
@@ -265,7 +263,7 @@ const reset_password = async (req, res, next) => {
 
     // CHECK IF THE PASSWORD IS THE SAME WITH THE OLD ONE;
     const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Email = ?', [Email]);
-    if (!await bcrypt.compare(Password, query_user[0].Password)) {
+    if (await bcrypt.compare(Password, query_user[0].Password)) {
       return res.status(500).json({success: false, message: 'Contraseña no puede ser igual a la anterior'});
     }
 

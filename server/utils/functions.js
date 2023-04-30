@@ -1,5 +1,7 @@
+import { config_env } from "./dotenv_conf.js";
 import { SendEmail } from "./send_email.js";
 import crypto from 'crypto';
+import jwt from 'jsonwebtoken';
 
 //* 1 - CREATE EMAIL VERIFY CODE
 const create_code = () => {
@@ -243,4 +245,16 @@ const send_forgot_pass_email = async (reset_token, Email, res) => {
   }
 }
 
-export { create_code, send_verify_code_email, create_reset_token, send_forgot_pass_email };
+//* 5 - Create the Json Web Token to Login
+const create_jwt = (query_user) => {
+  // SET THE CONFIGS TO THE TOKEN
+  return jwt.sign({
+    user:{
+      id: query_user[0].id,
+      Email: query_user[0].Email,
+      DUI: query_user[0].DUI
+    }
+  }, config_env.JWT_SECRET, { expiresIn: config_env.JWT_EXPIRE })
+}
+
+export { create_code, send_verify_code_email, create_reset_token, send_forgot_pass_email, create_jwt };
