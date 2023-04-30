@@ -31,39 +31,41 @@
         }
     }
 }
-
+.cont-esp{
+    display: flex;
+}
+.cont-espi{
+    display: flex;
+    height: auto;
+    width: 100%;;
+}
+.cont-espk{
+    display: flex;
+    width: 100%;
+ 
+}
 
 .tittle{
     text-align: center;
     font-size: 30pt;
     margin-top: 2em;
+    margin-left: 16em;
+    margin-bottom: 1em;
 }
 .first{
-    height: 50em;
-    display: flex;
+    width: auto;
+            height: 38rem;
+            display: flex;
+            margin-left: 2em;
+            display: block;
 }
 .sub{
     text-align: justify;
     width: 60em;
     font-size: 14pt;
-    margin-top: 2em;
-    margin-right: 4em;
-    float: right;
 }
 span{
     color: #D58C8C;
-}
-.boton{
-    border: solid #FEB962;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    color: rgb(59, 55, 55);
-    width: 10em;
-    height: 2em;
-    border-radius: 0.2em;
-    margin-right: 9em;
-    float: right;
 }
 .acc-hero2 {
     background-image: url(../img/banners/gastro.jpg);
