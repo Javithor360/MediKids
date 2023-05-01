@@ -7,10 +7,10 @@ import { useNavigation } from '@react-navigation/native';
 import  { AuthStylesGlobal, AuthStylesRegisterP, AuthStylesRegisterU }  from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
 import { CustomButton } from '../../index';
-
+import InputCodeField from '../../components/InputCodeField';
 const { height } = Dimensions.get('window');
 
-export const ResetPasswordScreen = () => {
+export const VerifyCodeScreen = () => {
 const navigation = useNavigation();
 return (
 <>
@@ -25,21 +25,10 @@ return (
         <View style={AuthStylesGlobal.contentContainer} >
             <View style={AuthStylesGlobal.formContent} >
                 <Image style={AuthStylesGlobal.logoImage2} source={require('../../../assets/logos/Logotype_Colored.png')}  />
-                <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/graphic-icons/reset-password.png')}  />
-                <Text style={AuthStylesRegisterU.Tex_md}>Recuperar contraseña</Text>
-                <TextInput
-                    autoFocus={true}
-                    secureTextEntry={true}
-                    style={[AuthStylesGlobal.input, AuthStylesGlobal.customW90]}
-                    placeholder="Nueva contraseña"
-                    placeholderTextColor="gray"
-                />
-                <TextInput
-                    secureTextEntry={true}
-                    style={[AuthStylesGlobal.input, AuthStylesGlobal.customW90]}
-                    placeholder="Confirmar contraseña"
-                    placeholderTextColor="gray"
-                />
+                <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/graphic-icons/verify-code.png')}  />
+                <Text style={AuthStylesRegisterU.Tex_md}>Código de verificación</Text>
+
+                <InputCodeField />
                 
                 <View style={AuthStylesGlobal.buttonView}>
                     <CustomButton 
@@ -54,8 +43,8 @@ return (
                         fontFamily={'poppinsBold'}
                         fontSize={16}
                         textColor={'white'}
-                        Label={"Cambiar"}
-                        handlePress={() => {navigation.navigate('ApplicationTab');}}
+                        Label={"Confirmar"}
+                        handlePress={() => {navigation.navigate('ResetPasswordScreen');}}
                         haveShadow={true}
                     /> 
                 </View>
