@@ -85,8 +85,8 @@ export const WelcomeScreen = () => {
 
 const styles = StyleSheet.create({
   image: {
-    height: isIOS ? height / 3 : height / 2.9 ,
-    marginTop: isIOS ? '20%' : '22%',
+    height: isIOS ? height / 3 : height / 2.5 ,
+    marginTop: isIOS ? '5%' : '15%',
   },
   imageBg:{
     flex: 1,

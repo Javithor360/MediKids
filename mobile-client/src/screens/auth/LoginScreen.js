@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, Button, View, Image, TextInput, Dimensions, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Constans from 'expo-constants'
-import { isIOS, isAN, navBarHeight } from '../../constants';
+
+//>> Importing libraries
+import { StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground} from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
+//>> Importing components
+import { isAN, isIOS } from '../../constants';
 import { CustomButton } from '../../index';
 const { height } = Dimensions.get('window');
+
 export const LoginScreen = () => {
-  const [text, setText] = useState('');
+  const navigation = useNavigation();
   return (
     <>
-      <View style={{backgroundColor: '#fff', flex: 3, position:'relative',}}>
+      <View style={{backgroundColor: '#fff', flex: 3, position:'relative' }}>
         <View style={{flexDirection: 'column', position: 'relative',}}>
-          <ImageBackground resizeMode='cover' style={styles.waveTop} source={require("../../../assets/waves/wave-top-login.png")}/> 
-          <Text style={{ top: '50%', left: 20, position: 'absolute',}}>LOL</Text>
+          <ImageBackground resizeMode='cover' style={styles.waveTop} source={require("../../../assets/waves/waves_start_top.png")}/> 
+          <TouchableOpacity activeOpacity={0.5} style={styles.buttomCameBack} onPress={() => navigation.navigate('WelcomeScreen')}>
+            <MaterialIcons name="arrow-back-ios" size={17} color="white" />
+            <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
+          </TouchableOpacity>
         </View>
         <View style={{flex:2, flexDirection: 'column',backgroundColor: '#fff', paddingHorizontal:'3%', paddingVertical:'3%'}} >
-          <View style={{height: height / 1.5, flexDirection:'column', justifyContent:'flex-start', alignItems:'center', gap: 8 }} >
+          <View style={{height: height  , flexDirection:'column', justifyContent:'flex-start', alignItems:'center', gap: 8 }} >
             <Image style={styles.Image} source={require('../../../assets/logos/Isotype.png')}  />
             <Text style={styles.Text}>¡Bienvenido!</Text>
             <TextInput
@@ -39,7 +45,7 @@ export const LoginScreen = () => {
                 paddingV={0}
                 paddingH={0}
                 marginH={0}
-                marginV={6}
+                marginV={isIOS ? 2 : 6}
                 width={'100%'}
                 height={'100%'}
                 BorderRadius={10}
@@ -59,10 +65,9 @@ export const LoginScreen = () => {
             </View>
           </View>
         </View>
-        
-        {/* <View style={{flex:1 , alignSelf: 'flex-end', width: '100%', height: '100%', paddingTop: '22.7%',}}>
-          <ImageBackground resizeMode='cover' style={styles.waveTop} source={require("../../../assets/waves/wave-bottom-login.png")}/> 
-        </View> */}
+        <View style={{position: 'absolute', bottom: 0, left: 0, right: 0,}}>
+          <ImageBackground resizeMode='cover' style={styles.waveTop} source={require("../../../assets/waves/waves_start_buttom.png")}/> 
+        </View>
       </View>
     </>
 )}
@@ -76,42 +81,9 @@ const styles = StyleSheet.create({
     justifyContent:'space-between',
     alignItems: 'center',
   },
-  waveContainer: {
-    position: 'absolute',
-    top:0,
-    backgroundColor: 'green',
-  },
   waveTop:{
     height: 100,
     position: 'relative',
-  },
-  mainParentContainer: {
-    height: '68%',
-    backgroundColor:'red',
-    flexDirection:'column'
-  },
-  screenContainer: {
-    flex: 1,
-  },
-  scrollContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: 'blue',
-  },
-  Maincontainer: {
-    height: '100%',
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    alignItems: 'stretch',
-    justifyContent: 'center',
-    backgroundColor: 'green',
-  },
-  mainContentContainer:{
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    gap: 15,
-    width: '100%',
-    height: '82%',
   },
   Image: {
     resizeMode: 'contain',
@@ -122,7 +94,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize:30,
+    fontSize:35,
     fontFamily: 'poppinsBold',
   },
   input:{
@@ -149,25 +121,6 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     fontFamily: 'poppinsRegular',
   },
-  roundButton1:{
-    backgroundColor: '#765FF2',
-    textAlign:'center',
-    borderColor: 'white',
-    borderStyle: 'solid',
-    borderRadius:20,
-    width:'50%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-
-  },
-  TextButton:{
-    color: 'white',
-    textAlign:'center',
-    justifyContent: 'center',
-    margin:'5%',
-    fontSize:20,
-    fontFamily: 'poppinsRegular',
-  },
   TextCount:{
     textAlign:'center',
     color:'#707070',
@@ -185,4 +138,15 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     gap: 5,
   },
+  buttomCameBack: {
+    top: '50%',
+    left: 15,
+    backgroundColor: '#A375FF',
+    position: 'absolute',
+    borderRadius: 6,
+    flexDirection: 'row',
+    paddingHorizontal: 14,
+    alignItems: 'center',
+    paddingVertical: isIOS ? 8 : 0
+  }
 });
