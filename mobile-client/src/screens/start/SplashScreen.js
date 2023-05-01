@@ -18,7 +18,7 @@ export const SplashScreen = () => {
 
   return (
     <View style={styles.root}>
-      <Image source={require('../../../assets/adaptive-icon.png')} style={styles.imageStyle}/>
+      <Image source={require('../../../assets//logos/adaptive-icon.png')} style={styles.imageStyle}/>
       {
         isIOS ? <ActivityIndicator size="large" color="#A375FF" style={{marginTop: 19}} />
         :
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: 200,
     height: 200,
+    resizeMode: 'contain',
   },
   animationStyle: {
     marginTop: '34%',

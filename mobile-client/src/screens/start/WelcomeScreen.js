@@ -1,4 +1,3 @@
-
 //>> import
 import { BackHandler, Dimensions, Image, ImageBackground, Platform, SafeAreaView, StyleSheet, Text, View,  } from 'react-native'
 import { CustomButton } from '../../index';
@@ -25,11 +24,11 @@ export const WelcomeScreen = () => {
   return (
     <>
       <View style={styles.imageBgView}>
-        <ImageBackground style={styles.imageBg} source={require('../../../assets/waves_top.png')} resizeMode='contain' />
+        <ImageBackground style={styles.imageBg} source={require('../../../assets/waves/waves_start_top.png')} resizeMode='contain' />
       </View>
       <SafeAreaView>
         <View>
-          <ImageBackground style={styles.image} source={require('../../../assets/adaptive-icon.png')} resizeMode='contain' />
+          <ImageBackground style={styles.image} source={require('../../../assets/logos/adaptive-icon.png')} resizeMode='contain' />
         </View>
         <View style={styles.hr} />
         <View style={styles.titleContainer}>
@@ -55,7 +54,7 @@ export const WelcomeScreen = () => {
             fontSize={20}
             textColor={'white'}
             Label={"Iniciar Sesión"}
-            handlePress={() => {navigation.navigate('ApplicationTab');}}
+            handlePress={() => {navigation.navigate('LoginScreen');}}
             haveShadow={true}
           /> 
 
@@ -72,13 +71,13 @@ export const WelcomeScreen = () => {
             fontSize={20}
             textColor={'black'}
             Label={"Registrarse"}
-            handlePress={() => {navigation.navigate('LoginScreen');}}
+            handlePress={() => {navigation.navigate('RegisterScreen');}}
             haveShadow={true}
           /> 
         </View>
       </SafeAreaView>
       <View style={styles.imageBgViewBtn}>
-        <ImageBackground style={styles.imageBg} source={require('../../../assets/waves_buttom.png')} resizeMode='contain' />
+        <ImageBackground style={styles.imageBg} source={require('../../../assets/waves/waves_start_buttom.png')} resizeMode='contain' />
       </View>
     </>
   )
@@ -86,8 +85,8 @@ export const WelcomeScreen = () => {
 
 const styles = StyleSheet.create({
   image: {
-    height: isIOS ? height / 3 : height / 2.5 ,
-    marginTop: isIOS ? '5%' : '15%',
+    height: isIOS ? height / 3 : height / 2.9 ,
+    marginTop: isIOS ? '20%' : '22%',
   },
   imageBg:{
     flex: 1,
