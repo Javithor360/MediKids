@@ -16,9 +16,9 @@ export default function App() {
   //>> Loading Assets
   const loadAssetsAsync = async () => {
     const imageAssets = [
-      require('./assets/adaptive-icon.png'),
-      require('./assets/waves_top.png'),
-      require('./assets/waves_buttom.png'),
+      require('./assets/logos/adaptive-icon.png'),
+      require('./assets/waves/waves_start_top.png'),
+      require('./assets/waves/waves_start_buttom.png'),
     ];
     const cacheImages = imageAssets.map((image) => {
       return Asset.fromModule(image).downloadAsync();
