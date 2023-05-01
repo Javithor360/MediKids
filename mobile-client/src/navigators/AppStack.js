@@ -1,13 +1,14 @@
 import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 
 //>> Importin Screens
-import { LoginScreen, SplashScreen, WelcomeScreen, RegisterScreen, ApplicationTab } from '../index'
+import { LoginScreen, SplashScreen, WelcomeScreen, RegisterScreen, ApplicationTab, VerifyEmailScreen } from '../index'
 import { isIOS } from "../constants";
 
 //>> Creating Stack Navigator
 const Stack = createStackNavigator();
 
-const RunStack = () => {
+const RunStackNav = () => {
   return (
     <Stack.Navigator
       initialRouteName="SplashScreen"
@@ -20,9 +21,16 @@ const RunStack = () => {
       <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} options={{gestureEnabled: false, animationEnabled: isIOS && false}} />
       <Stack.Screen name='LoginScreen' component={LoginScreen} />
       <Stack.Screen name='RegisterScreen' component={RegisterScreen} />
+      <Stack.Screen name='VerifyEmailScreen' component={VerifyEmailScreen} />
       <Stack.Screen name='ApplicationTab' component={ApplicationTab} />
     </Stack.Navigator>
   );
 }
 
-export default RunStack;
+export default function AppStack () {
+  return (
+    <NavigationContainer>
+      <RunStackNav />
+    </NavigationContainer>
+  )
+};

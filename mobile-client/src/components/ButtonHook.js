@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import {TouchableOpacity, StyleSheet, Text, Platform, View} from 'react-native';
+import {TouchableOpacity, StyleSheet, Text, Platform} from 'react-native';
 
 const useButtonHook = (bgColor, paddingV, paddingH, marginH, marginV, width, height, BorderRadius, textColor, fontSize, fontFamily, haveShadow) => {
   const buttonStyles = useMemo(() => {

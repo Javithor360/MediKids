@@ -1,10 +1,10 @@
 //>> import
-import { BackHandler, Dimensions, Image, ImageBackground, Platform, SafeAreaView, StyleSheet, Text, View,  } from 'react-native'
+import { BackHandler, Dimensions, ImageBackground, SafeAreaView, StyleSheet, Text, View, } from 'react-native'
 import { CustomButton } from '../../index';
 import Constans from 'expo-constants'
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { isIOS, navBarHeight } from '../../constants';
+import { isIOS } from '../../constants';
 
 //>> constants
 const { height } = Dimensions.get('window');
@@ -43,10 +43,10 @@ export const WelcomeScreen = () => {
         <View style={styles.buttonView}>
           <CustomButton
             bgColor={'#A375FF'}
-            paddingV={15}
-            paddingH={20}
+            paddingV={12}
+            paddingH={0}
             marginH={0}
-            marginV={8}
+            marginV={7}
             width={'100%'}
             height={90}
             BorderRadius={10}
@@ -60,10 +60,10 @@ export const WelcomeScreen = () => {
 
           <CustomButton 
             bgColor={'#fafafa'}
-            paddingV={15}
-            paddingH={20}
+            paddingV={12}
+            paddingH={0}
             marginH={0}
-            marginV={8}
+            marginV={7}
             width={'100%'}
             height={100}
             BorderRadius={10}
@@ -85,7 +85,7 @@ export const WelcomeScreen = () => {
 
 const styles = StyleSheet.create({
   image: {
-    height: isIOS ? height / 3 : height / 2.5 ,
+    height: isIOS ? height / 3 : height / 2.8 ,
     marginTop: isIOS ? '5%' : '15%',
   },
   imageBg:{

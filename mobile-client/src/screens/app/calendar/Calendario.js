@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,Image, TextInput,TouchableOpacity, ScrollView} from 'react-native';
+import { StyleSheet, Text, View,Image,TouchableOpacity, ScrollView} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Calendario = () => {
