@@ -1,6 +1,6 @@
 //>> Importing libraries
-import { useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableOpacity, ImageBackground,  Platform, Pressable} from 'react-native';
+import { useEffect, useMemo, useState } from "react";
+import { StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableOpacity, ImageBackground, Modal, TouchableHighlight,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import DateTimePicker from "@react-native-community/datetimepicker"
@@ -13,37 +13,82 @@ import { CustomButton } from '../../index';
 const { height } = Dimensions.get('window');
 
 export const RegisterPatientScreen = () => {
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("Fecha de nacimiento")
-
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(false)
-    if (event.type === 'dismissed') {
-      return;
-    }
-    setDate(currentDate);
-    setSelectedDate(currentDate.toLocaleDateString())
-  };
-
-  const showMode = (currentMode) => {
-
-    if (Platform.OS === 'android') {
-      setShow(true);
-      // for iOS, add a button that closes the picker
-    }
-
-    setMode(currentMode);
-  };
-
-  const showDatepicker = () => {
-    showMode('date');
-  };
-
   const navigation = useNavigation();
 
+  //! Datepicker states
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
+  const memoizedDate = useMemo(() => date, [date]);
+  
+  const [selectedDate, setSelectedDate] = useState("Fecha de nacimiento")
+
+  //! Dected when the datepicker changes.
+  const onChange = (e, SelectedDate) => {
+    setTimeout(() => {
+      setShow(false);
+      setDate(new Date(SelectedDate || memoizedDate));
+      setSelectedDate(new Date(SelectedDate).toLocaleDateString())
+    }, 50);
+  }
+
+  const onChangeAN = (e, SelectedDate) => {
+    setShow(false);
+    if(SelectedDate){
+      setDate(new Date(SelectedDate));
+      setSelectedDate(new Date(SelectedDate).toLocaleDateString())
+    }
+  }
+
+  const onCancelPicker = () => {
+    setDate(new Date(date || memoizedDate))
+    setShow(false)
+  }
+  const onDonePress = () => {
+    setSelectedDate(date)
+    setShow(false)
+  }
+
+  const getDatePicker = () => {
+    return (
+      <DateTimePicker
+        testID="dateTimePicker"
+        value={memoizedDate}
+        mode='date'
+        display="spinner"
+        is24Hour={true}
+        onChange={isAN ? onChangeAN : onChange}
+        positiveButton={{label: 'Aceptar', textColor: '#A375FF'}}
+        negativeButton={{label: 'Cancelar', textColor: '#707070'}}
+        textColor={'#000'}
+        style={{marginTop: '10%'}}
+      />
+    )
+  }
+
+  const RenderDatePicker = () => {
+    return (
+      isIOS ? (
+        <Modal transparent={true} animationType="slide" visible={show} onRequestClose={() => setShow(false)}>
+          <View style={stylesRegPa.modalScreen}>
+            <TouchableHighlight underlayColor={'#fff'} style={stylesRegPa.pickerContainer}>
+              <View>
+                <TouchableOpacity underlayColor={'transparent'} onPress={() => {setShow(false)}} style={[stylesRegPa.btnPickerTex, stylesRegPa.BtnPickerCancel]}>
+                    <Text>Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity underlayColor={'transparent'} onPressIn={() => {setShow(false)}} style={[stylesRegPa.btnPickerTex, stylesRegPa.BtnPickerDone]}>
+                    <Text>Aceptar</Text>
+                  </TouchableOpacity>
+                  <View>{getDatePicker()}</View>
+              </View>
+            </TouchableHighlight>
+          </View>
+        </Modal>
+      ) : (
+        <>{getDatePicker()}</>
+      )
+    )
+  }
+ 
   return (
     
     <>
@@ -72,22 +117,11 @@ export const RegisterPatientScreen = () => {
                 placeholderTextColor="gray"
               />
             </View>
-            <TouchableOpacity style={[AuthStylesGlobal.input, AuthStylesGlobal.customW91, AuthStylesRegisterP.inputBtn]} onPress={showDatepicker} activeOpacity={.7}>
-                <TextInput style={AuthStylesRegisterP.inputBtnText} editable={false} placeholder="Fecha de nacimiento" value={selectedDate}/>
+            <TouchableOpacity style={[AuthStylesGlobal.input, AuthStylesGlobal.customW91, AuthStylesRegisterP.inputBtn]} onPress={() => setShow(true)} activeOpacity={.7}>
+                <TextInput style={AuthStylesRegisterP.inputBtnText} editable={false} placeholder="Fecha de nacimiento" value={selectedDate} onPressIn={() => setShow(true)}/>
                 <MaterialIcons name="calendar-today" size={24} color="#707070" />
             </TouchableOpacity>
-            {show && (
-              <DateTimePicker
-                testID="dateTimePicker"
-                value={date}
-                mode={mode}
-                display="spinner"
-                is24Hour={true}
-                onChange={onChange}
-                positiveButton={{label: 'Aceptar', textColor: '#A375FF'}}
-                negativeButton={{label: 'Cancelar', textColor: '#707070'}} 
-              />
-            )}
+            {show && <RenderDatePicker />}
             <View style={AuthStylesGlobal.buttonView}>
               <CustomButton 
                 bgColor={'#A375FF'}
@@ -150,4 +184,33 @@ const stylesRegPa = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  pickerContainer: {
+    backgroundColor: '#fff',
+    width: '100%',
+    height: '35%',
+    position: 'absolute',
+    bottom: 0,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.30,
+    shadowRadius: 4
+  },
+  modalScreen: {
+    flex: 1
+  },
+  btnPickerTex: {
+    position: 'absolute',
+    top: 0,
+    height: 50,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center', 
+  },
+  BtnPickerCancel: {
+    left: 0,
+  },
+  BtnPickerDone: {
+    right: 0
+  }
 })
