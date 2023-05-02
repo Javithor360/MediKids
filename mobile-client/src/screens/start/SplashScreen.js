@@ -1,20 +1,36 @@
-import { ActivityIndicator, Image, Platform, StyleSheet, View } from 'react-native'
+
+//>> Importing libraries
+import { ActivityIndicator, Image, StyleSheet, View } from 'react-native'
 import { useEffect } from 'react'
 import Lottie from 'lottie-react-native'
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from 'react-redux';
+
+//>> Importing Components
 import { isIOS } from '../../constants';
 
-
 export const SplashScreen = () => {
-
+  const State = useSelector(state => state.starter.State);
   const navigation = useNavigation();
 
-  //>> Timer to show load the app
+  //>> Navigation to the corresponding component.
   useEffect(() => {
-    setTimeout(() => {
-      navigation.navigate('WelcomeScreen')
-    }, 4000);
-  }, []);
+    if(State !== null) {
+      setTimeout(() => {
+        switch (State) {
+          case 0:
+            navigation.navigate('WelcomeScreen');
+            break;
+          case 1:
+            navigation.navigate('VerifyEmailScreen');
+            break;
+          case 2: 
+            navigation.navigate('ApplicationTab');
+            break;
+        }
+      }, 4000);
+    }
+  }, [State]);
 
   return (
     <View style={styles.root}>

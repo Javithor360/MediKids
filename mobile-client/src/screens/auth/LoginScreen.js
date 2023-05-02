@@ -1,5 +1,5 @@
 //>> Importing libraries
-import { StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground} from 'react-native';
+import { StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableOpacity, ImageBackground} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -28,7 +28,7 @@ export const LoginScreen = () => {
             <TextInput
               autoFocus={true}
               style={[AuthStylesGlobal.input, AuthStylesGlobal.customW90]}
-              placeholder="Usuario"
+              placeholder="Email"
               placeholderTextColor="gray"
             />
             <TextInput

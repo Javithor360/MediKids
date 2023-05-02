@@ -1,13 +1,14 @@
 import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 
 //>> Importin Screens
-import { LoginScreen, SplashScreen, WelcomeScreen, RegisterScreen, ApplicationTab, RegisterPatientScreen, ForgotPasswordScreen, ResetPasswordScreen, VerifyCodeScreen } from '../index'
+import { LoginScreen, SplashScreen, WelcomeScreen, RegisterScreen, ApplicationTab, RegisterPatientScreen, ForgotPasswordScreen, ResetPasswordScreen, VerifyCodeScreen, VerifyEmailScreen } from '../index'
 import { isIOS } from "../constants";
 
 //>> Creating Stack Navigator
 const Stack = createStackNavigator();
 
-const RunStack = () => {
+const RunStackNav = () => {
   return (
     <Stack.Navigator
       initialRouteName="SplashScreen"
@@ -21,6 +22,7 @@ const RunStack = () => {
       <Stack.Screen name='LoginScreen' component={LoginScreen} />
       <Stack.Screen name='RegisterScreen' component={RegisterScreen} />
       <Stack.Screen name='RegisterPatientScreen' component={RegisterPatientScreen} />
+      <Stack.Screen name='VerifyEmailScreen' component={VerifyEmailScreen} />
       <Stack.Screen name='ApplicationTab' component={ApplicationTab} />
       <Stack.Screen name='ForgotPasswordScreen' component={ForgotPasswordScreen} />
       <Stack.Screen name='ResetPasswordScreen' component={ResetPasswordScreen} />
@@ -29,4 +31,10 @@ const RunStack = () => {
   );
 }
 
-export default RunStack;
+export default function AppStack () {
+  return (
+    <NavigationContainer>
+      <RunStackNav />
+    </NavigationContainer>
+  )
+};

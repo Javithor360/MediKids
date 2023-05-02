@@ -2,10 +2,12 @@ import express from "express";
 import router_login from "./routes/login.routes.js";
 import router_admin from "./routes/admin.routes.js";
 import router_doctor from "./routes/doctor.routes.js";
+import cors from 'cors';
 
 const app = express();
 
 // EXPRESS CONFIGS
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

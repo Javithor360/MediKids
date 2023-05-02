@@ -1,17 +1,22 @@
 
-//>> importing 
+//>> importing libraries
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { useEffect, useState } from 'react';
 import * as ss from 'expo-splash-screen'
 import  { Asset } from 'expo-asset';
-import { NavigationContainer } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import RunStack from './src/navigators/RunStack';
+import { Provider } from 'react-redux';
+
+//>> Importing Components
+import AppStack from './src/navigators/AppStack';
+import store from './src/store/app/store';
+import AppCommon from './AppCommon';
+
 
 export default function App() {
   const [AssetsLoaded, setAssetsLoaded] = useState(false);
-  const [ValidatedSession, setValidatedSession] = useState(false);
+  const [Continue, setContinue] = useState(false);
+
 
   //>> Loading Assets
   const loadAssetsAsync = async () => {
@@ -37,37 +42,27 @@ export default function App() {
     (async () => {
       await ss.preventAutoHideAsync();
       loadAssetsAsync().then(() => setAssetsLoaded(true));
-      // ValidateSession();
     })()
   }, []);
 
-  //>> Validating User Session
-  //! WORK IN PROGRESS.
-  const ValidateSession = async () => {
-    try {
-      const resp = await AsyncStorage.getItem('userSession');
-      console.log(resp);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   //>> Continuing the App
   useEffect(() => {
     if (fontsLoaded && AssetsLoaded) {
       (async () => {
         await ss.hideAsync();
+        setContinue(true);
       })()
     }
   }, [fontsLoaded, AssetsLoaded]);
 
-  return fontsLoaded && (
-    <>
-      <NavigationContainer>
-        <RunStack />
-      </NavigationContainer>
+  return Continue && (
+    <Provider store={store}>
+      <AppCommon >
+        <AppStack />
+      </AppCommon>
       <StatusBar style="auto" />
-    </>
+    </Provider>
   );
 }
 
