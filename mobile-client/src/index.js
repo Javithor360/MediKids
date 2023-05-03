@@ -8,10 +8,7 @@ export { SplashScreen } from './screens/start/SplashScreen';
 export { HomeScreen } from './screens/app/home/HomeScreen';
 export { ForgotPasswordScreen } from  './screens/auth/ForgotPasswordScreen';
 export { ResetPasswordScreen } from  './screens/auth/ResetPasswordScreen';
-export { VerifyCodeScreen } from './screens/auth/VerifyCodeScreen'
 export { SelectProfilePhotoScreen } from './screens/auth/SelectProfilePhotoScreen'
-export { ForgotPasswordScreen } from './screens/auth/ForgotPasswordScreen';
-export { ResetPasswordScreen } from './screens/auth/ResetPasswordScreen';
 export { VerifyCodeScreen } from './screens/auth/VerifyCodeScreen';
 
 //?? Components
