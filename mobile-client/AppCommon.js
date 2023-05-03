@@ -61,8 +61,8 @@ export default function AppCommon ({children}) {
         Email: 'yolomeme444@gmail.com',
         isLoggedIn: false,
       }
-      // await AsyncStorage.removeItem('userSession');
-      await AsyncStorage.setItem('userSession', JSON.stringify(testingObj));
+      await AsyncStorage.removeItem('userSession');
+      // await AsyncStorage.setItem('userSession', JSON.stringify(testingObj));
     } catch (error) {
       console.log(error);
     }
@@ -70,7 +70,7 @@ export default function AppCommon ({children}) {
 
   //! Component initialization
   useEffect(() => {
-    setAsyncStorage();
+    // setAsyncStorage();
     validateSession();
   }, []);
 

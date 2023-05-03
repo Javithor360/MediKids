@@ -1,5 +1,5 @@
 //>> Importing libraries
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableOpacity, ImageBackground, Modal, TouchableHighlight,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -10,27 +10,24 @@ import DateTimePicker from "@react-native-community/datetimepicker"
 import  { AuthStylesGlobal, AuthStylesRegisterP }  from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
 import { CustomButton } from '../../index';
-const { height } = Dimensions.get('window');
 
 export const RegisterPatientScreen = () => {
   const navigation = useNavigation();
 
   //! Datepicker states
   const [date, setDate] = useState(new Date());
+  const [LastDate, setLastDate] = useState(new Date());
   const [show, setShow] = useState(false);
-  const memoizedDate = useMemo(() => date, [date]);
   
   const [selectedDate, setSelectedDate] = useState("Fecha de nacimiento")
 
   //! Dected when the datepicker changes.
+  //>> iOS
   const onChange = (e, SelectedDate) => {
-    setTimeout(() => {
-      setShow(false);
-      setDate(new Date(SelectedDate || memoizedDate));
-      setSelectedDate(new Date(SelectedDate).toLocaleDateString())
-    }, 50);
+    setDate(new Date(SelectedDate));
+    setSelectedDate(new Date(SelectedDate).toLocaleDateString())
   }
-
+  //>> Android
   const onChangeAN = (e, SelectedDate) => {
     setShow(false);
     if(SelectedDate){
@@ -40,19 +37,25 @@ export const RegisterPatientScreen = () => {
   }
 
   const onCancelPicker = () => {
-    setDate(new Date(date || memoizedDate))
+    if(LastDate.toLocaleDateString() == new Date().toLocaleDateString()){
+    setSelectedDate('Fecha de nacimiento');
+    } else {
+      setSelectedDate(new Date(LastDate).toLocaleDateString());
+    }
+    setDate(LastDate);
     setShow(false)
   }
-  const onDonePress = () => {
-    setSelectedDate(date)
+  const onDonePicker = () => {
+    setSelectedDate(new Date(date).toLocaleDateString())
     setShow(false)
-  }
+    setLastDate(new Date(date));
+  } 
 
   const getDatePicker = () => {
     return (
       <DateTimePicker
         testID="dateTimePicker"
-        value={memoizedDate}
+        value={date}
         mode='date'
         display="spinner"
         is24Hour={true}
@@ -65,20 +68,22 @@ export const RegisterPatientScreen = () => {
     )
   }
 
-  const RenderDatePicker = () => {
+  const renderDatePicker = () => {
     return (
       isIOS ? (
-        <Modal transparent={true} animationType="slide" visible={show} onRequestClose={() => setShow(false)}>
+        <Modal transparent={true} animationType="slide" visible={show} onRequestClose={() => setShow(!show)}>
           <View style={stylesRegPa.modalScreen}>
             <TouchableHighlight underlayColor={'#fff'} style={stylesRegPa.pickerContainer}>
               <View>
-                <TouchableOpacity underlayColor={'transparent'} onPress={() => {setShow(false)}} style={[stylesRegPa.btnPickerTex, stylesRegPa.BtnPickerCancel]}>
+                <View>
+                  <View>{getDatePicker()}</View>
+                  <TouchableOpacity underlayColor={'transparent'} activeOpacity={0.3} onPress={onCancelPicker} style={[stylesRegPa.btnPickerTex, stylesRegPa.BtnPickerCancel]}>
                     <Text>Cancel</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity underlayColor={'transparent'} onPressIn={() => {setShow(false)}} style={[stylesRegPa.btnPickerTex, stylesRegPa.BtnPickerDone]}>
+                  <TouchableOpacity underlayColor={'transparent'} activeOpacity={0.3} onPress={onDonePicker} style={[stylesRegPa.btnPickerTex, stylesRegPa.BtnPickerDone]}>
                     <Text>Aceptar</Text>
                   </TouchableOpacity>
-                  <View>{getDatePicker()}</View>
+                </View>
               </View>
             </TouchableHighlight>
           </View>
@@ -121,7 +126,7 @@ export const RegisterPatientScreen = () => {
                 <TextInput style={AuthStylesRegisterP.inputBtnText} editable={false} placeholder="Fecha de nacimiento" value={selectedDate} onPressIn={() => setShow(true)}/>
                 <MaterialIcons name="calendar-today" size={24} color="#707070" />
             </TouchableOpacity>
-            {show && <RenderDatePicker />}
+            {show && renderDatePicker()}
             <View style={AuthStylesGlobal.buttonView}>
               <CustomButton 
                 bgColor={'#A375FF'}
@@ -200,12 +205,13 @@ const stylesRegPa = StyleSheet.create({
   },
   btnPickerTex: {
     position: 'absolute',
+    zIndex: 1000,
     top: 0,
     height: 50,
     paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center', 
+    alignItems: 'center',
   },
   BtnPickerCancel: {
     left: 0,

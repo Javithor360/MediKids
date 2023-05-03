@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {CustomButton} from '../../../index'
 import { useNavigation } from '@react-navigation/native'
@@ -27,6 +27,7 @@ export const HomeScreen = () => {
           haveShadow={true}
         /> 
       </View>
+      <TextInput placeholder='hola'/>
     </SafeAreaView>
   )
 }
