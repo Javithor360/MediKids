@@ -113,7 +113,8 @@ const AuthStylesGlobal = StyleSheet.create({
       flexDirection: 'row',
       paddingHorizontal: 14,
       alignItems: 'center',
-      paddingVertical: isIOS ? 8 : 0
+      paddingVertical: isIOS ? 8 : 0,
+      elevation: 10
    },
    customW50: {
       width: '50%',
@@ -169,4 +170,50 @@ const AuthStylesRegisterP = StyleSheet.create({
    },
 })
 
-export { AuthStylesGlobal, AuthStylesRegisterU, AuthStylesRegisterP }
+const SelectProfilePhoto = StyleSheet.create({
+   profilePhotoWrapper:{
+      height: 250,
+      width: 250,
+      marginVertical: '2%',
+      borderRadius: 125,
+      overflow: 'hidden',
+   },
+   profilePhotoImage:{
+      width: '100%',
+      height: '100%',
+      resizeMode: 'cover'
+   },  
+   hr: {
+      width: '90%',
+      height: '.5%',
+      backgroundColor: '#D8D7FE',
+      marginTop: 12,
+      borderRadius: 3,
+      marginHorizontal: '10%',
+   },
+   customMarginB_1: {
+      marginBottom: 10,
+   },
+   customMarginB_2: {
+      marginBottom: 3,
+   },
+   uploadBtn: {
+      paddingHorizontal: '12%',
+      flexDirection: 'row',
+      height: 45,
+      backgroundColor: '#D8D7FE',
+      width: '60%',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      borderRadius: 10,
+   },
+   uploadTxt:{
+      fontSize: 18,
+      color: '#707070',
+      fontFamily: 'poppinsRegular',
+      marginTop: 5,
+      paddingVertical: 0
+   }
+})
+
+export { AuthStylesGlobal, AuthStylesRegisterU, AuthStylesRegisterP, SelectProfilePhoto }

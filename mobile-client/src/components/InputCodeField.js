@@ -8,7 +8,7 @@ import {
     useClearByFocusCell,
 } from 'react-native-confirmation-code-field';
 
-const CELL_COUNT = 3;
+const CELL_COUNT = 6;
 
 const InputCodeField = () => {
     const [value, setValue] = useState('');
@@ -47,12 +47,12 @@ const styles = StyleSheet.create({
     codeFieldRoot: {
         marginTop: 10,
         marginBottom: 20,
-        width: 280,
+        width: 340,
         marginLeft: 'auto',
         marginRight: 'auto',
     },
     cellRoot: {
-        width: 60,
+        width: 40,
         height: 60,
         justifyContent: 'center',
         alignItems: 'center',

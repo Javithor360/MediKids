@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 //>> Importin Screens
-import { LoginScreen, SplashScreen, WelcomeScreen, RegisterScreen, ApplicationTab, RegisterPatientScreen, ForgotPasswordScreen, ResetPasswordScreen, VerifyCodeScreen, VerifyEmailScreen } from '../index'
+import { LoginScreen, SplashScreen, WelcomeScreen, RegisterScreen, ApplicationTab, RegisterPatientScreen, ForgotPasswordScreen, ResetPasswordScreen, VerifyCodeScreen, VerifyEmailScreen, SelectProfilePhotoScreen } from '../index'
 import { isIOS } from "../constants";
 
 //>> Creating Stack Navigator
@@ -27,6 +27,7 @@ const RunStackNav = () => {
       <Stack.Screen name='ForgotPasswordScreen' component={ForgotPasswordScreen} />
       <Stack.Screen name='ResetPasswordScreen' component={ResetPasswordScreen} />
       <Stack.Screen name='VerifyCodeScreen' component={VerifyCodeScreen} />
+      <Stack.Screen name='SelectProfilePhotoScreen' component={SelectProfilePhotoScreen} />
     </Stack.Navigator>
   );
 }

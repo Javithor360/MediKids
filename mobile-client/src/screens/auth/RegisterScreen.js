@@ -68,7 +68,7 @@ export const RegisterScreen = () => {
                 fontSize={16}
                 textColor={'white'}
                 Label={"Siguiente"}
-                handlePress={() => {navigation.navigate('RegisterPatientScreen');}}
+                handlePress={() => {navigation.navigate('SelectProfilePhotoScreen');}}
                 haveShadow={true}
               /> 
             </View>
