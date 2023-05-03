@@ -10,12 +10,16 @@ export { ForgotPasswordScreen } from  './screens/auth/ForgotPasswordScreen';
 export { ResetPasswordScreen } from  './screens/auth/ResetPasswordScreen';
 export { VerifyCodeScreen } from './screens/auth/VerifyCodeScreen'
 export { SelectProfilePhotoScreen } from './screens/auth/SelectProfilePhotoScreen'
+export { ForgotPasswordScreen } from './screens/auth/ForgotPasswordScreen';
+export { ResetPasswordScreen } from './screens/auth/ResetPasswordScreen';
+export { VerifyCodeScreen } from './screens/auth/VerifyCodeScreen';
+
 //?? Components
-export { CustomButton } from './components/ButtonHook'
+export { CustomButton } from './components/ButtonHook';
 
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';
-export { HomeStack } from './navigators/Dashboard/HomeStack'
+export { HomeStack } from './navigators/Dashboard/HomeStack';
 
 //* Queries
-export { getResponsible } from './queries/authQueries'
+export { getResponsible } from './queries/authQueries';
