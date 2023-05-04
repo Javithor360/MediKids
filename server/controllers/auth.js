@@ -1,12 +1,26 @@
+
+//>> IMPORT MODULES
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
+import { initializeApp } from 'firebase/app'
+import {getDownloadURL, getStorage, ref} from 'firebase/storage';
+
+//>> IMPORT CONFIGS & FUNCTIONS
 import {pool} from '../utils/db.js';
 import { create_code, create_jwt, create_reset_token, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
-import crypto from 'crypto';
+import firebaseConfig from '../utils/firebase.config.js';
+
+
+//? Startup Firebase configuration.
+initializeApp(firebaseConfig.firebaseConfig);
+
+//? Setup Firebase Storage.
+const storage = getStorage();
+
 
 //! @route POST api/auth/register
 //! @desc Responsible Register.
 //! @access public
-
 const register = async (req, res, next) => {
   try {
     const {First_Names, Last_Names, Email, Password, DUI, Birthdate, Phone} = req.body;
@@ -73,7 +87,6 @@ const register = async (req, res, next) => {
 //! @route POST api/auth/login
 //! @desc Responsible login.
 //! @access public
-
 const login = async (req, res, next) => {
   try {
     const {Email, Password} = req.body;
@@ -111,7 +124,6 @@ const login = async (req, res, next) => {
 //! @route POST api/auth/verify_email
 //! @desc Verify the email of the responsible
 //! @access Public
-
 const verify_email = async (req, res, next) => {
   try {
     const { verify_code, Email } = req.body;
@@ -140,7 +152,6 @@ const verify_email = async (req, res, next) => {
 //! @route POST api/auth/get_email_to_verify
 //! @desc Get the email of the responsible who has not still verified it
 //! @access Public
-
 const get_email_to_verify = async (req, res, next) => {
   try {
     const { Email } = req.body;
@@ -160,7 +171,6 @@ const get_email_to_verify = async (req, res, next) => {
 //! @route POST api/auth/get_responsible
 //! @desc Get the user to know if already registered
 //! @access Public
-
 const get_responsible = async (req, res, next) => {
   try {
     const { Email } = req.body;
@@ -181,7 +191,6 @@ const get_responsible = async (req, res, next) => {
 //! @route POST api/auth/forgot_password
 //! @desc Send the token to reset the password
 //! @access Public
-
 const forgot_password = async (req, res, next) => {
   try {
     const { Email } = req.body;
@@ -219,7 +228,6 @@ const forgot_password = async (req, res, next) => {
 //! @route POST api/auth/check_reset_token
 //! @desc check if the token keep meeting with the parameters to reset the password
 //! @access Private!!
-
 const check_reset_token = async (req, res, next) => {
   try {
     // const reset_pass_token  = req.params.reset_pass_token;
@@ -250,7 +258,6 @@ const check_reset_token = async (req, res, next) => {
 //! @route POST api/auth/reset_password
 //! @desc Reset the password and set null the tokens.
 //! @access Private!!
-
 const reset_password = async (req, res, next) => {
   try {
     // const reset_pass_token  = req.params.reset_pass_token;
@@ -284,6 +291,20 @@ const reset_password = async (req, res, next) => {
   }
 }
 
+//! @route POST api/auth/upload_photo
+//! @desc Reset the password and set null the tokens.
+//! @access Private!!
+const upload_photo = async (req, res, next) => {
+  try {
+    const storageRef = ref(storage, 'perfil_photos/default.png');
+    const url = await getDownloadURL(storageRef);
+    return res.status(200).json({storage: url})
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
+
 export {
   register, 
   login, 
@@ -292,5 +313,6 @@ export {
   get_responsible, 
   forgot_password,
   check_reset_token,
-  reset_password
+  reset_password,
+  upload_photo
 };

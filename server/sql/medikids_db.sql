@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS medikids_db . Responsible (
 	Age INT NOT NULL,
 	Phone VARCHAR(45) NOT NULL,
 	Profile_Photo VARCHAR(200) NOT NULL,
+	-- maybe need to add the id of the pp (id of the firebase)
 	Reset_Pass_Token VARCHAR(200),
 	Reset_Pass_Expire DATETIME,
 	Email_Verify_code VARCHAR(45),

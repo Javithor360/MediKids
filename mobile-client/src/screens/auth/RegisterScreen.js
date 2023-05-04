@@ -1,12 +1,11 @@
 //>> Importing libraries
-import { Button, StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground} from 'react-native';
+import { Text, View, Image, TextInput, Dimensions, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 //>> Importing components
 import  { AuthStylesGlobal, AuthStylesRegisterU }  from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
 import { CustomButton } from '../../index';
-const { height } = Dimensions.get('window');
 
 export const RegisterScreen = () => {
   const navigation = useNavigation()
@@ -68,7 +67,7 @@ export const RegisterScreen = () => {
                 fontSize={16}
                 textColor={'white'}
                 Label={"Siguiente"}
-                handlePress={() => {navigation.navigate('SelectProfilePhotoScreen');}}
+                handlePress={() => {navigation.navigate('RegisterPatientScreen');}}
                 haveShadow={true}
               /> 
             </View>
