@@ -2,6 +2,7 @@ import { createBottomTabNavigator as createTabNav } from "@react-navigation/bott
 
 //>> import components
 import { HomeStack } from '../index'
+import { MyAcountScreen } from "../screens/app/MyAcount/MyAcountScreen";
 
 //>> Create the Tab navigation function 
 const Tab = createTabNav();
@@ -16,6 +17,7 @@ export const ApplicationTab = () => {
       }}
     >
       <Tab.Screen name="HomeStack" component={ HomeStack } options={{}} />
+      <Tab.Screen name="MyAcount" component={ MyAcountScreen } options={{}} />
     </Tab.Navigator>
   )
 }
