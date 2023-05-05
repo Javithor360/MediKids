@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, verify_email, get_email_to_verify, get_responsible, forgot_password, check_reset_token, reset_password, upload_photo } from '../controllers/auth.js';
+import { register, login, verify_email, get_email_to_verify, get_responsible, forgot_password, check_reset_token, reset_password, upload_pf_responsible } from '../controllers/auth.js';
 import { auth_midd } from '../middlewares/auth_middleware.js';
 
 // CREATING ROUTER
@@ -31,7 +31,7 @@ router_login.route('/check_reset_token').post(check_reset_token);
 router_login.route('/reset_password').post(reset_password);
 
 //! Upload Perfil Photo
-router_login.route('/upload_photo').get(upload_photo);
+router_login.route('/upload_photo').get(upload_pf_responsible);
 
 // GET ROUTES
 router_login.route('/private').get([auth_midd], (req, res, next) => {

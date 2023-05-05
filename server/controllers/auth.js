@@ -294,7 +294,7 @@ const reset_password = async (req, res, next) => {
 //! @route POST api/auth/upload_photo
 //! @desc Reset the password and set null the tokens.
 //! @access Private!!
-const upload_photo = async (req, res, next) => {
+const upload_pf_responsible = async (req, res, next) => {
   try {
     const storageRef = ref(storage, 'perfil_photos/default.png');
     const url = await getDownloadURL(storageRef);
@@ -314,5 +314,5 @@ export {
   forgot_password,
   check_reset_token,
   reset_password,
-  upload_photo
+  upload_pf_responsible
 };
