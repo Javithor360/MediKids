@@ -19,4 +19,4 @@ export { ApplicationTab } from './navigators/ApplicationTab';
 export { HomeStack } from './navigators/Dashboard/HomeStack';
 
 //* Queries
-export { getResponsible } from './queries/authQueries';
+export { getResponsible, uploadPFResponsible } from './queries/authQueries';
