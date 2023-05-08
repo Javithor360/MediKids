@@ -1,6 +1,7 @@
 import express from 'express';
 import { register, login, verify_email, get_email_to_verify, get_responsible, forgot_password, check_reset_token, reset_password, upload_pf_responsible } from '../controllers/auth.js';
 import { auth_midd } from '../middlewares/auth_middleware.js';
+import { upload } from '../utils/multer.config.js';
 
 // CREATING ROUTER
 const router_login = express.Router();
@@ -31,7 +32,7 @@ router_login.route('/check_reset_token').post(check_reset_token);
 router_login.route('/reset_password').post(reset_password);
 
 //! Upload Perfil Photo
-router_login.route('/upload_photo').get(upload_pf_responsible);
+router_login.route('/upload_pf_responsible').post(upload.single('image'), upload_pf_responsible);
 
 // GET ROUTES
 router_login.route('/private').get([auth_midd], (req, res, next) => {

@@ -1,18 +1,20 @@
 //>> Importing libraries
-import { Text, View, Image, Dimensions, TouchableOpacity, ImageBackground} from 'react-native';
+import { Text, View, Image, TouchableOpacity, ImageBackground} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 //>> Importing components
 import  { AuthStylesGlobal, AuthStylesRegisterU, SelectProfilePhoto }  from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
 import { CustomButton, uploadPFResponsible } from '../../index';
 
-const { height } = Dimensions.get('window');
-
 export const SelectProfilePhotoScreen = () => {
     const navigation = useNavigation();
+    const [ImageEl, setImageEl] = useState(null);
+    const Email = useSelector(state => state.starter.Email);
 
     //! Function to select the profile photo from the galery of the user.
     const pickeImage = async () => {
@@ -26,7 +28,7 @@ export const SelectProfilePhotoScreen = () => {
             })
 
             if(!result.canceled){
-                setImage(result.uri);
+                setImageEl(result.uri);
             }
         } else {
             //! HOW TO DO THE ERROR HANDLING? 
@@ -35,15 +37,15 @@ export const SelectProfilePhotoScreen = () => {
 
     //! Function to upload the profile photo to the backend.
     const uploadImage = async (uri) => {
-        const formData = new FormData();
-        formData.append('image',{
-            uri,
-            type: 'image/jpeg',
-            name: 'image.png',
-        })
         try {
+            const formData = new FormData();
+            formData.append('image',{
+                uri: uri,
+                type: 'image/jpeg',
+                name: 'image.png',
+            })
+            formData.append('Email', Email)
             const res = await uploadPFResponsible(formData);
-            console.log(res);
         } catch (error) {
             console.log(error);
         }
@@ -68,8 +70,7 @@ export const SelectProfilePhotoScreen = () => {
                     </View>
                     <View style={[SelectProfilePhoto.hr, SelectProfilePhoto.customMarginB_2]} />
                     <View style={SelectProfilePhoto.profilePhotoWrapper}>
-                        <ImageBackground style={SelectProfilePhoto.profilePhotoImage} source={require('../../../assets/default-pics/default-profile-pic.png')}>
-                        </ImageBackground>
+                        <ImageBackground style={SelectProfilePhoto.profilePhotoImage} source={ImageEl ? {uri: ImageEl} : require('../../../assets/default-pics/default-profile-pic.png')} />
                     </View>
                     <TouchableOpacity style={SelectProfilePhoto.uploadBtn} activeOpacity={0.5} onPress={() => pickeImage()}>
                         <MaterialIcons name="drive-folder-upload" size={24} color="#707070" />
@@ -91,17 +92,24 @@ export const SelectProfilePhotoScreen = () => {
                             textColor={'white'}
                             Label={"Siguiente"}
                             handlePress={() => {
-                                navigation.navigate('ApplicationTab');
-                                uploadImage(Image);
+                                // console.log(ImageEl);
+                                if(ImageEl != null) {
+                                    // navigation.navigate('ApplicationTab');
+                                    uploadImage(ImageEl);
+
+                                } else {
+                                    //! ERRROR HANDLING
+                                    console.log('no hay imagen');
+                                }
                             }}
                             haveShadow={true}
                         /> 
                     </View>
                 </View>
             </View>
-            <View style={AuthStylesGlobal.bottomWaveContainer}>
+            {/* <View style={AuthStylesGlobal.bottomWaveContainer}>
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_buttom.png")}/> 
-            </View>
+            </View> */}
         </View>
     </>
 )}

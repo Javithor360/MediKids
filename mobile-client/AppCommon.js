@@ -23,7 +23,7 @@ export default function AppCommon ({children}) {
   const validateSession = async () => {
     try {
       const value = await AsyncStorage.getItem('userSession');
-      
+
       if (value) {
         const {Email, isLoggedIn} = JSON.parse(value) 
         //! Get the data from the server.

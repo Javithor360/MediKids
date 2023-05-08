@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //! Localhost Direction of the server.
-const localhost = '192.168.0.9';
+const localhost = '192.168.0.4';
 
 //! Get the information about the Responsible.
 //@access public
@@ -10,7 +10,7 @@ export const getResponsible = async (Email) => {
 }
 
 //! Upload the Perfil Photo of the Responsible.
-//@access private
+//@access public
 export const uploadPFResponsible = async (FormData) => {
   return await axios.post(`http://${localhost}:5005/api/auth/upload_pf_responsible`, FormData, {headers: {'Content-Type': 'multipart/form-data'}});
 }
