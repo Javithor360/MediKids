@@ -7,7 +7,8 @@ import { useState } from 'react';
 //>> Importing components
 import  { AuthStylesGlobal, AuthStylesRegisterU }  from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
-import { CustomButton } from '../../index';
+import { CustomButton, registerResponsible } from '../../index';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 export const RegisterScreen = () => {
   const navigation = useNavigation()
@@ -20,10 +21,29 @@ export const RegisterScreen = () => {
   const [Email, setEmail] = useState(null);
   const [Password, setPassword] = useState(null);
   const [ConfPass, setConfPass] = useState(null);
+  const Birthdate  = new Date('01/01/2000');
 
   //! States for th functioning handler.
   const [Error, setError] = useState(null);
   const [Success, setSuccess] = useState(null);
+
+  //! Show the Emergent Message (toast).
+  const showToast = () => {
+    Toast.show({
+      type:'success',
+      text1:'hello',
+      text2:'toasterrrr',
+    })
+  }
+
+  const registerNewUser = async () => {
+    try {
+      const {data} = await registerResponsible(FirstNames, LastNames, Email, Password, ConfPass, DUI, Birthdate, Phone);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
   
   return (
     <>
@@ -78,11 +98,13 @@ export const RegisterScreen = () => {
               style={[AuthStylesGlobal.input, AuthStylesGlobal.customW91]}
               placeholder="Contraseña"
               placeholderTextColor="gray"
+              onChangeText={text => setPassword(text)}
             />
             <TextInput
               style={[AuthStylesGlobal.input, AuthStylesGlobal.customW91]}
               placeholder="Confirmar contraseña"
               placeholderTextColor="gray"
+              onChangeText={text => setConfPass(text)}
             />
             <View style={AuthStylesGlobal.buttonView}>
               <CustomButton 
@@ -98,7 +120,7 @@ export const RegisterScreen = () => {
                 fontSize={16}
                 textColor={'white'}
                 Label={"Siguiente"}
-                handlePress={() => {navigation.navigate('RegisterPatientScreen');}}
+                handlePress={() => {showToast()}}
                 haveShadow={true}
               /> 
             </View>

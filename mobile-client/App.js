@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react';
 import * as ss from 'expo-splash-screen'
 import  { Asset } from 'expo-asset';
 import { Provider } from 'react-redux';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 //>> Importing Components
 import AppStack from './src/navigators/AppStack';
 import store from './src/store/app/store';
 import AppCommon from './AppCommon';
+import { toastConfig } from './src';
 
 
 export default function App() {
@@ -62,6 +64,7 @@ export default function App() {
         <AppStack />
       </AppCommon>
       <StatusBar style="auto" />
+      <Toast config={toastConfig}/>
     </Provider>
   );
 }

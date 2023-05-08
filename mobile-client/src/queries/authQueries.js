@@ -14,3 +14,9 @@ export const getResponsible = async (Email) => {
 export const uploadPFResponsible = async (FormData) => {
   return await axios.post(`http://${localhost}:5005/api/auth/upload_pf_responsible`, FormData, {headers: {'Content-Type': 'multipart/form-data'}});
 }
+
+//! Register a Responsible user.
+//@access public
+export const registerResponsible = async (First_Names, Last_Names, Email, Password, ConfPass, DUI, Birthdate, Phone) => {
+  return await axios.post(`http://${localhost}:5005/api/auth/register`, {First_Names, Last_Names, Email, Password, ConfPass, DUI, Birthdate, Phone}, {headers: {'Content-Type': 'application/json'}});
+}

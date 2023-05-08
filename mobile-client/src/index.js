@@ -1,3 +1,5 @@
+
+
 //>> Screens
 export { RegisterScreen } from './screens/auth/RegisterScreen';
 export { RegisterPatientScreen } from './screens/auth/RegisterPatientScreen';
@@ -18,7 +20,10 @@ export { CustomButton } from './components/ButtonHook';
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';
 export { HomeStack } from './navigators/Dashboard/HomeStack';
-
 export { CalendarStack } from './navigators/Dashboard/CalendarStack';
+
 //* Queries
-export { getResponsible, uploadPFResponsible } from './queries/authQueries';
+export { getResponsible, uploadPFResponsible, registerResponsible } from './queries/authQueries';
+
+//\\ Configs
+export { toastConfig } from './components/toastConfigs';

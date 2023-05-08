@@ -23,16 +23,21 @@ const storage = getStorage();
 //! @access public
 const register = async (req, res, next) => {
   try {
-    const {First_Names, Last_Names, Email, Password, DUI, Birthdate, Phone} = req.body;
+    const {First_Names, Last_Names, Email, Password, ConfPass, DUI, Birthdate, Phone} = req.body;
     const BD = new Date(Birthdate);
 
     //1 - CHECKING EMPTY VALUES
     if (!First_Names || !Last_Names || !Email || !Password || !DUI || !Birthdate || !Phone) {
-      return res.status(500).json({message: 'Valores Vacios'});
+      return res.status(500).json({success: false, message: 'Valores Vacios'});
     }
     //>>2 - CHECK IF DUI EXISTS
     //! EL DUI ES DE 9 DIGITOS 
     // 12345678-9
+
+    //2.5 - CHECK THE PASSWORD WITH THE CONFIRMATION PASSWORD.
+    if(Password != ConfPass){
+      return res.status(500).json({success: false, message: 'Las contraseñas no coinciden'})
+    }
 
     //3 - CHECKING IF VALUES ALREADY EXIST
     const [query_check] = await pool.query('SELECT * FROM responsible WHERE DUI = ?', [DUI]);
