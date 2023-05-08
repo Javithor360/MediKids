@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View,Image,TouchableOpacity, ScrollView} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Calendario = () => {
+export const Calendario = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.fullScreenContainer}>
@@ -12,7 +12,7 @@ const Calendario = () => {
         <View View style={styles.reminderSectionContent}>
           <View style={styles.contentTitle}>
               <View style={styles.eventIconContainer}>
-                <Image style={styles.eventIcon} source={require("../assets/icons/calendarIcons/event.png")}/> 
+                <Image style={styles.eventIcon} source={require("../../../../assets/calendarIcons/event.png")}/> 
               </View>
               <View style={styles.Text1Container}>
                 <Text style={styles.Text1}>Tiene 1 eventos programados para hoy</Text>
@@ -20,7 +20,7 @@ const Calendario = () => {
           </View>
           <TouchableOpacity style={styles.markButton}>
             <View style={styles.markButtonContent}>
-                <Image style={styles.markIcon} source={require("../assets/icons/calendarIcons/task_comp.png")}/>
+                <Image style={styles.markIcon} source={require("../../../../assets/calendarIcons/task_comp.png")}/>
                 <Text style={styles.markText}>Marcar todo como completado</Text>
             </View>
           </TouchableOpacity>
@@ -29,7 +29,6 @@ const Calendario = () => {
     </SafeAreaView>
   );
 };
-export default Calendario;
 
 const styles = StyleSheet.create({
   sectionTitleContainer: {
