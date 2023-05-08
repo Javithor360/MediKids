@@ -4,18 +4,19 @@ import { createBottomTabNavigator as createTabNav } from "@react-navigation/bott
 import { useEffect, useRef } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
 //>>Stacks screens
 import { HomeStack } from '../navigators/Dashboard/HomeStack';
 import { CalendarStack } from '../navigators/Dashboard/CalendarStack';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MyAcountScreen } from "../screens/app/MyAcount/MyAcountScreen";
 
 //>>Tab items props array
 const TabProps = [
   {route: 'HomeStack', label: 'Inicio', iconName: 'home-variant', component: HomeStack, color: 'red'},
   {route: 'Calendario', label: 'Calendario', iconName: 'calendar-month', component: CalendarStack, color: 'red'},
   {route: 'Caledndario', label: 'Citas', iconName: 'clipboard-text-clock', component: CalendarStack, color: 'red'},
-  {route: 'Calenddario', label: 'Mi cuenta', iconName: 'account-circle', component: CalendarStack, color: 'red'},
+  {route: 'Calenddario', label: 'Mi cuenta', iconName: 'account-circle', component: MyAcountScreen, color: 'red'},
 ]
 
 const Tab = createTabNav();

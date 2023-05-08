@@ -1,12 +1,26 @@
+
+//>> IMPORT MODULES
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
+import { initializeApp } from 'firebase/app'
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import { v4 } from 'uuid';
+import fs from 'fs';
+
+//>> IMPORT CONFIGS & FUNCTIONS
 import {pool} from '../utils/db.js';
 import { create_code, create_jwt, create_reset_token, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
-import crypto from 'crypto';
+import firebaseConfig from '../utils/firebase.config.js';
+
+//? Startup Firebase configuration.
+initializeApp(firebaseConfig.firebaseConfig);
+
+//? Setup Firebase Storage.
+const storage = getStorage();
 
 //! @route POST api/auth/register
 //! @desc Responsible Register.
 //! @access public
-
 const register = async (req, res, next) => {
   try {
     const {First_Names, Last_Names, Email, Password, DUI, Birthdate, Phone} = req.body;
@@ -51,14 +65,15 @@ const register = async (req, res, next) => {
     // HASH PASSWORD
     const HashedPass = await bcrypt.hash(Password, 12);
 
-    // DEFAULT PF
-    const P_F = '';
+    // GET DEFAULT PERFIL PHOTO FRON FIREBASE
+    const storageRef = ref(storage, `perfil_photos/default.png`);
+    const P_F = await getDownloadURL(storageRef);
 
     // CREATE EMAIL VERIFY CODE
     const verify_code = create_code();
 
     // SAVE FIELDS
-    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo: P_F, Reset_Pass_Token: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
+    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo_Url: P_F, Profile_Photo_Name: null , Reset_Pass_Token: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
 
     // SEND EMAIL
     send_verify_code_email(verify_code, Email, res);
@@ -73,7 +88,6 @@ const register = async (req, res, next) => {
 //! @route POST api/auth/login
 //! @desc Responsible login.
 //! @access public
-
 const login = async (req, res, next) => {
   try {
     const {Email, Password} = req.body;
@@ -111,14 +125,13 @@ const login = async (req, res, next) => {
 //! @route POST api/auth/verify_email
 //! @desc Verify the email of the responsible
 //! @access Public
-
 const verify_email = async (req, res, next) => {
   try {
     const { verify_code, Email } = req.body;
 
     // CHECK IF EMAIL HAS ALREADY VERIFIED
     const [query_check_ve_co] = await pool.query('SELECT * FROM Responsible WHERE Email = ? ', [Email]);
-    if (query_check_ve_co[0].Email_Verify_Code == null) {
+    if (query_check_ve_co[0].Email_Verify_code == null) {
       return res.status(500).json({success: false, message: 'Email ya vericado'});
     }
 
@@ -140,7 +153,6 @@ const verify_email = async (req, res, next) => {
 //! @route POST api/auth/get_email_to_verify
 //! @desc Get the email of the responsible who has not still verified it
 //! @access Public
-
 const get_email_to_verify = async (req, res, next) => {
   try {
     const { Email } = req.body;
@@ -160,7 +172,6 @@ const get_email_to_verify = async (req, res, next) => {
 //! @route POST api/auth/get_responsible
 //! @desc Get the user to know if already registered
 //! @access Public
-
 const get_responsible = async (req, res, next) => {
   try {
     const { Email } = req.body;
@@ -181,7 +192,6 @@ const get_responsible = async (req, res, next) => {
 //! @route POST api/auth/forgot_password
 //! @desc Send the token to reset the password
 //! @access Public
-
 const forgot_password = async (req, res, next) => {
   try {
     const { Email } = req.body;
@@ -219,7 +229,6 @@ const forgot_password = async (req, res, next) => {
 //! @route POST api/auth/check_reset_token
 //! @desc check if the token keep meeting with the parameters to reset the password
 //! @access Private!!
-
 const check_reset_token = async (req, res, next) => {
   try {
     // const reset_pass_token  = req.params.reset_pass_token;
@@ -250,7 +259,6 @@ const check_reset_token = async (req, res, next) => {
 //! @route POST api/auth/reset_password
 //! @desc Reset the password and set null the tokens.
 //! @access Private!!
-
 const reset_password = async (req, res, next) => {
   try {
     // const reset_pass_token  = req.params.reset_pass_token;
@@ -284,6 +292,41 @@ const reset_password = async (req, res, next) => {
   }
 }
 
+//! @route POST api/auth/upload_photo
+//! @desc Reset the password and set null the tokens.
+//! @access Private!!
+const upload_pf_responsible = async (req, res, next) => {
+  try {
+    const {Email} = req.body;
+
+    //? Set name of the foto.
+    const name = v4();
+
+    //? Reference to the storage where the photo will be upload.
+    const storageRef = ref(storage, `perfil_photos/${name}`);
+    
+    //? Create the config for the upload.
+    const metadata = {contentType: req.file.mimetype};
+
+    //? Get the buffer of the image;
+    const buffer = fs.readFileSync(req.file.path);
+    
+    //? Upload the image.
+    await uploadBytesResumable(storageRef, buffer, metadata);
+
+    //? Get the url from the snapshot.
+    const url = await getDownloadURL(storageRef);
+
+    //! Save in the database;
+    await pool.query('UPDATE Responsible SET Profile_Photo_Url = ?, Profile_Photo_Name = ? WHERE Email = ?', [url, name, Email]);
+
+    return res.status(200).json({success: true});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
+
 export {
   register, 
   login, 
@@ -292,5 +335,6 @@ export {
   get_responsible, 
   forgot_password,
   check_reset_token,
-  reset_password
+  reset_password,
+  upload_pf_responsible
 };

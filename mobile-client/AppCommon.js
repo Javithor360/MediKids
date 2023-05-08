@@ -3,12 +3,14 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as ImagePicker from 'expo-image-picker';
 
 //>> Import Components
 import { setStatement } from "./src/store/slices/starterSlice";
 import { getResponsible } from "./src";
 
 export default function AppCommon ({children}) {
+  //>> Set dispatch of Redux
   const dispatch = useDispatch()
 
   //! App's Session validation.
@@ -21,7 +23,7 @@ export default function AppCommon ({children}) {
   const validateSession = async () => {
     try {
       const value = await AsyncStorage.getItem('userSession');
-      
+
       if (value) {
         const {Email, isLoggedIn} = JSON.parse(value) 
         //! Get the data from the server.
@@ -54,7 +56,21 @@ export default function AppCommon ({children}) {
       console.log(error);
     }
   }
+  
+  
+  //! Check Permissions of the application.
+  const checkPermissions = async () => {
+    try {
+      const {status} = await ImagePicker.getMediaLibraryPermissionsAsync();
+      if (status !== 'granted'){
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  //>> TEST ASYNC STORAGE
   const setAsyncStorage = async () => {
     try {
       const testingObj = {
@@ -71,6 +87,7 @@ export default function AppCommon ({children}) {
   //! Component initialization
   useEffect(() => {
     // setAsyncStorage();
+    checkPermissions();
     validateSession();
   }, []);
 

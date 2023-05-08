@@ -21,4 +21,4 @@ export { HomeStack } from './navigators/Dashboard/HomeStack';
 
 export { CalendarStack } from './navigators/Dashboard/CalendarStack';
 //* Queries
-export { getResponsible } from './queries/authQueries';
+export { getResponsible, uploadPFResponsible } from './queries/authQueries';

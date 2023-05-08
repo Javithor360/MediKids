@@ -22,7 +22,6 @@ const RunStackNav = () => {
       <Stack.Screen name='LoginScreen' component={LoginScreen} />
       <Stack.Screen name='RegisterScreen' component={RegisterScreen} />
       <Stack.Screen name='RegisterPatientScreen' component={RegisterPatientScreen} />
-      <Stack.Screen name='VerifyEmailScreen' component={VerifyEmailScreen} />
       <Stack.Screen name='ApplicationTab' component={ApplicationTab} />
       <Stack.Screen name='ForgotPasswordScreen' component={ForgotPasswordScreen} />
       <Stack.Screen name='ResetPasswordScreen' component={ResetPasswordScreen} />
