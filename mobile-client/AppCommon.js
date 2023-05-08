@@ -70,19 +70,19 @@ export default function AppCommon ({children}) {
     }
   }
 
-  //>> TEST ASYNC STORAGE
-  const setAsyncStorage = async () => {
-    try {
-      const testingObj = {
-        Email: 'yolomeme444@gmail.com',
-        isLoggedIn: false,
-      }
-      await AsyncStorage.removeItem('userSession');
-      // await AsyncStorage.setItem('userSession', JSON.stringify(testingObj));
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // //>> TEST ASYNC STORAGE
+  // const setAsyncStorage = async () => {
+  //   try {
+  //     const testingObj = {
+  //       Email: 'yolomeme444@gmail.com',
+  //       isLoggedIn: false,
+  //     }
+  //     await AsyncStorage.removeItem('userSession');
+  //     // await AsyncStorage.setItem('userSession', JSON.stringify(testingObj));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   //! Component initialization
   useEffect(() => {

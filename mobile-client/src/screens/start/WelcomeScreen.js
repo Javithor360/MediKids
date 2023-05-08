@@ -71,7 +71,7 @@ export const WelcomeScreen = () => {
             fontSize={20}
             textColor={'black'}
             Label={"Registrarse"}
-            handlePress={() => {navigation.navigate('SelectProfilePhotoScreen');}}
+            handlePress={() => {navigation.navigate('RegisterScreen');}}
             haveShadow={true}
           /> 
         </View>

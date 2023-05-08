@@ -320,6 +320,9 @@ const upload_pf_responsible = async (req, res, next) => {
     //! Save in the database;
     await pool.query('UPDATE Responsible SET Profile_Photo_Url = ?, Profile_Photo_Name = ? WHERE Email = ?', [url, name, Email]);
 
+    //>> Delete File fron upload directory.
+    fs.unlink(req.file.path, (err) => {if (err) throw err});
+
     return res.status(200).json({success: true});
   } catch (error) {
     return res.status(500).json({error});
