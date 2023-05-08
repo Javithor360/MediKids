@@ -1,44 +1,599 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, ScrollView, Image, View, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context'
-import {CustomButton} from '../../../index'
 import { useNavigation } from '@react-navigation/native'
 
 export const HomeScreen = () => {
   const navigation = useNavigation()
 
   return (
-    <SafeAreaView>
-      <Text>HomeApp</Text>
-      <View style={styles.buttonView}>
-        <CustomButton 
-          bgColor={'#fafafa'}
-          paddingV={15}
-          paddingH={20}
-          marginH={0}
-          marginV={0}
-          width={200}
-          height={100}
-          BorderRadius={10}
-          fontFamily={'poppinsBold'}
-          fontSize={20}
-          textColor={'black'}
-          Label={"Otra Screen"}
-          handlePress={() => {navigation.navigate('Other');}}
-          haveShadow={true}
-        /> 
+
+    <ScrollView  contentContainerStyle={{ height:1499 }} style={{ height: 100, backgroundColor:'red', }}>
+      <View  style={styles.container} >
+        <StatusBar  style="auto" />
+        <View style={styles.contWave} >
+          <Image
+            style={styles.waves}
+            source={require("../../../../assets/waves/wave-top-home-page.png")}
+          /> 
+        </View>
+        <View style={styles.contLogo} >
+          <Image
+            style={styles.Image}
+            source={require("../../../../assets/logos/Logotype_Colored.png")}
+          />
+        </View>
+        <View style= {styles.bell}  >
+          <TouchableOpacity>
+            <Image style= {styles.bell1} source={require("../../../../assets/icons/bell.png")}/>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.points}>
+            <Text  style={styles.pointsT}   >...</Text> 
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.saludo}>Hola</Text>
+        <Text style={styles.User}>Skyler white</Text>
+        <Text style={styles.Rol}>Encargado</Text>
+        <View style={styles.cardShadow}></View>
+        <View style={styles.card}>
+          <View style={styles.contKid}>
+            <Image
+              style={styles.kid} 
+              source={require("../../../../assets/icons/kid.png")}
+              /> 
+          </View>
+          <View style={styles.TextCard}>
+            <Text style={styles.TextP1} >Nombre del paciente:</Text>
+            <Text style={styles.TextN} >Walter Hartwell White Jr</Text>
+            <Text style={styles.TextP2} >Edad:</Text>
+            <Text style={styles.TextE} >9 Años</Text>
+            <Text style={styles.TextP3} >Género:</Text>
+            <Text style={styles.TextG} >Masculino</Text>
+          </View>
+          <Image
+            style={styles.medicalnote} 
+            source={require("../../../../assets/icons/medical-note.png")}
+          /> 
+          <TouchableOpacity style={styles.contbuttonEx}>
+            <View >
+              <Text style={styles.ViewExpediente} >Ver Expediente clínico</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.recordatorio}  >Recordatorios</Text>
+        <View style={styles.contRe}  >
+          <View style={styles.contshadow}>
+            <View style={styles.contrecordatorio}>
+              <Text style={styles.citas} >Citas Pendientes</Text>
+              <Image style={styles.notetime} source={require("../../../../assets/icons/note-time.png")}/> 
+              <Text   style={styles.numberCitas}>2</Text>
+              <View style={styles.contextRe}>
+                <Text style={styles.CitaProx} >Citas más próximas</Text>
+                <Text  style={styles.fechaText} >Fecha:</Text>   
+                <Text  style={styles.fecha}>20/03/2023</Text>
+                <Text  style={styles.horaText}>Hora:</Text>
+                <Text  style={styles.hora}>2:00 PM</Text>
+                <TouchableOpacity style={styles.ButtonCitas}>
+                  <View>
+                    <Text style={styles.ViewCitas} >Más detalles</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+  
+          <View style={styles.contshadow}>
+            <View style={styles.contrecordatorio}>
+              <Text style={styles.recetas}>Recetas Pendientes</Text>
+              <Image style={styles.recipe} source={require("../../../../assets/icons/recipe.png")}/> 
+              <Text style={styles.numberRecetas}>1</Text>
+              <View style={styles.contextRe} >
+                <Text  style={styles.MediText}>Medicamentos disponibles:</Text>
+                <Text style={styles.cantidad}>3/5</Text>
+                <Text style={styles.precioText}>Precio total estimado:</Text>
+                <Text style={styles.precio} >$40.99</Text>
+              </View>
+              <TouchableOpacity style={styles.ButtonFarm}>
+                <View>
+                  <Text style={styles.ViewRecetas} >Ir a la farmacia</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+
+        <Text style={styles.categorias}>Categorias</Text>
+
+        <View style={styles.Contcate} >
+          <View style={styles.Contcategorias}  >
+            <Image style={styles.neumologia} source={require("../../../../assets/graphic-icons/neumologia-icon.png")}/> 
+            <Text style={styles.neumologiaText}  >Neumologia</Text>
+            <Text style={styles.neumologiaText1}>Nos enfocamos en el diagnóstico y tratamiento de enfermedades que afectan el sistema respiratorio, incluyendo los pulmones, la tráquea, los bronquios y la pleura. </Text>
+            <TouchableOpacity style={styles.ButtonNeumologia}>
+              <View>
+                <Text style={styles.ViewNeumologia} >Más Información</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.Contcategorias1}  >
+            <Image style={styles.otorrino} source={require("../../../../assets/graphic-icons/otorrino-icon.png")}/> 
+            <Text style={styles.neumologiaText}  >Otorrinolaringologia</Text>
+            <Text style={styles.neumologiaText1}>Nos enfocamos en el diagnóstico y tratamiento de trastornos relacionados con la cabeza y el cuello, incluyendo los oídos, la nariz, la garganta y las estructuras relacionadas.</Text>
+            <TouchableOpacity style={styles.ButtonOtorrino}>
+              <View>
+                <Text style={styles.ViewOtorrino} >Más Información</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.Contcategorias2}  >
+            <Image style={styles.gastro} source={require("../../../../assets/graphic-icons/gastro-icon.png")}/> 
+            <Text style={styles.neumologiaText}  >Gastroenterología</Text>
+            <Text style={styles.neumologiaText1}>Nos enfocamos en el diagnóstico y tratamiento de enfermedades que afectan el sistema digestivo.</Text>
+            <TouchableOpacity style={styles.ButtonGastro}>
+              <View>
+                <Text style={styles.ViewGastro} >Más Información</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-      <TextInput placeholder='hola'/>
-    </SafeAreaView>
+    </ScrollView>
   )
 }
 
-
 const styles = StyleSheet.create({
-  buttonView: {
-    paddingHorizontal: 20,
-    height: '30%',
-    flexDirection:'column',
-    justifyContent:'space-between',
-    alignItems: 'center',
-  }
-})
+  container: {
+    flex:1,
+    backgroundColor: 'white',
+    height:1000,
+  },
+  User:{
+    fontSize:20,
+    marginTop:'-50%',
+    marginBottom:'15%',
+    marginLeft:'5%',
+    color:'gray',
+  },
+  pointsT:{
+    fontSize:50,
+    color:'gray',
+  },
+  points:{
+    marginLeft:'85%',
+    position:'absolute',
+    marginTop:'-5.5%',
+  },
+  scroll:{
+    backgroundColor: 'red',
+  },
+  bell:{
+    flexDirection:'row',
+    marginTop:'-113%',
+    marginLeft:'6%',
+  },
+  contLogo:{
+    width: '66%',
+    height:'8.3%',
+    marginTop:'100%',
+  },
+  cont2:{
+    flexDirection:'row',
+  },
+  recordatorio:{
+    marginTop:'20%',
+    marginLeft:'8%',
+    fontSize:35,
+    color:'gray',
+    textDecorationLine:'underline',
+  },
+  kid:{
+    position:'absolute',
+    width:50,
+    height:50,
+    marginLeft:15,
+    marginTop:15,
+  },
+  contKid:{
+    backgroundColor:'#D8D8FF',
+    marginTop:'-25%',
+    borderRadius:100,
+    borderStyle:'solid',
+    padding:'15%',
+    margin:'-15%',
+    marginLeft:'35%',
+    width:'10%',
+    height:'10%',
+  },
+  contWave:{
+    position:'absolute',
+    marginTop:'0%',
+    marginBottom:'0%',
+    width: '100%',
+    height:'70%',
+  },
+  saludo:{
+    color:'gray',
+    fontSize:40,
+    marginBottom:'50%',
+    marginTop:'15%',
+    marginLeft:'5%',
+  },
+  Rol:{
+    fontSize:20,
+    marginBottom:'50%',
+    marginTop:'-25%',
+    marginLeft:'75%',
+    color:'#d58c8c',
+  },
+//Paciente
+  cardShadow:{
+    width:'85%',
+    height:'18%',
+    backgroundColor:'#D8D8FF',
+    marginTop:'-40%',
+    borderRadius:20,
+    borderStyle: 'solid',
+    padding:'10%',
+    margin:'-15%',
+    marginLeft:'7.5%',
+  },
+  card:{
+    width:'85%',
+    height:'17%',
+    backgroundColor:'#A375FF',
+    marginTop:'-40%',
+    borderRadius:20,
+    borderStyle: 'solid',
+    padding:'10%',
+    margin:'-15%',
+    marginLeft:'7.5%',
+    bottom:28,
+  },
+  contbuttonEx:{
+    backgroundColor: 'white',
+    borderStyle: 'solid',
+    borderRadius:20,
+    width:'80%',
+    height:'25%',
+    padding:'5%',
+    marginLeft:'20%',
+    marginTop:'-15%',
+  },
+  ViewExpediente:{
+    color:'#A375FF',
+    fontSize:13,
+    fontWeight:'bold',
+    textAlign:'center',
+  },
+  TextCard:{
+    flexDirection:'row',
+    gap:1,
+    margin:'15%',
+    marginTop:'10%',
+  },
+  TextP1:{
+    margin:'10%',
+    marginLeft:'-35%',
+    color:'white',
+    fontWeight:'bold',
+  },
+  TextN:{
+    color:'white',
+    marginTop:'20%',
+    marginLeft:'-71%',
+  },
+  TextE:{
+    color:'white',
+    marginTop:'20%',
+    marginLeft:'-26%',
+  },
+  TextG:{
+    color:'white',
+    marginTop:'20%',
+    marginLeft:'-32%',
+  },
+  TextP2:{
+    margin:'10%',
+    color:'white',
+    fontWeight:'bold',
+    marginLeft:'20%',
+  },
+  TextP3:{
+    margin:'10%',
+    color:'white',
+    fontWeight:'bold',
+    marginLeft:'25%',
+  },
+  medicalnote:{
+    width:'15%',
+    height:'30%',
+    resizeMode:'contain',
+  },
+ //Fin Paciente 
+  Image: {
+    width: '85%',
+    height:'37%', 
+    marginTop:'-130%',
+    marginLeft:'37%',
+  },
+  contshadow:{
+    position: 'relative',
+    backgroundColor: '#CDCDF3',
+    width:'45%',
+    height:'90%',
+    borderRadius:20,
+    borderColor:'#CDCDF3',
+    borderWidth:1,
+  },
+  contrecordatorio:{
+    position:'absolute',
+    width:'100%',
+    height:'94%',
+    backgroundColor:'white',
+    borderColor:'white',
+    borderRadius:20,
+    borderStyle: 'solid',
+    top: 15,
+  },
+  contRe:{
+    width:'100%',
+    height:'40%',
+    justifyContent: 'center',
+    flexDirection:'row',
+    flex:1,
+    alignItems:'center',
+    gap:10
+  },
+  citas:{
+    color:'gray',
+    textAlign:'center',
+    fontWeight:'bold',
+    fontSize:17,
+    top:5,
+  },
+  recetas:{
+    color:'gray',
+    textAlign:'center',
+    fontWeight:'bold',
+    fontSize:17,
+    top:5,
+  },
+  recipe:{
+    width:'29%',
+    height:'25%',
+    marginLeft:'15%',
+    marginTop:'5%',
+    resizeMode:'contain',
+  },
+  notetime:{
+    width:'29%',
+    height:'25%',
+    marginLeft:'15%',
+    marginTop:'5%',
+    resizeMode:'contain',
+  },
+  numberCitas:{
+    color:'#A375FF',
+    fontWeight:'bold',
+    fontSize:35,
+    marginLeft:'50%',
+    marginTop:'-26%',
+  },
+  numberRecetas:{
+    color:'#A375FF',
+    fontWeight:'bold',
+    fontSize:35,
+    marginLeft:'50%',
+    marginTop:'-26%',
+  },
+  contextRe:{
+    marginTop:'10%',
+    marginLeft:'10%',
+  },
+  fecha:{
+    top:2,
+    color:'#707070',
+  },
+  hora:{
+    top:5,
+    color:'#707070',
+  },
+  horaText:{
+    top:5,
+    fontWeight:'bold',
+    color:'#707070',
+    fontSize:15,
+  },
+  fechaText:{
+    top:1,
+    fontWeight:'bold',
+    color:'#707070',
+    fontSize:15,
+  },
+  cantidad:{
+    color:'#707070',
+    top:5,
+  },
+  precioText:{
+    fontWeight:'bold',
+    top:5,
+    color:'#707070',
+    fontSize:15,
+  },
+  precio:{
+    top:10,
+    color:'#707070',
+  },
+  MediText:{
+    fontWeight:'bold',
+    color:'#707070',
+    fontSize:15,
+  },
+  CitaProx:{
+    fontWeight:'bold',
+    bottom:2,
+    color:'#707070',
+    fontSize:15,
+  },
+  ButtonFarm:{
+    backgroundColor: '#D48888',
+    borderStyle: 'solid',
+    borderRadius:20,
+    width:'70%',
+    height:'15%',
+    padding:'5%',
+    marginLeft:'15%',
+    top:25,
+  },
+  ViewRecetas:{
+    color:'white',
+    fontSize:13,
+    fontWeight:'bold',
+    textAlign:'center',
+  },
+  ButtonCitas:{
+    backgroundColor: '#D48888',
+    borderStyle: 'solid',
+    borderRadius:20,
+    width:'70%',
+    height:'25%',
+    padding:'5%',
+    marginLeft:'10%',
+    top:10,
+  },
+  ViewCitas:{
+    color:'white',
+    fontSize:13,
+    fontWeight:'bold',
+    textAlign:'center',
+  },
+  categorias:{
+    marginBottom:'-70%',
+    marginLeft:'8%',
+    fontSize:35,
+    color:'gray',
+    textDecorationLine:'underline',
+  },
+  Contcate:{
+    top:'58%',
+  },
+  Contcategorias:{
+    backgroundColor:'#FED5A0',
+    height:'19%',
+    width:'80%',
+    left:45,
+    borderRadius:20,
+    top:-555,
+  },
+  Contcategorias1:{
+    backgroundColor:'#FED5A0',
+    height:'19%',
+    width:'80%',
+    left:45,
+    borderRadius:20,
+    top:-540,
+  },
+  Contcategorias2:{
+    backgroundColor:'#FED5A0',
+    height:'19%',
+    width:'80%',
+    left:45,
+    borderRadius:20,
+    top:-525,
+  },
+  neumologia:{
+    left:4,
+    top:40,
+    height:'53%',
+    width:'25%',
+    resizeMode:'contain',
+  },
+  otorrino:{
+    left:15,
+    top:45,
+    height:'50%',
+    width:'21.10%',
+    resizeMode:'contain',
+  },
+  gastro:{
+    left:5,
+    top:45,
+    height:'47%',
+    width:'25%',
+    resizeMode:'contain',
+  },
+  neumologiaText:{
+    fontSize:20,
+    position:'absolute',
+    left:90,
+    top:10,
+    fontWeight:'bold',
+    color:'gray',
+  },
+  neumologiaText1:{
+    fontSize:13,
+    position:'absolute',
+    left:95,
+    top:35,
+    fontWeight:'bold',
+    right:10,
+    textAlign:'justify',
+  },
+  ViewNeumologia:{
+    color:'#FED5A0',
+    bottom:7,
+    textAlign:'center',
+    height:15,
+  },
+  ViewOtorrino:{
+    color:'#FED5A0',
+    bottom:7,
+    textAlign:'center',
+    height:15,
+  },
+  bell1:{
+    height:30,
+    width:23,
+    left:5,
+  },
+  ViewGastro:{
+    color:'#FED5A0',
+    bottom:7,
+    textAlign:'center',
+    height:15,
+  },
+  ButtonNeumologia:{
+    backgroundColor: '#D48888',
+    borderStyle: 'solid',
+    borderRadius:20,
+    width:'40%',
+    height:'25%',
+    padding:'5%',
+    marginLeft:'55%',
+    top:15,
+  },
+  ButtonOtorrino:{
+    backgroundColor: '#D48888',
+    borderStyle: 'solid',
+    borderRadius:20,
+    width:'40%',
+    height:'25%',
+    padding:'5%',
+    marginLeft:'55%',
+    top:20,
+  },
+  ButtonGastro:{
+    backgroundColor: '#D48888',
+    borderStyle: 'solid',
+    borderRadius:20,
+    width:'40%',
+    height:'25%',
+    padding:'5%',
+    marginLeft:'55%',
+    top:24,
+  },
+  waves:{
+    width: '100%',
+    height:'16%',
+  },
+});

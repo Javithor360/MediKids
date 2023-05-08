@@ -10,6 +10,7 @@ export { ForgotPasswordScreen } from  './screens/auth/ForgotPasswordScreen';
 export { ResetPasswordScreen } from  './screens/auth/ResetPasswordScreen';
 export { SelectProfilePhotoScreen } from './screens/auth/SelectProfilePhotoScreen'
 export { VerifyCodeScreen } from './screens/auth/VerifyCodeScreen';
+export { Calendario } from './screens/app/calendar/Calendario'
 
 //?? Components
 export { CustomButton } from './components/ButtonHook';
@@ -18,5 +19,6 @@ export { CustomButton } from './components/ButtonHook';
 export { ApplicationTab } from './navigators/ApplicationTab';
 export { HomeStack } from './navigators/Dashboard/HomeStack';
 
+export { CalendarStack } from './navigators/Dashboard/CalendarStack';
 //* Queries
 export { getResponsible } from './queries/authQueries';
