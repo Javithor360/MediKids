@@ -15,16 +15,14 @@ export const MyAcountScreen = () => {
 
         <View style={styles.Contain1}>
          <View style={styles.LineTitulo}></View>      
-        <Text style={styles.Titulo}>Mi cuenta</Text>
-        <Text style={styles.Datos}>Datos del Encargado</Text>
-        <View style={styles.containPhoto}>
-            <View style={styles.profilePhotoWrapper}>
-                <ImageBackground style={styles.profilePhotoImage} source={require('../../../../assets/default-pics/default-profile-pic.png')}>
-                </ImageBackground>
-            </View>
-        </View>  
-        
-
+            <Text style={styles.Titulo}>Mi cuenta</Text>
+            <Text style={styles.Datos}>Datos del Encargado</Text>
+            <View style={styles.containPhoto}>
+                <View style={styles.profilePhotoWrapper}>
+                    <ImageBackground style={styles.profilePhotoImage} source={require('../../../../assets/default-pics/default-profile-pic.png')}>
+                    </ImageBackground>
+                </View>
+            </View>  
         </View>
 
         <View style={styles.Contain2}>

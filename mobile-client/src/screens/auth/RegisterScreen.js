@@ -11,7 +11,7 @@ export const RegisterScreen = () => {
   const navigation = useNavigation()
   return (
     <>
-      <View style={AuthStylesGlobal.mainContainer}>
+      <ScrollView style={AuthStylesGlobal.mainContainer}>
         <View style={AuthStylesGlobal.topWaveContainer}>
           <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
           <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.navigate('WelcomeScreen')}>
@@ -53,6 +53,16 @@ export const RegisterScreen = () => {
               placeholder="Correo electrónico"
               placeholderTextColor="gray"
             />
+            <TextInput
+              style={[AuthStylesGlobal.input, AuthStylesGlobal.customW91]}
+              placeholder="Contraseña"
+              placeholderTextColor="gray"
+            />
+            <TextInput
+              style={[AuthStylesGlobal.input, AuthStylesGlobal.customW91]}
+              placeholder="Confirmar contraseña"
+              placeholderTextColor="gray"
+            />
             <View style={AuthStylesGlobal.buttonView}>
               <CustomButton 
                 bgColor={'#A375FF'}
@@ -82,7 +92,7 @@ export const RegisterScreen = () => {
         <View style={AuthStylesGlobal.bottomWaveContainer}>
           <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_buttom.png")}/> 
         </View>
-      </View>
+      </ScrollView>
     </>
   )
 }
