@@ -85,6 +85,7 @@ export default function AppCommon ({children}) {
 
   //! Component initialization
   useEffect(() => {
+    // AsyncStorage.removeItem('userSession');
     checkPermissions();
     validateSession();
   }, []);

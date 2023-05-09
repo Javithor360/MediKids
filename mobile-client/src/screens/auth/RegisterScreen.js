@@ -81,7 +81,7 @@ export const RegisterScreen = () => {
         showToast('my_success', 'Éxito', 'Registro completado correctamente');
 
         //! Set Async Storage Values
-        const userSession = { Email: data.User.Email, isLoggedIn: false, jwtToken: null}
+        const userSession = { Email: data.Email, isLoggedIn: false, jwtToken: null}
         await AsyncStorage.setItem('userSession', JSON.stringify(userSession));
 
         //! Set the Stater State

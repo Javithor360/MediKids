@@ -76,7 +76,9 @@ export const MyAcountScreen = () => {
                     <Text style={{color: '#fff'}}>Cambiar Foto de Perfil</Text>
                 </TouchableOpacity>
                 </View>
-
+                {/* <TouchableOpacity onPress={() => {navigation.navigate('SelectProfilePhotoScreen')}} style={{ height: '10%',width: '90%',borderRadius: 15,backgroundColor: '#D04343',alignItems: 'center',justifyContent: 'center',marginTop: 10,}}>
+                    <Text style={{color: '#fff'}}>Cerrar Sesión</Text>
+                </TouchableOpacity> */}
              </View>
              </View>
         </View>

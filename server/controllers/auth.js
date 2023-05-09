@@ -81,7 +81,7 @@ const register = async (req, res, next) => {
     await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo_Url: P_F, Profile_Photo_Name: null , Reset_Pass_Token: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
 
     // SEND EMAIL
-    // send_verify_code_email(verify_code, Email, res);
+    send_verify_code_email(verify_code, Email, res);
 
     return res.status(200).json({success: true, Email})
   } catch (error) {
