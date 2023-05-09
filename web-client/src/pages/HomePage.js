@@ -34,7 +34,7 @@ export const HomePage = () => {
                 <div>
                     <h1>Una clínica, una familia en quien confiar</h1>
                     <p>Nuestros servicios especializados brindan una atención asertiva y eficaz a los niños y adolescentes</p>
-                    <Link class="readMoreBtn bgBtn1" to="">Leer Más</Link>
+                    <Link className="readMoreBtn bgBtn1" to="">Leer Más</Link>
                 </div>
             </div>
             <div className="mainInfoRow2">
@@ -46,7 +46,7 @@ export const HomePage = () => {
             </div>
         </section>
         <section>
-            <div class="MainInfo2">
+            <div className="MainInfo2">
                 <div className="mainInfoRow2_1">
                     <img className="circleImg" src={IndexImages("./banners/dra-circle-1-02.png")} alt=""/>
                 </div>
@@ -107,7 +107,7 @@ export const HomePage = () => {
             </div>
         </section>
         <section>
-            <div class="docsTitle">
+            <div className="docsTitle">
                 <p>Nuestros médicos</p>
             </div>
             <article className="docsPics">
@@ -124,7 +124,7 @@ export const HomePage = () => {
                 <div className="docSpace">
                     <img src={IndexImages("./doctores/Dr_flores.png")} alt=""/>
                     <h2>Dr. Adrián Flores </h2>
-                    <Link class="readMoreBtn bgBtn5" to="/dr-flores">Conoce más</Link>
+                    <Link className="readMoreBtn bgBtn5" to="/dr-flores">Conoce más</Link>
                 </div>
             </article>
         </section>
