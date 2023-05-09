@@ -1,151 +1,361 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, ScrollView, Image, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, ScrollView, Image, View, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
-
+const { height } = Dimensions.get('window');
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Entypo } from '@expo/vector-icons'; 
 export const HomeScreen = () => {
   const navigation = useNavigation()
 
   return (
-
-    <ScrollView  contentContainerStyle={{ height:1499 }} style={{ height: 100, backgroundColor:'red', }}>
-      <View  style={styles.container} >
-        <StatusBar  style="auto" />
-        <View style={styles.contWave} >
-          <Image
-            style={styles.waves}
-            source={require("../../../../assets/waves/wave-top-home-page.png")}
-          /> 
-        </View>
-        <View style={styles.contLogo} >
-          <Image
-            style={styles.Image}
-            source={require("../../../../assets/logos/Logotype_Colored.png")}
-          />
-        </View>
-        <View style= {styles.bell}  >
-          <TouchableOpacity>
-            <Image style= {styles.bell1} source={require("../../../../assets/icons/bell.png")}/>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.points}>
-            <Text  style={styles.pointsT}   >...</Text> 
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.saludo}>Hola</Text>
-        <Text style={styles.User}>Skyler white</Text>
-        <Text style={styles.Rol}>Encargado</Text>
-        <View style={styles.cardShadow}></View>
-        <View style={styles.card}>
-          <View style={styles.contKid}>
-            <Image
-              style={styles.kid} 
-              source={require("../../../../assets/icons/kid.png")}
-              /> 
-          </View>
-          <View style={styles.TextCard}>
-            <Text style={styles.TextP1} >Nombre del paciente:</Text>
-            <Text style={styles.TextN} >Walter Hartwell White Jr</Text>
-            <Text style={styles.TextP2} >Edad:</Text>
-            <Text style={styles.TextE} >9 Años</Text>
-            <Text style={styles.TextP3} >Género:</Text>
-            <Text style={styles.TextG} >Masculino</Text>
-          </View>
-          <Image
-            style={styles.medicalnote} 
-            source={require("../../../../assets/icons/medical-note.png")}
-          /> 
-          <TouchableOpacity style={styles.contbuttonEx}>
-            <View >
-              <Text style={styles.ViewExpediente} >Ver Expediente clínico</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.recordatorio}  >Recordatorios</Text>
-        <View style={styles.contRe}  >
-          <View style={styles.contshadow}>
-            <View style={styles.contrecordatorio}>
-              <Text style={styles.citas} >Citas Pendientes</Text>
-              <Image style={styles.notetime} source={require("../../../../assets/icons/note-time.png")}/> 
-              <Text   style={styles.numberCitas}>2</Text>
-              <View style={styles.contextRe}>
-                <Text style={styles.CitaProx} >Citas más próximas</Text>
-                <Text  style={styles.fechaText} >Fecha:</Text>   
-                <Text  style={styles.fecha}>20/03/2023</Text>
-                <Text  style={styles.horaText}>Hora:</Text>
-                <Text  style={styles.hora}>2:00 PM</Text>
-                <TouchableOpacity style={styles.ButtonCitas}>
-                  <View>
-                    <Text style={styles.ViewCitas} >Más detalles</Text>
-                  </View>
+      <ScrollView style={{ height: height}}>
+        {/* <StatusBar translucent backgroundColor="#D8D7FE" /> */}
+        <View style={styles.waveTopContent}>
+          <ImageBackground source={require('../../../../assets/waves/wave-top-home-page.png')} style={styles.waveImg}></ImageBackground>
+          <View style={styles.TopLogoBtnContainer}>
+            <View style={styles.TopLogoBtnContent}>
+              <View style={[styles.itemContainer, {width: '20%', height: '100%'}]}>
+                <TouchableOpacity>
+                  <MaterialCommunityIcons name="bell" size={34} color="#707070" />
+                </TouchableOpacity>
+              </View>
+              <View style={[styles.itemContainer, {width: '60%', height: '100%'}]}>
+                <Image source={require('../../../../assets/logos/Logotype_Colored.png')} style={styles.logoHeader}/>
+              </View>
+              <View style={[styles.itemContainer, {width: '20%', height: '100%'}]}>
+                <TouchableOpacity>
+                  <Entypo name="dots-three-horizontal" size={34} color="#707070" />
                 </TouchableOpacity>
               </View>
             </View>
           </View>
-  
-          <View style={styles.contshadow}>
-            <View style={styles.contrecordatorio}>
-              <Text style={styles.recetas}>Recetas Pendientes</Text>
-              <Image style={styles.recipe} source={require("../../../../assets/icons/recipe.png")}/> 
-              <Text style={styles.numberRecetas}>1</Text>
-              <View style={styles.contextRe} >
-                <Text  style={styles.MediText}>Medicamentos disponibles:</Text>
-                <Text style={styles.cantidad}>3/5</Text>
-                <Text style={styles.precioText}>Precio total estimado:</Text>
-                <Text style={styles.precio} >$40.99</Text>
+        </View>
+
+        <View style={styles.titleContainer}>
+          <View style={styles.welcomeMsg}>
+            <Text style={{height: '100%', fontSize: 29, color: '#707070',}}>
+              Hola
+            </Text>
+          </View>
+          <View style={styles.userNameDsp}>
+            <View style={{height: '100%', justifyContent: 'center',}}>
+              <Text style={{color: '#707070', fontSize: 18}}>Skyler White</Text>
+            </View>
+            <View style={{height: '100%', justifyContent: 'center',}}>
+              <Text style={{fontWeight:'bold', color: '#D58C8C', alignSelf: 'flex-end', marginRight: 10, fontSize: 18}}>Encargado</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.cardInfoContainer}>
+          <View style={{width: '100%', height: '16%',alignItems: 'center',}}>
+            <View style={styles.childIconContainer}>
+              <Image source={require('../../../../assets/icons/kid.png')}  style={{width: '70%', resizeMode: 'contain',}} />
+            </View>
+          </View>
+          <View style={{width: '100%', height: '37.5%', alignItems: 'center',}}>
+            <View style={styles.patientData}>
+              <View style={[styles.patienDataText, {width: '50%', height: '100%'}]}>
+                <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Nombre del paciente:</Text>
+                <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">Daniel Ernesto Vásquez Ventura</Text>
               </View>
-              <TouchableOpacity style={styles.ButtonFarm}>
-                <View>
-                  <Text style={styles.ViewRecetas} >Ir a la farmacia</Text>
-                </View>
+              <View style={[styles.patienDataText, {width: '25%', height: '100%'}]}>
+                <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Edad:</Text>
+                <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">8 años</Text>
+              </View>
+              <View style={[styles.patienDataText, {width: '25%', height: '100%'}]}>
+                <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Género:</Text>
+                <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">Masculino</Text>
+              </View>
+            </View>
+          </View>
+          <View style={{width: '100%', height: '37.5%', alignItems: 'center',}}>
+            <View style={styles.viewBtnContainer}>
+              <View style={[styles.contentBtn, {width: '30%'}]}>
+                <Image source={require('../../../../assets/icons/medical-note.png')} style={{height: '60%', resizeMode: 'contain'}}></Image>
+              </View>
+              <View style={[styles.contentBtn, {width: '70%'}]}>
+                <TouchableOpacity style={styles.touchableViewBtn}>
+                  <Text style={{color: '#A375FF'}}>Ver expediente clinico</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
+
+        <Text style={{marginTop: 25, marginLeft: 20, marginBottom: 20, fontSize: 29, color: '#707070',textDecorationLine: 'underline'}}>
+          Recordatorios
+        </Text>
+        
+        <View style={{height: 'auto', width: '100%',  flexDirection: 'row',}}>
+          <View style={styles.reminderContainer}>
+            <View style={styles.reminderCard}>
+              <Text style={{marginTop: 25, fontSize: 16, fontWeight: "900", color: '#000000', textAlign: 'center',}}>Citas pendientes</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: '30%', width: '80%', gap: 15}}>
+                <Image source={require('../../../../assets/icons/note-time.png')} style={{height: '60%', resizeMode: 'contain',}}/>
+                <Text style={{fontSize: 35, color:  '#A375FF', fontWeight: 600,}}>2</Text>
+              </View>
+
+              <Text style={{marginTop: 10, fontWeight: "900", fontSize: 15, color: '#000000'}}>Cita mas proxima:</Text>
+
+              <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Fecha: </Text>09/05/23</Text>
+
+              <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Hora: </Text>2:00 PM</Text>
+
+              <TouchableOpacity style={styles.touchableViewBtn2}>
+                <Text style={{color: '#fff'}}>Más detalles</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={styles.reminderContainer}>
+            <View style={styles.reminderCard}>
+            <Text style={{marginTop: 25, fontSize: 16, fontWeight: "900", color: '#000000', textAlign: 'center',}}>Recetas</Text>
+              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: '30%', width: '80%', gap: 15}}>
+                <Image source={require('../../../../assets/icons/recipe.png')} style={{height: '60%', resizeMode: 'contain',}}/>
+                <Text style={{fontSize: 35, color:  '#A375FF', fontWeight: 600,}}>1</Text>
+              </View>
+
+              <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Medicamentos: </Text>5</Text>
+
+              <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Fecha: </Text>09/05/23</Text>
+
+              <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Total: </Text>$50.89</Text>
+
+              <TouchableOpacity style={styles.touchableViewBtn2}>
+                <Text style={{color: '#fff'}}>Más detalles</Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
 
-        <Text style={styles.categorias}>Categorias</Text>
+        <Text style={{marginTop: 25, marginLeft: 20, marginBottom: 20, fontSize: 29, color: '#707070',textDecorationLine: 'underline'}}>
+          Categorias
+        </Text>
 
-        <View style={styles.Contcate} >
-          <View style={styles.Contcategorias}  >
-            <Image style={styles.neumologia} source={require("../../../../assets/graphic-icons/neumologia-icon.png")}/> 
-            <Text style={styles.neumologiaText}  >Neumologia</Text>
-            <Text style={styles.neumologiaText1}>Nos enfocamos en el diagnóstico y tratamiento de enfermedades que afectan el sistema respiratorio, incluyendo los pulmones, la tráquea, los bronquios y la pleura. </Text>
-            <TouchableOpacity style={styles.ButtonNeumologia}>
-              <View>
-                <Text style={styles.ViewNeumologia} >Más Información</Text>
-              </View>
-            </TouchableOpacity>
+        <View style={styles.categCardContainer}>
+          <View style={{height: '60%', width: '100%', flexDirection: 'row',}}>
+            <View style={{width: '30%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+              <Image source={require('../../../../assets/graphic-icons/gastro-icon.png')} style={{width: '100%', height: '70%', resizeMode: 'contain',}}/>
+            </View>
+            <View style={{width: '70%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+              <Text style={{fontWeight: 600, fontSize: 22, color: "#707070", alignSelf: 'flex-start', marginLeft: 10, marginBottom: 4,}}>Gastroenterología</Text>
+              <Text style={{fontSize: 14, color: "#707070", alignSelf: 'flex-start', marginLeft: 10,}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a</Text>
+            </View>
           </View>
-          <View style={styles.Contcategorias1}  >
-            <Image style={styles.otorrino} source={require("../../../../assets/graphic-icons/otorrino-icon.png")}/> 
-            <Text style={styles.neumologiaText}  >Otorrinolaringologia</Text>
-            <Text style={styles.neumologiaText1}>Nos enfocamos en el diagnóstico y tratamiento de trastornos relacionados con la cabeza y el cuello, incluyendo los oídos, la nariz, la garganta y las estructuras relacionadas.</Text>
-            <TouchableOpacity style={styles.ButtonOtorrino}>
-              <View>
-                <Text style={styles.ViewOtorrino} >Más Información</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.Contcategorias2}  >
-            <Image style={styles.gastro} source={require("../../../../assets/graphic-icons/gastro-icon.png")}/> 
-            <Text style={styles.neumologiaText}  >Gastroenterología</Text>
-            <Text style={styles.neumologiaText1}>Nos enfocamos en el diagnóstico y tratamiento de enfermedades que afectan el sistema digestivo.</Text>
-            <TouchableOpacity style={styles.ButtonGastro}>
-              <View>
-                <Text style={styles.ViewGastro} >Más Información</Text>
-              </View>
+          <View style={{height: '40%', width: '100%', justifyContent: 'center',}}>
+            <TouchableOpacity style={styles.touchableViewBtn3}>
+              <Text style={{color: '#fff'}}>Más detalles</Text>
             </TouchableOpacity>
           </View>
         </View>
-      </View>
-    </ScrollView>
+
+        <View style={styles.categCardContainer}>
+          <View style={{height: '60%', width: '100%', flexDirection: 'row',}}>
+            <View style={{width: '30%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+              <Image source={require('../../../../assets/graphic-icons/otorrino-icon.png')} style={{width: '100%', height: '70%', resizeMode: 'contain',}}/>
+            </View>
+            <View style={{width: '70%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+              <Text style={{fontWeight: 600, fontSize: 22, color: "#707070", alignSelf: 'flex-start', marginLeft: 10, marginBottom: 4,}}>Otorrinolaringología</Text>
+              <Text style={{fontSize: 14, color: "#707070", alignSelf: 'flex-start', marginLeft: 10,}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a</Text>
+            </View>
+          </View>
+          <View style={{height: '40%', width: '100%', justifyContent: 'center',}}>
+            <TouchableOpacity style={styles.touchableViewBtn3}>
+              <Text style={{color: '#fff'}}>Más detalles</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.categCardContainer}>
+          <View style={{height: '60%', width: '100%', flexDirection: 'row',}}>
+            <View style={{width: '30%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+              <Image source={require('../../../../assets/graphic-icons/neumologia-icon.png')} style={{width: '100%', height: '70%', resizeMode: 'contain',}}/>
+            </View>
+            <View style={{width: '70%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+              <Text style={{fontWeight: 600, fontSize: 22, color: "#707070", alignSelf: 'flex-start', marginLeft: 10, marginBottom: 4,}}>Neumología</Text>
+              <Text style={{fontSize: 14, color: "#707070", alignSelf: 'flex-start', marginLeft: 10,}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a</Text>
+            </View>
+          </View>
+          <View style={{height: '40%', width: '100%', justifyContent: 'center',}}>
+            <TouchableOpacity style={styles.touchableViewBtn3}>
+              <Text style={{color: '#fff'}}>Más detalles</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex:1,
-    backgroundColor: 'white',
-    height:1000,
+  waveTopContent:{
+    height: '100%',
+    width: '100%',
+  },
+  waveImg: {
+    flex: 1,
+    height: 150,
+    resizeMode: 'cover',
+  },
+  TopLogoBtnContainer: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  TopLogoBtnContent:{
+    flexDirection: 'row',
+    width: '100%',
+    height: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  itemContainer:{
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logoHeader: {
+    width: '70%',
+    resizeMode: 'contain'
+  },
+  titleContainer:{
+    width: '90%',
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: 20,
+  },  
+  welcomeMsg:{
+    width: '100%',
+    height: '50%',
+  },
+  userNameDsp: {
+    width: '100%',
+    height: '50%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  cardInfoContainer: { 
+    width: '90%',
+    height: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#A375FF',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    marginTop: 30,
+    borderRadius: 20,
+  },
+  childIconContainer:{
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    backgroundColor: '#D8D7FE',
+    position: 'absolute',
+    top: -60,
+    elevation: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  patientData: {
+    width: '90%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  patienDataText: {
+    paddingHorizontal: 4,
+    justifyContent: 'center',
+    flexDirection: 'column',
+    gap: 5
+  },
+  patientDataTitles: {
+    fontSize: 15.5,
+    fontWeight: 600,
+    color: '#fff',
+  },
+  patientDataEach: {
+    color: '#fff',
+  },
+  viewBtnContainer: {
+    width: '90%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  contentBtn: {
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  }, 
+  touchableViewBtn: {
+    height: '50%',
+    width: '80%',
+    borderRadius: 20,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  reminderContainer: {
+    height: 390,
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  reminderCard: {
+    height:'90%',
+    width: '85%',
+    backgroundColor: '#fff',
+    borderRadius: 29,
+    borderTopWidth: 9,
+    borderTopColor: '#D8D7FE',
+    flexDirection: 'column',
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    borderColor: '#D8D7FE',
+    elevation: 2
+    // alignItems: 'center',
+    // gap: 10
+  },
+  touchableViewBtn2: {
+    height: '10%',
+    width: '90%',
+    borderRadius: 15,
+    backgroundColor: '#D58C8C',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 25,
+    marginLeft: 5,
+  },
+  touchableViewBtn3: {
+    height: '50%',
+    width: '35%',
+    borderRadius: 15,
+    backgroundColor: '#D58C8C',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'flex-end',
+    marginRight: 30,
+  },
+  categCardContainer: {
+    width: '90%',
+    height: 160,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFDEB4',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    borderRadius: 25,
+    marginBottom: 20,
   },
   User:{
     fontSize:20,
@@ -154,6 +364,7 @@ const styles = StyleSheet.create({
     marginLeft:'5%',
     color:'gray',
   },
+
   pointsT:{
     fontSize:50,
     color:'gray',
@@ -204,10 +415,16 @@ const styles = StyleSheet.create({
     width:'10%',
     height:'10%',
   },
+  waveTopContent:{
+    flex: 1,
+    flexDirection: 'column',
+    height: '100%',
+  },
+  lol:{
+    height: '90%',
+  },
   contWave:{
-    position:'absolute',
-    marginTop:'0%',
-    marginBottom:'0%',
+    // position:'absolute',
     width: '100%',
     height:'70%',
   },
@@ -592,8 +809,5 @@ const styles = StyleSheet.create({
     marginLeft:'55%',
     top:24,
   },
-  waves:{
-    width: '100%',
-    height:'16%',
-  },
+
 });
