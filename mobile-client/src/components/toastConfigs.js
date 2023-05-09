@@ -1,36 +1,66 @@
-import { Text, View } from "react-native"
-import { BaseToast, ErrorToast } from "react-native-toast-message"
+import { StyleSheet, Text, View } from "react-native"
+import { AntDesign } from '@expo/vector-icons';
 
 export const toastConfig = {
-  success: (props) => {
-    <BaseToast 
-      {...props}
-      style={{borderLeftColor: '#A375FF'}}
-      text1Style={{
-        fontSize: 17,
-        fontWeight: '400'
-      }}
-      text2Style={{
-        fontSize: 15
-      }}
-    />
-  },
-  error: (props) => {
-    <ErrorToast 
-        {...props}
-        text1Style={{
-          fontSize: 17,
-          fontWeight: '400'
-        }}
-        text2Style={{
-          fontSize: 15
-        }}
-    />
-  },
-  tomatoToast: ({ text1, text2 }) => (
-    <View style={{ height: 60, width: '100%', backgroundColor: 'tomato' }}>
-      <Text>{text1}</Text>
-      <Text>{text2}</Text>
+  my_success: ({ text1, text2 }) => (
+    <View style={styles.ContainerToast}>
+      <View style={[styles.LeftBar, {backgroundColor: '#5AB1BB'}]}/>
+      <View style={styles.Icon}>
+        <AntDesign name="checkcircleo" color={'#5AB1BB'} size={30}/>
+      </View>
+      <View style={styles.TextContainer}>
+        <Text style={[styles.Text1,{color: '#5AB1BB'}]}>{text1}</Text>
+        <Text style={styles.Text2}>{text2}</Text>
+      </View>
+    </View>
+  ),
+  my_error: ({ text1, text2 }) => (
+    <View style={styles.ContainerToast}>
+      <View style={[styles.LeftBar, {backgroundColor: '#FF5252'}]}/>
+      <View style={styles.Icon}>
+        <AntDesign name="closecircleo" color={'#FF5252'} size={30}/>
+      </View>
+      <View style={styles.TextContainer}>
+        <Text style={[styles.Text1,{color: '#FF5252'}]}>{text1}</Text>
+        <Text style={styles.Text2}>{text2}</Text>
+      </View>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  ContainerToast:{
+    height: 60,
+    width: '90%',
+    backgroundColor: 'white',
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.20,
+    shadowRadius: 4,
+    elevation: 2,
+    borderRadius: 8,
+    flexDirection: 'row',
+  }, 
+  LeftBar: {
+    height: '100%',
+    width: '2%',
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+  },
+  TextContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  Text1:{
+    fontSize: 17,
+    fontWeight: '600',
+  },
+  Text2:{
+      fontSize: 15,
+    },
+  Icon:{
+    paddingHorizontal: '4%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  }
+})

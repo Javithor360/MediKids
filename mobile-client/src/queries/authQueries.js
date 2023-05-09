@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //! Localhost Direction of the server.
-const localhost = '192.168.1.57';
+const localhost = '192.168.0.4';
 
 //! Get the information about the Responsible.
 //@access public
@@ -19,4 +19,16 @@ export const uploadPFResponsible = async (FormData) => {
 //@access public
 export const registerResponsible = async (First_Names, Last_Names, Email, Password, ConfPass, DUI, Birthdate, Phone) => {
   return await axios.post(`http://${localhost}:5005/api/auth/register`, {First_Names, Last_Names, Email, Password, ConfPass, DUI, Birthdate, Phone}, {headers: {'Content-Type': 'application/json'}});
+}
+
+//! Verify the Email Code of the Responsible.
+//@access public
+export const verifyCodeResponsible = async (verify_code, Email) => {
+  return await axios.post(`http://${localhost}:5005/api/auth/verify_email`, {verify_code, Email}, {headers: {'Content-Type': 'application/json'}});
+}
+
+//! Logging a user.
+//@access public
+export const loginResponsible = async (Email, Password) => {
+  return await axios.post(`http://${localhost}:5005/api/auth/login`, {Email, Password}, {headers: {'Content-Type': 'application/json'}});
 }

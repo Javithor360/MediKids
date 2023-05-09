@@ -5,10 +5,13 @@ import { useNavigation } from '@react-navigation/native'
 //Import Icons
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 export const MyAcountScreen = () => {
-  const navigation = useNavigation()
+  const responsible = useSelector(state => state.responsible)
+  const navigation = useNavigation();
 
   return (
     <ScrollView style={styles.SafeAreaView}>
@@ -19,7 +22,7 @@ export const MyAcountScreen = () => {
             <Text style={styles.Datos}>Datos del Encargado</Text>
             <View style={styles.containPhoto}>
                 <View style={styles.profilePhotoWrapper}>
-                    <ImageBackground style={styles.profilePhotoImage} source={require('../../../../assets/default-pics/default-profile-pic.png')}>
+                    <ImageBackground style={styles.profilePhotoImage} source={{uri: responsible.ProfilePhotoUrl}}>
                     </ImageBackground>
                 </View>
             </View>  
@@ -37,7 +40,7 @@ export const MyAcountScreen = () => {
                     </View>
                 
                 
-              <Text style={styles.NombreT}>Skyler Ernesto White Serrano</Text>
+              <Text style={styles.NombreT}>{responsible.FirstNames} {responsible.LastNames}</Text>
                 </View>
 
 
@@ -51,13 +54,13 @@ export const MyAcountScreen = () => {
                         <Text style={styles.Email}>Email:</Text>
                     </View>
                     
-                    <Text style={styles.EmailT}>skylerWT1968@gmail.com</Text>
+                    <Text style={styles.EmailT}>{responsible.Email}</Text>
                 </View>
                     <View style={styles.line}></View>
                     <View style={styles.ContainCardText}>
                     <AntDesign name="idcard" size={24} color="#A375FF" marginLeft='5%' marginTop='1%' />
                  <Text style={styles.DUI}>DUI:</Text>
-                <Text style={styles.DUIT}>87277865-9</Text>
+                <Text style={styles.DUIT}>{responsible.DUI}</Text>
                     </View>
 
                      <View style={styles.line}></View>
@@ -66,9 +69,12 @@ export const MyAcountScreen = () => {
                      <AntDesign name="phone" size={24} color="#A375FF"  marginLeft='5%' />
 
                 <Text style={styles.NumTele}>Teléfono:</Text>
-                <Text style={styles.NumTeleT}>7123-9870</Text>
+                <Text style={styles.NumTeleT}>{responsible.Phone}</Text>
                          </View>
                 </View>
+                <TouchableOpacity onPress={() => {navigation.navigate('SelectProfilePhotoScreen')}} style={{ height: '10%',width: '90%',borderRadius: 15,backgroundColor: '#5AB1BB',alignItems: 'center',justifyContent: 'center',marginTop: 10,}}>
+                    <Text style={{color: '#fff'}}>Cambiar Foto de Perfil</Text>
+                </TouchableOpacity>
                 </View>
 
              </View>

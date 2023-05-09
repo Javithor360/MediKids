@@ -10,8 +10,8 @@ import {
 
 const CELL_COUNT = 6;
 
-const InputCodeField = () => {
-    const [value, setValue] = useState('');
+const InputCodeField = ({value, setValue}) => {
+    
     const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
         value,

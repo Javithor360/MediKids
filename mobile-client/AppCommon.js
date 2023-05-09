@@ -8,6 +8,7 @@ import * as ImagePicker from 'expo-image-picker';
 //>> Import Components
 import { setStatement } from "./src/store/slices/starterSlice";
 import { getResponsible } from "./src";
+import { setLogginValues } from "./src/store/slices/responsibleSlice";
 
 export default function AppCommon ({children}) {
   //>> Set dispatch of Redux
@@ -25,12 +26,12 @@ export default function AppCommon ({children}) {
       const value = await AsyncStorage.getItem('userSession');
 
       if (value) {
-        const {Email, isLoggedIn} = JSON.parse(value) 
+        const {Email, isLoggedIn, jwtToken} = JSON.parse(value);
         //! Get the data from the server.
         const {data} = await getResponsible(Email);
 
         if(isLoggedIn) {
-          loggedIn();
+          loggedIn(Email, jwtToken);
           return dispatch(setStatement({Email: data.Responsible_user.Email, State: 2}));
         }
         
@@ -49,9 +50,21 @@ export default function AppCommon ({children}) {
   }
 
   //! App's Sessions in loggin.
-  const loggedIn = async () => {
+  const loggedIn = async (Email, jwtToken) => {
     try {
-      
+      const {data} = await getResponsible(Email);
+
+      dispatch(setLogginValues({
+        FirstNames: data.Responsible_user.First_Names, 
+        LastNames: data.Responsible_user.Last_Names,
+        Email: data.Responsible_user.Email,
+        DUI: data.Responsible_user.DUI,
+        Birthdate: data.Responsible_user.Birthdate,
+        Age: data.Responsible_user.Age,
+        Phone: data.Responsible_user.Phone,
+        ProfilePhotoUrl: data.Responsible_user.Profile_Photo_Url,
+        jwtToken: jwtToken,
+      }))
     } catch (error) {
       console.log(error);
     }
@@ -70,23 +83,8 @@ export default function AppCommon ({children}) {
     }
   }
 
-  // //>> TEST ASYNC STORAGE
-  // const setAsyncStorage = async () => {
-  //   try {
-  //     const testingObj = {
-  //       Email: 'yolomeme444@gmail.com',
-  //       isLoggedIn: false,
-  //     }
-  //     await AsyncStorage.removeItem('userSession');
-  //     // await AsyncStorage.setItem('userSession', JSON.stringify(testingObj));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
   //! Component initialization
   useEffect(() => {
-    // setAsyncStorage();
     checkPermissions();
     validateSession();
   }, []);

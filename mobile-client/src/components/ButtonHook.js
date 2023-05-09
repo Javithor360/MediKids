@@ -41,10 +41,10 @@ const useButtonHook = (bgColor, paddingV, paddingH, marginH, marginV, width, hei
   return {buttonStyles};
 };
 
-export const CustomButton = ({bgColor, paddingV, paddingH, marginH, marginV, width, height, BorderRadius, textColor, fontSize, fontFamily, haveShadow, Label, handlePress }) => {
+export const CustomButton = ({bgColor, paddingV, paddingH, marginH, marginV, width, height, BorderRadius, textColor, fontSize, fontFamily, haveShadow, Label, handlePress, disable }) => {
   const {buttonStyles} = useButtonHook(bgColor, paddingV, paddingH, marginH, marginV, width, height, BorderRadius, textColor, fontSize, fontFamily, haveShadow);
   return (
-    <TouchableOpacity activeOpacity={0.8} style={buttonStyles.button} onPress={handlePress}>
+    <TouchableOpacity activeOpacity={0.8} style={buttonStyles.button} onPress={handlePress} disabled={disable} >
       <Text style={buttonStyles.text}>{Label}</Text>
     </TouchableOpacity>
   )

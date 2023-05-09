@@ -3,7 +3,6 @@
 //>> Screens
 export { RegisterScreen } from './screens/auth/RegisterScreen';
 export { RegisterPatientScreen } from './screens/auth/RegisterPatientScreen';
-export { VerifyEmailScreen } from './screens/auth/VerifyEmailScreen'
 export { LoginScreen } from './screens/auth/LoginScreen';
 export { WelcomeScreen } from './screens/start/WelcomeScreen';
 export { SplashScreen } from './screens/start/SplashScreen';
@@ -23,7 +22,7 @@ export { HomeStack } from './navigators/Dashboard/HomeStack';
 export { CalendarStack } from './navigators/Dashboard/CalendarStack';
 
 //* Queries
-export { getResponsible, uploadPFResponsible, registerResponsible } from './queries/authQueries';
+export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible } from './queries/authQueries';
 
 //\\ Configs
 export { toastConfig } from './components/toastConfigs';

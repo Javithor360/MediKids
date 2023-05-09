@@ -1,20 +1,45 @@
 //>> Importing libraries
 import { Text, View, Image, TouchableOpacity, ImageBackground} from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 //>> Importing components
 import  { AuthStylesGlobal, AuthStylesRegisterU, SelectProfilePhoto }  from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
 import { CustomButton, uploadPFResponsible } from '../../index';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import { ActivityIndicator } from 'react-native-paper';
+import { changePerfilPhoto } from '../../store/slices/responsibleSlice';
 
 export const SelectProfilePhotoScreen = () => {
     const navigation = useNavigation();
+    const responsible = useSelector(state => state.responsible);
+    const dispatch = useDispatch();
+    
     const [ImageEl, setImageEl] = useState(null);
-    const Email = useSelector(state => state.starter.Email);
+
+    //! States for th functioning handler.
+    const [Success, setSuccess] = useState(false);
+
+    //! States for statement
+    const [isLoading, setIsLoading] = useState(false);
+
+    //* Function to handle the label animation.
+    const setLabel = () => {
+        if(isLoading){
+        //? Loading Animation
+        return <ActivityIndicator color='white' />
+        } else if(!isLoading && Success){ 
+        //? Success Label
+        return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
+        } else if(!isLoading && !Success){
+        //? Default Label
+        return 'Registrarse'
+        }
+    }
 
     //! Function to select the profile photo from the galery of the user.
     const pickeImage = async () => {
@@ -38,14 +63,32 @@ export const SelectProfilePhotoScreen = () => {
     //! Function to upload the profile photo to the backend.
     const uploadImage = async (uri) => {
         try {
+            setIsLoading(true);
             const formData = new FormData();
             formData.append('image',{
                 uri: uri,
                 type: 'image/jpeg',
                 name: 'image.png',
             })
-            formData.append('Email', Email)
-            const res = await uploadPFResponsible(formData);
+            formData.append('Email', responsible.Email)
+            const {data} = await uploadPFResponsible(formData);
+            if(data.success){
+                dispatch(changePerfilPhoto(data.url));
+                Toast.show({
+                    type:'my_success',
+                    text1: 'Éxito',
+                    text2: 'foto subida correctamente',
+                    duration: 4000,
+                })
+                setTimeout(() => {
+                    setIsLoading(false);
+                    setSuccess(true);
+                    setTimeout(() => {
+                        navigation.navigate('ApplicationTab');
+                    }, 5000);
+                }, 4000);
+                
+            }
         } catch (error) {
             console.log(error);
         }
@@ -70,7 +113,7 @@ export const SelectProfilePhotoScreen = () => {
                     </View>
                     <View style={[SelectProfilePhoto.hr, SelectProfilePhoto.customMarginB_2]} />
                     <View style={SelectProfilePhoto.profilePhotoWrapper}>
-                        <ImageBackground style={SelectProfilePhoto.profilePhotoImage} source={ImageEl ? {uri: ImageEl} : require('../../../assets/default-pics/default-profile-pic.png')} />
+                        <ImageBackground style={SelectProfilePhoto.profilePhotoImage} source={ImageEl ? {uri: ImageEl} : {uri: responsible.ProfilePhotoUrl}} />
                     </View>
                     <TouchableOpacity style={SelectProfilePhoto.uploadBtn} activeOpacity={0.5} onPress={() => pickeImage()}>
                         <MaterialIcons name="drive-folder-upload" size={24} color="#707070" />
@@ -90,16 +133,20 @@ export const SelectProfilePhotoScreen = () => {
                             fontFamily={'poppinsBold'}
                             fontSize={16}
                             textColor={'white'}
-                            Label={"Siguiente"}
+                            Label={setLabel()}
                             handlePress={() => {
                                 // console.log(ImageEl);
                                 if(ImageEl != null) {
                                     // navigation.navigate('ApplicationTab');
                                     uploadImage(ImageEl);
-
                                 } else {
                                     //! ERRROR HANDLING
-                                    console.log('no hay imagen');
+                                    Toast.show({
+                                        type:'my_error',
+                                        text1: 'Error',
+                                        text2: 'No se ha seleccionado una foto',
+                                        duration: 4000,
+                                    })
                                 }
                             }}
                             haveShadow={true}

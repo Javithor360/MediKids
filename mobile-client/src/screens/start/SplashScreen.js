@@ -22,7 +22,7 @@ export const SplashScreen = () => {
             navigation.navigate('WelcomeScreen');
             break;
           case 1:
-            navigation.navigate('VerifyEmailScreen');
+            navigation.navigate('VerifyCodeScreen');
             break;
           case 2: 
             navigation.navigate('ApplicationTab');

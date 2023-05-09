@@ -81,9 +81,9 @@ const register = async (req, res, next) => {
     await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo_Url: P_F, Profile_Photo_Name: null , Reset_Pass_Token: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
 
     // SEND EMAIL
-    send_verify_code_email(verify_code, Email, res);
+    // send_verify_code_email(verify_code, Email, res);
 
-    return res.status(200).json({Email})
+    return res.status(200).json({success: true, Email})
   } catch (error) {
     console.log(error);
     return res.status(500).json({error: error});
@@ -121,7 +121,7 @@ const login = async (req, res, next) => {
     // CREATE JWT TOKEN
     const token = create_jwt(query_user);
 
-    return res.status(200).json({success: true, token});
+    return res.status(200).json({success: true, token, User: query_user[0]});
   } catch (error) {
     return res.status(500).json({error});
   }
@@ -133,6 +133,11 @@ const login = async (req, res, next) => {
 const verify_email = async (req, res, next) => {
   try {
     const { verify_code, Email } = req.body;
+
+    // VALIDATE EMPYT VALUES
+    if (!verify_code ||!Email) {
+      return res.status(500).json({success: false, message: 'Valor sin ingresar'});
+    }
 
     // CHECK IF EMAIL HAS ALREADY VERIFIED
     const [query_check_ve_co] = await pool.query('SELECT * FROM Responsible WHERE Email = ? ', [Email]);
@@ -328,7 +333,7 @@ const upload_pf_responsible = async (req, res, next) => {
     //>> Delete File fron upload directory.
     fs.unlink(req.file.path, (err) => {if (err) throw err});
 
-    return res.status(200).json({success: true});
+    return res.status(200).json({success: true, url});
   } catch (error) {
     return res.status(500).json({error});
   }
