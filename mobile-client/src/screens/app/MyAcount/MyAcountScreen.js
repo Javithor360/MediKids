@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View,TouchableOpacity,MaterialIconsDimensions,  ImageBackground, } from 'react-native'
+import { ScrollView, StyleSheet, Text, View,TouchableOpacity,MaterialIconsDimensions,  ImageBackground, } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import {CustomButton} from '../../../index'
 import { useNavigation } from '@react-navigation/native'
@@ -11,11 +11,11 @@ export const MyAcountScreen = () => {
   const navigation = useNavigation()
 
   return (
-    <SafeAreaView style={styles.SafeAreaView}>
+    <ScrollView style={styles.SafeAreaView}>
 
         <View style={styles.Contain1}>
-         <View style={styles.LineTitulo}></View>      
-            <Text style={styles.Titulo}>Mi cuenta</Text>
+        <View style={styles.LineTitulo}></View>      
+        <Text style={styles.Titulo}>Mi cuenta</Text>
             <Text style={styles.Datos}>Datos del Encargado</Text>
             <View style={styles.containPhoto}>
                 <View style={styles.profilePhotoWrapper}>
@@ -24,32 +24,34 @@ export const MyAcountScreen = () => {
                 </View>
             </View>  
         </View>
-
+        <View style={styles.hr}></View>
         <View style={styles.Contain2}>
             <View style={styles.ContainDatos}>
             <View style={styles.ContainCardShadow} >
           <View style={styles.Card}>
             <View style={styles.ContainCard}>
-                <View style={styles.ContainCardText}>
-                <AntDesign name="profile" size={24} color="#A375FF" marginLeft='5%' marginTop='1%' />
-                <Text style={styles.Nombre}>Nombres:</Text>
-              <Text style={styles.NombreT}>Skyler Ernesto</Text>
+                <View style={styles.ContainCardText2}>
+                    <View style={{flexDirection: 'row'}}>
+                    <AntDesign name="profile" size={24} color="#A375FF" marginLeft='5%' marginTop='1%' />
+                    <Text style={styles.Nombre}>Nombre:</Text>
+                    </View>
+                
+                
+              <Text style={styles.NombreT}>Skyler Ernesto White Serrano</Text>
                 </View>
 
 
-                    <View style={styles.line}></View>
-
-                <View style={styles.ContainCardText}>
-                 <Text style={styles.Apellido}>Apellidos:</Text>
-             <Text style={styles.ApellidoT}>White Serrano</Text>
-                </View>
+                    
 
                     <View style={styles.line}></View>
 
-                    <View style={styles.ContainCardText}>
-                    <MaterialIcons name="alternate-email" size={24} color="#A375FF" marginLeft='5%' marginTop='1%' />
-                 <Text style={styles.Email}>Email:</Text>
-                <Text style={styles.EmailT}>skylerWT1968@gmail.com</Text>
+                <View style={styles.ContainCardText2}>
+                    <View style={{flexDirection: 'row',}}>
+                        <MaterialIcons name="alternate-email" size={24} color="#A375FF" marginLeft='5%' marginTop='1%' />
+                        <Text style={styles.Email}>Email:</Text>
+                    </View>
+                    
+                    <Text style={styles.EmailT}>skylerWT1968@gmail.com</Text>
                 </View>
                     <View style={styles.line}></View>
                     <View style={styles.ContainCardText}>
@@ -63,7 +65,7 @@ export const MyAcountScreen = () => {
 
                      <AntDesign name="phone" size={24} color="#A375FF"  marginLeft='5%' />
 
-                <Text style={styles.NumTele}>Número de teléfono:</Text>
+                <Text style={styles.NumTele}>Teléfono:</Text>
                 <Text style={styles.NumTeleT}>7123-9870</Text>
                          </View>
                 </View>
@@ -75,7 +77,7 @@ export const MyAcountScreen = () => {
      
 
    
-    </SafeAreaView>
+    </ScrollView>
   )
 }
 
@@ -92,10 +94,10 @@ Titulo:{
 },
 LineTitulo:{
    backgroundColor:'#707070',
-   height:'1%',
+   height:2,
    width:'5%',
    alignSelf:'flex-start',
-   marginTop:'10%',
+   marginTop:'20%',
    marginLeft:'4%',
    bottom:'6%',
 },
@@ -111,12 +113,11 @@ SafeAreaView:{
 
 },
 Contain1:{
-    height:'50%',
-    backgroundColor:'white',
+    height:400,
     alignItems:'center',
 },
 Contain2:{
-    height:'50%',
+    height:500,
     backgroundColor:'white',
 },
 ContainDatos:{
@@ -143,11 +144,11 @@ ContainCard:{
 ContainCardShadow:{
     backgroundColor:'#CECEF6',
     width:'80%',
-    height:'85%',
+    height:'80%',
     alignSelf:'center',
     borderRadius:20,
     position:'absolute',
-
+    elevation: 2
 },
 line:{
     backgroundColor:'#CECEF6',
@@ -161,7 +162,7 @@ ContainCardText:{
 },
 Nombre:{
     fontSize:20,
-    marginLeft:'5%',
+    marginLeft:'3%',
     marginVertical:'1%',
     fontWeight:'bold',
     color:'#A375FF',
@@ -175,21 +176,21 @@ Apellido:{
 },
 Email:{
     fontSize:20,
-    marginLeft:'6%',
+    marginLeft:'3%',
     marginVertical:'1%',
     fontWeight:'bold',
     color:'#A375FF',
 },
 DUI:{
     fontSize:20,
-    marginLeft:'7%',
+    marginLeft:'3%',
     marginVertical:'1%',
     fontWeight:'bold',
     color:'#A375FF',
 },
 NumTele:{
     fontSize:20,
-    marginLeft:'7%',
+    marginLeft:'3%',
     marginVertical:'1%',
     fontWeight:'bold',
     color:'#A375FF',
@@ -210,7 +211,7 @@ ApellidoT:{
 },
 EmailT:{
     fontSize:20,
-    marginLeft:'5%',
+    marginLeft:'6%',
     marginVertical:'1%',
 },
 DUIT:{
@@ -227,14 +228,17 @@ containPhoto:{
     alignItems: 'center', 
     justifyContent: 'center',
     width: '100%',  
-    marginTop:'10%',
+    marginTop:'5%',
 },
 profilePhotoWrapper:{
-    height: 250,
-    width: 250,
+    height: 200,
+    width: 200,
     marginVertical: '2%',
-    borderRadius: 125,
+    borderRadius: 100,
     overflow: 'hidden',
+ },
+ ContainCardText2: {
+    flexDirection: 'column',
  },
  profilePhotoImage:{
     width: '100%',
@@ -242,12 +246,12 @@ profilePhotoWrapper:{
     resizeMode: 'cover'
  },  
  hr: {
-    width: '90%',
+    width: '70%',
     height: '.5%',
     backgroundColor: '#D8D7FE',
     marginTop: 12,
     borderRadius: 3,
-    marginHorizontal: '10%',
+    marginHorizontal: '15%',
  },
  customMarginB_1: {
     marginBottom: 10,
