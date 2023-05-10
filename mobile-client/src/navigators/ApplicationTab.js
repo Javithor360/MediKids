@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-
+import { isIOS } from '../constants';
 //>>Stacks screens
 import { HomeStack } from '../navigators/Dashboard/HomeStack';
 import { CalendarStack } from '../navigators/Dashboard/CalendarStack';
@@ -87,7 +87,7 @@ const TabButton = (props) => {
         style={{width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', margin: 0}}>
         <Animatable.View
           ref={viewRef}
-          style={{backgroundColor: '#C3C3E4', height: '50%', width: '50%', borderRadius: 10, position: 'absolute', top: 8}} />
+          style={{backgroundColor: '#C3C3E4', height: isIOS ? '60%' : '50%', width: '50%', borderRadius: 10, position: 'absolute', top: isIOS ? 5 : 8,}} />
         <View style={[styles.btn, { backgroundColor: focused ? null : null , justifyContent: 'center', alignItems: 'center',}]}>
           <Animatable.View ref={icontViewRef}>
             <MaterialCommunityIcons name={item.iconName} color={'white'} size={36} />
@@ -116,7 +116,7 @@ export const ApplicationTab = () => {
         tabBarStyle: {
           display: "flex",
           backgroundColor: '#A375FF',
-          height: '8%',
+          height: isIOS ? '11%' : '8%',
           width: '100%',
           alignItems: 'center',
           justifyContent: 'center',

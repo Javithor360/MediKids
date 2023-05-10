@@ -9,6 +9,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { setStatement } from "./src/store/slices/starterSlice";
 import { getResponsible } from "./src";
 import { setLogginValues } from "./src/store/slices/responsibleSlice";
+import { View } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 export default function AppCommon ({children}) {
   //>> Set dispatch of Redux

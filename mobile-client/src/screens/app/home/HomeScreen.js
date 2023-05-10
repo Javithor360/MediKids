@@ -91,7 +91,7 @@ export const HomeScreen = () => {
         <View style={{height: 'auto', width: '100%',  flexDirection: 'row',}}>
           <View style={styles.reminderContainer}>
             <View style={styles.reminderCard}>
-              <Text style={{marginTop: 25, fontSize: 16, fontWeight: "900", color: '#000000', textAlign: 'center',}}>Citas pendientes</Text>
+              <Text style={{marginTop: 25, fontSize: 16, fontWeight: "900", color: '#000000', textAlign: 'center',}}>Citas</Text>
               <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: '30%', width: '80%', gap: 15}}>
                 <Image source={require('../../../../assets/icons/note-time.png')} style={{height: '60%', resizeMode: 'contain',}}/>
                 <Text style={{fontSize: 35, color:  '#A375FF', fontWeight: 600,}}>2</Text>

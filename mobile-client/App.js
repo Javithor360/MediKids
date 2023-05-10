@@ -63,7 +63,7 @@ export default function App() {
       <AppCommon >
         <AppStack />
       </AppCommon>
-      <StatusBar style="auto" />
+      <StatusBar style="auto" backgroundColor="#ff0000" />
       <Toast config={toastConfig}/>
     </Provider>
   );
