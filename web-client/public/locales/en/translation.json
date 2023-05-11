@@ -4,5 +4,51 @@
         "about": "About Us",
         "contact": "Contact",
         "download": "Download App"
+    },
+
+    "index":{
+        "banner":"Comprehensive health and childhood",
+        "boton":"Download App",
+        "title":"A clinic, a family to trust",
+        "sub":"Our specialized services provide assertive and effective care to children and adolescents",
+        "boton2":"Read more",
+        "title2":"Schedule an appointment in our app",
+        "sub2":"We know that you may be concerned about the health of your little one, that is why you can count on professional attention by scheduling your appointment that gives you:",
+        "list1":"Quality check-up for disease detection",
+        "list2":"Care necessary for your recovery",
+        "list3":"Quality care for every need",
+        "titles":"Specialties",
+        "sub3":"Specific and direct control for appropriate care",
+        "card":"Otorhinolaryngology",
+        "card2":"Gastroenterology",
+        "card3":"Pneumology",
+        "title3":"Our Doctors",
+        "boton3":"More information",
+        "boton4":"Learn more"
+    },
+    "app":{
+        "title":"Care and good health has never been so accessible",
+        "sub":"Get the best services in the easiest, simplest and friendliest way in our App, in it you will have numerous functionalities to take care of the health of your children",
+        "title2":"Everything you need in one place",
+        "list1":"Get a summary of your child's medical activity",
+        "list2":"Schedule appointments, and receive them virtually through the app",
+        "list3":"Stay up-to-date with reminders and personalized calendar with events",
+        "list4":"And much more...",
+        "title3":"Download now",
+        "sub2":"Just scan the QR code and start being part of the MediKids family",
+        "sub3":"Install the .apk file, but first allow installation from unknown sources and then you can proceed normally with the installation"
+    },
+    "sobre":{
+        "banner":"Care and well-being for the little ones in the home",
+         "ti":"Who we",
+         "tle":"are ?",
+         "sub1":"MediKids is a pediatric clinic specializing in providing quality, personalized medical care to children and adolescents. Our team of highly trained professionals is committed to the health care of their patients and the well-being of their families. At MediKids, we strive to create a welcoming and child-friendly environment where they can feel comfortable and safe during their medical treatment. In addition, we use cutting-edge technology to diagnose and treat our patients effectively and efficiently. In short, at MediKids we care about the health of children and are committed to providing quality and compassionate health care.",
+         "ti2":"You Motivate ",
+         "tle2":"us",
+         "sub2":"At MediKids, our greatest motivation is the health and well-being of your children. We know that as a parent, you want the best for your children, and that's exactly what drives us to provide exceptional healthcare. We strive to be a leading pediatric child care clinic, and to do so, we make sure to listen to your concerns and answer all of your questions. Your trust in us motivates us to continue improving and offering quality services, such as annual physical exams, vaccination services, and diagnostic tests. In short, at MediKids, you motivate us to continue providing quality, personalized health care for your children, and we are committed to meeting your expectations and needs.",
+         "ti3":"Mis",
+         "tle3":"sion",
+         "sub3":"At MediKids, our mission is to provide quality, personalized pediatric health care for children and adolescents, using cutting-edge technology and a team of highly trained professionals committed to the well-being of their patients. We strive to create a welcoming and friendly environment for children and their families, and encourage education on disease prevention and maintaining a healthy lifestyle.",
+         "sub4":"Our vision at MediKids is to be a leading pediatric child care clinic, recognized for our commitment to healthcare excellence, innovation and research in the field of pediatrics. We want to be a clinic that children and their families trust to receive quality and personalized medical care, and in which our team of professionals is proud to work and grow professionally. Our vision is to help children grow and develop healthily so they can reach their full potential."
     }
 }

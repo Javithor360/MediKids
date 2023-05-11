@@ -13,20 +13,20 @@ export const Footer = () => {
     <footer className="footerContainer">
         <div className="footerContent">
             <div className="logoSide">
-                <Link to=""><img src={FooterLogo} alt=""/></Link>
+                <Link to="/index"><img src={FooterLogo} alt=""/></Link>
             </div>
             <div className="linksContainer">
                 <div className="linksSide">
                     <div className="linksSideRow1">
-                        <Link className="footerLink" to="">Inicio</Link>
-                        <Link className="footerLink" to="">Contacto</Link>
+                        <Link className="footerLink" to="/index">Inicio</Link>
+                        <Link className="footerLink" to="/contact">Contacto</Link>
                     </div>
                     <div className="linksSideRow1">
-                        <Link className="footerLink" to="">Descargar App</Link>
-                        <Link className="footerLink" to="">Servicios</Link>
+                        <Link className="footerLink" to="/download-app">Descargar App</Link>
+                        <Link className="footerLink" to="/index">Servicios</Link>
                     </div>
                     <div className="linksSideRow1">
-                        <Link className="footerLink" to="">Sobre Nosotros</Link>
+                        <Link className="footerLink" to="/sobre">Sobre Nosotros</Link>
                         <Link className="footerLink" to="">Politica de privacidad</Link>
                     </div>
                     <div className="socialIcons">

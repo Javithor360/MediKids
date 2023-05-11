@@ -4,5 +4,52 @@
         "about": "Sobre nosotros",
         "contact": "Contáctanos",
         "download": "Descargar App"
+    },
+    
+    "index":{
+        "banner":"Salud y niñez integral",
+        "boton":"Descargar app",
+        "title":"Salud y niñez integral",
+        "sub":"Nuestros servicios especializados brindan una atención asertiva y eficaz a los niños y adolescentes",
+        "boton2":"Leer Más",
+        "title2":"Agenda una cita en nuestra app",
+        "sub2":"Sabemos que puede preocuparte la salud de tu pequeño, es por eso que puedes contar con atencion profecional agendando tu cita que te brinda:",
+        "list1":"Chekeo de calidad para la deteccion de enfermedades",
+        "list2":"Cuidos necesarios para su recuperacíon",
+        "list3":"Atención de calidad para cada nesecidad",
+        "titles":"Especialidades",
+        "sub3":"Control específico y directo para una atención apropiada",
+        "card":"Otorrinolaringología",
+        "card2":"Gastroenterología",
+        "card3":"Neumología",
+        "title3":"Nuestros médicos",
+        "boton3":"Más informacion",
+        "boton4":"Conoce más"
+
+    },
+    "app":{
+        "title":"El cuidado y la buena salud nunca fue tan accesible",
+        "sub":"Obtén los mejores servicios de la forma más fácil, sencilla y amigable en nuestra App, en ella tendrás numerosas funcionalidades para cuidar la salud de tus hijos",
+        "title2":"Todo lo que necesitas en un solo lugar",
+        "list1":"Obten un resumen de la actividad medica de tus hijos",
+        "list2":"Agenda citas, y recíbelas de forma virtual a través de la app",
+        "list3":"Mantente al día y mediante los recordatorios y el calendario personalizado con eventos",
+        "list4":"Y mucho más...",
+        "title3":"Descárgala Ya",
+        "sub2":"Solo escanea el código QR y empieza a ser parte de la familia MediKids",
+        "sub3":"Instala el archivo .apk, pero primero permite la instalación de orígenes desconocidos y luego podrás seguir normalmente con la instalación"
+    },
+    "sobre":{
+        "banner":"Cuido y bienestar para los peques del hogar",
+         "ti":"¿Quienes",
+         "tle":"Somos ?",
+         "sub1":"MediKids es una clínica pediátrica especializada en brindar atención médica de calidad y personalizada a niños y adolescentes. Nuestro equipo de profesionales altamente capacitados está comprometido con el cuidado de la salud de sus pacientes y con el bienestar de sus familias. En MediKids, nos esforzamos por crear un ambiente acogedor y amigable para los niños, donde puedan sentirse cómodos y seguros durante su tratamiento médico. Además, utilizamos tecnología de vanguardia para diagnosticar y tratar a nuestros pacientes de manera efectiva y eficiente. En resumen, en MediKids nos preocupamos por la salud de los niños y estamos comprometidos con brindar una atención médica de calidad y compasiva",
+         "ti2":"Tu nos ",
+         "tle2":"Motivas",
+         "sub2":"En MediKids, nuestra mayor motivación es la salud y el bienestar de tus hijos. Sabemos que como padre o madre, deseas lo mejor para tus hijos, y eso es exactamente lo que nos impulsa a brindar una atención médica excepcional. Nos esforzamos por ser una clínica pediátrica líder en el cuidado infantil, y para lograrlo, nos aseguramos de escuchar tus preocupaciones y responder a todas tus preguntas. Tu confianza en nosotros nos motiva a seguir mejorando y ofreciendo servicios de calidad, como exámenes físicos anuales, servicios de vacunación y pruebas de diagnóstico. En resumen, en MediKids, tu nos motivas a continuar brindando atención médica de calidad y personalizada para tus hijos, y estamos comprometidos con mantenernos a la altura de tus expectativas y necesidades.",
+         "ti3":"Mis",
+         "tle3":"ion",
+         "sub3":"En MediKids, nuestra misión es brindar atención médica pediátrica de calidad y personalizada para los niños y adolescentes, utilizando tecnología de vanguardia y un equipo de profesionales altamente capacitados y comprometidos con el bienestar de sus pacientes. Nos esforzamos por crear un ambiente acogedor y amigable para los niños y sus familias , y fomentamos la educación sobre la prevención de enfermedades y el mantenimiento de un estilo de vida saludable.",
+         "sub4":"Nuestra visión en MediKids es ser una clínica pediátrica líder en el cuidado infantil, reconocida por nuestro compromiso con la excelencia en la atención médica, la innovación y la investigación en el campo de la pediatría. Queremos ser una clínica en la que los niños y sus familias confíen para recibir atención médica de calidad y personalizada, y en la que nuestro equipo de profesionales se sienta orgulloso de trabajar y crecer profesionalmente. Nuestra visión es ayudar a los niños a crecer y desarrollarse sanamente para que puedan alcanzar todo su potencial."
     }
 }

@@ -28,17 +28,17 @@ export const Doc3 = () => {
         <br/><br/><br/>
         <div className="list-item">
                             <p className="roundedStep">1</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, tempore?</p>
+                            <p>Dificultades respiratorias causadas por anomalías congénitas, como malformaciones vasculares o traqueoesofágicas</p>
                         </div>
                         <br/><br/>
                         <div className="list-item">
                             <p className="roundedStep">2</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis magni expedita minus?</p>
+                            <p>Enfermedades autoinmunitarias que afectan los pulmones, como lupus eritematoso sistémico</p>
                         </div>
                         <br/><br/>
                         <div className="list-item">
                             <p className="roundedStep">3</p>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi, fuga.</p>
+                            <p>Trastornos del sueño, como la apnea del sueño y la hipopnea obstructiva del sueño.</p>
                         </div>
                         <br/><br/><br/><br/>
                         <Link className="boton __moreView absolute bottom-30 right-11" to="/download-app">Descargar App</Link>

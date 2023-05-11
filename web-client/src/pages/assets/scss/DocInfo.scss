@@ -33,6 +33,7 @@
 }
 .cont-esp{
     display: flex;
+    width: 65%;
 }
 .cont-espi{
     display: flex;
@@ -41,7 +42,7 @@
 }
 .cont-espk{
     display: flex;
-    width: 100%;
+    
  
 }
 
@@ -53,15 +54,15 @@
     margin-bottom: 1em;
 }
 .first{
-    width: auto;
-            height: 38rem;
+    width: 30em;
+            height: auto;
             display: flex;
             margin-left: 2em;
             display: block;
 }
 .sub{
     text-align: justify;
-    width: 60em;
+    margin-right: 2.5em;
     font-size: 14pt;
 }
 span{

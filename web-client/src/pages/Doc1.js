@@ -16,7 +16,7 @@ export const Doc1 = () => {
       </section>
       <h1 className='tittle'>¿En que nos <span>especializamos</span>?</h1>
       <div className='cont-espk'>
-      <div className='w-[40%] h-[100%] flex items-center'>
+      <div className='w-[30%] h-[100%] flex items-center'>
         <img className='first' src={Banner('./niños/kid1.png')} />
       </div>
       <div className='cont-esp'>
@@ -29,17 +29,17 @@ export const Doc1 = () => {
         <br/><br/><br/>
         <div className="list-item">
                             <p className="roundedStep">1</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, tempore?</p>
+                            <p>relacionadas con el oído, la nariz y la garganta en niños y adolescentes</p>
                         </div>
                         <br/><br/>
                         <div className="list-item">
                             <p className="roundedStep">2</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis magni expedita minus?</p>
+                            <p>Trastornos de la voz y la audición</p>
                         </div>
                         <br/><br/>
                         <div className="list-item">
                             <p className="roundedStep">3</p>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi, fuga.</p>
+                            <p>Malformaciones congénitas del oído, la nariz y la garganta</p>
                         </div>
                         <br/><br/><br/><br/>
                         <Link className="boton __moreView absolute bottom-30 right-11" to="/download-app">Descargar App</Link>
