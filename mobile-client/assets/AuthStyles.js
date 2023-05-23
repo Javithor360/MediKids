@@ -85,6 +85,11 @@ const AuthStylesGlobal = StyleSheet.create({
       fontFamily: 'poppinsRegular', 
       width: '75%',
    },
+   inputExtended:{
+      fontSize: 16, 
+      fontFamily: 'poppinsRegular', 
+      width: '90%',
+   },
    TextP:{
       textDecorationLine:'underline',
       color: '#707070',

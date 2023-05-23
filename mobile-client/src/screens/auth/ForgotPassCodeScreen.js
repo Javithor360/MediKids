@@ -117,7 +117,7 @@ export const ForgotPassCodeScreen = () => {
             <View style={AuthStylesGlobal.contentContainer} >
                 <View style={AuthStylesGlobal.formContent} >
                     <Image style={AuthStylesGlobal.logoImage2} source={require('../../../assets/logos/Logotype_Colored.png')}  />
-                    <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/graphic-icons/verify-code.png')}  />
+                    <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/graphic-icons/reset-pass.png')}  />
                     <Text style={AuthStylesRegisterU.Tex_md}>Código de cambio de contraseña</Text>
                     <Text>Ingrese el codigo enviado a su Email.</Text>
 

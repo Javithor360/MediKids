@@ -38,3 +38,9 @@ export const loginResponsible = async (Email, Password) => {
 export const ForgotPassQuery = async (Email) => {
   return await axios.post(`http://${localhost}:5005/api/auth/forgot_password`, {Email}, {headers: {'Content-Type': 'application/json'}});
 }
+
+//! Check reset password code.
+//@access pluic
+export const CheckresetPassCode = async (Email) => {
+  return await axios.post(`http://${localhost}:5005/api/auth/check_reset_code`, {Email}, {headers: {'Content-Type': 'application/json'}});
+}

@@ -41,6 +41,11 @@ export const RegisterScreen = () => {
   const [DisableButton, setDisableButton] = useState(false);
   const [DisableBack, setDisableBack] = useState(false);
 
+  //! function to reset the DisableBack
+  const ResetDisableBack = (Value) => {
+    setDisableBack(Value)
+  }
+
   //! Show the Emergent Message (toast).
   const showToast = (type, text1, text2) => {
     Toast.show({
@@ -93,7 +98,7 @@ export const RegisterScreen = () => {
           setIsLoading(false);
           setSuccess(true);
           setTimeout(() => {
-            navigation.replace('VerifyCodeScreen');
+            navigation.navigate('VerifyCodeScreen', {setDisBack: ResetDisableBack});
           }, 3000);
         }, 4000);
       }
@@ -198,7 +203,7 @@ export const RegisterScreen = () => {
             <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
               <MaterialCommIcons name='email-outline' size={24} color={'gray'} style={{marginRight: 6}} />
               <TextInput
-                style={AuthStylesGlobal.input}
+                style={AuthStylesGlobal.inputExtended}
                 placeholder="Correo electrónico"
                 placeholderTextColor="gray"
                 onChangeText={text => setEmail(text)}
@@ -211,7 +216,7 @@ export const RegisterScreen = () => {
             <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
               <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
               <TextInput
-                style={AuthStylesGlobal.input}
+                style={AuthStylesGlobal.inputExtended}
                 placeholder="Contraseña"
                 placeholderTextColor="gray"
                 onChangeText={text => setPassword(text)}
@@ -222,7 +227,7 @@ export const RegisterScreen = () => {
             <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
               <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
               <TextInput
-                style={AuthStylesGlobal.input}
+                style={AuthStylesGlobal.inputExtended}
                 placeholder="Confirmar Contraseña"
                 placeholderTextColor="gray"
                 onChangeText={text => setConfPass(text)}

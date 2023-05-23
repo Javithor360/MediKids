@@ -138,7 +138,7 @@ export const ForgotPasswordScreen = () => {
                         <MaterialCommIcons name='email-outline' size={24} color={'gray'} style={{marginRight: 6}} />
                         <TextInput
                             autoFocus={true}
-                            style={AuthStylesGlobal.input}
+                            style={AuthStylesGlobal.inputExtended}
                             placeholder="Ingresar Email"
                             placeholderTextColor="gray"
                             keyboardType='email-address'

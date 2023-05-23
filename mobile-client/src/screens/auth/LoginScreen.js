@@ -165,7 +165,7 @@ export const LoginScreen = () => {
               <MaterialCommIcons name='email-outline' size={24} color={'gray'} style={{marginRight: 6}} />
               <TextInput
                 autoFocus={true}
-                style={AuthStylesGlobal.input}
+                style={AuthStylesGlobal.inputExtended}
                 placeholder="Email"
                 placeholderTextColor="gray"
                 onChangeText={text => setEmail(text)}
@@ -179,7 +179,7 @@ export const LoginScreen = () => {
             <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
               <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
               <TextInput
-                style={AuthStylesGlobal.input}
+                style={AuthStylesGlobal.inputExtended}
                 secureTextEntry={true}
                 placeholder="Contraseña"
                 placeholderTextColor="gray"

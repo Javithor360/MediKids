@@ -16,6 +16,14 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 export const VerifyCodeScreen = () => {
     const navigation = useNavigation();
+    const route = useRoute();
+
+    //! Get the params from the navigation
+    const { setDisBack } = route.params;
+
+    useEffect(() => {
+        setDisBack(false);
+    }, []);
 
     //! Get the Email from the global State
     const Email = useSelector(state => state.starter.Email)
@@ -74,7 +82,7 @@ export const VerifyCodeScreen = () => {
             setIsLoading(false);
             setSuccess(true);
                 setTimeout(() => {
-                    navigation.navigate('LoginScreen');
+                    navigation.navigate('WelcomeScreen');
                 }, 3000);
             }, 4000);
         }
@@ -104,6 +112,7 @@ export const VerifyCodeScreen = () => {
 
     useEffect(() => {
         navigation.addListener('beforeRemove', (e) => {
+            console.log(e);
             e.preventDefault();
         })
     }, [navigation]);

@@ -33,7 +33,7 @@ return (
                     <TextInput
                         autoFocus={true}
                         secureTextEntry={true}
-                        style={AuthStylesGlobal.input}
+                        style={AuthStylesGlobal.inputExtended}
                         placeholder="Nueva contraseña"
                         placeholderTextColor="gray"
                     />
@@ -43,7 +43,7 @@ return (
                     <MaterialIcons name="lock-outline" size={24} color="gray" style={{marginRight: 6}} />
                     <TextInput
                     secureTextEntry={true}
-                    style={AuthStylesGlobal.input}
+                    style={AuthStylesGlobal.inputExtended}
                     placeholder="Confirmar contraseña"
                     placeholderTextColor="gray"
                     />
