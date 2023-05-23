@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, verify_email, get_email_to_verify, get_responsible, forgot_password, check_reset_token, reset_password, upload_pf_responsible } from '../controllers/auth.js';
+import { register, login, verify_email, get_email_to_verify, get_responsible, forgot_password, reset_password, upload_pf_responsible, check_reset_code } from '../controllers/auth.js';
 import { auth_midd } from '../middlewares/auth_middleware.js';
 import { upload } from '../utils/multer.config.js';
 
@@ -26,7 +26,7 @@ router_login.route('/get_responsible').post(get_responsible);
 router_login.route('/forgot_password').post(forgot_password);
 
 //! check if the token to reset the password its still valid
-router_login.route('/check_reset_token').post(check_reset_token);
+router_login.route('/check_reset_code').post(check_reset_code);
 
 //! reset the password
 router_login.route('/reset_password').post(reset_password);

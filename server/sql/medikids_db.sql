@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS medikids_db . Responsible (
 	Phone VARCHAR(45) NOT NULL,
 	Profile_Photo_Url VARCHAR(200) NOT NULL,
 	Profile_Photo_Name VARCHAR(200),
-	Reset_Pass_Token VARCHAR(200),
+	Reset_Pass_Code VARCHAR(200),
 	Reset_Pass_Expire DATETIME,
 	Email_Verify_code VARCHAR(45),
 	PRIMARY KEY (id),

@@ -126,18 +126,18 @@ const send_verify_code_email = async (verify_code, Email, res) => {
 }
 
 //* 3 - CREATE TOKEN TO RESET THE PASSWORD
-const create_reset_token = () => {
+const create_reset_code = () => {
   // CREATE THE TOKEN FOR THE VALIDATION
-  const reset_pass_token = create_code().toString();
+  const reset_pass_code = create_code().toString();
   // CREATE THE TOKEN FOR THE USER
-  const db_reset_token = crypto.createHash('sha256').update(reset_pass_token).digest('hex');
+  const db_reset_token = crypto.createHash('sha256').update(reset_pass_code).digest('hex');
   // SET IN HOW LONG IT WILL EXPIRE
   let db_reset_expire = new Date();
   db_reset_expire.setMinutes(db_reset_expire.getMinutes() + 25);
 
   // RETURN THE VALUES
   return {
-    reset_pass_token,
+    reset_pass_code,
     db_reset_token,
     db_reset_expire,
   }
@@ -257,4 +257,4 @@ const create_jwt = (query_user) => {
   }, config_env.JWT_SECRET, { expiresIn: config_env.JWT_EXPIRE })
 }
 
-export { create_code, send_verify_code_email, create_reset_token, send_forgot_pass_email, create_jwt };
+export { create_code, send_verify_code_email, create_reset_code, send_forgot_pass_email, create_jwt };

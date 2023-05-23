@@ -9,9 +9,8 @@ import fs from 'fs';
 
 //>> IMPORT CONFIGS & FUNCTIONS
 import {pool} from '../utils/db.js';
-import { create_code, create_jwt, create_reset_token, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
+import { create_code, create_jwt, create_reset_code, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
 import firebaseConfig from '../utils/firebase.config.js';
-import { CLIENT_RENEG_WINDOW } from 'tls';
 
 //? Startup Firebase configuration.
 initializeApp(firebaseConfig.firebaseConfig);
@@ -79,7 +78,7 @@ const register = async (req, res, next) => {
     const verify_code = create_code();
 
     // SAVE FIELDS
-    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo_Url: P_F, Profile_Photo_Name: null , Reset_Pass_Token: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
+    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo_Url: P_F, Profile_Photo_Name: null , Reset_Pass_Code: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
 
     // SEND EMAIL
     // send_verify_code_email(verify_code, Email, res);
@@ -223,10 +222,10 @@ const forgot_password = async (req, res, next) => {
     }
 
     // GET THE TOKENS
-    const forgot_pass_tokens = create_reset_token();
+    const forgot_pass_tokens = create_reset_code();
 
     // UPDATE FIELDS IN THE DB
-    await pool.query('UPDATE Responsible SET Reset_Pass_Token = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, new Date(forgot_pass_tokens.db_reset_expire), Email]);
+    await pool.query('UPDATE Responsible SET Reset_Pass_Code = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, new Date(forgot_pass_tokens.db_reset_expire), Email]);
 
     // SEND EMAIL WITH THE TOKEN IN URL (CHANGE)
     // send_forgot_pass_email(forgot_pass_tokens.reset_pass_token, Email, res);
@@ -237,31 +236,30 @@ const forgot_password = async (req, res, next) => {
   }
 }
 
-//! @route POST api/auth/check_reset_token
-//! @desc check if the token keep meeting with the parameters to reset the password
+//! @route POST api/auth/check_reset_code
+//! @desc check if the code keep meeting with the parameters to reset the password
 //! @access Private!!
-const check_reset_token = async (req, res, next) => {
+const check_reset_code = async (req, res, next) => {
   try {
-    // const reset_pass_token  = req.params.reset_pass_token;
-    const {reset_pass_token} = req.body;
+    const {reset_pass_code} = req.body;
 
     // CHECK IF THE TOKEN EXISTS
-    if (!reset_pass_token) {
-      return res.status(500).json({success: false, message: 'No hay token de reseteo'});
+    if (!reset_pass_code) {
+      return res.status(500).json({success: false, message: 'No hay code de reseteo'});
     }
 
-    // CREATE MATCH TOKEN
-    const token_to_match = crypto.createHash('sha256').update(reset_pass_token).digest('hex');
+    // CREATE MATCH CODE WITH THE TOKEN IN THE DB.
+    const code_to_match = crypto.createHash('sha256').update(reset_pass_code).digest('hex');
     // GET DATE OF NOW
     const date_now = new Date();
 
     // GET THE USER WITH THE EMAIL
-    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Reset_Pass_Token = ? AND Reset_Pass_Expire > ?', [token_to_match, date_now]);
+    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Reset_Pass_Code = ? AND Reset_Pass_Expire > ?', [code_to_match, date_now]);
     if (query_user.length == 0) {
-      return res.status(500).json({success: false, message: 'Token Invalido'});
+      return res.status(500).json({success: false, message: 'Código Invalido'});
     }
 
-    return res.status(200).json({success: true, data: query_user[0]});
+    return res.status(200).json({success: true, data: 'Código Verificado Correctamente'});
   } catch (error) {
     return res.status(500).json({error});
   }
@@ -348,7 +346,7 @@ export {
   get_email_to_verify, 
   get_responsible, 
   forgot_password,
-  check_reset_token,
+  check_reset_code,
   reset_password,
   upload_pf_responsible
 };
