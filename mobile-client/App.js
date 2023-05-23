@@ -1,6 +1,6 @@
 
 //>> importing libraries
-import { StatusBar } from 'expo-status-bar';
+import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { useEffect, useState } from 'react';
 import * as ss from 'expo-splash-screen'
@@ -63,7 +63,7 @@ export default function App() {
       <AppCommon >
         <AppStack />
       </AppCommon>
-      <StatusBar style="auto" backgroundColor="#ff0000" />
+      <ExpoStatusBar style='auto'/>
       <Toast config={toastConfig}/>
     </Provider>
   );

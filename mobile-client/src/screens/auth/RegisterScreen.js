@@ -1,11 +1,9 @@
 //>> Importing libraries
 import { Text, View, Image, TextInput, TouchableOpacity, ScrollView, ImageBackground} from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native-paper';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
-import { Entypo } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 
@@ -14,6 +12,9 @@ import  { AuthStylesGlobal, AuthStylesRegisterU }  from '../../../assets/AuthSty
 import { isAN, isIOS } from '../../constants';
 import { CustomButton, registerResponsible } from '../../index';
 import { setStatement } from '../../store/slices/starterSlice';
+
+//>> Importing icons
+import { Feather, AntDesign, MaterialIcons, Entypo, MaterialCommunityIcons as MaterialCommIcons } from '@expo/vector-icons';
 
 
 export const RegisterScreen = () => {
@@ -85,15 +86,14 @@ export const RegisterScreen = () => {
         await AsyncStorage.setItem('userSession', JSON.stringify(userSession));
 
         //! Set the Stater State
-        dispatch(setStatement({Email: data.Email, State: 1}));
+        dispatch(setStatement({Email: data.Email, State: false}));
 
         //! Close loading animation
         setTimeout(() => {
           setIsLoading(false);
           setSuccess(true);
           setTimeout(() => {
-            setDisableBack(false);
-            navigation.navigate('VerifyCodeScreen');
+            navigation.replace('VerifyCodeScreen');
           }, 3000);
         }, 4000);
       }
@@ -127,11 +127,11 @@ export const RegisterScreen = () => {
         gestureEnabled: false
       })
     }
-      if (DisableBack) {
-        navigation.addListener('beforeRemove', (e) => {
-          e.preventDefault();
-        })
-      }
+    if (DisableBack) {
+      navigation.addListener('beforeRemove', (e) => {
+        e.preventDefault();
+      })
+    }
   }, [navigation, DisableBack]);
   
   return (
@@ -139,7 +139,7 @@ export const RegisterScreen = () => {
       <ScrollView style={AuthStylesGlobal.mainContainer}>
         <View style={AuthStylesGlobal.topWaveContainer}>
           <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-          <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableButton} onPress={() => navigation.navigate('WelcomeScreen')}>
+          <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableButton} onPress={() => navigation.goBack()}>
             <MaterialIcons name="arrow-back-ios" size={17} color="white" />
             <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
           </TouchableOpacity>
@@ -149,65 +149,87 @@ export const RegisterScreen = () => {
             <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')}  />
             <Text style={AuthStylesRegisterU.Tex_md}>Datos del encargado</Text>
             <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
-              <TextInput
-                autoFocus={true}
-                style={[AuthStylesGlobal.input, AuthStylesGlobal.customW50]}
-                placeholder="Nombres"
-                placeholderTextColor="gray"
-                onChangeText={text => setFirstNames(text)}
-                editable={!DisableButton}
-              />
-              <TextInput
-                style={[AuthStylesGlobal.input, AuthStylesGlobal.customW50]}
-                placeholder="Apellidos"
-                placeholderTextColor="gray"
-                onChangeText={text => setLastNames(text)}
-                editable={!DisableButton}
-              />
+              <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
+                <Feather name="user" size={24} color='gray' style={{marginRight: 6}} />
+                <TextInput
+                  style={AuthStylesGlobal.input}
+                  autoFocus={true}
+                  placeholder="Nombres"
+                  placeholderTextColor="gray"
+                  onChangeText={text => setFirstNames(text)}
+                  editable={!DisableButton}
+                />
+              </View>
+              <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
+                <Feather name="user" size={24} color='gray' style={{marginRight: 6}} />
+                <TextInput
+                  style={AuthStylesGlobal.input}
+                  placeholder="Apellidos"
+                  placeholderTextColor="gray"
+                  onChangeText={text => setLastNames(text)}
+                  editable={!DisableButton}
+                />
+              </View>
             </View>
             <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
-              <TextInput
-                style={[AuthStylesGlobal.input, AuthStylesGlobal.customW50]}
-                placeholder="DUI"
-                placeholderTextColor="gray"
-                onChangeText={text => setDUI(text)}
+              <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
+                <AntDesign name="idcard" size={24} color="gray" style={{marginRight: 6}} />
+                <TextInput
+                  style={AuthStylesGlobal.input}
+                  placeholder="DUI"
+                  placeholderTextColor="gray"
+                  onChangeText={text => setDUI(text)}
+                  editable={!DisableButton}
+                />
+              </View>
+              <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
+                <Feather name="phone" size={24} color="gray" style={{marginRight: 6}} />
+                <TextInput
+                  style={AuthStylesGlobal.input}
+                  placeholder="Telefono"
+                  placeholderTextColor="gray"
+                  onChangeText={text => setPhone(text)}
+                  keyboardType='numeric'
                 editable={!DisableButton}
-              />
+                />
+              </View>
+            </View>
+            
+            <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
+              <MaterialCommIcons name='email-outline' size={24} color={'gray'} style={{marginRight: 6}} />
               <TextInput
-                style={[AuthStylesGlobal.input, AuthStylesGlobal.customW50]}
-                placeholder="Telefono"
+                style={AuthStylesGlobal.input}
+                placeholder="Correo electrónico"
                 placeholderTextColor="gray"
-                onChangeText={text => setPhone(text)}
-                keyboardType='numeric'
-               editable={!DisableButton}
+                onChangeText={text => setEmail(text)}
+                keyboardType='email-address'
+                editable={!DisableButton}
+                autoCapitalize='none'
+                autoCorrect={false}
               />
             </View>
-            <TextInput
-              style={[AuthStylesGlobal.input, AuthStylesGlobal.customW91]}
-              placeholder="Correo electrónico"
-              placeholderTextColor="gray"
-              onChangeText={text => setEmail(text)}
-              keyboardType='email-address'
-              editable={!DisableButton}
-              autoCapitalize='none'
-              autoCorrect={false}
-            />
-            <TextInput
-              style={[AuthStylesGlobal.input, AuthStylesGlobal.customW91]}
-              placeholder="Contraseña"
-              placeholderTextColor="gray"
-              onChangeText={text => setPassword(text)}
-              secureTextEntry={true}
-              editable={!DisableButton}
-            />
-            <TextInput
-              style={[AuthStylesGlobal.input, AuthStylesGlobal.customW91]}
-              placeholder="Confirmar contraseña"
-              placeholderTextColor="gray"
-              onChangeText={text => setConfPass(text)}
-              secureTextEntry={true}
-              editable={!DisableButton}
-            />
+            <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
+              <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
+              <TextInput
+                style={AuthStylesGlobal.input}
+                placeholder="Contraseña"
+                placeholderTextColor="gray"
+                onChangeText={text => setPassword(text)}
+                secureTextEntry={true}
+                editable={!DisableButton}
+              />
+            </View>
+            <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
+              <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
+              <TextInput
+                style={AuthStylesGlobal.input}
+                placeholder="Confirmar Contraseña"
+                placeholderTextColor="gray"
+                onChangeText={text => setConfPass(text)}
+                secureTextEntry={true}
+                editable={!DisableButton}
+              />
+            </View>
             <View style={AuthStylesGlobal.buttonView}>
               <CustomButton 
                 bgColor={'#A375FF'}

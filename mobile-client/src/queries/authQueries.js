@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //! Localhost Direction of the server.
-const localhost = '172.20.10.8';
+const localhost = '192.168.0.6';
 
 //! Get the information about the Responsible.
 //@access public
@@ -31,4 +31,10 @@ export const verifyCodeResponsible = async (verify_code, Email) => {
 //@access public
 export const loginResponsible = async (Email, Password) => {
   return await axios.post(`http://${localhost}:5005/api/auth/login`, {Email, Password}, {headers: {'Content-Type': 'application/json'}});
+}
+
+//! Forgot Password query
+//@access public
+export const ForgotPassQuery = async (Email) => {
+  return await axios.post(`http://${localhost}:5005/api/auth/forgot_password`, {Email}, {headers: {'Content-Type': 'application/json'}});
 }

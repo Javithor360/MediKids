@@ -12,9 +12,11 @@ export { ResetPasswordScreen } from  './screens/auth/ResetPasswordScreen';
 export { SelectProfilePhotoScreen } from './screens/auth/SelectProfilePhotoScreen'
 export { VerifyCodeScreen } from './screens/auth/VerifyCodeScreen';
 export { Calendario } from './screens/app/calendar/Calendario'
+export { ForgotPassCodeScreen } from './screens/auth/ForgotPassCodeScreen'
 
 //?? Components
 export { CustomButton } from './components/ButtonHook';
+export { CustomStatusBar } from './components/CustomStatusBar';
 
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';
@@ -22,7 +24,7 @@ export { HomeStack } from './navigators/Dashboard/HomeStack';
 export { CalendarStack } from './navigators/Dashboard/CalendarStack';
 
 //* Queries
-export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible } from './queries/authQueries';
+export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery } from './queries/authQueries';
 
 //\\ Configs
 export { toastConfig } from './components/toastConfigs';

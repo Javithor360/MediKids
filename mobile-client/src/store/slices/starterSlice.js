@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 //! Configurate the initial state of the Slice
 const initialState = {
   Email: null,
-  State: 0,
+  State: null,
+  StatusBarColor: '#fff',
 }
 
 //! Configure actions of the Slice.
@@ -15,11 +16,14 @@ const starterSlice = createSlice({
       const {Email, State} = action.payload;
       state.Email = Email;
       state.State = State;
-    }
+    },
+    ChangeSBColor: (state, action) => {
+      state.StatusBarColor = action.payload;
+    },
   }
 });
 
 //! Exporting Actions
-export const { setStatement } = starterSlice.actions;
+export const { setStatement, ChangeSBColor } = starterSlice.actions;
 //! Exporting reducer
 export default starterSlice.reducer;

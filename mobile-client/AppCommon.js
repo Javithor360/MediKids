@@ -1,27 +1,29 @@
 
 //>> Import libraries.
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as ImagePicker from 'expo-image-picker';
+import { View } from "react-native";
+
 
 //>> Import Components
 import { setStatement } from "./src/store/slices/starterSlice";
-import { getResponsible } from "./src";
+import { CustomStatusBar, getResponsible } from "./src";
 import { setLogginValues } from "./src/store/slices/responsibleSlice";
-import { View } from "react-native";
-import { StatusBar } from "expo-status-bar";
 
 export default function AppCommon ({children}) {
   //>> Set dispatch of Redux
   const dispatch = useDispatch()
 
+  //>> Get statusBar color from the storage
+  const statusBarColor = useSelector(state => state.starter.StatusBarColor);
+
   //! App's Session validation.
   /*
     ? What the values of the State means?
-    * State: 0 - The user doesnt registered any email.
-    * State: 1 - The user has registered but not verified the email.
-    * State: 2 - The user has been logged.
+    * State: false - The user doesnt registered any email.
+    * State: true - The user has been logged.
   */
   const validateSession = async () => {
     try {
@@ -29,22 +31,19 @@ export default function AppCommon ({children}) {
 
       if (value) {
         const {Email, isLoggedIn, jwtToken} = JSON.parse(value);
-        //! Get the data from the server.
-        const {data} = await getResponsible(Email);
 
+        // Validate if the user has logged in.
         if(isLoggedIn) {
           loggedIn(Email, jwtToken);
-          return dispatch(setStatement({Email: data.Responsible_user.Email, State: 2}));
-        }
-        
-        if(data.Responsible_user.Email_Verify_code != null) {
-          // User has already registered but doesnt verify their email.
-          return dispatch(setStatement({Email: data.Responsible_user.Email, State: 1}))
+          return dispatch(setStatement({Email: Email, State: true}));
+        } else {
+          // if the user doesnt login.
+          return dispatch(setStatement({Email: Email, State: false}))
         }
         
       } else {
-        // User doesnt registered any email.
-        return dispatch(setStatement({Email: null, State: 0}));
+        // User doesnt registered.
+        return dispatch(setStatement({Email: null, State: false}));
       }
     } catch (error) {
       console.log(error);
@@ -87,10 +86,18 @@ export default function AppCommon ({children}) {
 
   //! Component initialization
   useEffect(() => {
-    // AsyncStorage.removeItem('userSession');
+    AsyncStorage.removeItem('userSession');
     checkPermissions();
     validateSession();
   }, []);
 
-  return children;
+  return (
+    <>
+      <View style={{flex:1, position:'relative'}}>
+        <CustomStatusBar bgColor={statusBarColor} />
+        {children}
+      </View>
+    </>
+    
+  );
 }

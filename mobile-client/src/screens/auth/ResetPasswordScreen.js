@@ -1,10 +1,10 @@
 //>> Importing libraries
-import { StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground} from 'react-native';
+import { Text, View, Image, TextInput, Dimensions, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground} from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 //>> Importing components
-import  { AuthStylesGlobal, AuthStylesRegisterP, AuthStylesRegisterU }  from '../../../assets/AuthStyles';
+import  { AuthStylesGlobal, AuthStylesRegisterU }  from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
 import { CustomButton } from '../../index';
 
@@ -17,7 +17,7 @@ return (
     <View style={AuthStylesGlobal.mainContainer}>
         <View style={AuthStylesGlobal.topWaveContainer}>
             <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-            <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.navigate('WelcomeScreen')}>
+            <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.goBack()}>
             <MaterialIcons name="arrow-back-ios" size={17} color="white" />
             <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
             </TouchableOpacity>
@@ -27,19 +27,27 @@ return (
                 <Image style={AuthStylesGlobal.logoImage2} source={require('../../../assets/logos/Logotype_Colored.png')}  />
                 <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/graphic-icons/reset-password.png')}  />
                 <Text style={AuthStylesRegisterU.Tex_md}>Recuperar contraseña</Text>
-                <TextInput
-                    autoFocus={true}
+
+                <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
+                    <MaterialIcons name="lock-open" size={24} color="gray" style={{marginRight: 6}} />
+                    <TextInput
+                        autoFocus={true}
+                        secureTextEntry={true}
+                        style={AuthStylesGlobal.input}
+                        placeholder="Nueva contraseña"
+                        placeholderTextColor="gray"
+                    />
+                </View>
+
+                <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
+                    <MaterialIcons name="lock-outline" size={24} color="gray" style={{marginRight: 6}} />
+                    <TextInput
                     secureTextEntry={true}
-                    style={[AuthStylesGlobal.input, AuthStylesGlobal.customW90]}
-                    placeholder="Nueva contraseña"
-                    placeholderTextColor="gray"
-                />
-                <TextInput
-                    secureTextEntry={true}
-                    style={[AuthStylesGlobal.input, AuthStylesGlobal.customW90]}
+                    style={AuthStylesGlobal.input}
                     placeholder="Confirmar contraseña"
                     placeholderTextColor="gray"
-                />
+                    />
+                </View>
                 
                 <View style={AuthStylesGlobal.buttonView}>
                     <CustomButton 

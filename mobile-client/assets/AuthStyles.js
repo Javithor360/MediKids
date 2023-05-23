@@ -64,7 +64,7 @@ const AuthStylesGlobal = StyleSheet.create({
    customW90: {
       width:'90%',
    },
-   input:{
+   inputBox:{
       borderWidth: 1,
       padding: 10,
       backgroundColor:'#F4F1FF',
@@ -76,7 +76,14 @@ const AuthStylesGlobal = StyleSheet.create({
       marginLeft: 'auto',
       marginRight: 'auto',
       fontFamily: 'poppinsRegular',
+      flexDirection: 'row', 
+      alignItems:"center",
       height: 55,
+   },
+   input:{
+      fontSize: 16, 
+      fontFamily: 'poppinsRegular', 
+      width: '75%',
    },
    TextP:{
       textDecorationLine:'underline',

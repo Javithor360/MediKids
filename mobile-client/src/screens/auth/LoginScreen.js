@@ -1,6 +1,6 @@
 //>> Importing libraries
 import { Text, View, Image, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
-import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import { MaterialIcons, Entypo, MaterialCommunityIcons as MaterialCommIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
@@ -13,7 +13,7 @@ import  { AuthStylesGlobal }  from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
 import { CustomButton, loginResponsible } from '../../index';
 import { setLogginValues } from '../../store/slices/responsibleSlice';
-
+import { setStatement } from '../../store/slices/starterSlice';
 
 export const LoginScreen = () => {
   const navigation = useNavigation();
@@ -53,7 +53,7 @@ export const LoginScreen = () => {
       return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
     } else if(!isLoading && !Success){
       //? Default Label
-      return 'Registrarse'
+      return 'Iniciar Sesión'
     }
   }
 
@@ -77,6 +77,8 @@ export const LoginScreen = () => {
         const userSession = { Email: Email, isLoggedIn: true, jwtToken: data.token };
         await AsyncStorage.setItem('userSession', JSON.stringify(userSession));
 
+        //! Set the Stater State
+        dispatch(setStatement({Email: Email, State: true}));
 
         //! SET THE RESPONSIBLE SLICE IN REDUX
         dispatch(setLogginValues({
@@ -105,10 +107,17 @@ export const LoginScreen = () => {
       setTimeout(() => {
         setIsLoading(false);
         setSuccess(false);
-      }, 2000);
+      }, 2500);
 
-      //>> Show error message.
-      showToast('my_error', 'Error', error.response.data.message);
+      if(error.response.data?.warning != null){
+        //>> Show warning message.
+        showToast('my_warning', 'Warning', error.response.data.message);
+        dispatch(setStatement({Email: Email, State: false}));
+        setTimeout(() => navigation.replace('VerifyCodeScreen'), 2000);
+      } else {
+        //>> Show error message.
+        showToast('my_error', 'Error', error.response.data.message);
+      }
     }
   }
 
@@ -130,11 +139,11 @@ export const LoginScreen = () => {
         gestureEnabled: false
       })
     }
-      if (DisableBack) {
-        navigation.addListener('beforeRemove', (e) => {
-          e.preventDefault();
-        })
-      }
+    if (DisableBack) {
+      navigation.addListener('beforeRemove', (e) => {
+        e.preventDefault();
+      })
+    }
   }, [navigation, DisableBack]);
 
   return (
@@ -142,7 +151,7 @@ export const LoginScreen = () => {
       <View style={AuthStylesGlobal.mainContainer}>
         <View style={AuthStylesGlobal.topWaveContainer}>
           <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-          <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableButton} onPress={() => navigation.navigate('WelcomeScreen')}>
+          <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableButton} onPress={() => navigation.replace('WelcomeScreen')}>
             <MaterialIcons name="arrow-back-ios" size={17} color="white" />
             <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
           </TouchableOpacity>
@@ -151,27 +160,36 @@ export const LoginScreen = () => {
           <View style={AuthStylesGlobal.formContent} >
             <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')}  />
             <Text style={AuthStylesGlobal.title_Text}>¡Bienvenido!</Text>
-            <TextInput
-              autoFocus={true}
-              style={[AuthStylesGlobal.input, AuthStylesGlobal.customW90]}
-              placeholder="Email"
-              placeholderTextColor="gray"
-              onChangeText={text => setEmail(text)}
-              keyboardType='email-address'
-              editable={!DisableButton}
-              autoCapitalize='none'
-              autoCorrect={false}
-            />
-            <TextInput
-              style={[AuthStylesGlobal.input, AuthStylesGlobal.customW90]}
-              secureTextEntry={true}
-              placeholder="Contraseña"
-              placeholderTextColor="gray"
-              onChangeText={text => setPassword(text)}
-              editable={!DisableButton}
-            />
-            <Text style={AuthStylesGlobal.TextP} onPress={()=>navigation.navigate('ForgotPasswordScreen') }>Olvidé mi contraseña</Text>
+
+            <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
+              <MaterialCommIcons name='email-outline' size={24} color={'gray'} style={{marginRight: 6}} />
+              <TextInput
+                autoFocus={true}
+                style={AuthStylesGlobal.input}
+                placeholder="Email"
+                placeholderTextColor="gray"
+                onChangeText={text => setEmail(text)}
+                keyboardType='email-address'
+                editable={!DisableButton}
+                autoCapitalize='none'
+                autoCorrect={false}
+              />
+            </View>
             
+            <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
+              <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
+              <TextInput
+                style={AuthStylesGlobal.input}
+                secureTextEntry={true}
+                placeholder="Contraseña"
+                placeholderTextColor="gray"
+                onChangeText={text => setPassword(text)}
+                editable={!DisableButton}
+              />
+            </View>
+
+            <Text style={AuthStylesGlobal.TextP} onPress={()=>navigation.navigate('ForgotPasswordScreen') }>Olvidé mi contraseña</Text>
+
             <View style={AuthStylesGlobal.buttonView}>
               <CustomButton 
                 bgColor={'#A375FF'}

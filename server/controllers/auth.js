@@ -11,6 +11,7 @@ import fs from 'fs';
 import {pool} from '../utils/db.js';
 import { create_code, create_jwt, create_reset_token, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
 import firebaseConfig from '../utils/firebase.config.js';
+import { CLIENT_RENEG_WINDOW } from 'tls';
 
 //? Startup Firebase configuration.
 initializeApp(firebaseConfig.firebaseConfig);
@@ -40,9 +41,9 @@ const register = async (req, res, next) => {
     }
 
     //3 - CHECKING IF VALUES ALREADY EXIST
-    const [query_check] = await pool.query('SELECT * FROM responsible WHERE DUI = ?', [DUI]);
+    const [query_check] = await pool.query('SELECT * FROM responsible WHERE DUI = ? OR Email = ?', [DUI, Email]);
     if (query_check.length != 0) {
-      return res.status(500).json({success: false, message: 'Valores en uso'});
+      return res.status(500).json({success: false, message: 'Usuario ya registrado'});
     } 
 
     //4 - CHECK VALID VALUES
@@ -81,7 +82,7 @@ const register = async (req, res, next) => {
     await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo_Url: P_F, Profile_Photo_Name: null , Reset_Pass_Token: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
 
     // SEND EMAIL
-    send_verify_code_email(verify_code, Email, res);
+    // send_verify_code_email(verify_code, Email, res);
 
     return res.status(200).json({success: true, Email})
   } catch (error) {
@@ -115,7 +116,7 @@ const login = async (req, res, next) => {
 
     // CHECK IF THE EMAIL IT HAS BEEN VALIDATED
     if (query_user[0].Email_Verify_code != null) {
-      return res.status(500).json({success: false, message: 'Email no verificado'});
+      return res.status(500).json({success: false, message: 'Email no verificado', warning: true});
     }
 
     // CREATE JWT TOKEN
@@ -228,7 +229,7 @@ const forgot_password = async (req, res, next) => {
     await pool.query('UPDATE Responsible SET Reset_Pass_Token = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, new Date(forgot_pass_tokens.db_reset_expire), Email]);
 
     // SEND EMAIL WITH THE TOKEN IN URL (CHANGE)
-    send_forgot_pass_email(forgot_pass_tokens.reset_pass_token, Email, res);
+    // send_forgot_pass_email(forgot_pass_tokens.reset_pass_token, Email, res);
 
     return res.status(200).json({success: true, message: 'Email Enviado Correctamente'});
   } catch (error) {

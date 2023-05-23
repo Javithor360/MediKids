@@ -25,6 +25,18 @@ export const toastConfig = {
         <Text style={styles.Text2}>{text2}</Text>
       </View>
     </View>
+  ),
+  my_warning: ({text1, text2}) => (
+    <View style={styles.ContainerToast}>
+      <View style={[styles.LeftBar, {backgroundColor: '#FFA542'}]}/>
+      <View style={styles.Icon}>
+        <AntDesign name="warning" color={'#FFA542'} size={30}/>
+      </View>
+      <View style={styles.TextContainer}>
+        <Text style={[styles.Text1,{color: '#FFA542'}]}>{text1}</Text>
+        <Text style={styles.Text2}>{text2}</Text>
+      </View>
+    </View>
   )
 }
 

@@ -1,6 +1,6 @@
 //>> Importing libraries
 import { Text, View, Image, ImageBackground } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native-paper';
 import { useSelector } from 'react-redux';
@@ -14,7 +14,7 @@ import InputCodeField from '../../components/InputCodeField';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 
-export const VerifyCodeScreen = () => {
+export const ForgotPassCodeScreen = () => {
     const navigation = useNavigation();
 
     //! Get the Email from the global State
@@ -112,18 +112,14 @@ export const VerifyCodeScreen = () => {
     <>
         <View style={AuthStylesGlobal.mainContainer}>
             <View style={AuthStylesGlobal.topWaveContainer}>
-                <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-                {/* <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableBtn} onPress={() => navigation.navigate('WelcomeScreen')}>
-                    <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-                    <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
-                </TouchableOpacity> */}
+                <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/>
             </View>
             <View style={AuthStylesGlobal.contentContainer} >
                 <View style={AuthStylesGlobal.formContent} >
                     <Image style={AuthStylesGlobal.logoImage2} source={require('../../../assets/logos/Logotype_Colored.png')}  />
                     <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/graphic-icons/verify-code.png')}  />
-                    <Text style={AuthStylesRegisterU.Tex_md}>Código de verificación</Text>
-                    <Text>Su Email a verificar es: <Text style={{color:'#A375FF', fontWeight: 'bold', fontStyle: 'italic', fontSize:15}}>{Email}</Text></Text>
+                    <Text style={AuthStylesRegisterU.Tex_md}>Código de cambio de contraseña</Text>
+                    <Text>Ingrese el codigo enviado a su Email.</Text>
 
                     <InputCodeField value={verifyCode} setValue={setVerifyCode} />
                     

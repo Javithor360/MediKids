@@ -128,7 +128,7 @@ const send_verify_code_email = async (verify_code, Email, res) => {
 //* 3 - CREATE TOKEN TO RESET THE PASSWORD
 const create_reset_token = () => {
   // CREATE THE TOKEN FOR THE VALIDATION
-  const reset_pass_token = crypto.randomBytes(20).toString('hex');
+  const reset_pass_token = create_code().toString();
   // CREATE THE TOKEN FOR THE USER
   const db_reset_token = crypto.createHash('sha256').update(reset_pass_token).digest('hex');
   // SET IN HOW LONG IT WILL EXPIRE

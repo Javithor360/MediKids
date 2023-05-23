@@ -100,7 +100,7 @@ export const RegisterPatientScreen = () => {
       <View style={AuthStylesGlobal.mainContainer}>
         <View style={AuthStylesGlobal.topWaveContainer}>
           <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-          <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.navigate('WelcomeScreen')}>
+          <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.goBack()}>
             <MaterialIcons name="arrow-back-ios" size={17} color="white" />
             <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
           </TouchableOpacity>
@@ -110,19 +110,24 @@ export const RegisterPatientScreen = () => {
             <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')}  />
             <Text style={AuthStylesGlobal.title_Text}>Datos del paciente</Text>
             <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
+            <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
               <TextInput
                 autoFocus={true}
-                style={[AuthStylesGlobal.input, AuthStylesGlobal.customW50]}
+                style={AuthStylesGlobal.input}
                 placeholder="Nombres"
                 placeholderTextColor="gray"
               />
+            </View>
+            <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
               <TextInput
-                style={[AuthStylesGlobal.input, AuthStylesGlobal.customW50]}
+                style={AuthStylesGlobal.input}
                 placeholder="Apellidos"
                 placeholderTextColor="gray"
               />
             </View>
-            <TouchableOpacity style={[AuthStylesGlobal.input, AuthStylesGlobal.customW91, AuthStylesRegisterP.inputBtn]} onPress={() => setShow(true)} activeOpacity={.7}>
+              
+            </View>
+            <TouchableOpacity style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91, AuthStylesRegisterP.inputBtn]} onPress={() => setShow(true)} activeOpacity={.7}>
                 <TextInput style={AuthStylesRegisterP.inputBtnText} editable={false} placeholder="Fecha de nacimiento" value={selectedDate} onPressIn={() => setShow(true)}/>
                 <MaterialIcons name="calendar-today" size={24} color="#707070" />
             </TouchableOpacity>

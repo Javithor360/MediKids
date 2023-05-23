@@ -4,30 +4,28 @@ import { ActivityIndicator, Image, StyleSheet, View } from 'react-native'
 import { useEffect } from 'react'
 import Lottie from 'lottie-react-native'
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 //>> Importing Components
 import { isIOS } from '../../constants';
+import { ChangeSBColor } from '../../store/slices/starterSlice';
 
 export const SplashScreen = () => {
   const State = useSelector(state => state.starter.State);
+  const dispatch = useDispatch()
+
   const navigation = useNavigation();
 
   //>> Navigation to the corresponding component.
   useEffect(() => {
     if(State !== null) {
       setTimeout(() => {
-        switch (State) {
-          case 0:
-            navigation.navigate('WelcomeScreen');
-            break;
-          case 1:
-            navigation.navigate('VerifyCodeScreen');
-            break;
-          case 2: 
-            navigation.navigate('ApplicationTab');
-            break;
+        if(State) {
+          navigation.navigate('ApplicationTab');
+        } else {
+          navigation.navigate('WelcomeScreen');
         }
+        dispatch(ChangeSBColor('#e4e2ff'))
       }, 4000);
     }
   }, [State]);
@@ -49,6 +47,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#fff'
   },
   imageStyle: {
     width: 200,

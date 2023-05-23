@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {manipulateAsync} from 'expo-image-manipulator'
 
 //>> Importing components
 import  { AuthStylesGlobal, AuthStylesRegisterU, SelectProfilePhoto }  from '../../../assets/AuthStyles';
@@ -13,6 +14,8 @@ import { CustomButton, uploadPFResponsible } from '../../index';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { ActivityIndicator } from 'react-native-paper';
 import { changePerfilPhoto } from '../../store/slices/responsibleSlice';
+
+const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
 
 export const SelectProfilePhotoScreen = () => {
     const navigation = useNavigation();
@@ -61,12 +64,20 @@ export const SelectProfilePhotoScreen = () => {
     }
 
     //! Function to upload the profile photo to the backend.
-    const uploadImage = async (uri) => {
+    const uploadImage = async (ImgUri) => {
         try {
             setIsLoading(true);
+
+            //>> Compact te image
+            const manipImage = await manipulateAsync(
+                ImgUri,
+                [],
+                {compress: 0.7}
+            )
+
             const formData = new FormData();
             formData.append('image',{
-                uri: uri,
+                uri: manipImage.uri,
                 type: 'image/jpeg',
                 name: 'image.png',
             })
@@ -99,7 +110,7 @@ export const SelectProfilePhotoScreen = () => {
         <View style={AuthStylesGlobal.mainContainer}>
             <View style={AuthStylesGlobal.topWaveContainer}>
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-                <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.navigate('WelcomeScreen')}>
+                <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.goBack()}>
                 <MaterialIcons name="arrow-back-ios" size={17} color="white" />
                 <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
                 </TouchableOpacity>
@@ -113,7 +124,7 @@ export const SelectProfilePhotoScreen = () => {
                     </View>
                     <View style={[SelectProfilePhoto.hr, SelectProfilePhoto.customMarginB_2]} />
                     <View style={SelectProfilePhoto.profilePhotoWrapper}>
-                        <ImageBackground style={SelectProfilePhoto.profilePhotoImage} source={ImageEl ? {uri: ImageEl} : {uri: responsible.ProfilePhotoUrl}} />
+                        <ImageBackground style={SelectProfilePhoto.profilePhotoImage} source={ImageEl ? {uri: ImageEl} : {uri: responsible.ProfilePhotoUrl || defaultProfPhoto}} />
                     </View>
                     <TouchableOpacity style={SelectProfilePhoto.uploadBtn} activeOpacity={0.5} onPress={() => pickeImage()}>
                         <MaterialIcons name="drive-folder-upload" size={24} color="#707070" />
@@ -135,9 +146,7 @@ export const SelectProfilePhotoScreen = () => {
                             textColor={'white'}
                             Label={setLabel()}
                             handlePress={() => {
-                                // console.log(ImageEl);
                                 if(ImageEl != null) {
-                                    // navigation.navigate('ApplicationTab');
                                     uploadImage(ImageEl);
                                 } else {
                                     //! ERRROR HANDLING
