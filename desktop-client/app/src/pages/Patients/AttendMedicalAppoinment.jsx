@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { FaUserAlt } from "react-icons/fa"
 import { EditMedicalPrescription, EditMedicalRecord, ReferPatient, ScheduleAppointment } from './PatientsComponents';
 export const MedicalAppoinment = () => {

@@ -77,7 +77,7 @@ export const IndexPage = () => {
           <p className="relative before:content before:block before:w-[30px] before:h-[4px] before:top-[50%] before:absolute before:bg-black before:-left-[3rem] ml-[4.3rem] mt-5 font-semibold">Solicitud de citas</p>
           <p className="mt-5 mx-5 mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio dolores consequuntur.</p>
           <p className="ml-7 font-semibold text-[3rem]">2</p>
-          <Link className="absolute right-7 bottom-5 bg-[#BB85D5] h-[2.5rem] w-[6.5rem] rounded-xl text-center table hover:-translate-y-[2px] hover:rounded-md ease-in transition-all"><span className="table-cell align-middle font-semibold">Ver más</span></Link>
+          <Link to={"/login"} className="absolute right-7 bottom-5 bg-[#BB85D5] h-[2.5rem] w-[6.5rem] rounded-xl text-center table hover:-translate-y-[2px] hover:rounded-md ease-in transition-all"><span className="table-cell align-middle font-semibold">Ver más</span></Link>
         </div>
       </section>
       <button onClick={toggle} >Abrir modal</button>
