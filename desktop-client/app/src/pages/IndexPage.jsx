@@ -81,6 +81,7 @@ export const IndexPage = () => {
         </div>
       </section>
       <button onClick={toggle} >Abrir modal</button>
+      <Link className="ml-4" to={'/login'}>LOGIN</Link>
       {toggle && (
         <Modal active={active} toggle={toggle} onRequestClose={toggle}>
           <ModalTestComponent isModal={isModal} />
