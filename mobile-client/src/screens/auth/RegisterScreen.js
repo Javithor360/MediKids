@@ -1,5 +1,5 @@
 //>> Importing libraries
-import { Text, View, Image, TextInput, TouchableOpacity, ScrollView, ImageBackground} from 'react-native';
+import { Text, View, Image, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground, StyleSheet, Dimensions} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native-paper';
@@ -16,6 +16,7 @@ import { setStatement } from '../../store/slices/starterSlice';
 //>> Importing icons
 import { Feather, AntDesign, MaterialIcons, Entypo, MaterialCommunityIcons as MaterialCommIcons } from '@expo/vector-icons';
 
+const {windowHeight} = Dimensions.get('window').height;
 
 export const RegisterScreen = () => {
   const dispatch = useDispatch();
@@ -141,131 +142,135 @@ export const RegisterScreen = () => {
   
   return (
     <>
-      <ScrollView style={AuthStylesGlobal.mainContainer}>
-        <View style={AuthStylesGlobal.topWaveContainer}>
-          <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-          <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableButton} onPress={() => navigation.goBack()}>
-            <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-            <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={AuthStylesGlobal.contentContainer}>
-          <View style={AuthStylesGlobal.formContent} >
-            <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')}  />
-            <Text style={AuthStylesRegisterU.Tex_md}>Datos del encargado</Text>
-            <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
-              <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
-                <Feather name="user" size={24} color='gray' style={{marginRight: 6}} />
+      <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#fff',}}
+      behavior={'padding'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <View style={AuthStylesGlobal.topWaveContainer}>
+            <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
+            <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableButton} onPress={() => navigation.goBack()}>
+              <MaterialIcons name="arrow-back-ios" size={17} color="white" />
+              <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={AuthStylesGlobal.contentContainer}>
+            <View style={AuthStylesGlobal.formContent} >
+              <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')}  />
+              <Text style={AuthStylesRegisterU.Tex_md}>Datos del encargado</Text>
+              <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
+                <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
+                  <Feather name="user" size={24} color='gray' style={{marginRight: 6}} />
+                  <TextInput
+                    style={AuthStylesGlobal.input}
+                    autoFocus={true}
+                    placeholder="Nombres"
+                    placeholderTextColor="gray"
+                    onChangeText={text => setFirstNames(text)}
+                    editable={!DisableButton}
+                  />
+                </View>
+                <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
+                  <Feather name="user" size={24} color='gray' style={{marginRight: 6}} />
+                  <TextInput
+                    style={AuthStylesGlobal.input}
+                    placeholder="Apellidos"
+                    placeholderTextColor="gray"
+                    onChangeText={text => setLastNames(text)}
+                    editable={!DisableButton}
+                  />
+                </View>
+              </View>
+              <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
+                <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
+                  <AntDesign name="idcard" size={24} color="gray" style={{marginRight: 6}} />
+                  <TextInput
+                    style={AuthStylesGlobal.input}
+                    placeholder="DUI"
+                    placeholderTextColor="gray"
+                    onChangeText={text => setDUI(text)}
+                    editable={!DisableButton}
+                  />
+                </View>
+                <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
+                  <Feather name="phone" size={24} color="gray" style={{marginRight: 6}} />
+                  <TextInput
+                    style={AuthStylesGlobal.input}
+                    placeholder="Telefono"
+                    placeholderTextColor="gray"
+                    onChangeText={text => setPhone(text)}
+                    keyboardType='numeric'
+                  editable={!DisableButton}
+                  />
+                </View>
+              </View>
+              
+              <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
+                <MaterialCommIcons name='email-outline' size={24} color={'gray'} style={{marginRight: 6}} />
                 <TextInput
-                  style={AuthStylesGlobal.input}
-                  autoFocus={true}
-                  placeholder="Nombres"
+                  style={AuthStylesGlobal.inputExtended}
+                  placeholder="Correo electrónico"
                   placeholderTextColor="gray"
-                  onChangeText={text => setFirstNames(text)}
+                  onChangeText={text => setEmail(text)}
+                  keyboardType='email-address'
+                  editable={!DisableButton}
+                  autoCapitalize='none'
+                  autoCorrect={false}
+                />
+              </View>
+              <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
+                <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
+                <TextInput
+                  style={AuthStylesGlobal.inputExtended}
+                  placeholder="Contraseña"
+                  placeholderTextColor="gray"
+                  onChangeText={text => setPassword(text)}
+                  secureTextEntry={true}
                   editable={!DisableButton}
                 />
               </View>
-              <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
-                <Feather name="user" size={24} color='gray' style={{marginRight: 6}} />
+              <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
+                <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
                 <TextInput
-                  style={AuthStylesGlobal.input}
-                  placeholder="Apellidos"
+                  style={AuthStylesGlobal.inputExtended}
+                  placeholder="Confirmar Contraseña"
                   placeholderTextColor="gray"
-                  onChangeText={text => setLastNames(text)}
+                  onChangeText={text => setConfPass(text)}
+                  secureTextEntry={true}
                   editable={!DisableButton}
                 />
               </View>
-            </View>
-            <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
-              <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
-                <AntDesign name="idcard" size={24} color="gray" style={{marginRight: 6}} />
-                <TextInput
-                  style={AuthStylesGlobal.input}
-                  placeholder="DUI"
-                  placeholderTextColor="gray"
-                  onChangeText={text => setDUI(text)}
-                  editable={!DisableButton}
-                />
+              <View style={AuthStylesGlobal.buttonView}>
+                <CustomButton 
+                  bgColor={'#A375FF'}
+                  paddingV={0}
+                  paddingH={0}
+                  marginH={0}
+                  marginV={isIOS ? 2 : 6}
+                  width={'100%'}
+                  height={'100%'}
+                  BorderRadius={10}
+                  fontFamily={'poppinsBold'}
+                  fontSize={16}
+                  textColor={'white'}
+                  Label={setLabel()}
+                  handlePress={() => {registerNewUser()}}
+                  haveShadow={true}
+                  disable={DisableButton}
+                /> 
               </View>
-              <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
-                <Feather name="phone" size={24} color="gray" style={{marginRight: 6}} />
-                <TextInput
-                  style={AuthStylesGlobal.input}
-                  placeholder="Telefono"
-                  placeholderTextColor="gray"
-                  onChangeText={text => setPhone(text)}
-                  keyboardType='numeric'
-                editable={!DisableButton}
-                />
+              <View style={AuthStylesGlobal.cont2} >
+                <Text style={AuthStylesGlobal.TextCount}>¿Ya tienes una cuenta?</Text>
+                <TouchableOpacity disabled={DisableButton}>
+                  <Text style={AuthStylesGlobal.TextReg} onPress={()=>navigation.navigate('LoginScreen')}>Inicia sesión</Text>
+                </TouchableOpacity>
               </View>
-            </View>
-            
-            <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
-              <MaterialCommIcons name='email-outline' size={24} color={'gray'} style={{marginRight: 6}} />
-              <TextInput
-                style={AuthStylesGlobal.inputExtended}
-                placeholder="Correo electrónico"
-                placeholderTextColor="gray"
-                onChangeText={text => setEmail(text)}
-                keyboardType='email-address'
-                editable={!DisableButton}
-                autoCapitalize='none'
-                autoCorrect={false}
-              />
-            </View>
-            <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
-              <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
-              <TextInput
-                style={AuthStylesGlobal.inputExtended}
-                placeholder="Contraseña"
-                placeholderTextColor="gray"
-                onChangeText={text => setPassword(text)}
-                secureTextEntry={true}
-                editable={!DisableButton}
-              />
-            </View>
-            <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
-              <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
-              <TextInput
-                style={AuthStylesGlobal.inputExtended}
-                placeholder="Confirmar Contraseña"
-                placeholderTextColor="gray"
-                onChangeText={text => setConfPass(text)}
-                secureTextEntry={true}
-                editable={!DisableButton}
-              />
-            </View>
-            <View style={AuthStylesGlobal.buttonView}>
-              <CustomButton 
-                bgColor={'#A375FF'}
-                paddingV={0}
-                paddingH={0}
-                marginH={0}
-                marginV={isIOS ? 2 : 6}
-                width={'100%'}
-                height={'100%'}
-                BorderRadius={10}
-                fontFamily={'poppinsBold'}
-                fontSize={16}
-                textColor={'white'}
-                Label={setLabel()}
-                handlePress={() => {registerNewUser()}}
-                haveShadow={true}
-                disable={DisableButton}
-              /> 
-            </View>
-            <View style={AuthStylesGlobal.cont2} >
-              <Text style={AuthStylesGlobal.TextCount}>¿Ya tienes una cuenta?</Text>
-              <TouchableOpacity disabled={DisableButton}>
-                <Text style={AuthStylesGlobal.TextReg} onPress={()=>navigation.navigate('LoginScreen')}>Inicia sesión</Text>
-              </TouchableOpacity>
             </View>
           </View>
-        </View>
-        <View style={AuthStylesGlobal.bottomWaveContainer}>
-          <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_buttom.png")}/> 
-        </View>
-      </ScrollView>
+          <View style={AuthStylesGlobal.bottomWaveContainer}>
+            <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_buttom.png")}/> 
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </>
   )
 }

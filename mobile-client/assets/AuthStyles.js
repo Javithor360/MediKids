@@ -12,21 +12,20 @@ const AuthStylesGlobal = StyleSheet.create({
       flexDirection: 'column', 
       position: 'relative'
    },
-   bottomWaveContainer: {
-      position: 'absolute', 
-      bottom: 0, 
-      left: 0, 
-      right: 0
-   },
+   // bottomWaveContainer: {
+   //    position: 'absolute', 
+   //    bottom: 0, 
+   //    left: 0, 
+   //    right: 0
+   // },
    contentContainer: {
-      flex:2, 
+      flex: 2, 
       flexDirection: 'column',
-      backgroundColor: '#fff',
       paddingHorizontal:'3%',
       paddingVertical:'3%'
    },
    formContent: {
-      height: height,
+      // height: height,
       flexDirection:'column',
       justifyContent:'flex-start',
       alignItems:'center',
