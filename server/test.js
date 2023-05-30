@@ -1,5 +1,5 @@
+import { send_verify_code_email } from "./utils/functions";
 const test = async () => {
-  let fecha = new Date(1681925851195);
-  console.log(fecha);
+ send_verify_code_email('sex', 'sex@gmail', ) 
 }
 test();

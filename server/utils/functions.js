@@ -15,7 +15,9 @@ const create_code = () => {
 const send_verify_code_email = async (verify_code, Email, res) => {
   // MESSAGE HTML
   const message_1 = `
-  <head>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
@@ -31,9 +33,9 @@ const send_verify_code_email = async (verify_code, Email, res) => {
             border-color: rgba(0, 0, 0, 0.068);
         }
         .icon{
-            width: 15rem;
+            width: 35rem;
             margin-top: 2rem;
-            margin-left: 2rem;
+            margin-left: 12rem;
             margin-bottom: 2rem;
         }
         .subtitles{
@@ -48,12 +50,13 @@ const send_verify_code_email = async (verify_code, Email, res) => {
         }
         hr{
             border: 0;
-            height: .3rem;
-            background: #93DEFF;
+            height: .7rem;
+            background: #A375ff;
+            border-radius: 1em;
             opacity: 100;
             padding: 0;
             margin-top: -2rem   ;
-            width: 15rem;
+            width: 25rem;
             font-weight: bold;
         }
 
@@ -77,10 +80,10 @@ const send_verify_code_email = async (verify_code, Email, res) => {
             text-align: center;
             font-size: 2rem;
         }
-        footer{
-            background-color: rgb(78, 78, 78);
-            margin-top: 16.5rem;
-            height: 3rem;
+        footer img{
+            margin-top: 0.5rem;
+            height: 7rem;
+            width: 60em;
         }
         .img{
             width: 30rem;
@@ -88,29 +91,26 @@ const send_verify_code_email = async (verify_code, Email, res) => {
             margin-top: -5.5rem;
         }
         .codec{
-            font-size: 5rem;
+            font-size: 3rem;
         }
     </style>
   </head>
   <body> 
-    <div class="fondo"><img class="icon" src="https://media.discordapp.net/attachments/825146450232213505/999324633478205560/Demantur_Imagotype-3.png?width=1025&height=414" alt="">
-      <h1 class="title">Codigo de verificacion</h1>
+    <div class="fondo"><img class="icon" src="https://media.discordapp.net/attachments/842483463972978698/1113118592016339004/Horizontal_Imagotype_Black_Text.png?width=1440&height=342" alt="">
+      <h1 class="title">Codigo de <span style="color:#d58c8c;">verificacion</span></h1>
       <hr />
         <div class="title2">
           <p>Tu codigo de verificacion para finalizar la creacion de tu cuenta es:</p>
         </div>
         <br><br><br><br>
         <p class="subtitles"><strong class="codec">${verify_code}</strong></p>
-        <img class="img" src="https://cdn.discordapp.com/attachments/861438024659501087/1014409038102007848/Imagen1.png" alt=""><br><br><br><br><br><br><br>
+        <img class="img" src="https://cdn.discordapp.com/attachments/842483463972978698/1113138952254259260/ihhcTQQxAfX0ycPa5HQTt-transformed-removebg-preview.png" alt=""><br><br><br><br><br><br><br>
         <footer>
-          <center>
-            <span class="copyright">
-              Todos los derechos reservados. © 2022 Demantur
-            </span>
-          </center>
+          <img src="https://cdn.discordapp.com/attachments/842483463972978698/1113152523851792554/footer-waves-08.png" alt="">
         </footer>
     </div>
   </body>
+</html>
   `;
 
   // SEND EMAIL

@@ -10,3 +10,4 @@ export { Citas } from "./Citas"
 export { Sobre } from "./Sobre"
 export { Contact } from "./Contact"
 export { Error404 } from "./Error404"
+export { Terminos } from './Terminos'

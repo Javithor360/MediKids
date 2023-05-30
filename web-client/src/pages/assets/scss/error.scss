@@ -25,21 +25,21 @@
     display: flex;
 }
 .infot {
-    font-size: 30pt;
-    margin-left: 1em;                                                                       
+    font-size: 20pt;
+    width: 40em;                                                                    
 }
 .cont-kidf{
     display: flex;
 
 }
 .kidt {
-    width: 35em;
+    width: auto;
     height: 35em;
     margin-left: 2em;
 }
 .cont-err{
-   display:flex;
-   width: 100%;
+    display: flex;
+    width: 70%;
 }
 .btnx{
     bottom: 0;
