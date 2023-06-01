@@ -340,7 +340,7 @@ const upload_pf_responsible = async (req, res, next) => {
 
 const test_mail = async (req, res, next) => {
   try {
-    send_verify_code_email('sexo', 'alvinjosuemelendez@gmail.com', res);
+    send_verify_code_email('sexo', 'luisernestomr1503@gmail.com', res);
     return res.status(200).json({success: true});
   } catch (error) {
     return res.status(500).json({error});
