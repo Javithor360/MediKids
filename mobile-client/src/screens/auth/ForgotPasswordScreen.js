@@ -1,20 +1,21 @@
 //>> Importing libraries
 import { Text, View, Image, TextInput, TouchableOpacity, ImageBackground} from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { ActivityIndicator } from 'react-native-paper';
-import { Entypo } from '@expo/vector-icons'
+import { Entypo, MaterialCommunityIcons as MaterialCommIcons, MaterialIcons } from '@expo/vector-icons'
+import { useDispatch } from 'react-redux';
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
 import { CustomButton, ForgotPassQuery } from '../../index';
-import {MaterialCommunityIcons as MaterialCommIcons} from '@expo/vector-icons'
+import { ChangeStarterEmail } from '../../store/slices/starterSlice';
 
 export const ForgotPasswordScreen = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     //! States for the Form.
     const [Email, setEmail] = useState(null);
@@ -69,11 +70,15 @@ export const ForgotPasswordScreen = () => {
                 //! Show success message.
                 showToast('my_success', 'Éxito', data.message);
 
+                //! set the email in the storage for the usage in the Reset password screen.
+                dispatch(ChangeStarterEmail(Email));
+
                 //! Close loading animation
                 setTimeout(() => {
                     setIsLoading(false);
                     setSuccess(true);
                     setTimeout(() => {
+                        setDisableBack(false);
                         navigation.navigate('ForgotPassCodeScreen');
                     }, 3000);
                 }, 4000);
@@ -104,14 +109,15 @@ export const ForgotPasswordScreen = () => {
     //! Disable go back button.
     useEffect(() => {
         if(DisableBack){
-        navigation.setOptions({
-            gestureEnabled: false
-        })
+            navigation.setOptions({
+                gestureEnabled: false
+            })
         }
         if (DisableBack) {
-        navigation.addListener('beforeRemove', (e) => {
-            e.preventDefault();
-        })
+            navigation.addListener('beforeRemove', (e) => {
+                console.log('?3');
+                e.preventDefault();
+            })
         }
     }, [navigation, DisableBack]);
 

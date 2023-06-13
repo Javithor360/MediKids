@@ -82,7 +82,7 @@ export const VerifyCodeScreen = () => {
             setIsLoading(false);
             setSuccess(true);
                 setTimeout(() => {
-                    navigation.navigate('WelcomeScreen');
+                    navigation.navigate('LoginScreen', {swipeBack: false});
                 }, 3000);
             }, 4000);
         }
@@ -112,7 +112,6 @@ export const VerifyCodeScreen = () => {
 
     useEffect(() => {
         navigation.addListener('beforeRemove', (e) => {
-            console.log(e);
             e.preventDefault();
         })
     }, [navigation]);

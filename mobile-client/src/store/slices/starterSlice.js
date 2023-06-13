@@ -20,10 +20,13 @@ const starterSlice = createSlice({
     ChangeSBColor: (state, action) => {
       state.StatusBarColor = action.payload;
     },
+    ChangeStarterEmail: (state, action) => {
+      state.Email = action.payload;
+    }
   }
 });
 
 //! Exporting Actions
-export const { setStatement, ChangeSBColor } = starterSlice.actions;
+export const { setStatement, ChangeSBColor, ChangeStarterEmail } = starterSlice.actions;
 //! Exporting reducer
 export default starterSlice.reducer;

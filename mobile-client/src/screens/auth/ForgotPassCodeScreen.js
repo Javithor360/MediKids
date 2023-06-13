@@ -9,16 +9,13 @@ import { Entypo } from '@expo/vector-icons';
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
-import { CustomButton, verifyCodeResponsible } from '../../index';
+import { CheckresetPassCode, CustomButton } from '../../index';
 import InputCodeField from '../../components/InputCodeField';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 
 export const ForgotPassCodeScreen = () => {
     const navigation = useNavigation();
-
-    //! Get the Email from the global State
-    const Email = useSelector(state => state.starter.Email)
 
     //! Verify Code State
     const [verifyCode, setVerifyCode] = useState(null);
@@ -31,6 +28,9 @@ export const ForgotPassCodeScreen = () => {
 
     //! State For disable the button
     const [DisableBtn, setDisableBtn] = useState(false);
+
+    //! State for Disable the navigation listener
+    const [DisableNavListener, setDisableNavListener] = useState(true);
 
     //! Show the Emergent Message (toast).
     const showToast = (type, text1, text2) => {
@@ -52,7 +52,7 @@ export const ForgotPassCodeScreen = () => {
         return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
         } else if(!isLoading && !Success){
         //? Default Label
-        return 'Verificar'
+        return <Text>Verificar</Text>
         }
     }
 
@@ -63,18 +63,19 @@ export const ForgotPassCodeScreen = () => {
         setIsLoading(true);
     
         //! Server Query
-        const {data} = await verifyCodeResponsible(verifyCode, Email);
+        const {data} = await CheckresetPassCode(verifyCode);
     
         if(data.success){
             //! Show success message.
-            showToast('my_success', 'Éxito', 'Email Verificado correctamente');
+            showToast('my_success', 'Éxito', 'Código Verificado correctamente');
     
             //! Close loading animation
             setTimeout(() => {
             setIsLoading(false);
             setSuccess(true);
                 setTimeout(() => {
-                    navigation.navigate('LoginScreen');
+                    setDisableNavListener(false);
+                    navigation.navigate('ResetPasswordScreen');
                 }, 3000);
             }, 4000);
         }
@@ -103,9 +104,11 @@ export const ForgotPassCodeScreen = () => {
     }, [isLoading, Success]);
 
     useEffect(() => {
-        navigation.addListener('beforeRemove', (e) => {
-            e.preventDefault();
-        })
+        if(DisableNavListener){
+            navigation.addListener('beforeRemove', (e) => {
+                e.preventDefault();
+            })
+        }
     }, [navigation]);
 
     return (

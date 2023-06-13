@@ -40,7 +40,13 @@ export const ForgotPassQuery = async (Email) => {
 }
 
 //! Check reset password code.
-//@access pluic
-export const CheckresetPassCode = async (Email) => {
-  return await axios.post(`http://${localhost}:5005/api/auth/check_reset_code`, {Email}, {headers: {'Content-Type': 'application/json'}});
+//@access public
+export const CheckresetPassCode = async (verifyCode) => {
+  return await axios.post(`http://${localhost}:5005/api/auth/check_reset_code`, {reset_pass_code: verifyCode}, {headers: {'Content-Type': 'application/json'}});
+}
+
+//! Reset the password.
+//@access public
+export const ResetPasswordQuery = async (Password, ConfPass, Email) => {
+  return await axios.post(`http://${localhost}:5005/api/auth/reset_password`, {Password, ConfPass, Email}, {headers: {'Content-Type': 'application/json'}});
 }

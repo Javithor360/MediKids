@@ -1,7 +1,7 @@
 //>> Importing libraries
 import { Text, View, Image, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
 import { MaterialIcons, Entypo, MaterialCommunityIcons as MaterialCommIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { ActivityIndicator } from 'react-native-paper';
@@ -18,6 +18,7 @@ import { setStatement } from '../../store/slices/starterSlice';
 export const LoginScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const route = useRoute();
 
   //! States for the Form.
   const [Email, setEmail] = useState(null);
@@ -32,6 +33,9 @@ export const LoginScreen = () => {
   //! State For disable the button
   const [DisableButton, setDisableButton] = useState(false);
   const [DisableBack, setDisableBack] = useState(false);
+
+  //! State for unavailability the swipe back.
+  const [SwipeBck, setSwipeBck] = useState(true);
 
   //! Show the Emergent Message (toast).
   const showToast = (type, text1, text2) => {
@@ -134,7 +138,7 @@ export const LoginScreen = () => {
 
   //! Disable go back button.
   useEffect(() => {
-    if(DisableBack){
+    if(DisableBack || !SwipeBck){
       navigation.setOptions({
         gestureEnabled: false
       })
@@ -145,6 +149,14 @@ export const LoginScreen = () => {
       })
     }
   }, [navigation, DisableBack]);
+
+  //! check the parameters of the navigation.
+  useEffect(() => {
+    if (route.params != undefined) {
+      const {swipeBack} = route.params;
+      setSwipeBck(swipeBack);
+    }
+  }, [route]);
 
   return (
     <>

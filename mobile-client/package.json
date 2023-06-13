@@ -22,6 +22,7 @@
     "expo-asset": "~8.9.1",
     "expo-constants": "~14.2.1",
     "expo-font": "~11.1.1",
+    "expo-image-manipulator": "~11.1.1",
     "expo-image-picker": "~14.1.1",
     "expo-permissions": "~14.1.1",
     "expo-splash-screen": "~0.18.1",
@@ -40,8 +41,7 @@
     "react-native-screens": "~3.20.0",
     "react-native-toast-message": "^2.1.6",
     "react-redux": "^8.0.5",
-    "redux": "^4.2.1",
-    "expo-image-manipulator": "~11.1.1"
+    "redux": "^4.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

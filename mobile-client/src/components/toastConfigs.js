@@ -2,47 +2,61 @@ import { StyleSheet, Text, View } from "react-native"
 import { AntDesign } from '@expo/vector-icons';
 
 export const toastConfig = {
-  my_success: ({ text1, text2 }) => (
-    <View style={styles.ContainerToast}>
-      <View style={[styles.LeftBar, {backgroundColor: '#5AB1BB'}]}/>
-      <View style={styles.Icon}>
-        <AntDesign name="checkcircleo" color={'#5AB1BB'} size={30}/>
+  my_success: ({ text1, text2 }) => {
+    let bigContainer;
+    if(text2.includes('\n')) bigContainer = true;
+
+    return (
+      <View style={[styles.ContainerToast, {height: bigContainer ? 85 : 60 }]}>
+        <View style={[styles.LeftBar, {backgroundColor: '#5AB1BB'}]}/>
+        <View style={styles.Icon}>
+          <AntDesign name="checkcircleo" color={'#5AB1BB'} size={30}/>
+        </View>
+        <View style={styles.TextContainer}>
+          <Text style={[styles.Text1,{color: '#5AB1BB'}]}>{text1}</Text>
+          <Text style={styles.Text2}>{text2}</Text>
+        </View>
       </View>
-      <View style={styles.TextContainer}>
-        <Text style={[styles.Text1,{color: '#5AB1BB'}]}>{text1}</Text>
-        <Text style={styles.Text2}>{text2}</Text>
+    )
+  },
+  my_error: ({ text1, text2 }) => {
+    let bigContainer;
+    if(text2.includes('\n')) bigContainer = true;
+
+    return (
+      <View style={[styles.ContainerToast, {height: bigContainer ? 85 : 60 }]}>
+        <View style={[styles.LeftBar, {backgroundColor: '#FF5252'}]}/>
+        <View style={styles.Icon}>
+          <AntDesign name="closecircleo" color={'#FF5252'} size={30}/>
+        </View>
+        <View style={styles.TextContainer}>
+          <Text style={[styles.Text1,{color: '#FF5252'}]}>{text1}</Text>
+          <Text style={styles.Text2}>{text2}</Text>
+        </View>
       </View>
-    </View>
-  ),
-  my_error: ({ text1, text2 }) => (
-    <View style={styles.ContainerToast}>
-      <View style={[styles.LeftBar, {backgroundColor: '#FF5252'}]}/>
-      <View style={styles.Icon}>
-        <AntDesign name="closecircleo" color={'#FF5252'} size={30}/>
+    )
+  },
+  my_warning: ({text1, text2}) => {
+    let bigContainer;
+    if(text2.includes('\n')) bigContainer = true;
+
+    return (
+      <View style={[styles.ContainerToast, {height: bigContainer ? 85 : 60 }]}>
+        <View style={[styles.LeftBar, {backgroundColor: '#FFA542'}]}/>
+        <View style={styles.Icon}>
+          <AntDesign name="warning" color={'#FFA542'} size={30}/>
+        </View>
+        <View style={styles.TextContainer}>
+          <Text style={[styles.Text1,{color: '#FFA542'}]}>{text1}</Text>
+          <Text style={styles.Text2}>{text2}</Text>
+        </View>
       </View>
-      <View style={styles.TextContainer}>
-        <Text style={[styles.Text1,{color: '#FF5252'}]}>{text1}</Text>
-        <Text style={styles.Text2}>{text2}</Text>
-      </View>
-    </View>
-  ),
-  my_warning: ({text1, text2}) => (
-    <View style={styles.ContainerToast}>
-      <View style={[styles.LeftBar, {backgroundColor: '#FFA542'}]}/>
-      <View style={styles.Icon}>
-        <AntDesign name="warning" color={'#FFA542'} size={30}/>
-      </View>
-      <View style={styles.TextContainer}>
-        <Text style={[styles.Text1,{color: '#FFA542'}]}>{text1}</Text>
-        <Text style={styles.Text2}>{text2}</Text>
-      </View>
-    </View>
-  )
+    )
+  }
 }
 
 const styles = StyleSheet.create({
   ContainerToast:{
-    height: 60,
     width: '90%',
     backgroundColor: 'white',
     shadowColor: 'black',
@@ -52,7 +66,7 @@ const styles = StyleSheet.create({
     elevation: 2,
     borderRadius: 8,
     flexDirection: 'row',
-  }, 
+  },
   LeftBar: {
     height: '100%',
     width: '2%',

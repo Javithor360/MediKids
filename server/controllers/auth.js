@@ -78,10 +78,10 @@ const register = async (req, res, next) => {
     const verify_code = create_code();
 
     // SAVE FIELDS
-    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo_Url: P_F, Profile_Photo_Name: null , Reset_Pass_Code: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
+    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo_Url: P_F, Profile_Photo_Name: null , Reset_Pass_Token: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
 
     // SEND EMAIL
-    // send_verify_code_email(verify_code, Email, res);
+    send_verify_code_email(verify_code, Email, res);
 
     return res.status(200).json({success: true, Email})
   } catch (error) {
@@ -225,10 +225,11 @@ const forgot_password = async (req, res, next) => {
     const forgot_pass_tokens = create_reset_code();
 
     // UPDATE FIELDS IN THE DB
-    await pool.query('UPDATE Responsible SET Reset_Pass_Code = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, new Date(forgot_pass_tokens.db_reset_expire), Email]);
+    await pool.query('UPDATE Responsible SET Reset_Pass_Token = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, new Date(forgot_pass_tokens.db_reset_expire), Email]);
 
     // SEND EMAIL WITH THE TOKEN IN URL (CHANGE)
-    // send_forgot_pass_email(forgot_pass_tokens.reset_pass_token, Email, res);
+    // send_forgot_pass_email(forgot_pass_tokens.reset_pass_code, Email, res);
+    console.log(forgot_pass_tokens.reset_pass_code);
 
     return res.status(200).json({success: true, message: 'Email Enviado Correctamente'});
   } catch (error) {
@@ -254,7 +255,7 @@ const check_reset_code = async (req, res, next) => {
     const date_now = new Date();
 
     // GET THE USER WITH THE EMAIL
-    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Reset_Pass_Code = ? AND Reset_Pass_Expire > ?', [code_to_match, date_now]);
+    const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Reset_Pass_Token = ? AND Reset_Pass_Expire > ?', [code_to_match, date_now]);
     if (query_user.length == 0) {
       return res.status(500).json({success: false, message: 'Código Invalido'});
     }
@@ -271,17 +272,22 @@ const check_reset_code = async (req, res, next) => {
 const reset_password = async (req, res, next) => {
   try {
     // const reset_pass_token  = req.params.reset_pass_token;
-    const {Password, Email} = req.body;
+    const {Password, ConfPass, Email} = req.body;
 
     // CHECK EMPTY VALUES
     if (!Password) {
-      return res.status(500).json({success: false, message: 'Valor de contraseña vacia'});
+      return res.status(500).json({success: false, message: 'Valores vacios'});
+    }
+
+    // CHECK IF THE PASSWOIRD IS THE SAME
+    if(Password != ConfPass) {
+      return res.status(500).json({success: false, message: 'Las contraseñas no coinciden'});
     }
 
     // CHECK IF THE PASSWORD IS THE SAME WITH THE OLD ONE;
     const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Email = ?', [Email]);
     if (await bcrypt.compare(Password, query_user[0].Password)) {
-      return res.status(500).json({success: false, message: 'Contraseña no puede ser igual a la anterior'});
+      return res.status(500).json({success: false, message: 'Contraseña no puede ser igual \na la anterior'});
     }
 
     // CHECK THE PASSWORD
