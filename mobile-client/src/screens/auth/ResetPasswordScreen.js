@@ -1,8 +1,8 @@
 //>> Importing libraries
 import { Text, View, Image, TextInput, ImageBackground} from 'react-native';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
-import { CommonActions, useIsFocused, useNavigation } from '@react-navigation/native';
-import { useEffect, useRef, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native-paper';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
@@ -15,8 +15,6 @@ import { useSelector } from 'react-redux';
 
 export const ResetPasswordScreen = () => {
     const navigation = useNavigation();
-    
-    const isFocused = useIsFocused();
 
     //\\ Get the email from the storage
     const Email = useSelector(state => state.starter.Email);
@@ -33,6 +31,8 @@ export const ResetPasswordScreen = () => {
   
     //! State For disable the button
     const [DisableButton, setDisableButton] = useState(false);
+
+    const [Yet, setYet] = useState(true);
 
     //! Show the Emergent Message (toast).
     const showToast = (type, text1, text2) => {
@@ -60,6 +60,7 @@ export const ResetPasswordScreen = () => {
 
     //* Main Function to register the user.
     const resetPassword = async () => {
+        setYet(false);
         try {
             //! set the Loading animation
             setIsLoading(true);
@@ -68,7 +69,6 @@ export const ResetPasswordScreen = () => {
             const {data} = await ResetPasswordQuery(Password, ConfPass, Email);
 
             if(data.success){
-
                 //! Show success message.
                 showToast('my_success', 'Éxito', 'Cambio de contraseña completado');
 
@@ -77,14 +77,6 @@ export const ResetPasswordScreen = () => {
                     setIsLoading(false);
                     setSuccess(true);
                     setTimeout(() => {
-                        const resetAction = CommonActions.reset({
-                            index: 0,
-                            routes: [{name: 'WelcomeScreen'}],
-                        });
-
-                        navigation.dispatch(resetAction);
-
-                        console.log('NEW EVENT');
                         navigation.navigate('WelcomeScreen');
                     }, 3000);
                 }, 4000);
@@ -112,21 +104,11 @@ export const ResetPasswordScreen = () => {
         }
     }, [isLoading, Success]);
 
-    useEffect(() => {
-        navigation.addListener('beforeRemove', (e) => {
-            e.preventDefault();
-        })
-    }, [navigation]);
-
-    useEffect(() => {
-        if (isFocused) {
-            // La pantalla está enfocada
-            console.log('La pantalla está enfocada, el historial se ha restablecido.');
-          } else {
-            // La pantalla no está enfocada
-            console.log('La pantalla no está enfocada, el historial no se ha restablecido.');
-        }
-    }, [isFocused]);
+    // useEffect(() => {
+    //     navigation.addListener('beforeRemove', (e) => {
+    //         e.preventDefault();
+    //     })
+    // }, [Yet ? navigation : null]);
 
     return (
     <>

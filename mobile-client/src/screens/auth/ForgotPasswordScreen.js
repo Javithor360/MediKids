@@ -108,21 +108,21 @@ export const ForgotPasswordScreen = () => {
     }, [isLoading, Success]);
 
     //! Disable go back button.
-    useEffect(() => {
-        if(!DisableNavState){
-            if(DisableBack){
-                navigation.setOptions({
-                    gestureEnabled: false
-                })
-            }
-            if (DisableBack) {
-                navigation.addListener('beforeRemove', (e) => {
-                    // console.log('prevent 1');
-                    e.preventDefault();
-                })
-            }
-        }
-    }, [navigation, DisableBack]);
+    // useEffect(() => {
+    //     if(!DisableNavState){
+    //         if(DisableBack){
+    //             navigation.setOptions({
+    //                 gestureEnabled: false
+    //             })
+    //         }
+    //         if (DisableBack) {
+    //             navigation.addListener('beforeRemove', (e) => {
+    //                 // console.log('prevent 1');
+    //                 e.preventDefault();
+    //             })
+    //         }
+    //     }
+    // }, [navigation, DisableBack]);
 
     return (
     <>
