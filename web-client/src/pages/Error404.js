@@ -8,7 +8,7 @@ const img = [Error("./niños/error.png"), Error("./niños/error1.png"), Error(".
     <>
     <h1 className='tittle3'>¡Algo salio <span>mal</span>!</h1>
     <div className='cont-erro'>
-    <div className='cont-kidf'>
+    <div className='w-[90%] h-[100%] flex items-center'>
    <img className='kidt' src={`${img[Math.floor(Math.random() * img.length)]}`} />
    </div>
     <div className='cont-err'>
@@ -16,7 +16,6 @@ const img = [Error("./niños/error.png"), Error("./niños/error1.png"), Error(".
    <div className='btnx'><button className="readMoreBtn bgBtnt3">volver</button></div>
    </div> 
     </div>
-    <div className='fondi'></div>
 
     </>
   )

@@ -27,7 +27,7 @@ export const Footer = () => {
                     </div>
                     <div className="linksSideRow1">
                         <Link className="footerLink" to="/sobre">Sobre Nosotros</Link>
-                        <Link className="footerLink" to="">Politica de privacidad</Link>
+                        <Link className="footerLink" to="/terminos">Politica de privacidad</Link>
                     </div>
                     <div className="socialIcons">
                         <Link  to=""><AiOutlineInstagram className='footerSIcon w-[3rem] h-[3rem]'/></Link>

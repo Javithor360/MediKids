@@ -38,10 +38,10 @@ export const Sobre = () => {
             <div className='imgcont'><img className='w-[90%] h-auto block my-auto mx-auto' src={Banner('./doctores/doc2.png')} /></div>
             </div>
             <hr />
-          [  <h1 className='next2'>Vis<span>ión</span></h1>]
+            <h1 className='next2'>Vis<span>ión</span></h1>
             <div className='contmot'>
-            <div className='imgcont'><img className='w-[90%] h-auto block my-auto mx-auto' src={Banner('./doctores/docclow.png')} />
-            </div>
+            <div className='imgcont'><img className='w-[90%] h-auto block my-auto mx-auto' src={Banner('./doctores/docclo.png')} />
+            </div>  
             <div className='pcont'>
             <p className='sub3'>{t("sobre.sub4")}
             </p>

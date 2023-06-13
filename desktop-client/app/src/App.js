@@ -9,6 +9,7 @@ import {
   MedicalRecords,
   PatientsDetails,
   MedicalAppoinment,
+  LoginPage
 } from "./pages";
 import { DoctorProvider } from "./context/DoctorContext";
 
@@ -38,6 +39,7 @@ function App() {
               element={<MedicalAppoinment />}
             />
           </Route>
+          <Route path="/login" element={<LoginPage />}/>
         </Routes>
       </DoctorProvider>
     </BrowserRouter>

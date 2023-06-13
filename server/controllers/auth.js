@@ -344,6 +344,15 @@ const upload_pf_responsible = async (req, res, next) => {
   }
 }
 
+const test_mail = async (req, res, next) => {
+  try {
+    send_verify_code_email('sexo', 'luisernestomr1503@gmail.com', res);
+    return res.status(200).json({success: true});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
 
 export {
   register, 
@@ -354,5 +363,6 @@ export {
   forgot_password,
   check_reset_code,
   reset_password,
-  upload_pf_responsible
+  upload_pf_responsible,
+  test_mail
 };

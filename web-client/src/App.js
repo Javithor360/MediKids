@@ -14,6 +14,7 @@ import {
   Contact,
   Citas,
   Error404,
+  Terminos,
 } from "./pages";
 import { ScrollToTop } from "./components";
 import withSplashScreen from "./components/withSplashScreen";
@@ -41,6 +42,7 @@ function App() {
               <Route path="/Contact" element={<Contact />} />
               <Route path="/citas" element={<Citas />} />
               <Route path="/nosotros" element={<Sobre />} />
+              <Route path="/terminos" element={<Terminos />} />
             </Route>
           </Routes>
         </BrowserRouter>
