@@ -29,9 +29,6 @@ export const ForgotPassCodeScreen = () => {
     //! State For disable the button
     const [DisableBtn, setDisableBtn] = useState(false);
 
-    //! State for Disable the navigation listener
-    const [DisableNavListener, setDisableNavListener] = useState(true);
-
     //! Show the Emergent Message (toast).
     const showToast = (type, text1, text2) => {
         Toast.show({
@@ -74,7 +71,6 @@ export const ForgotPassCodeScreen = () => {
             setIsLoading(false);
             setSuccess(true);
                 setTimeout(() => {
-                    setDisableNavListener(false);
                     navigation.navigate('ResetPasswordScreen');
                 }, 3000);
             }, 4000);
@@ -104,11 +100,9 @@ export const ForgotPassCodeScreen = () => {
     }, [isLoading, Success]);
 
     useEffect(() => {
-        if(DisableNavListener){
-            navigation.addListener('beforeRemove', (e) => {
-                e.preventDefault();
-            })
-        }
+        navigation.addListener('beforeRemove', (e) => {
+            e.preventDefault();
+        })
     }, [navigation]);
 
     return (

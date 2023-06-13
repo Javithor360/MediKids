@@ -275,7 +275,7 @@ const reset_password = async (req, res, next) => {
     const {Password, ConfPass, Email} = req.body;
 
     // CHECK EMPTY VALUES
-    if (!Password) {
+    if (!Password && !ConfPass) {
       return res.status(500).json({success: false, message: 'Valores vacios'});
     }
 
