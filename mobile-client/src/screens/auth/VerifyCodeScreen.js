@@ -1,5 +1,5 @@
 //>> Importing libraries
-import { Text, View, Image, ImageBackground } from 'react-native';
+import { Text, View, Image, ImageBackground, BackHandler } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native-paper';
@@ -16,14 +16,6 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 export const VerifyCodeScreen = () => {
     const navigation = useNavigation();
-    const route = useRoute();
-
-    //! Get the params from the navigation
-    const { setDisBack } = route.params;
-
-    useEffect(() => {
-        setDisBack(false);
-    }, []);
 
     //! Get the Email from the global State
     const Email = useSelector(state => state.starter.Email)
@@ -111,10 +103,10 @@ export const VerifyCodeScreen = () => {
     }, [isLoading, Success]);
 
     useEffect(() => {
-        navigation.addListener('beforeRemove', (e) => {
-            e.preventDefault();
+        BackHandler.addEventListener('hardwareBackPress', () => {
+            return true;
         })
-    }, [navigation]);
+    }, []);
 
     return (
     <>

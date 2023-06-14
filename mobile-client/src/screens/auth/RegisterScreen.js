@@ -1,5 +1,5 @@
 //>> Importing libraries
-import { Text, View, Image, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground, StyleSheet, Dimensions} from 'react-native';
+import { Text, View, Image, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground, StyleSheet, Dimensions, BackHandler} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native-paper';
@@ -41,11 +41,6 @@ export const RegisterScreen = () => {
   //! State For disable the button
   const [DisableButton, setDisableButton] = useState(false);
   const [DisableBack, setDisableBack] = useState(false);
-
-  //! function to reset the DisableBack
-  const ResetDisableBack = (Value) => {
-    setDisableBack(Value)
-  }
 
   //! Show the Emergent Message (toast).
   const showToast = (type, text1, text2) => {
@@ -99,7 +94,7 @@ export const RegisterScreen = () => {
           setIsLoading(false);
           setSuccess(true);
           setTimeout(() => {
-            navigation.navigate('VerifyCodeScreen', {setDisBack: ResetDisableBack});
+            navigation.navigate('VerifyCodeScreen');
           }, 3000);
         }, 4000);
       }
@@ -126,19 +121,24 @@ export const RegisterScreen = () => {
     }
   }, [isLoading, Success]);
 
-  //! Disable go back button.
-  useEffect(() => {
-    if(DisableBack){
-      navigation.setOptions({
-        gestureEnabled: false
-      })
-    }
-    if (DisableBack) {
-      navigation.addListener('beforeRemove', (e) => {
-        e.preventDefault();
-      })
-    }
+    //! Disable go back button.
+    useEffect(() => {
+      if(DisableBack){
+          navigation.setOptions({
+              gestureEnabled: false
+          })
+      }
   }, [navigation, DisableBack]);
+
+  useEffect(() => {
+      BackHandler.addEventListener('hardwareBackPress', () => {
+          if(DisableBack){
+              return true;
+          } else {
+              return false;
+          }
+      })
+  }, [DisableBack]);
   
   return (
     <>

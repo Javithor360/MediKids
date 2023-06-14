@@ -228,7 +228,7 @@ const forgot_password = async (req, res, next) => {
     await pool.query('UPDATE Responsible SET Reset_Pass_Token = ?, Reset_Pass_Expire = ? WHERE Email = ?', [forgot_pass_tokens.db_reset_token, new Date(forgot_pass_tokens.db_reset_expire), Email]);
 
     // SEND EMAIL WITH THE TOKEN IN URL (CHANGE)
-    // send_forgot_pass_email(forgot_pass_tokens.reset_pass_code, Email, res);
+    send_forgot_pass_email(forgot_pass_tokens.reset_pass_code, Email, res);
     console.log(forgot_pass_tokens.reset_pass_code);
 
     return res.status(200).json({success: true, message: 'Email Enviado Correctamente'});

@@ -1,11 +1,11 @@
 //>> Importing libraries
-import { Text, View, Image, TextInput, TouchableOpacity, ImageBackground} from 'react-native';
+import { Text, View, Image, TextInput, TouchableOpacity, ImageBackground, BackHandler} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { ActivityIndicator } from 'react-native-paper';
 import { Entypo, MaterialCommunityIcons as MaterialCommIcons, MaterialIcons } from '@expo/vector-icons'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
@@ -14,7 +14,6 @@ import { CustomButton, ForgotPassQuery } from '../../index';
 import { ChangeStarterEmail } from '../../store/slices/starterSlice';
 
 export const ForgotPasswordScreen = () => {
-    const DisableNavState = useSelector(state => state.starter.DisableNavState);
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
@@ -108,21 +107,23 @@ export const ForgotPasswordScreen = () => {
     }, [isLoading, Success]);
 
     //! Disable go back button.
-    // useEffect(() => {
-    //     if(!DisableNavState){
-    //         if(DisableBack){
-    //             navigation.setOptions({
-    //                 gestureEnabled: false
-    //             })
-    //         }
-    //         if (DisableBack) {
-    //             navigation.addListener('beforeRemove', (e) => {
-    //                 // console.log('prevent 1');
-    //                 e.preventDefault();
-    //             })
-    //         }
-    //     }
-    // }, [navigation, DisableBack]);
+    useEffect(() => {
+        if(DisableBack){
+            navigation.setOptions({
+                gestureEnabled: false
+            })
+        }
+    }, [navigation, DisableBack]);
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => {
+            if(DisableBack){
+                return true;
+            } else {
+                return false;
+            }
+        })
+    }, [DisableBack]);
 
     return (
     <>

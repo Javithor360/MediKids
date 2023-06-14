@@ -1,5 +1,5 @@
 //>> Importing libraries
-import { Text, View, Image, ImageBackground } from 'react-native';
+import { Text, View, Image, ImageBackground, BackHandler } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native-paper';
@@ -100,10 +100,10 @@ export const ForgotPassCodeScreen = () => {
     }, [isLoading, Success]);
 
     useEffect(() => {
-        navigation.addListener('beforeRemove', (e) => {
-            e.preventDefault();
+        BackHandler.addEventListener('hardwareBackPress', () => {
+            return true;
         })
-    }, [navigation]);
+    }, []);
 
     return (
     <>

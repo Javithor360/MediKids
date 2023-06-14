@@ -1,5 +1,5 @@
 //>> Importing libraries
-import { Text, View, Image, TextInput, ImageBackground} from 'react-native';
+import { Text, View, Image, TextInput, ImageBackground, BackHandler} from 'react-native';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
@@ -32,8 +32,6 @@ export const ResetPasswordScreen = () => {
     //! State For disable the button
     const [DisableButton, setDisableButton] = useState(false);
 
-    const [Yet, setYet] = useState(true);
-
     //! Show the Emergent Message (toast).
     const showToast = (type, text1, text2) => {
       Toast.show({
@@ -60,7 +58,6 @@ export const ResetPasswordScreen = () => {
 
     //* Main Function to register the user.
     const resetPassword = async () => {
-        setYet(false);
         try {
             //! set the Loading animation
             setIsLoading(true);
@@ -104,11 +101,11 @@ export const ResetPasswordScreen = () => {
         }
     }, [isLoading, Success]);
 
-    // useEffect(() => {
-    //     navigation.addListener('beforeRemove', (e) => {
-    //         e.preventDefault();
-    //     })
-    // }, [Yet ? navigation : null]);
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', () => {
+            return true;
+        })
+    }, []);
 
     return (
     <>
