@@ -29,7 +29,7 @@ export const HomeScreen = () => {
             <View style={styles.TopLogoBtnContainer}>
               <View style={styles.TopLogoBtnContent}>
                 <View style={[styles.itemContainer, {width: '20%', height: '100%'}]}>
-                  <TouchableOpacity>
+                  <TouchableOpacity >
                     <MaterialCommunityIcons name="bell" size={34} color="#707070" />
                   </TouchableOpacity>
                 </View>
