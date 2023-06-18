@@ -1,5 +1,5 @@
 //>> Importing libraries
-import { Text, View, Image, TouchableOpacity, ImageBackground} from 'react-native';
+import { Text, View, Image, TouchableOpacity, ImageBackground, ScrollView} from 'react-native';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
@@ -40,7 +40,7 @@ export const SelectProfilePhotoScreen = () => {
         return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
         } else if(!isLoading && !Success){
         //? Default Label
-        return 'Registrarse'
+        return 'Cambiar'
         }
     }
 
@@ -107,7 +107,7 @@ export const SelectProfilePhotoScreen = () => {
 
     return (
     <>
-        <View style={AuthStylesGlobal.mainContainer}>
+        <ScrollView style={AuthStylesGlobal.mainContainer}>
             <View style={AuthStylesGlobal.topWaveContainer}>
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
                 <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.goBack()}>
@@ -166,6 +166,6 @@ export const SelectProfilePhotoScreen = () => {
             {/* <View style={AuthStylesGlobal.bottomWaveContainer}>
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_buttom.png")}/> 
             </View> */}
-        </View>
+        </ScrollView>
     </>
 )}

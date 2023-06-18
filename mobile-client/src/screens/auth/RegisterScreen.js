@@ -6,6 +6,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
+import { TextInputMask } from 'react-native-masked-text';
 
 //>> Importing components
 import  { AuthStylesGlobal, AuthStylesRegisterU }  from '../../../assets/AuthStyles';
@@ -183,23 +184,36 @@ export const RegisterScreen = () => {
               <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
                 <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
                   <AntDesign name="idcard" size={24} color="gray" style={{marginRight: 6}} />
-                  <TextInput
+                  <TextInputMask
                     style={AuthStylesGlobal.input}
                     placeholder="DUI"
                     placeholderTextColor="gray"
                     onChangeText={text => setDUI(text)}
                     editable={!DisableButton}
+                    maxLength={10}
+                    keyboardType='numeric'
+                    type="custom"
+                    options={{
+                      mask: '99999999-9',
+                      delimiter: '-',
+                    }}
                   />
                 </View>
                 <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
                   <Feather name="phone" size={24} color="gray" style={{marginRight: 6}} />
-                  <TextInput
+                  <TextInputMask
                     style={AuthStylesGlobal.input}
                     placeholder="Telefono"
                     placeholderTextColor="gray"
                     onChangeText={text => setPhone(text)}
                     keyboardType='numeric'
-                  editable={!DisableButton}
+                    editable={!DisableButton}
+                    maxLength={9}
+                    type="custom"
+                    options={{
+                      mask: '9999-9999',
+                      delimiter: '-',
+                    }}
                   />
                 </View>
               </View>
@@ -207,6 +221,7 @@ export const RegisterScreen = () => {
               <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
                 <MaterialCommIcons name='email-outline' size={24} color={'gray'} style={{marginRight: 6}} />
                 <TextInput
+                  type="custom"
                   style={AuthStylesGlobal.inputExtended}
                   placeholder="Correo electrónico"
                   placeholderTextColor="gray"
