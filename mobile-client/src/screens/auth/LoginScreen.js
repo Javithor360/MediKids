@@ -1,5 +1,5 @@
 //>> Importing libraries
-import { Text, View, Image, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
+import { Text, View, Image, TextInput, TouchableOpacity, ImageBackground, BackHandler } from 'react-native';
 import { MaterialIcons, Entypo, MaterialCommunityIcons as MaterialCommIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
@@ -77,14 +77,14 @@ export const LoginScreen = () => {
         //! Show success message.
         showToast('my_success', 'Éxito', 'Inicio de Sesion completo');
 
-        //! Set the Async Storage Logged In State.
+        // //! Set the Async Storage Logged In State.
         const userSession = { Email: Email, isLoggedIn: true, jwtToken: data.token };
         await AsyncStorage.setItem('userSession', JSON.stringify(userSession));
 
         //! Set the Stater State
-        dispatch(setStatement({Email: Email, State: true}));
-
-        //! SET THE RESPONSIBLE SLICE IN REDUX
+        // dispatch(setStatement({Email: Email, State: true}));
+      
+        // //! SET THE RESPONSIBLE SLICE IN REDUX
         dispatch(setLogginValues({
           FirstNames: data.User.First_Names, 
           LastNames: data.User.Last_Names,
@@ -102,7 +102,11 @@ export const LoginScreen = () => {
           setIsLoading(false);
           setSuccess(true);
           setTimeout(() => {
-            navigation.navigate('ApplicationTab');
+            if(data.User.Profile_Photo_Url == 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'){
+              navigation.navigate('SelectProfilePhotoScreen', {haveButton: false});
+            } else {
+              navigation.navigate('ApplicationTab');
+            }
           }, 3000);
         }, 4000);
       }
@@ -144,11 +148,11 @@ export const LoginScreen = () => {
       })
     }
     if (DisableBack) {
-      navigation.addListener('beforeRemove', (e) => {
-        e.preventDefault();
+      BackHandler.addEventListener('hardwareBackPress', () => {
+        return true;
       })
     }
-  }, [navigation, DisableBack]);
+  }, [navigation, DisableBack, SwipeBck]);
 
   //! check the parameters of the navigation.
   useEffect(() => {
@@ -200,7 +204,11 @@ export const LoginScreen = () => {
               />
             </View>
 
-            <Text style={AuthStylesGlobal.TextP} onPress={()=>navigation.navigate('ForgotPasswordScreen') }>Olvidé mi contraseña</Text>
+            <Text style={AuthStylesGlobal.TextP} onPress={()=>{
+              if(!DisableBack){
+                navigation.navigate('ForgotPasswordScreen')
+              }
+            }}>Olvidé mi contraseña</Text>
 
             <View style={AuthStylesGlobal.buttonView}>
               <CustomButton 
@@ -224,7 +232,11 @@ export const LoginScreen = () => {
             <View style={AuthStylesGlobal.cont2} >
               <Text style={AuthStylesGlobal.TextCount}>¿No tienes una cuenta?</Text>
               <TouchableOpacity>
-                <Text style={AuthStylesGlobal.TextReg} disabled={DisableButton} onPress={()=>navigation.navigate('RegisterScreen')}>Regístrate</Text>
+                <Text style={AuthStylesGlobal.TextReg} disabled={DisableButton} onPress={()=>{
+                  if(!DisableBack){
+                    navigation.navigate('RegisterScreen')
+                  }
+                }}>Regístrate</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -142,10 +142,9 @@ export const RegisterScreen = () => {
   
   return (
     <>
-      <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#fff',}}
-      behavior={'padding'}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#e4e2ff',}}
+      behavior={'padding'}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor:'#fff' }}>
           <View style={AuthStylesGlobal.topWaveContainer}>
             <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
             <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableButton} onPress={() => navigation.goBack()}>

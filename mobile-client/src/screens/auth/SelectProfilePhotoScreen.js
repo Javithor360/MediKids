@@ -1,9 +1,9 @@
 //>> Importing libraries
-import { Text, View, Image, TouchableOpacity, ImageBackground} from 'react-native';
+import { Text, View, Image, TouchableOpacity, ImageBackground, BackHandler} from 'react-native';
 import { MaterialIcons, Entypo } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {manipulateAsync} from 'expo-image-manipulator'
 
@@ -21,6 +21,7 @@ export const SelectProfilePhotoScreen = () => {
     const navigation = useNavigation();
     const responsible = useSelector(state => state.responsible);
     const dispatch = useDispatch();
+    const route = useRoute();
     
     const [ImageEl, setImageEl] = useState(null);
 
@@ -29,6 +30,12 @@ export const SelectProfilePhotoScreen = () => {
 
     //! States for statement
     const [isLoading, setIsLoading] = useState(false);
+
+    //! States for set if we have the button
+    const [HaveBtn, setHaveBtn] = useState(true);
+
+    //! State For disable the button
+    const [DisableButton, setDisableButton] = useState(false);
 
     //* Function to handle the label animation.
     const setLabel = () => {
@@ -59,7 +66,7 @@ export const SelectProfilePhotoScreen = () => {
                 setImageEl(result.uri);
             }
         } else {
-            //! HOW TO DO THE ERROR HANDLING? 
+            //! HOW TO DO THE ERROR HANDLING?
         }
     }
 
@@ -95,7 +102,7 @@ export const SelectProfilePhotoScreen = () => {
                     setIsLoading(false);
                     setSuccess(true);
                     setTimeout(() => {
-                        navigation.navigate('ApplicationTab');
+                        navigation.navigate('RegisterPatientScreen');
                     }, 5000);
                 }, 4000);
                 
@@ -104,21 +111,60 @@ export const SelectProfilePhotoScreen = () => {
             console.log(error);
         }
     }
+    
+    //! Disable the send buttom
+    useEffect(() => {
+        if(isLoading){
+        setDisableButton(true);
+        } else if(Success){
+        setDisableButton(true);
+        } else {
+        setDisableButton(false);
+        }
+    }, [isLoading, Success]);
+
+    //! check the parameters of the navigation.
+    useEffect(() => {
+        if (route.params != undefined) {
+            setHaveBtn(route.params.haveButton);
+            if(HaveBtn != undefined){
+                BackHandler.addEventListener('hardwareBackPress', () => {
+                    return true;
+                })
+            }
+            
+        }
+    }, [route]);
+
+    useEffect(() => {
+        if(HaveBtn != undefined){
+            navigation.setOptions({
+              gestureEnabled: false
+            })
+        }
+    }, [navigation]);
 
     return (
     <>
         <View style={AuthStylesGlobal.mainContainer}>
             <View style={AuthStylesGlobal.topWaveContainer}>
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-                <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.goBack()}>
-                <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-                <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
-                </TouchableOpacity>
+                {
+                    HaveBtn ?
+                    <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.goBack()}>
+                        <MaterialIcons name="arrow-back-ios" size={17} color="white" />
+                        <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
+                    </TouchableOpacity>
+                    :
+                    <View style={AuthStylesGlobal.buttomCameBack}>
+                        <Text style={{color: 'white', fontSize: 20, fontFamily: 'poppinsBold'}}>Paso 1</Text>
+                    </View>
+                }
             </View>
             <View style={AuthStylesGlobal.contentContainer} >
                 <View style={AuthStylesGlobal.formContent} >
                     <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')}  />
-                    <Text style={AuthStylesRegisterU.Tex_md}>Seleccionar foto de perfil</Text>
+                    <Text style={AuthStylesRegisterU.Tex_md}>Tú foto de perfil</Text>
                     <View style={AuthStylesGlobal.cont2} >
                         <Text style={AuthStylesGlobal.TextCount}>Para mayor seguridad, coloca una fotografia que pueda identificarte.</Text>
                     </View>
@@ -126,7 +172,7 @@ export const SelectProfilePhotoScreen = () => {
                     <View style={SelectProfilePhoto.profilePhotoWrapper}>
                         <ImageBackground style={SelectProfilePhoto.profilePhotoImage} source={ImageEl ? {uri: ImageEl} : {uri: responsible.ProfilePhotoUrl || defaultProfPhoto}} />
                     </View>
-                    <TouchableOpacity style={SelectProfilePhoto.uploadBtn} activeOpacity={0.5} onPress={() => pickeImage()}>
+                    <TouchableOpacity disabled={DisableButton} style={SelectProfilePhoto.uploadBtn} activeOpacity={0.5} onPress={() => pickeImage()}>
                         <MaterialIcons name="drive-folder-upload" size={24} color="#707070" />
                         <Text style={SelectProfilePhoto.uploadTxt}>Seleccionar</Text>
                     </TouchableOpacity>
@@ -145,6 +191,7 @@ export const SelectProfilePhotoScreen = () => {
                             fontSize={16}
                             textColor={'white'}
                             Label={setLabel()}
+                            disable={DisableButton}
                             handlePress={() => {
                                 if(ImageEl != null) {
                                     uploadImage(ImageEl);
@@ -163,9 +210,9 @@ export const SelectProfilePhotoScreen = () => {
                     </View>
                 </View>
             </View>
-            {/* <View style={AuthStylesGlobal.bottomWaveContainer}>
+            <View style={AuthStylesGlobal.bottomWaveContainer}>
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_buttom.png")}/> 
-            </View> */}
+            </View>
         </View>
     </>
 )}

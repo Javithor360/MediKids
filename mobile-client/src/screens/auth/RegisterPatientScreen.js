@@ -1,6 +1,6 @@
 //>> Importing libraries
-import { useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableOpacity, ImageBackground, Modal, TouchableHighlight,} from 'react-native';
+import { useEffect, useState } from "react";
+import { StyleSheet, Text, View, Image, TextInput, Dimensions, TouchableOpacity, ImageBackground, Modal, TouchableHighlight, BackHandler,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 import DateTimePicker from "@react-native-community/datetimepicker"
@@ -93,17 +93,22 @@ export const RegisterPatientScreen = () => {
       )
     )
   }
- 
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+        return true;
+    })
+  }, []);
+
   return (
     
     <>
       <View style={AuthStylesGlobal.mainContainer}>
         <View style={AuthStylesGlobal.topWaveContainer}>
           <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-          <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.goBack()}>
-            <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-            <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
-          </TouchableOpacity>
+          <View style={[AuthStylesGlobal.buttomCameBack]}>
+              <Text style={{color: 'white', fontSize: 20, fontFamily: 'poppinsBold'}}>Paso 2</Text>
+          </View>
         </View>
         <View style={AuthStylesGlobal.contentContainer}>
           <View style={AuthStylesGlobal.formContent}>

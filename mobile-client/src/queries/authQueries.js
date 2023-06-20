@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //! Localhost Direction of the server.
-const localhost = '192.168.0.127';
+const localhost = '192.168.0.6';
 
 //! Get the information about the Responsible.
 //@access public
