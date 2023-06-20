@@ -14,8 +14,8 @@ import { MyAcountScreen } from "../screens/app/MyAcount/MyAcountScreen";
 //>>Tab items props array
 const TabProps = [
   {route: 'HomeStack', label: 'Inicio', iconName: 'home-variant', component: HomeStack, color: 'red'},
-  {route: 'Calendario', label: 'Calendario', iconName: 'calendar-month', component: CalendarStack, color: 'red'},
-  {route: 'Caledndario', label: 'Citas', iconName: 'clipboard-text-clock', component: CalendarStack, color: 'red'},
+  {route: 'Calendario', label: 'Calendario', iconName: 'calendar-clock', component: CalendarStack, color: 'red'},
+  {route: 'Caledndario', label: 'Citas', iconName: 'clipboard-plus', component: CalendarStack, color: 'red'},
   {route: 'Calenddario', label: 'Mi cuenta', iconName: 'account-circle', component: MyAcountScreen, color: 'red'},
 ]
 
@@ -35,25 +35,37 @@ const TabButton = (props) => {
     if (focused) {
       viewRef.current.animate({
         0: { opacity: 0 },
-        0.2: { opacity: 0.2, duration: 10 },
-        0.4: { opacity: 0.4, duration: 10 },
-        0.6: { opacity: 0.6, duration: 10 },
-        0.8: { opacity: 0.8, duration: 10 },
-        1: { opacity: 1 },
+        0.2: { opacity: 0.2, duration: 1.5 },
+        0.4: { opacity: 0.4, duration: 1.5 },
+        0.6: { opacity: 0.6, duration: 1.5 },
+        0.8: { opacity: 0.8, duration: 1.5 },
+        1: { opacity: 1 }
       });
       textViewRef.current.animate({
-        0: { opacity: 0, translateY: 5},
-        0.3: { opacity: 0.3, translateY: 3 },
-        0.5: { opacity: 0.6, translateY: 2 },
-        0.8: {  opacity: 0.8, translateY: 1.5 },
-        1: { translateY: 1 },
+        0: { opacity: 0, translateY: 5 },
+        0.1: { opacity: 0.1, translateY: 4.7 },
+        0.2: { opacity: 0.2, translateY: 4.4 },
+        0.3: { opacity: 0.3, translateY: 3.9 },
+        0.4: { opacity: 0.4, translateY: 3.2 },
+        0.5: { opacity: 0.5, translateY: 2.5 },
+        0.6: { opacity: 0.6, translateY: 1.8 },
+        0.7: { opacity: 0.7, translateY: 1.3 },
+        0.8: { opacity: 0.8, translateY: 1.1 },
+        0.9: { opacity: 0.9, translateY: 1.05 },
+        1: { translateY: 1 }
       });
       icontViewRef.current.animate({
-        0: { translateY: 5},
-        0.3: { translateY: 3 },
-        0.5: { translateY: 2 },
-        0.8: { translateY: 1.5 },
-        1: { translateY: 1 },
+        0: { translateY: 5 },
+        0.1: { translateY: 4.7 },
+        0.2: { translateY: 4.4 },
+        0.3: { translateY: 3.9 },
+        0.4: { translateY: 3.2 },
+        0.5: { translateY: 2.5 },
+        0.6: { translateY: 1.8 },
+        0.7: { translateY: 1.3 },
+        0.8: { translateY: 1.1 },
+        0.9: { translateY: 1.05 },
+        1: { translateY: 1 }
       });
       
     } else {
@@ -69,26 +81,27 @@ const TabButton = (props) => {
         1: { opacity: 0 },
       });
       icontViewRef.current.animate({
-        0: { translateY: -5},
-        0.3: { translateY: 3 },
-        0.5: { translateY: 2 },
-        0.8: { translateY: 1.5 },
-        1: { translateY: 1 },
+        0: { translateY: -5 },
+        0.2: { translateY: -1 },
+        0.4: { translateY: 1 },
+        0.6: { translateY: 1 },
+        0.8: { translateY: 1 },
+        1: { translateY: 1 }
       });
     }
   }, [focused])
 
   //>>ButtonComponent
   return (
-    <View style={{width: '23%', alignItems: 'center',}}>
+    <View style={{width: '20%', alignItems: 'center',}}>
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={1}
-        style={{width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', margin: 0}}>
+        style={{width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', margin: 0,}}>
         <Animatable.View
           ref={viewRef}
-          style={{backgroundColor: '#C3C3E4', height: isIOS ? '60%' : '50%', width: '50%', borderRadius: 10, position: 'absolute', top: isIOS ? 5 : 8,}} />
-        <View style={[styles.btn, { backgroundColor: focused ? null : null , justifyContent: 'center', alignItems: 'center',}]}>
+          style={{backgroundColor: '#C3C3E4', height:'56%', width: '55%', borderRadius: 10, position: 'absolute', top: 8}} />
+        <View style={{backgroundColor: focused ? null : null , justifyContent: 'center', alignItems: 'center',}}>
           <Animatable.View ref={icontViewRef}>
             <MaterialCommunityIcons name={item.iconName} color={'white'} size={36} />
           </Animatable.View>
@@ -116,7 +129,7 @@ export const ApplicationTab = () => {
         tabBarStyle: {
           display: "flex",
           backgroundColor: '#A375FF',
-          height: isIOS ? '11%' : '8%',
+          height: 75,
           width: '100%',
           alignItems: 'center',
           justifyContent: 'center',
@@ -136,26 +149,3 @@ export const ApplicationTab = () => {
     </Tab.Navigator>
   )
 }
-
-const styles = StyleSheet.create({
-  tabItemContainer:{
-    height: '100%',
-    width: 95, 
-    gap: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  Itemdefault:{
-    height: '70%', 
-    width: '70%', 
-    alignItems: 'center', 
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 4,
-  },
-  tabItemSelectedBg:{
-    backgroundColor: '#C3C3E4', 
-    borderRadius: 12, 
-    width: 10,
-  },
-})
