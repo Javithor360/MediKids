@@ -56,7 +56,7 @@ const register = async (req, res, next) => {
     }
     // Password
     if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[,;.:-_{\[\]}`*+~¨´¡¿'?\=\)(/&%$#"!°|¬])\S{8,30}$/.test(Password)){
-      return res.status(500).json({success: false, message: 'Contrasña invalido'});
+      return res.status(500).json({success: false, message: 'Contraseña invalida: debe de tener \nminimo 8 caracteres y uno especial.'});
     }
     // Age
     const ActualDate = new Date();

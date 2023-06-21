@@ -183,8 +183,8 @@ const AuthStylesRegisterP = StyleSheet.create({
 
 const SelectProfilePhoto = StyleSheet.create({
    profilePhotoWrapper:{
-      height: 250,
-      width: 250,
+      height: 230,
+      width: 230,
       marginVertical: '2%',
       borderRadius: 125,
       overflow: 'hidden',
