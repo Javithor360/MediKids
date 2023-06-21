@@ -13,7 +13,8 @@ export { SelectProfilePhotoScreen } from './screens/auth/SelectProfilePhotoScree
 export { VerifyCodeScreen } from './screens/auth/VerifyCodeScreen';
 export { Calendario } from './screens/app/calendar/Calendario'
 export { ForgotPassCodeScreen } from './screens/auth/ForgotPassCodeScreen'
-export {NotificationScreen} from './navigators/Dashboard/NotificationScreen'
+export {NotificationScreen} from './screens/app/home/NotificationScreen'
+export {MyVaccines} from './screens/app/home/MyVaccines'
 //?? Components
 export { CustomButton } from './components/ButtonHook';
 export { CustomStatusBar } from './components/CustomStatusBar';
