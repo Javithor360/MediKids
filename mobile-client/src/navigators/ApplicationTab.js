@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons'; 
 import { isIOS } from '../constants';
 //>>Stacks screens
 import { HomeStack } from '../navigators/Dashboard/HomeStack';
@@ -15,8 +16,10 @@ import { MyAcountScreen } from "../screens/app/MyAcount/MyAcountScreen";
 const TabProps = [
   {route: 'HomeStack', label: 'Inicio', iconName: 'home-variant', component: HomeStack, color: 'red'},
   {route: 'Calendario', label: 'Calendario', iconName: 'calendar-clock', component: CalendarStack, color: 'red'},
-  {route: 'Caledndario', label: 'Citas', iconName: 'clipboard-plus', component: CalendarStack, color: 'red'},
+  {route: 'Caledndario', label: 'Citas', iconName: 'clipboard-text', component: CalendarStack, color: 'red'},
+  {route: 'Calendsdario', label: 'Medicinas', iconName: 'pill', component: CalendarStack, color: 'red'},
   {route: 'Calenddario', label: 'Mi cuenta', iconName: 'account-circle', component: MyAcountScreen, color: 'red'},
+  
 ]
 
 const Tab = createTabNav();
@@ -93,7 +96,7 @@ const TabButton = (props) => {
 
   //>>ButtonComponent
   return (
-    <View style={{width: '20%', alignItems: 'center',}}>
+    <View style={{width: '18%', alignItems: 'center',}}>
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={1}

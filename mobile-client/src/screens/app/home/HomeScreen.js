@@ -29,7 +29,7 @@ export const HomeScreen = () => {
             <View style={styles.TopLogoBtnContainer}>
               <View style={styles.TopLogoBtnContent}>
                 <View style={[styles.itemContainer, {width: '20%', height: '100%'}]}>
-                  <TouchableOpacity >
+                  <TouchableOpacity onPress={()=>navigation.navigate('NotificationScreen') } >
                     <MaterialCommunityIcons name="bell" size={34} color="#707070" />
                   </TouchableOpacity>
                 </View>
@@ -89,8 +89,8 @@ export const HomeScreen = () => {
                   <Image source={require('../../../../assets/icons/medical-note.png')} style={{height: '60%', resizeMode: 'contain'}}></Image>
                 </View>
                 <View style={[styles.contentBtn, {width: '70%'}]}>
-                  <TouchableOpacity style={styles.touchableViewBtn}>
-                    <Text style={{color: '#A375FF'}}>Ver expediente clinico</Text>
+                  <TouchableOpacity style={styles.touchableViewBtn}onPress={()=>navigation.navigate('MyVaccines') }>
+                    <Text style={{color: '#A375FF'}} >Ver Datos del Paciente</Text>
                   </TouchableOpacity>
                 </View>
               </View>
