@@ -17,6 +17,7 @@ export {NotificationScreen} from './navigators/Dashboard/NotificationScreen'
 //?? Components
 export { CustomButton } from './components/ButtonHook';
 export { CustomStatusBar } from './components/CustomStatusBar';
+export { DropdownComponent } from './components/DropdownComponent';
 
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';

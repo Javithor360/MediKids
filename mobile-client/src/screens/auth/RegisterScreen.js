@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { TextInputMask } from 'react-native-masked-text';
 
 //>> Importing components
-import  { AuthStylesGlobal, AuthStylesRegisterU }  from '../../../assets/AuthStyles';
+import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
 import { CustomButton, registerResponsible } from '../../index';
 import { setStatement } from '../../store/slices/starterSlice';

@@ -257,4 +257,24 @@ const create_jwt = (query_user) => {
   }, config_env.JWT_SECRET, { expiresIn: config_env.JWT_EXPIRE })
 }
 
-export { create_code, send_verify_code_email, create_reset_code, send_forgot_pass_email, create_jwt };
+//* - Generate the patient code
+const patientCode = () => {
+  const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let codigo = '';
+
+  // Generar las 2 letras mayúsculas
+  for (let i = 0; i < 2; i++) {
+    const indice = Math.floor(Math.random() * letras.length);
+    codigo += letras.charAt(indice);
+  }
+
+  // Generar los 5 números
+  for (let i = 0; i < 5; i++) {
+    const numero = Math.floor(Math.random() * 10);
+    codigo += numero;
+  }
+
+  return codigo;
+}
+
+export { create_code, send_verify_code_email, create_reset_code, send_forgot_pass_email, create_jwt, patientCode };

@@ -212,7 +212,7 @@ export const SelectProfilePhotoScreen = () => {
             </View>
             <View style={AuthStylesGlobal.bottomWaveContainer}>
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_buttom.png")}/> 
-            </View> */
+            </View>
         </ScrollView>
     </>
 )}
