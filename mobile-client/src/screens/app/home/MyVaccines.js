@@ -5,6 +5,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { View} from 'react-native-animatable';
 import { AntDesign } from '@expo/vector-icons';
 
+
 export const MyVaccines = () => {
   return (
     <ScrollView style={styles.Contain}>
@@ -42,64 +43,83 @@ export const MyVaccines = () => {
              
             <View style={styles.Contain2}>
                 <Text style={styles.Apartado}>Cartilla de Vacunacion</Text>
+                <View style={styles.ContainTexVaccines}>
                 <View style={styles.ContainVaccines}>
 
-                <View style={styles.ContainTexVaccines} >
+            
                 <Text style={styles.Text2}>1.BCG</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-               </View>
+                
+              
 
-               <View style={styles.ContainTexVaccines} >
+              
                 <Text style={styles.Text2}>2.Hepatitis B</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+              
+           
+               
                 <Text style={styles.Text2}>3.Pentavalente</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+               
+                
+                
                 <Text style={styles.Text2}>4.Poliomielitis</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+               
+                
                 <Text style={styles.Text2}>5.Rotavirus</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+                
+              
+               
                 <Text style={styles.Text2}>6.Neumococo Conjugado</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+               
+              
+                
                 <Text style={styles.Text2}>7.Triple viral tipo SPR</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+                
+               
+         
                 <Text style={styles.Text2}>8.Neumococo Conjudado</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+                
+          
+                
                 <Text style={styles.Text2}>9.Pentavalente</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+                
+          
+ 
                 <Text style={styles.Text2}>10.Polio Oral</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+                
+          
+               
                 <Text style={styles.Text2}>11.Triple viral tipo SPR</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+               
+       
+              
                 <Text style={styles.Text2}>12.DPT</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}  />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+                
+          
+         
                 <Text style={styles.Text2}>13.Polio Oral</Text>
-                <AntDesign name="checksquare" size={24} color="black" style={styles.Check} />
-                </View>
-                <View style={styles.ContainTexVaccines} >
+                
+            
+                
                 <Text style={styles.Text2}>14.VPH -Solo niñas-</Text>
+               
+             
+                
+                </View>
+                <View style={styles.ContainCheck} >
                 <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+                <AntDesign name="checksquare" size={24} color="black" style={styles.Check}   />
+
                 </View>
        
                 </View>
@@ -171,6 +191,7 @@ LineTitulo:{
  },
  Vaccines:{
   top:10,
+  
  },
  ContainText:{
     flexDirection:'row',
@@ -202,6 +223,7 @@ marginTop:15,
     marginLeft:15,
     marginTop:10,
     
+    
    },
    ContainTexVaccines:{
     flexDirection:'row',
@@ -213,9 +235,14 @@ marginTop:15,
   top:10,
   fontWeight:'bold',
  },
+ ContainCheck:{
+  left:55,
+  top:16,
+ },
  Check:{
-  marginTop:15,
-  left:10,
+  marginTop:11,
+ 
+  
  },
 
 })
