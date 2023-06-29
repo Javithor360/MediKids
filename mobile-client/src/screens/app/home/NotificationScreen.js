@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
+
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -22,11 +23,21 @@ export const NotificationScreen = () => {
             <Text style={styles.Nuevos}>Nuevos</Text>
                 <View style={styles.Noti} >
                     <View style={styles.ContainImage} >
-                    <MaterialIcons name="medical-services" size={70} color="#707070" alignSelf="center" />
+                    <Image source={require('../../../../assets/graphic-icons/appointment_notification.png')}  style={styles.Image}  />
 
                     </View>
                    <View style={styles.ContainText} >
-                    <Text>7:33</Text>
+                    <View style={styles.ContainTitle}>
+                    <Text style={styles.CategoriaNoti}  >Otorrinolaringología</Text>
+                    <View style={styles.ContainDate}>
+                    <MaterialCommunityIcons name="calendar-month-outline" size={12} color="#707070" style={styles.Icon1}  />
+                    <Text style={styles.Time}>23/6/2023</Text>
+                    <MaterialCommunityIcons name="clock-time-eight-outline" size={12} color="#707070" style={styles.Icon2} />
+                    <Text style={styles.Time1}>7:33</Text>
+                    </View>
+                    </View>
+
+
                     <Text style={styles.TextDescription}>Cita con el doctor Josef Mengele en Otorrinolaringología</Text>
                     <TouchableOpacity style={styles.Deleted} >
                         <Text style={styles.TextDeleted}>Eliminar</Text>
@@ -36,15 +47,52 @@ export const NotificationScreen = () => {
 
 
                 </View>
+                
                
                 <Text style={styles.Nuevos}>Anteriores</Text>
                 <View style={styles.Noti} >
                     <View style={styles.ContainImage} >
-                    <MaterialIcons name="medical-services" size={70} color="#707070" alignSelf="center" />
+                    <Image source={require('../../../../assets/graphic-icons/next_appointment.png')}  style={styles.Image}  />
 
                     </View>
                    <View style={styles.ContainText} >
-                    <Text>7:33</Text>
+                    <View style={styles.ContainTitle}>
+                    <Text style={styles.CategoriaNoti}  >Cita  20/08/2023</Text>
+                    <View style={styles.ContainDate}>
+                    <MaterialCommunityIcons name="calendar-month-outline" size={12} color="#707070" style={styles.Icon1}  />
+                    <Text style={styles.Time}>23/6/2023</Text>
+                    <MaterialCommunityIcons name="clock-time-eight-outline" size={12} color="#707070" style={styles.Icon2} />
+                    <Text style={styles.Time1}>7:33</Text>
+                    </View>
+                    </View>
+
+
+                    <Text style={styles.TextDescription}>Cita con el Doc.Josef Mengele en Otorrinolaringología</Text>
+                    <TouchableOpacity style={styles.Deleted} >
+                        <Text style={styles.TextDeleted}>Eliminar</Text>
+                    </TouchableOpacity>
+
+                    </View>
+
+
+                </View>
+                <View style={styles.Noti} >
+                    <View style={styles.ContainImage} >
+                    <Image source={require('../../../../assets/graphic-icons/new_appointment.png')}  style={styles.Image}  />
+
+                    </View>
+                   <View style={styles.ContainText} >
+                    <View style={styles.ContainTitle}>
+                    <Text style={styles.CategoriaNoti}  >Cita aceptada</Text>
+                    <View style={styles.ContainDate}>
+                    <MaterialCommunityIcons name="calendar-month-outline" size={12} color="#707070" style={styles.Icon1}  />
+                    <Text style={styles.Time}>23/6/2023</Text>
+                    <MaterialCommunityIcons name="clock-time-eight-outline" size={12} color="#707070" style={styles.Icon2} />
+                    <Text style={styles.Time1}>7:33</Text>
+                    </View>
+                    </View>
+
+
                     <Text style={styles.TextDescription}>Cita con el doctor Josef Mengele en Otorrinolaringología</Text>
                     <TouchableOpacity style={styles.Deleted} >
                         <Text style={styles.TextDeleted}>Eliminar</Text>
@@ -56,11 +104,21 @@ export const NotificationScreen = () => {
                 </View>
                 <View style={styles.Noti} >
                     <View style={styles.ContainImage} >
-                    <MaterialIcons name="medical-services" size={70} color="#707070" alignSelf="center" />
+                    <Image source={require('../../../../assets/graphic-icons/medication.png')}  style={styles.Image}  />
 
                     </View>
                    <View style={styles.ContainText} >
-                    <Text>7:33</Text>
+                    <View style={styles.ContainTitle}>
+                    <Text style={styles.CategoriaNoti}  >Medicamentos</Text>
+                    <View style={styles.ContainDate}>
+                    <MaterialCommunityIcons name="calendar-month-outline" size={12} color="#707070" style={styles.Icon1}  />
+                    <Text style={styles.Time}>23/6/2023</Text>
+                    <MaterialCommunityIcons name="clock-time-eight-outline" size={12} color="#707070" style={styles.Icon2} />
+                    <Text style={styles.Time1}>7:33</Text>
+                    </View>
+                    </View>
+
+
                     <Text style={styles.TextDescription}>Cita con el doctor Josef Mengele en Otorrinolaringología</Text>
                     <TouchableOpacity style={styles.Deleted} >
                         <Text style={styles.TextDeleted}>Eliminar</Text>
@@ -70,40 +128,8 @@ export const NotificationScreen = () => {
 
 
                 </View>
-                <View style={styles.Noti} >
-                    <View style={styles.ContainImage} >
-                    <MaterialIcons name="medical-services" size={70} color="#707070" alignSelf="center" />
-
-                    </View>
-                   <View style={styles.ContainText} >
-                    <Text>7:33</Text>
-                    <Text style={styles.TextDescription}>Cita con el doctor Josef Mengele en Otorrinolaringología</Text>
-                    <TouchableOpacity style={styles.Deleted} >
-                        <Text style={styles.TextDeleted}>Eliminar</Text>
-                    </TouchableOpacity>
-
-                    </View>
-
-
-                </View>
+                
                
-             
-                <View style={styles.Noti} >
-                    <View style={styles.ContainImage} >
-                    <MaterialIcons name="medical-services" size={70} color="#707070" alignSelf="center" />
-
-                    </View>
-                   <View style={styles.ContainText} >
-                    <Text>7:33</Text>
-                    <Text style={styles.TextDescription}>Cita con el doctor Josef Mengele en Otorrinolaringología</Text>
-                    <TouchableOpacity style={styles.Deleted} >
-                        <Text style={styles.TextDeleted}>Eliminar</Text>
-                    </TouchableOpacity>
-
-                    </View>
-
-
-                </View>
             </View>
           
            
@@ -124,6 +150,15 @@ const styles = StyleSheet.create({
         width:'100%',
         alignSelf:'center',
         backgroundColor:'white',
+    },
+    ContainDate:{
+        flexDirection:'row',
+        top:3,
+        right:5,
+    },
+    ContainTitle:{
+        flexDirection:'row',
+        
     },
     Novedades:{
         fontSize:25,
@@ -177,14 +212,15 @@ const styles = StyleSheet.create({
         bottom:'70%',
      },
      TextDescription:{
-        fontWeight:'bold',
+        right:15,
+      
      },
      Deleted:{
         backgroundColor:'white',
         alignSelf:'flex-end',
         borderRadius:20,
         width:'35%',
-        height:'50%',
+        height:'40%',
         bottom:'10%',
         alignItems:'center',
         justifyContent:'center',
@@ -192,6 +228,8 @@ const styles = StyleSheet.create({
      },
      TextDeleted:{
         alignSelf:'center',
+        color:"#707070",
+       fontWeight:'bold',
         
      },
      DeletedAll:{
@@ -202,6 +240,40 @@ const styles = StyleSheet.create({
         top:40,
         
         
+     },
+     Image:{
+        height:63,
+        width:62,
+        top:10,
+
+     },
+     CategoriaNoti:{
+        color:"#707070",
+       fontWeight:'bold',
+       right:15,
+       
+     },
+     Time:{
+        fontSize:10,
+     
+     },
+     Time1:{
+        fontSize:10,
+        left:5,
+     
+     },
+     Icon1:{
+        top:1.5,
+
+
+
+     },
+     Icon2:{
+        top:1.5,
+        left:5,
+
+
+
      },
    
 
