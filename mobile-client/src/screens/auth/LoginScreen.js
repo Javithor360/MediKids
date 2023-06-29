@@ -1,17 +1,15 @@
 //>> Importing libraries
 import { Text, View, Image, TextInput, TouchableOpacity, ImageBackground, BackHandler } from 'react-native';
-import { MaterialIcons, Entypo, MaterialCommunityIcons as MaterialCommIcons } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons as MaterialCommIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
-import { ActivityIndicator } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //>> Importing components
-import  { AuthStylesGlobal }  from '../../../assets/AuthStyles';
+import { AuthStylesGlobal } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
-import { CustomButton, loginResponsible } from '../../index';
+import { CustomButton, loginResponsible, SetLabel, ShowToast } from '../../index';
 import { setLogginValues } from '../../store/slices/responsibleSlice';
 import { setStatement } from '../../store/slices/starterSlice';
 
@@ -37,29 +35,6 @@ export const LoginScreen = () => {
   //! State for unavailability the swipe back.
   const [SwipeBck, setSwipeBck] = useState(true);
 
-  //! Show the Emergent Message (toast).
-  const showToast = (type, text1, text2) => {
-    Toast.show({
-      type:type,
-      text1:text1,
-      text2:text2,
-      duration: 4000
-    })
-  }
-
-  //* Function to handle the label animation.
-  const setLabel = () => {
-    if(isLoading){
-      //? Loading Animation
-      return <ActivityIndicator color='white' />
-    } else if(!isLoading && Success){ 
-      //? Success Label
-      return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
-    } else if(!isLoading && !Success){
-      //? Default Label
-      return 'Iniciar Sesión'
-    }
-  }
 
   //* Main Function to login the user.
   const userLoggingIn = async () => {
@@ -75,15 +50,12 @@ export const LoginScreen = () => {
 
       if(data.success){
         //! Show success message.
-        showToast('my_success', 'Éxito', 'Inicio de Sesion completo');
+        ShowToast('my_success', 'Éxito', 'Inicio de Sesion completo');
 
         // //! Set the Async Storage Logged In State.
         const userSession = { Email: Email, isLoggedIn: true, jwtToken: data.token };
         await AsyncStorage.setItem('userSession', JSON.stringify(userSession));
 
-        //! Set the Stater State
-        // dispatch(setStatement({Email: Email, State: true}));
-      
         // //! SET THE RESPONSIBLE SLICE IN REDUX
         dispatch(setLogginValues({
           FirstNames: data.User.First_Names, 
@@ -102,11 +74,13 @@ export const LoginScreen = () => {
           setIsLoading(false);
           setSuccess(true);
           setTimeout(() => {
+
             if(data.User.Profile_Photo_Url == 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'){
               navigation.navigate('SelectProfilePhotoScreen', {haveButton: false});
             } else {
-              navigation.navigate('ApplicationTab');
+              navigation.navigate('RegisterPatientScreen');
             }
+
           }, 3000);
         }, 4000);
       }
@@ -119,12 +93,12 @@ export const LoginScreen = () => {
 
       if(error.response.data?.warning != null){
         //>> Show warning message.
-        showToast('my_warning', 'Warning', error.response.data.message);
+        ShowToast('my_warning', 'Warning', error.response.data.message);
         dispatch(setStatement({Email: Email, State: false}));
         setTimeout(() => navigation.replace('VerifyCodeScreen'), 2000);
       } else {
         //>> Show error message.
-        showToast('my_error', 'Error', error.response.data.message);
+        ShowToast('my_error', 'Error', error.response.data.message);
       }
     }
   }
@@ -148,9 +122,7 @@ export const LoginScreen = () => {
       })
     }
     if (DisableBack) {
-      BackHandler.addEventListener('hardwareBackPress', () => {
-        return true;
-      })
+      BackHandler.addEventListener('hardwareBackPress', () => {return true})
     }
   }, [navigation, DisableBack, SwipeBck]);
 
@@ -223,7 +195,7 @@ export const LoginScreen = () => {
                 fontFamily={'poppinsBold'}
                 fontSize={16}
                 textColor={'white'}
-                Label={setLabel()}
+                Label={<SetLabel isLoading={isLoading} LabelText={'Iniciar Sesión'} Success={Success}/>}
                 handlePress={() => {userLoggingIn()}}
                 haveShadow={true}
                 disable={DisableButton}

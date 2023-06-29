@@ -1,9 +1,7 @@
 //>> Importing libraries
-import { Text, View, Image, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground, StyleSheet, Dimensions, BackHandler} from 'react-native';
+import { Text, View, Image, TextInput, TouchableOpacity, ScrollView, KeyboardAvoidingView, ImageBackground, Dimensions, BackHandler} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native-paper';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 import { TextInputMask } from 'react-native-masked-text';
@@ -11,13 +9,11 @@ import { TextInputMask } from 'react-native-masked-text';
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
-import { CustomButton, registerResponsible } from '../../index';
+import { CustomButton, SetLabel, ShowToast, registerResponsible } from '../../index';
 import { setStatement } from '../../store/slices/starterSlice';
 
 //>> Importing icons
-import { Feather, AntDesign, MaterialIcons, Entypo, MaterialCommunityIcons as MaterialCommIcons } from '@expo/vector-icons';
-
-const {windowHeight} = Dimensions.get('window').height;
+import { Feather, AntDesign, MaterialIcons, MaterialCommunityIcons as MaterialCommIcons } from '@expo/vector-icons';
 
 export const RegisterScreen = () => {
   const dispatch = useDispatch();
@@ -43,30 +39,6 @@ export const RegisterScreen = () => {
   const [DisableButton, setDisableButton] = useState(false);
   const [DisableBack, setDisableBack] = useState(false);
 
-  //! Show the Emergent Message (toast).
-  const showToast = (type, text1, text2) => {
-    Toast.show({
-      type:type,
-      text1:text1,
-      text2:text2,
-      duration: 4000
-    })
-  }
-
-  //* Function to handle the label animation.
-  const setLabel = () => {
-    if(isLoading){
-      //? Loading Animation
-      return <ActivityIndicator color='white' />
-    } else if(!isLoading && Success){ 
-      //? Success Label
-      return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
-    } else if(!isLoading && !Success){
-      //? Default Label
-      return 'Registrarse'
-    }
-  }
-
   //* Main Function to register the user.
   const registerNewUser = async () => {
     try {
@@ -81,7 +53,7 @@ export const RegisterScreen = () => {
 
       if(data.success){
         //! Show success message.
-        showToast('my_success', 'Éxito', 'Registro completado correctamente');
+        ShowToast('my_success', 'Éxito', 'Registro completado correctamente');
 
         //! Set Async Storage Values
         const userSession = { Email: data.Email, isLoggedIn: false, jwtToken: null}
@@ -107,7 +79,7 @@ export const RegisterScreen = () => {
       }, 2000);
 
       //>> Show error message.
-      showToast('my_error', 'Error', error.response.data.message);
+      ShowToast('my_error', 'Error', error.response.data.message);
     }
   }
 
@@ -129,17 +101,10 @@ export const RegisterScreen = () => {
               gestureEnabled: false
           })
       }
-  }, [navigation, DisableBack]);
-
-  useEffect(() => {
-      BackHandler.addEventListener('hardwareBackPress', () => {
-          if(DisableBack){
-              return true;
-          } else {
-              return false;
-          }
-      })
-  }, [DisableBack]);
+      if (DisableBack) {
+          BackHandler.addEventListener('hardwareBackPress', () => {return true})
+        }
+    }, [navigation, DisableBack]);
   
   return (
     <>
@@ -266,7 +231,7 @@ export const RegisterScreen = () => {
                   fontFamily={'poppinsBold'}
                   fontSize={16}
                   textColor={'white'}
-                  Label={setLabel()}
+                  Label={<SetLabel LabelText={'Registrarse'} Success={Success} isLoading={isLoading} />}
                   handlePress={() => {registerNewUser()}}
                   haveShadow={true}
                   disable={DisableButton}

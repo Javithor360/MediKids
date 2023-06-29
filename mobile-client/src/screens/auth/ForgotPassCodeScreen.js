@@ -2,16 +2,12 @@
 import { Text, View, Image, ImageBackground, BackHandler } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native-paper';
-import { useSelector } from 'react-redux';
-import { Entypo } from '@expo/vector-icons';
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
-import { CheckresetPassCode, CustomButton } from '../../index';
+import { CheckresetPassCode, CustomButton, SetLabel, ShowToast } from '../../index';
 import InputCodeField from '../../components/InputCodeField';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 
 export const ForgotPassCodeScreen = () => {
@@ -29,31 +25,7 @@ export const ForgotPassCodeScreen = () => {
     //! State For disable the button
     const [DisableBtn, setDisableBtn] = useState(false);
 
-    //! Show the Emergent Message (toast).
-    const showToast = (type, text1, text2) => {
-        Toast.show({
-        type:type,
-        text1:text1,
-        text2:text2,
-        duration: 4000
-        })
-    }
-
-    //* Function to handle the label animation.
-    const setLabel = () => {
-        if(isLoading){
-        //? Loading Animation
-        return <ActivityIndicator color='white' />
-        } else if(!isLoading && Success){ 
-        //? Success Label
-        return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
-        } else if(!isLoading && !Success){
-        //? Default Label
-        return <Text>Verificar</Text>
-        }
-    }
-
-    //! Main Function to verify the Code.
+    //* Main Function to verify the Code.
     const verifyUserCode = async () => {
     try {
         //! set the Loading animation
@@ -64,7 +36,7 @@ export const ForgotPassCodeScreen = () => {
     
         if(data.success){
             //! Show success message.
-            showToast('my_success', 'Éxito', 'Código Verificado correctamente');
+            ShowToast('my_success', 'Éxito', 'Código Verificado correctamente');
     
             //! Close loading animation
             setTimeout(() => {
@@ -84,7 +56,7 @@ export const ForgotPassCodeScreen = () => {
     
         //>> Show error message.
         console.log(error);
-        showToast('my_error', 'Error', error.response.data.message);
+        ShowToast('my_error', 'Error', error.response.data.message);
         }
     }
     
@@ -133,7 +105,7 @@ export const ForgotPassCodeScreen = () => {
                             fontFamily={'poppinsBold'}
                             fontSize={16}
                             textColor={'white'}
-                            Label={setLabel()}
+                            Label={<SetLabel LabelText={'Verificar'} Success={Success} isLoading={isLoading} />}
                             handlePress={() => {verifyUserCode()}}
                             haveShadow={true}
                             disable={DisableBtn}

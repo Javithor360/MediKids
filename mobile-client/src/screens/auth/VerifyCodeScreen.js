@@ -1,17 +1,14 @@
 //>> Importing libraries
 import { Text, View, Image, ImageBackground, BackHandler } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import { Entypo } from '@expo/vector-icons';
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
-import { CustomButton, verifyCodeResponsible } from '../../index';
+import { CustomButton, SetLabel, ShowToast, verifyCodeResponsible } from '../../index';
 import InputCodeField from '../../components/InputCodeField';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 
 export const VerifyCodeScreen = () => {
@@ -32,65 +29,41 @@ export const VerifyCodeScreen = () => {
     //! State For disable the button
     const [DisableBtn, setDisableBtn] = useState(false);
 
-    //! Show the Emergent Message (toast).
-    const showToast = (type, text1, text2) => {
-        Toast.show({
-        type:type,
-        text1:text1,
-        text2:text2,
-        duration: 4000
-        })
-    }
-
-    //* Function to handle the label animation.
-    const setLabel = () => {
-        if(isLoading){
-        //? Loading Animation
-        return <ActivityIndicator color='white' />
-        } else if(!isLoading && Success){ 
-        //? Success Label
-        return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
-        } else if(!isLoading && !Success){
-        //? Default Label
-        return 'Verificar'
-        }
-    }
-
-    //! Main Function to verify the Code.
+    //\\ Main Function to verify the Code.
     const verifyUserCode = async () => {
-    try {
-        //! set the Loading animation
-        setIsLoading(true);
-    
-        //! Server Query
-        const {data} = await verifyCodeResponsible(verifyCode, Email);
-    
-        if(data.success){
-            //! Show success message.
-            showToast('my_success', 'Éxito', 'Email Verificado correctamente');
-    
-            //! Close loading animation
-            setTimeout(() => {
-            setIsLoading(false);
-            setSuccess(true);
+        try {
+            //! set the Loading animation
+            setIsLoading(true);
+        
+            //! Server Query
+            const {data} = await verifyCodeResponsible(verifyCode, Email);
+        
+            if(data.success){
+                //! Show success message.
+                ShowToast('my_success', 'Éxito', 'Email Verificado correctamente');
+
+                //! Close loading animation
                 setTimeout(() => {
-                    navigation.navigate('LoginScreen', {swipeBack: false});
-                }, 3000);
-            }, 4000);
-        }
+                setIsLoading(false);
+                setSuccess(true);
+                    setTimeout(() => {
+                        navigation.navigate('LoginScreen', {swipeBack: false});
+                    }, 3000);
+                }, 4000);
+            }
         } catch (error) {
-        //>> Close loading animation
-        setTimeout(() => {
-            setIsLoading(false);
-            setSuccess(false);
-        }, 2000);
-    
-        //>> Show error message.
-        console.log(error);
-        showToast('my_error', 'Error', error.response.data.message);
+            //>> Close loading animation
+            setTimeout(() => {
+                setIsLoading(false);
+                setSuccess(false);
+            }, 2000);
+        
+            //>> Show error message.
+            console.log(error);
+            ShowToast('my_error', 'Error', error.response.data.message);
         }
     }
-    
+
     //! Disable the send buttom
     useEffect(() => {
         if(isLoading){
@@ -103,9 +76,7 @@ export const VerifyCodeScreen = () => {
     }, [isLoading, Success]);
 
     useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', () => {
-            return true;
-        })
+        BackHandler.addEventListener('hardwareBackPress', () => { return true })
     }, []);
 
     return (
@@ -113,10 +84,6 @@ export const VerifyCodeScreen = () => {
         <View style={AuthStylesGlobal.mainContainer}>
             <View style={AuthStylesGlobal.topWaveContainer}>
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-                {/* <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableBtn} onPress={() => navigation.navigate('WelcomeScreen')}>
-                    <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-                    <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
-                </TouchableOpacity> */}
             </View>
             <View style={AuthStylesGlobal.contentContainer} >
                 <View style={AuthStylesGlobal.formContent} >
@@ -140,7 +107,7 @@ export const VerifyCodeScreen = () => {
                             fontFamily={'poppinsBold'}
                             fontSize={16}
                             textColor={'white'}
-                            Label={setLabel()}
+                            Label={<SetLabel LabelText={'Verificar'} Success={Success} isLoading={isLoading} />}
                             handlePress={() => {verifyUserCode()}}
                             haveShadow={true}
                             disable={DisableBtn}

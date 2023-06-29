@@ -2,15 +2,13 @@
 import { Text, View, Image, TextInput, TouchableOpacity, ImageBackground, BackHandler} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
-import { ActivityIndicator } from 'react-native-paper';
-import { Entypo, MaterialCommunityIcons as MaterialCommIcons, MaterialIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons as MaterialCommIcons, MaterialIcons } from '@expo/vector-icons'
 import { useDispatch } from 'react-redux';
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
-import { CustomButton, ForgotPassQuery } from '../../index';
+import { CustomButton, ForgotPassQuery, SetLabel, ShowToast } from '../../index';
 import { ChangeStarterEmail } from '../../store/slices/starterSlice';
 
 export const ForgotPasswordScreen = () => {
@@ -30,30 +28,6 @@ export const ForgotPasswordScreen = () => {
     const [DisableButton, setDisableButton] = useState(false);
     const [DisableBack, setDisableBack] = useState(false);
 
-    //! Show the Emergent Message (toast).
-    const showToast = (type, text1, text2) => {
-        Toast.show({
-        type:type,
-        text1:text1,
-        text2:text2,
-        duration: 4000
-        })
-    }
-
-    //* Function to handle the label animation.
-    const setLabel = () => {
-        if(isLoading){
-        //? Loading Animation
-        return <ActivityIndicator color='white' />
-        } else if(!isLoading && Success){ 
-        //? Success Label
-        return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
-        } else if(!isLoading && !Success){
-        //? Default Label
-        return 'Enviar'
-        }
-    }
-
     //* Main Function to fortgot password screen.
     const sendForgotPassEmail = async () => {
         try {
@@ -68,7 +42,7 @@ export const ForgotPasswordScreen = () => {
             
             if(data.success){
                 //! Show success message.
-                showToast('my_success', 'Éxito', data.message);
+                ShowToast('my_success', 'Éxito', data.message);
 
                 //! set the email in the storage for the usage in the Reset password screen.
                 dispatch(ChangeStarterEmail(Email));
@@ -91,7 +65,7 @@ export const ForgotPasswordScreen = () => {
             }, 2500);
             
             //>> Show error message
-            showToast('my_error', 'Error', error.response.data.message);
+            ShowToast('my_error', 'Error', error.response.data.message);
         }
     }
 
@@ -113,17 +87,10 @@ export const ForgotPasswordScreen = () => {
                 gestureEnabled: false
             })
         }
+        if (DisableBack) {
+            BackHandler.addEventListener('hardwareBackPress', () => {return true})
+          }
     }, [navigation, DisableBack]);
-
-    useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', () => {
-            if(DisableBack){
-                return true;
-            } else {
-                return false;
-            }
-        })
-    }, [DisableBack]);
 
     return (
     <>
@@ -171,7 +138,7 @@ export const ForgotPasswordScreen = () => {
                             fontFamily={'poppinsBold'}
                             fontSize={16}
                             textColor={'white'}
-                            Label={setLabel()}
+                            Label={<SetLabel LabelText={'Enviar'} isLoading={isLoading} Success={Success} />}
                             handlePress={() => {sendForgotPassEmail()}}
                             haveShadow={true}
                             disable={DisableButton}

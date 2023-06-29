@@ -54,7 +54,7 @@ export const WelcomeScreen = () => {
             fontSize={20}
             textColor={'white'}
             Label={"Iniciar Sesión"}
-            handlePress={() => {navigation.navigate('RegisterPatientScreen');}}
+            handlePress={() => {navigation.navigate('LoginScreen');}}
             haveShadow={true}
           /> 
 
