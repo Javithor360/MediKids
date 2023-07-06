@@ -15,6 +15,7 @@ export { Calendario } from './screens/app/calendar/Calendario'
 export { ForgotPassCodeScreen } from './screens/auth/ForgotPassCodeScreen'
 export {NotificationScreen} from './screens/app/home/NotificationScreen'
 export {MyVaccines} from './screens/app/home/MyVaccines'
+// export { SpecialityInfoN } from './screens/app/home/SpecialityInfoN'
 //?? Components
 export { CustomButton } from './components/ButtonHook';
 export { CustomStatusBar } from './components/CustomStatusBar';

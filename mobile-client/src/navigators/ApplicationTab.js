@@ -96,7 +96,7 @@ const TabButton = (props) => {
 
   //>>ButtonComponent
   return (
-    <View style={{width: '18%', alignItems: 'center',}}>
+    <View style={{width: '19.5%', alignItems: 'center',}}>
       <TouchableOpacity
         onPress={onPress}
         activeOpacity={1}
