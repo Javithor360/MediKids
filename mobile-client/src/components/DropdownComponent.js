@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import { AuthStylesGlobal } from '../../assets/AuthStyles';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
-export const DropdownComponent = ({data, setFormValue, placeholder}) => {
+export const DropdownComponent = ({data, setFormValue, placeholder, disableBtn, Icon}) => {
   const [value, setValue] = useState(null);
 
   return (
@@ -19,13 +18,12 @@ export const DropdownComponent = ({data, setFormValue, placeholder}) => {
       valueField="value"
       placeholder={placeholder}
       value={value}
+      disable={disableBtn}
       onChange={item => {
         setValue(item.value);
         setFormValue(item.value);
       }}
-      renderLeftIcon={() => (
-        <AntDesign style={styles.icon} color="black" name="Safety" size={20} />
-      )}
+      renderLeftIcon={() => (Icon)}
     />
   );
 };
@@ -51,10 +49,6 @@ const styles = StyleSheet.create({
   },
   selectedTextStyle: {
     fontSize: 16,
-  },
-  icon: {
-    marginRight: 5,
-    color: 'gray'
   },
   iconStyle: {
     width: 20,

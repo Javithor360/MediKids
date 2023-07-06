@@ -1,5 +1,4 @@
 
-
 //>> Screens
 export { RegisterScreen } from './screens/auth/RegisterScreen';
 export { RegisterPatientScreen } from './screens/auth/RegisterPatientScreen';
@@ -13,13 +12,16 @@ export { SelectProfilePhotoScreen } from './screens/auth/SelectProfilePhotoScree
 export { VerifyCodeScreen } from './screens/auth/VerifyCodeScreen';
 export { Calendario } from './screens/app/calendar/Calendario'
 export { ForgotPassCodeScreen } from './screens/auth/ForgotPassCodeScreen'
-export {NotificationScreen} from './screens/app/home/NotificationScreen'
-export {MyVaccines} from './screens/app/home/MyVaccines'
-// export { SpecialityInfoN } from './screens/app/home/SpecialityInfoN'
+export { NotificationScreen } from './screens/app/home/NotificationScreen'
+export { MyVaccines } from './screens/app/home/MyVaccines'
+export { ImmunizationRecord } from './screens/auth/ImmunizationRecord';
+
 //?? Components
 export { CustomButton } from './components/ButtonHook';
 export { CustomStatusBar } from './components/CustomStatusBar';
 export { DropdownComponent } from './components/DropdownComponent';
+export { ShowToast } from './components/ShowToast'
+export { SetLabel } from './components/SetLabel';
 
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';
@@ -27,7 +29,7 @@ export { HomeStack } from './navigators/Dashboard/HomeStack';
 export { CalendarStack } from './navigators/Dashboard/CalendarStack';
 
 //* Queries
-export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery } from './queries/authQueries';
+export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery } from './queries/authQueries';
 
 //\\ Configs
 export { toastConfig } from './components/toastConfigs';

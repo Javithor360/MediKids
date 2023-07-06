@@ -2,6 +2,7 @@ import express from "express";
 import router_login from "./routes/login.routes.js";
 import router_admin from "./routes/admin.routes.js";
 import router_doctor from "./routes/doctor.routes.js";
+import router_responsible from "./routes/responsible.routes.js";
 import cors from 'cors';
 
 const app = express();
@@ -23,10 +24,11 @@ app.use((_, res, next) => {
 app.use("/api/auth", router_login);
 app.use("/api/admin", router_admin);
 app.use("/api/doctor", router_doctor);
+app.use("/api/responsible", router_responsible);
 
 // DEFAULT ROUTE (Err 404)
 app.use("/", (req, res, next) => {
-  res.status(404).json({ res: "page not found" });
+  res.status(404).json({ res: "page not found :v" });
 });
 
 export default app;

@@ -83,6 +83,7 @@ const AuthStylesGlobal = StyleSheet.create({
       fontSize: 16, 
       fontFamily: 'poppinsRegular', 
       width: '75%',
+      textAlignVertical: 'top',
    },
    inputExtended:{
       fontSize: 16, 

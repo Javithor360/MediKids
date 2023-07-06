@@ -1,15 +1,13 @@
 //>> Importing libraries
 import { Text, View, Image, TextInput, ImageBackground, BackHandler} from 'react-native';
-import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native-paper';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
-import { CustomButton, ResetPasswordQuery } from '../../index';
+import { CustomButton, ResetPasswordQuery, SetLabel, ShowToast } from '../../index';
 import { useSelector } from 'react-redux';
 
 
@@ -32,30 +30,6 @@ export const ResetPasswordScreen = () => {
     //! State For disable the button
     const [DisableButton, setDisableButton] = useState(false);
 
-    //! Show the Emergent Message (toast).
-    const showToast = (type, text1, text2) => {
-      Toast.show({
-        type:type,
-        text1:text1,
-        text2:text2,
-        duration: 4000
-      })
-    }
-
-    //* Function to handle the label animation.
-    const setLabel = () => {
-        if(isLoading){
-            //? Loading Animation
-            return <ActivityIndicator color='white' />
-        } else if(!isLoading && Success){ 
-            //? Success Label
-            return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
-        } else if(!isLoading && !Success){
-            //? Default Label
-            return 'Registrarse'
-        }
-    }
-
     //* Main Function to register the user.
     const resetPassword = async () => {
         try {
@@ -67,7 +41,7 @@ export const ResetPasswordScreen = () => {
 
             if(data.success){
                 //! Show success message.
-                showToast('my_success', 'Éxito', 'Cambio de contraseña completado');
+                ShowToast('my_success', 'Éxito', 'Cambio de contraseña completado');
 
                 //! Close loading animation
                 setTimeout(() => {
@@ -86,7 +60,7 @@ export const ResetPasswordScreen = () => {
             }, 3000);
 
             //>> Show error message.
-            showToast('my_error', 'Error', error.response.data.message);
+            ShowToast('my_error', 'Error', error.response.data.message);
         }
     }
 
@@ -102,20 +76,14 @@ export const ResetPasswordScreen = () => {
     }, [isLoading, Success]);
 
     useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', () => {
-            return true;
-        })
+        BackHandler.addEventListener('hardwareBackPress', () => { return true })
     }, []);
 
     return (
     <>
         <View style={AuthStylesGlobal.mainContainer}>
             <View style={AuthStylesGlobal.topWaveContainer}>
-                <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-                {/* <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.goBack()}>
-                    <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-                    <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
-                </TouchableOpacity> */}
+                <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/>
             </View>
             <View style={AuthStylesGlobal.contentContainer} >
                 <View style={AuthStylesGlobal.formContent} >
@@ -161,7 +129,7 @@ export const ResetPasswordScreen = () => {
                             fontFamily={'poppinsBold'}
                             fontSize={16}
                             textColor={'white'}
-                            Label={setLabel()}
+                            Label={<SetLabel LabelText={'Cambiar'} Success={Success} isLoading={isLoading} />}
                             handlePress={() => {resetPassword()}}
                             haveShadow={true}
                             disable={DisableButton}

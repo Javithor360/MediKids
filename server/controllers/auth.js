@@ -4,12 +4,11 @@ import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import { initializeApp } from 'firebase/app'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
-import { v4 } from 'uuid';
-import fs from 'fs';
+
 
 //>> IMPORT CONFIGS & FUNCTIONS
 import {pool} from '../utils/db.js';
-import { create_code, create_jwt, create_reset_code, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
+import { create_code, create_jwt, create_reset_code, patientCode, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
 import firebaseConfig from '../utils/firebase.config.js';
 
 //? Startup Firebase configuration.
@@ -85,7 +84,6 @@ const register = async (req, res, next) => {
 
     return res.status(200).json({success: true, Email})
   } catch (error) {
-    console.log(error);
     return res.status(500).json({error: error});
   }
 }
@@ -155,45 +153,6 @@ const verify_email = async (req, res, next) => {
     await pool.query('UPDATE Responsible SET Email_Verify_code = NULL WHERE Email = ?', [Email]);
 
     return res.status(200).json({success: true});
-  } catch (error) {
-    return res.status(500).json({error});
-  }
-}
-
-//! @route POST api/auth/get_email_to_verify
-//! @desc Get the email of the responsible who has not still verified it
-//! @access Public
-const get_email_to_verify = async (req, res, next) => {
-  try {
-    const { Email } = req.body;
-
-    // QUERY TO GET THE USER
-    const [query_user] = await pool.query('SELECT * FROM responsible WHERE Email = ? AND Email_Verify_code != ""', [Email]);
-    if (query_user.length == 0) {
-      return res.status(500).json({sucess: false, message: 'Email verificado'});
-    }
-    // SEND THE USER TO THE FRONT.
-    return res.status(200).json({Responsible_user: query_user[0]});
-  } catch (error) {
-    return res.status(500).json({error});
-  }
-}
-
-//! @route POST api/auth/get_responsible
-//! @desc Get the user to know if already registered
-//! @access Public
-const get_responsible = async (req, res, next) => {
-  try {
-    const { Email } = req.body;
-
-    // QUERY TO GET THE USER
-    const [query_user] = await pool.query('SELECT * FROM responsible WHERE Email = ?', [Email]);
-    if (query_user.length == 0) {
-      return res.status(500).json({sucess: false, message: 'Email no registrado'});
-    }
-
-    // SEND THE USER TO THE FRONT.
-    return res.status(200).json({Responsible_user: query_user[0]});
   } catch (error) {
     return res.status(500).json({error});
   }
@@ -307,39 +266,60 @@ const reset_password = async (req, res, next) => {
   }
 }
 
-//! @route POST api/auth/upload_photo
-//! @desc Reset the password and set null the tokens.
-//! @access Private!!
-const upload_pf_responsible = async (req, res, next) => {
+//! @route POST api/auth/register_patients
+//! @desc Add the patients corresponding to the specified User.
+//! @access public
+const register_patients = async (req, res, next) => {
   try {
-    const {Email} = req.body;
+    const {Email, First_Names, Last_Names, Blood_Type, Gender, Weight, Height, Selected_Date} = req.body;
 
-    //? Set name of the foto.
-    const name = v4();
+    // CHECK EMPTY VALUES
+    if (!Email || !First_Names || !Last_Names || !Blood_Type || !Gender || !Weight || !Height || !Selected_Date) {
+      return res.status(500).json({success: false, message: 'Valores vacios'});
+    }
 
-    //? Reference to the storage where the photo will be upload.
-    const storageRef = ref(storage, `perfil_photos/${name}`);
+    // CHECK IF THE PATIENT IS ALREADY REGISTERED
+    const [check_query] = await pool.query('SELECT * FROM patient WHERE First_Names = ? OR Last_Names = ?', [First_Names, Last_Names]);
+    if (check_query.length != 0) {
+      return res.status(500).json({success: false, message: 'Paciente ya registrado'});
+    }
+
+    // CHECK REAL VALUES
+    if (Weight < 10 || Weight > 170) {
+      return res.status(500).json({success: false, message: 'Ingresar valores reales (peso)'});
+    }
+    if (Height < 0.60 || Height > 1.80) {
+      return res.status(500).json({success: false, message: 'Ingresar valores reales (altura)'});
+    }
+
+    // CHECK THE AGE OF THE PATIENT AND GET IT.
+    const BD = new Date(Selected_Date);
+    const ActualDate = new Date();
+
+    console.log(ActualDate.getFullYear() - 18);
+    console.log(BD.getFullYear());
     
-    //? Create the config for the upload.
-    const metadata = {contentType: req.file.mimetype};
+    if (ActualDate.getFullYear() - 18 > BD.getFullYear()) {
+      return res.status(500).json({success: false, message: "Age isn't valid" });
+    }
+    const Age = ActualDate.getFullYear() - BD.getFullYear();
 
-    //? Get the buffer of the image;
-    const buffer = fs.readFileSync(req.file.path);
-    
-    //? Upload the image.
-    await uploadBytesResumable(storageRef, buffer, metadata);
+    // GET THE USER TO LINK HIM TO THE PATIENT.
+    const [responsible] = await pool.query('SELECT * FROM responsible WHERE Email = ?', [Email]);
+    console.log(responsible);
 
-    //? Get the url from the snapshot.
-    const url = await getDownloadURL(storageRef);
+    // GET THE PATIENT_CODE.
+    const Patient_Code = patientCode();
 
-    //! Save in the database;
-    await pool.query('UPDATE Responsible SET Profile_Photo_Url = ?, Profile_Photo_Name = ? WHERE Email = ?', [url, name, Email]);
+    // GET DEFAULT PERFIL PHOTO FRON FIREBASE
+    const storageRef = ref(storage, `perfil_photos/default.png`);
+    const P_F = await getDownloadURL(storageRef);
 
-    //>> Delete File fron upload directory.
-    fs.unlink(req.file.path, (err) => {if (err) throw err});
+    await pool.query('INSERT INTO patient SET ?', {First_Names, Last_Names, Birthdate: BD, Age, Gender, Blood_Type, Weight, Height, Responsible_id: responsible[0].id, Patient_Code, Medical_History_Code: null, Profile_Photo_Url: P_F, Profile_Photo_Name: null});
 
-    return res.status(200).json({success: true, url});
+    return res.status(200).json({success: true});
   } catch (error) {
+    console.log(error);
     return res.status(500).json({error});
   }
 }
@@ -355,14 +335,12 @@ const test_mail = async (req, res, next) => {
 
 
 export {
-  register, 
-  login, 
-  verify_email, 
-  get_email_to_verify, 
-  get_responsible, 
+  register,
+  login,
+  verify_email,
   forgot_password,
   check_reset_code,
   reset_password,
-  upload_pf_responsible,
-  test_mail
+  test_mail,
+  register_patients,
 };

@@ -1,6 +1,6 @@
 //>> Importing libraries
 import { Text, View, Image, TouchableOpacity, ImageBackground, ScrollView, BackHandler} from 'react-native';
-import { MaterialIcons, Entypo } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { useEffect, useState } from 'react';
@@ -10,9 +10,7 @@ import {manipulateAsync} from 'expo-image-manipulator'
 //>> Importing components
 import  { AuthStylesGlobal, AuthStylesRegisterU, SelectProfilePhoto }  from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
-import { CustomButton, uploadPFResponsible } from '../../index';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
-import { ActivityIndicator } from 'react-native-paper';
+import { CustomButton, SetLabel, ShowToast, uploadPFResponsible } from '../../index';
 import { changePerfilPhoto } from '../../store/slices/responsibleSlice';
 
 const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
@@ -36,20 +34,6 @@ export const SelectProfilePhotoScreen = () => {
 
     //! State For disable the button
     const [DisableButton, setDisableButton] = useState(false);
-
-    //* Function to handle the label animation.
-    const setLabel = () => {
-        if(isLoading){
-        //? Loading Animation
-        return <ActivityIndicator color='white' />
-        } else if(!isLoading && Success){ 
-        //? Success Label
-        return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
-        } else if(!isLoading && !Success){
-        //? Default Label
-        return 'Cambiar'
-        }
-    }
 
     //! Function to select the profile photo from the galery of the user.
     const pickeImage = async () => {
@@ -92,12 +76,7 @@ export const SelectProfilePhotoScreen = () => {
             const {data} = await uploadPFResponsible(formData);
             if(data.success){
                 dispatch(changePerfilPhoto(data.url));
-                Toast.show({
-                    type:'my_success',
-                    text1: 'Éxito',
-                    text2: 'foto subida correctamente',
-                    duration: 4000,
-                })
+                ShowToast('my_success', 'Éxito', 'Foto subida correctamente');
                 setTimeout(() => {
                     setIsLoading(false);
                     setSuccess(true);
@@ -190,19 +169,14 @@ export const SelectProfilePhotoScreen = () => {
                             fontFamily={'poppinsBold'}
                             fontSize={16}
                             textColor={'white'}
-                            Label={setLabel()}
+                            Label={<SetLabel LabelText={'Cambiar'} Success={Success} isLoading={isLoading} />}
                             disable={DisableButton}
                             handlePress={() => {
                                 if(ImageEl != null) {
                                     uploadImage(ImageEl);
                                 } else {
                                     //! ERRROR HANDLING
-                                    Toast.show({
-                                        type:'my_error',
-                                        text1: 'Error',
-                                        text2: 'No se ha seleccionado una foto',
-                                        duration: 4000,
-                                    })
+                                    ShowToast('my_error', 'Error', 'No se ha seleccionado una foto');
                                 }
                             }}
                             haveShadow={true}
