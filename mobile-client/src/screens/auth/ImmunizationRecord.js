@@ -157,7 +157,8 @@ export const ImmunizationRecord = () => {
                 fontSize={16}
                 textColor={'white'}
                 Label={setLabel()}
-                handlePress={() => {registearPatientFunction()}}
+                // handlePress={() => {registearPatientFunction()}}
+                onPress={navigation.navigate('ApplicationTab')}
                 haveShadow={true}
                 disable={DisableButton}
               />
