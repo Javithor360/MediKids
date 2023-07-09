@@ -1,5 +1,35 @@
 import { pool } from "../utils/db.js";
 
+import ErrorResponse from "../utils/error_message.js";
+
+// ! @route POST api/doctor/get-info
+// ! @desc Get all doctor personal information
+// ! @access private
+
+const get_info = async (req, res, next) => {
+  try {
+    const { Doctor_id } = req.body;
+
+    if (!Doctor_id) {
+      return next(new ErrorResponse("No ID was provided", 400, "error"));
+    }
+
+    const [query_check] = await pool.query(
+      "SELECT * FROM doctors WHERE id = ?",
+      [Doctor_id]
+    );
+
+    if (query_check.length != 1) {
+      return next(new ErrorResponse("Provided ID doesn't match with any existing doctor", 400, "error"));
+    }
+
+    return res.status(200).json({ success: true, body: query_check[0] });
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({ error });
+  }
+};
+
 // ! @route POST api/doctor/active_patients
 // ! @desc Get all active patients for the doctor
 // ! @access public
@@ -34,10 +64,6 @@ const active_patients = async (req, res, next) => {
       [Doctor_id]
     );
 
-    // Ejecutar la consulta utilizando tu librería o módulo de MySQL favorito
-
-    console.log(patients_info);
-
     return res.status(200).json({ success: true, body: patients_info });
   } catch (error) {
     console.log(error);
@@ -45,4 +71,4 @@ const active_patients = async (req, res, next) => {
   }
 };
 
-export { active_patients };
+export { get_info, active_patients };

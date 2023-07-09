@@ -1,5 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Layout } from "./components";
+
+import { AuthValidate, FirstLoginValidation, OutAuthValidate } from "./routers";
+
 import {
   IndexPage,
   // Error404,
@@ -9,39 +12,60 @@ import {
   MedicalRecords,
   PatientsDetails,
   MedicalAppoinment,
-  LoginPage
+  LoginPage,
 } from "./pages";
+
+import { AuthProvider } from "./context/AuthContext";
 import { DoctorProvider } from "./context/DoctorContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <DoctorProvider>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Navigate to="/index" replace />} />
-            <Route path="*" element={<Navigate to="/index" replace />} />
-            <Route path="/index" element={<IndexPage />} />
-            <Route path="/inbox" element={<Inbox />} />
-
-            {/* Páginas referentes a la agenda */}
-            <Route path="/agenda" element={<MainAgenda />} />
-
-            {/* Páginas referentes al control de pacientes */}
-            <Route path="/patients/active" element={<ActivePatients />} />
+      <AuthProvider>
+        <DoctorProvider>
+          <Routes>
+            {/* Login */}
             <Route
-              path="/patients/active/details"
-              element={<PatientsDetails />}
+              path="/login"
+              element={
+                <OutAuthValidate>
+                  <LoginPage />
+                </OutAuthValidate>
+              }
             />
-            <Route path="/patients/records" element={<MedicalRecords />} />
+
+            {/* Método de validación de sesión "funcional", se explorarán más opciones */}
             <Route
-              path="/patients/active/details/appoinment"
-              element={<MedicalAppoinment />}
-            />
-          </Route>
-          <Route path="/login" element={<LoginPage />}/>
-        </Routes>
-      </DoctorProvider>
+              path="/"
+              element={
+                <AuthValidate>
+                  <Layout />
+                </AuthValidate>
+              }
+            >
+                <Route path="/" element={<Navigate to="/index" replace />} />
+                <Route path="*" element={<Navigate to="/index" replace />} />
+                <Route path="/index" element={<IndexPage />} />
+                <Route path="/inbox" element={<Inbox />} />
+
+                {/* Páginas referentes a la agenda */}
+                <Route path="/agenda" element={<MainAgenda />} />
+
+                {/* Páginas referentes al control de pacientes */}
+                <Route path="/patients/active" element={<ActivePatients />} />
+                <Route
+                  path="/patients/active/details"
+                  element={<PatientsDetails />}
+                />
+                <Route path="/patients/records" element={<MedicalRecords />} />
+                <Route
+                  path="/patients/active/details/appoinment"
+                  element={<MedicalAppoinment />}
+                />
+            </Route>
+          </Routes>
+        </DoctorProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

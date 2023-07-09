@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   AiOutlineHome,
@@ -19,6 +19,8 @@ import ColLogotype from "../assets/logos/MediKids_Colored-Logotype.png";
 import Avatar from "../assets/template/avatar.jpg";
 
 export const Sidebar = () => {
+  let navigate = useNavigate();
+
   const [calendar, setCalendar] = useState(false);
   const [patients, setPatients] = useState(false);
   return (
@@ -163,7 +165,13 @@ export const Sidebar = () => {
                 <p className="ml-4 text-lg">Configuración</p>
               </span>
             </li>
-            <li className="relative">
+            <li
+              onClick={() => {
+                localStorage.removeItem("userSession");
+                navigate("/login");
+              }}
+              className="relative"
+            >
               <span className="flex items-center h-12 truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#f65151] hover:text-white focus:bg-red-500 focus:text-white">
                 <FiLogOut className="w-6 h-6" />
                 <p className="ml-4 text-lg">Cerrar sesión</p>
