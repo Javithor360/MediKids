@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { getActivePatientsEx } from "../api/queries";
+import { getDoctorInfo, getActivePatientsEx } from "../api/queries";
 
 const dashContext = createContext();
 
@@ -9,19 +9,27 @@ export const useDash = () => {
 };
 
 export const DoctorProvider = ({ children }) => {
+  const [Info, setInfo] = useState({});
   const [activePatients, setActivePatients] = useState([]);
-  // const PrivateConfig = (Token) => {
-  //   return {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "x-auth-token": Token,
-  //     },
-  //   };
-  // };
 
-  const ActivePatientsQuery = async (id) => {
+  const PrivateConfig = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const DoctorInfoQuery = async (Doctor_id) => {
     try {
-      const res = await getActivePatientsEx(id);
+      const query = await getDoctorInfo(Doctor_id, PrivateConfig);
+      setInfo(query.data.body);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const ActivePatientsQuery = async (Doctor_id) => {
+    try {
+      const res = await getActivePatientsEx(Doctor_id, PrivateConfig);
       setActivePatients(res.data.body);
     } catch (error) {
       console.log(error);
@@ -30,7 +38,14 @@ export const DoctorProvider = ({ children }) => {
 
   return (
     <dashContext.Provider
-      value={{ activePatients, setActivePatients, ActivePatientsQuery }}
+      value={{
+        Info,
+        setInfo,
+        activePatients,
+        setActivePatients,
+        DoctorInfoQuery,
+        ActivePatientsQuery,
+      }}
     >
       {children}
     </dashContext.Provider>

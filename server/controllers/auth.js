@@ -5,6 +5,8 @@ import crypto from 'crypto';
 import { initializeApp } from 'firebase/app'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 
+import ErrorResponse from "../utils/error_message.js";
+
 
 //>> IMPORT CONFIGS & FUNCTIONS
 import {pool} from '../utils/db.js';
@@ -342,18 +344,18 @@ const doctor_login = async (req, res, next) => {
 
     // CHECKING POSSIBLE EMPTY VALUES
     if (!User || !Password) {
-      return res.status(500).json({success: false, message: 'Los campos solicitados están incompletos'});
+      return next(new ErrorResponse("Los campos solicitados están incompletos", 400, "error"))
     }
 
     // CHECKING IF USER EXISTS
     const [query_user] = await pool.query('SELECT * FROM doctors WHERE User = ?', [User]);
     if(query_user.length == 0) {
-      return res.status(500).json({success: false, message: 'El usuario ingresado no es válido'});
+      return next(new ErrorResponse("El usuario ingresado no es válido", 400, "error"))
     }
 
     // PASSWORD CHECK
     if(!await bcrypt.compare(Password, query_user[0].Password)) {
-      return res.status(500).json({success: false, message: 'Contraseña incorrecta'});
+      return next(new ErrorResponse("Contraseña incorrecta", 400, "error"))
     }
 
     // JWT CREATION
