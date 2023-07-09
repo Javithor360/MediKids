@@ -333,6 +333,37 @@ const test_mail = async (req, res, next) => {
   }
 }
 
+//! @route POST api/auth/doctor_login
+//! @desc Doctor's Login
+//! @access public?
+const doctor_login = async (req, res, next) => {
+  try {
+    const { User, Password } = req.body;
+
+    // CHECKING POSSIBLE EMPTY VALUES
+    if (!User || !Password) {
+      return res.status(500).json({success: false, message: 'Los campos solicitados están incompletos'});
+    }
+
+    // CHECKING IF USER EXISTS
+    const [query_user] = await pool.query('SELECT * FROM doctors WHERE User = ?', [User]);
+    if(query_user.length == 0) {
+      return res.status(500).json({success: false, message: 'El usuario ingresado no es válido'});
+    }
+
+    // PASSWORD CHECK
+    if(!await bcrypt.compare(Password, query_user[0].Password)) {
+      return res.status(500).json({success: false, message: 'Contraseña incorrecta'});
+    }
+
+    // JWT CREATION
+    const token = create_jwt(query_user);
+
+    return res.status(200).json({success: true, User: query_user[0], token});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
 
 export {
   register,
@@ -343,4 +374,5 @@ export {
   reset_password,
   test_mail,
   register_patients,
+  doctor_login,
 };

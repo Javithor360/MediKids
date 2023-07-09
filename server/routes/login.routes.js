@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, verify_email, forgot_password, reset_password, check_reset_code, register_patients } from '../controllers/auth.js';
+import { register, login, verify_email, forgot_password, reset_password, check_reset_code, register_patients, doctor_login } from '../controllers/auth.js';
 import { auth_midd } from '../middlewares/auth_middleware.js';
 
 //\\ CREATING ROUTER
@@ -26,6 +26,9 @@ router_login.route('/reset_password').post(reset_password);
 
 //! Register the pacient of the user.
 router_login.route('/register_patients').post(register_patients);
+
+//! Doctor's Login
+router_login.route('/doctor_login').post(doctor_login);
 
 // GET ROUTES
 router_login.route('/private').get([auth_midd], (req, res, next) => {
