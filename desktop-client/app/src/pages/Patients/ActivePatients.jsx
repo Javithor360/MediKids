@@ -65,14 +65,11 @@ export const ActivePatients = (props) => {
                       {patient.Patient_Code}
                     </td>
                     <td className="border-[#BBBBBB]">
-                      <button className="btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white">
-                        <Link
-                          to="/patients/active/details"
-                          state={{ patient }}
-                        >
+                      <Link to="/patients/active/details" state={{ patient }}>
+                        <button className="btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white">
                           Ver detalles
-                        </Link>
-                      </button>
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 );

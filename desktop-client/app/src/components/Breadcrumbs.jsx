@@ -24,6 +24,7 @@ export const Breadcrumbs = () => {
           className="after:inline-block text-[#a375ff] select-none hover:underline after:content-['/'] after:text-[#A2A2A2] after:ml-[0.25rem] after:mr-[0.05rem] last:after:hidden last:font-semibold right-0"
           to={currentLink}
           key={crumb}
+          state={location.state}
         >
           {assign(crumb.charAt(0).toUpperCase() + crumb.slice(1))}
         </Link>
