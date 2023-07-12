@@ -193,3 +193,23 @@ CREATE TABLE IF NOT EXISTS medikids_db . patients_monitoring (
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION
 );
+
+CREATE TABLE IF NOT EXISTS medikids_db . patient_vaccines (
+	id INT NOT NULL AUTO_INCREMENT,
+	Vaccine_Hepatitis_A BOOLEAN NOT NULL,
+	Vaccine_BGC BOOLEAN NOT NULL,
+	Vaccine_Poliomielitis BOOLEAN NOT NULL,
+	Vaccine_Pentavalente BOOLEAN NOT NULL,
+	Vaccine_Rotavirus BOOLEAN NOT NULL,
+	Vaccine_Neumococo BOOLEAN NOT NULL,
+	Vaccine_DPT BOOLEAN NOT NULL,
+	Vaccine_Polio_Oral BOOLEAN NOT NULL,
+	Vaccine_Antitetanica BOOLEAN NOT NULL,
+	Vaccine_Triple_Viral_SPR BOOLEAN NOT NULL,
+	Patient_id INT NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+	FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+);

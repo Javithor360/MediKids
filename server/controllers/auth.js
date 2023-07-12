@@ -298,9 +298,6 @@ const register_patients = async (req, res, next) => {
     const BD = new Date(Selected_Date);
     const ActualDate = new Date();
 
-    console.log(ActualDate.getFullYear() - 18);
-    console.log(BD.getFullYear());
-    
     if (ActualDate.getFullYear() - 18 > BD.getFullYear()) {
       return res.status(500).json({success: false, message: "Age isn't valid" });
     }
@@ -308,7 +305,6 @@ const register_patients = async (req, res, next) => {
 
     // GET THE USER TO LINK HIM TO THE PATIENT.
     const [responsible] = await pool.query('SELECT * FROM responsible WHERE Email = ?', [Email]);
-    console.log(responsible);
 
     // GET THE PATIENT_CODE.
     const Patient_Code = patientCode();
