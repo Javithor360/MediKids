@@ -24,11 +24,11 @@ const RunStackNav = () => {
       <Stack.Screen name='ForgotPassCodeScreen' component={ForgotPassCodeScreen} options={{gestureEnabled: false}} />
       <Stack.Screen name='ResetPasswordScreen' component={ResetPasswordScreen} options={{gestureEnabled: false}} />
       <Stack.Screen name='RegisterPatientScreen' component={RegisterPatientScreen} options={{gestureEnabled: false}} />
+      <Stack.Screen name='ImmunizationRecordScreen' component={ImmunizationRecord} options={{gestureEnabled: false}} />
       <Stack.Screen name='LoginScreen' component={LoginScreen} />
       <Stack.Screen name='RegisterScreen' component={RegisterScreen} />
       <Stack.Screen name='ForgotPasswordScreen' component={ForgotPasswordScreen} />
       <Stack.Screen name='SelectProfilePhotoScreen' component={SelectProfilePhotoScreen} />
-      <Stack.Screen name='ImmunizationRecordScreen' component={ImmunizationRecord} />
     </Stack.Navigator>
   );
 }

@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //>> Importing components
 import { AuthStylesGlobal } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
-import { CustomButton, loginResponsible, SetLabel, ShowToast } from '../../index';
+import { CustomButton, getImmunizationRecord, getPatients, loginResponsible, SetLabel, ShowToast } from '../../index';
 import { setLogginValues } from '../../store/slices/responsibleSlice';
 import { setStatement } from '../../store/slices/starterSlice';
 
@@ -45,6 +45,12 @@ export const LoginScreen = () => {
       //! Server Query
       const {data} = await loginResponsible(Email, Password);
 
+      //! Patients Query
+      const Patients = await getPatients(Email);
+      
+      //! Vaccines Query
+      const Vaccines = await getImmunizationRecord(Patients.data.patients[0].id);
+
       //! Disable go back button (after query for enable the try-catch statement).
       setDisableBack(true);
 
@@ -74,11 +80,21 @@ export const LoginScreen = () => {
           setIsLoading(false);
           setSuccess(true);
           setTimeout(() => {
-
+            //\\ CHECK IF HE ALREADY SET AN PF.
             if(data.User.Profile_Photo_Url == 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'){
               navigation.navigate('SelectProfilePhotoScreen', {haveButton: false});
-            } else {
+
+            //\\ CHECK IF THE USER ALREADY HAS PATIENTS REGISTERED.
+            } else if (Patients.data.patients.length == 0) {
               navigation.navigate('RegisterPatientScreen');
+
+            //\\ CHECK IF THE PATIENT HAVE BEEN SETTED THE IMMUNIZATION RECORD.
+            } else if (Vaccines.data.immunization_record.length == 0) {
+              navigation.navigate('ImmunizationRecordScreen', {Patient_id: Patients.data.patients[0].id});
+
+            //\\ REDIRECT THE USER TO THE DASHBOARD.
+            } else {
+              navigation.navigate('ApplicationTab');
             }
 
           }, 3000);

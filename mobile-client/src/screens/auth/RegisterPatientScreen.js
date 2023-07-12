@@ -7,7 +7,7 @@ import DateTimePicker from "@react-native-community/datetimepicker"
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterP, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
-import { CustomButton, DropdownComponent, RegisterPatientsQuery, SetLabel, ShowToast } from '../../index';
+import { CustomButton, DropdownComponent, RegisterPatientsQuery, SetLabel, ShowToast, getPatients } from '../../index';
 import { ScrollView } from "react-native-gesture-handler";
 import { TextInputMask } from "react-native-masked-text";
 
@@ -126,6 +126,9 @@ export const RegisterPatientScreen = () => {
       //! Server Query
       const {data} = await RegisterPatientsQuery(Email, FirstNames, LastNames, BloodType, Gender, Weight, Height, selectedDate);
 
+       //! Patients Query
+       const Patients = await getPatients(Email);
+
       if(data.success){
         //! Show success message.
         ShowToast('my_success', 'Éxito', 'Paciente Registrado correctamente');
@@ -135,7 +138,7 @@ export const RegisterPatientScreen = () => {
         setIsLoading(false);
         setSuccess(true);
           setTimeout(() => {
-            navigation.navigate('ImmunizationRecordScreen');
+            navigation.navigate('ImmunizationRecordScreen', {Patient_id: Patients.data.patients[0].id});
           }, 3000);
         }, 4000);
       }
