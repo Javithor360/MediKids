@@ -118,10 +118,18 @@ const get_immunization_record = async (req, res, next) => {
   try {
     const {Patient_id} = req.body;
 
-    // GET THE PATIENT VACCINES RECORD.
-    const [PatientVaccines] = await pool.query('SELECT * FROM patient_vaccines WHERE Patient_id = ?', [Patient_id]);
+    // CREATE THE VARIABLE TO SEND THE PATIENT VACCINES.
+    let PV;
 
-    return res.status(200).json({success: true, immunization_record: PatientVaccines});
+    // GET THE PATIENT VACCINES RECORD.
+    if (Patient_id != null) {
+      const [PatientVaccines] = await pool.query('SELECT * FROM patient_vaccines WHERE Patient_id = ?', [Patient_id]);
+      PV = PatientVaccines;
+    } else {
+      PV = null;
+    }
+
+    return res.status(200).json({success: true, immunization_record: PV});
   } catch (error) {
     return res.status(500).json({error});
   }
@@ -132,14 +140,16 @@ const get_immunization_record = async (req, res, next) => {
 //! @access Public
 const create_immunization_record = async (req, res, next) => {
   try {
-    const {Patient_id} = req.body;
-    
-    // lol
+    const {Patient_id, PatientVaccines} = req.body;
+
+    // SET THE VACCINES INTO THE TABLE OF THE DB.
+    await pool.query('INSERT INTO patient_vaccines SET ?', {Vaccine_Hepatitis_A: PatientVaccines.hepatitis, Vaccine_BGC: PatientVaccines.bgc, Vaccine_Poliomielitis: PatientVaccines.poliomielitis, Vaccine_Pentavalente: PatientVaccines.pentavalente, Vaccine_Rotavirus: PatientVaccines.rotavirus, Vaccine_Neumococo: PatientVaccines.neumococo, Vaccine_DPT: PatientVaccines.dtp, Vaccine_Polio_Oral: PatientVaccines.polio, Vaccine_Antitetanica: PatientVaccines.antitetanica, Vaccine_Triple_Viral_SPR: PatientVaccines.spr, Patient_id})
+
+    return res.status(200).json({success: true});
   } catch (error) {
     return res.status(500).json({error});
   }
 }
-
 
 export {
   get_email_to_verify,

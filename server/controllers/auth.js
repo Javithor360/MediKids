@@ -313,11 +313,13 @@ const register_patients = async (req, res, next) => {
     const storageRef = ref(storage, `perfil_photos/default.png`);
     const P_F = await getDownloadURL(storageRef);
 
+    console.log({First_Names, Last_Names, Birthdate: BD, Age, Gender, Blood_Type, Weight, Height, Responsible_id: responsible[0].id, Patient_Code});
+
     await pool.query('INSERT INTO patient SET ?', {First_Names, Last_Names, Birthdate: BD, Age, Gender, Blood_Type, Weight, Height, Responsible_id: responsible[0].id, Patient_Code, Medical_History_Code: null, Profile_Photo_Url: P_F, Profile_Photo_Name: null});
 
     return res.status(200).json({success: true});
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({error});
   }
 }

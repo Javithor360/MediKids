@@ -49,7 +49,7 @@ export const LoginScreen = () => {
       const Patients = await getPatients(Email);
       
       //! Vaccines Query
-      const Vaccines = await getImmunizationRecord(Patients.data.patients[0].id);
+      const Vaccines = await getImmunizationRecord(Patients.data.patients.length != 0 ? Patients.data.patients[0].id : null);
 
       //! Disable go back button (after query for enable the try-catch statement).
       setDisableBack(true);

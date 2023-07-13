@@ -11,15 +11,11 @@ import Checkbox from 'expo-checkbox';
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
-import { CustomButton, RegisterPatientsQuery, SetLabel, ShowToast } from '../../index';
+import { CustomButton, SetLabel, ShowToast, createImmunizationRecord } from '../../index';
 import { ScrollView } from "react-native-gesture-handler";
-
-//>> Importing icons
-import { useSelector } from "react-redux";
 
 export const ImmunizationRecord = () => {
   const navigation = useNavigation();
-  const Email = useSelector(state => state.responsible.Email);
   const route = useRoute();
 
   //! State for the Form.
@@ -52,18 +48,18 @@ export const ImmunizationRecord = () => {
       setIsLoading(true);
 
       //! Server Query
-      const {data} = await RegisterPatientsQuery();
+      const { data } = await createImmunizationRecord(PatientId, isChecked);
 
       if(data.success){
         //! Show success message.
-        ShowToast('my_success', 'Éxito', 'Paciente Registrado correctamente');
+        ShowToast('my_success', 'Éxito', 'Registro de vacunación Actualizado');
 
         //! Close loading animation
         setTimeout(() => {
         setIsLoading(false);
         setSuccess(true);
           setTimeout(() => {
-            navigation.navigate('WelcomeScreen');
+            navigation.navigate('ApplicationTab');
           }, 3000);
         }, 4000);
       }
@@ -101,7 +97,6 @@ export const ImmunizationRecord = () => {
     if (route.params != undefined) {
       const {Patient_id} = route.params;
       setPatientId(Patient_id);
-      console.log(Patient_id)
     }
   }, [route]);
 
