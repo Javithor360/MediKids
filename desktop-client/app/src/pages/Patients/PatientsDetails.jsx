@@ -70,7 +70,7 @@ export const PatientsDetails = () => {
         <section className="relative h-[8.3rem] w-full">
           <div className="bg-slate-400 block absolute left-0 right-0 -top-14 mx-auto rounded-full h-[10rem] w-[10rem] overflow-hidden avatar">
             <img
-              src={profileAvatar}
+              src={patient.Profile_Photo_Url}
               alt=""
               className="object-cover object-center"
             />

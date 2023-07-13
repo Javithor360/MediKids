@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HiOutlineUser, HiOutlineLockClosed } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { VscLoading } from "react-icons/vsc";
@@ -7,10 +7,26 @@ import { useAuth } from "../../context/AuthContext";
 
 export const LoginPage = () => {
   let navigate = useNavigate();
-  const { DoctorLogin, Error, setError, Success, setSuccess, Chargin, setChargin } = useAuth();
+  const {
+    DoctorLogin,
+    Error,
+    setError,
+    Success,
+    setSuccess,
+    Chargin,
+    setChargin,
+  } = useAuth();
 
   const [User, setUser] = useState("");
   const [Password, setPassword] = useState("");
+
+  useEffect(() => {
+    setTimeout(() => {
+      setError("");
+      setSuccess("");
+      setChargin(false);
+    }, 4000);
+  }, [Chargin === true]);
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -18,7 +34,14 @@ export const LoginPage = () => {
       const data = await DoctorLogin(User, Password);
 
       if (data) {
-        localStorage.setItem("userSession", JSON.stringify({ id: data.data.User.id, User: data.data.User.User, jwtToken: data.data.token }));
+        localStorage.setItem(
+          "userSession",
+          JSON.stringify({
+            id: data.data.User.id,
+            User: data.data.User.User,
+            jwtToken: data.data.token,
+          })
+        );
         setChargin(true);
         setError("");
         setTimeout(() => {
@@ -123,7 +146,7 @@ export const LoginPage = () => {
             >
               {Chargin === true ? (
                 <>
-                  <VscLoading className="CharginIcon CharginIcon-Login" />
+                  <VscLoading className="CharginIcon CharginIcon-Login animate-spin" />
                 </>
               ) : (
                 <>

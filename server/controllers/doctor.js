@@ -20,12 +20,18 @@ const get_info = async (req, res, next) => {
     );
 
     if (query_check.length != 1) {
-      return next(new ErrorResponse("Provided ID doesn't match with any existing doctor", 400, "error"));
+      return next(
+        new ErrorResponse(
+          "Provided ID doesn't match with any existing doctor",
+          400,
+          "error"
+        )
+      );
     }
 
     return res.status(200).json({ success: true, body: query_check[0] });
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({ error });
   }
 };
@@ -60,7 +66,7 @@ const active_patients = async (req, res, next) => {
     }
 
     const [patients_info] = await pool.query(
-      `SELECT * FROM patient WHERE id IN (SELECT Patient_id FROM active_patients WHERE Doctor_id = ?)`,
+      `SELECT * FROM patient WHERE id IN (SELECT Patient_id FROM patients_monitoring WHERE Doctor_id = ?)`,
       [Doctor_id]
     );
 
@@ -71,4 +77,45 @@ const active_patients = async (req, res, next) => {
   }
 };
 
-export { get_info, active_patients };
+// ! @route POST api/doctor/get_appointments
+// ! @desc Get all appointments
+// ! @access private
+
+const get_appointments = async (req, res, next) => {
+  try {
+    // We use the doctor's id to do the relation
+    const { Doctor_id } = req.body;
+
+    // We check if a doctor was provided
+    if (!Doctor_id) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    // We check if the doctor exists
+    const [query_check] = await pool.query(
+      "SELECT * FROM doctors WHERE id = ?",
+      [Doctor_id]
+    );
+
+    if (query_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided doctor doesn't exist",
+      });
+    }
+
+    const [appointments_info] = await pool.query(
+      `SELECT * FROM medical_appointment WHERE Doctor_id = ?`,
+      [Doctor_id]
+    );
+
+    return res.status(200).json({ success: true, body: appointments_info});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
+export { get_info, active_patients, get_appointments };

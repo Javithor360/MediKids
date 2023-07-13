@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -15,14 +15,22 @@ import { IoIosArrowUp } from "react-icons/io";
 import { IoPeopleOutline } from "react-icons/io5";
 import { MdOutlineAssignmentInd, MdOutlinePersonSearch } from "react-icons/md";
 
+import { useDash } from "../context/DoctorContext";
+
 import ColLogotype from "../assets/logos/MediKids_Colored-Logotype.png";
 import Avatar from "../assets/template/avatar.jpg";
 
 export const Sidebar = () => {
+  const { DoctorInfoQuery, Info } = useDash();
   let navigate = useNavigate();
 
   const [calendar, setCalendar] = useState(false);
   const [patients, setPatients] = useState(false);
+
+  useEffect(() => {
+    DoctorInfoQuery(JSON.parse(localStorage.getItem("userSession")).id);
+  }, []);
+
   return (
     <>
       <nav className="flex flex-col top-0 left-0 h-screen bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] -translate-x-0 w-80 min-w-[20rem] max-w-[20rem] max-h-screen min-h-screen select-none">
@@ -34,7 +42,10 @@ export const Sidebar = () => {
           />
           <div className="mx-6 mb-6 avatar">
             <div className="w-[8rem] rounded-full">
-              <img src={Avatar} alt="Doctor" />
+              <img
+                src={Info.Profile_Photo == "NULL" ? Avatar : Info.Profile_Photo}
+                alt="Doctor"
+              />
             </div>
           </div>
         </div>
