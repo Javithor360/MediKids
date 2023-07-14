@@ -56,6 +56,8 @@ export const DoctorProvider = ({ children }) => {
   const PatientsClassificator = async (Doctor_id) => {
     try {
       AppointmentsQuery(Doctor_id);
+      ActivePatientsQuery(Doctor_id);
+
       
     } catch (error) {
      console.log(error); 
