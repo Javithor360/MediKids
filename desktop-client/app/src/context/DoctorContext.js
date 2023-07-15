@@ -1,5 +1,9 @@
 import { createContext, useContext, useState } from "react";
-import { getActivePatientsEx } from "../api/queries";
+import {
+  getDoctorInfo,
+  getActivePatients,
+  getAllApointments,
+} from "../api/queries";
 
 const dashContext = createContext();
 
@@ -9,28 +13,71 @@ export const useDash = () => {
 };
 
 export const DoctorProvider = ({ children }) => {
-  const [activePatients, setActivePatients] = useState([]);
-  // const PrivateConfig = (Token) => {
-  //   return {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "x-auth-token": Token,
-  //     },
-  //   };
-  // };
+  const [Info, setInfo] = useState({});
 
-  const ActivePatientsQuery = async (id) => {
+  const [assignedPatients, setAssignedPatients] = useState([]);
+  const [activePatients, setActivePatients] = useState([]);
+  const [oldPatients, setOldPatients] = useState([]);
+  const [appointments, setAppointments] = useState([]);
+
+  const PrivateConfig = {
+    header: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const DoctorInfoQuery = async (Doctor_id) => {
     try {
-      const res = await getActivePatientsEx(id);
-      setActivePatients(res.data.body);
+      const query = await getDoctorInfo(Doctor_id, PrivateConfig);
+      setInfo(query.data.body);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const ActivePatientsQuery = async (Doctor_id) => {
+    try {
+      const res = await getActivePatients(Doctor_id, PrivateConfig);
+      setAssignedPatients(res.data.body);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const AppointmentsQuery = async (Doctor_id) => {
+    try {
+      const res = await getAllApointments(Doctor_id, PrivateConfig);
+      setAppointments(res.data.body);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const PatientsClassificator = async (Doctor_id) => {
+    try {
+      AppointmentsQuery(Doctor_id);
+      ActivePatientsQuery(Doctor_id);
+
+      
+    } catch (error) {
+     console.log(error); 
+    }
+  };
+
   return (
     <dashContext.Provider
-      value={{ activePatients, setActivePatients, ActivePatientsQuery }}
+      value={{
+        Info,
+        setInfo,
+        activePatients,
+        setActivePatients,
+        appointments,
+        setAppointments,
+        DoctorInfoQuery,
+        ActivePatientsQuery,
+        AppointmentsQuery,
+        PatientsClassificator,
+      }}
     >
       {children}
     </dashContext.Provider>

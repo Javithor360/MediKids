@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { useDash } from "../../context/DoctorContext";
 
 export const ActivePatients = (props) => {
-  const { ActivePatientsQuery, activePatients } = useDash();
+  const { ActivePatientsQuery, activePatients, AppointmentsQuery, appointments } = useDash();
   useEffect(() => {
-    ActivePatientsQuery(1);
+    ActivePatientsQuery(JSON.parse(localStorage.getItem('userSession')).id);
+    AppointmentsQuery(JSON.parse(localStorage.getItem('userSession')).id);
   }, []);
 
   return (
@@ -47,7 +48,7 @@ export const ActivePatients = (props) => {
                               src={
                                 patient.Profile_Photo == "NULL"
                                   ? require("../../assets/template/avatar.jpg")
-                                  : patient.Profile_Photo
+                                  : patient.Profile_Photo_Url
                               }
                               alt="pfp"
                             />
@@ -65,14 +66,11 @@ export const ActivePatients = (props) => {
                       {patient.Patient_Code}
                     </td>
                     <td className="border-[#BBBBBB]">
-                      <button className="btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white">
-                        <Link
-                          to="/patients/active/details"
-                          state={{ patient }}
-                        >
+                      <Link to="/patients/active/details" state={{ patient }}>
+                        <button className="btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white">
                           Ver detalles
-                        </Link>
-                      </button>
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 );

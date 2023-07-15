@@ -27,7 +27,7 @@ export const RegisterScreen = () => {
   const [Email, setEmail] = useState(null);
   const [Password, setPassword] = useState(null);
   const [ConfPass, setConfPass] = useState(null);
-  const Birthdate  = '01/01/2000';
+  const Birthdate = '01/01/2000';
 
   //! States for th functioning handler.
   const [Success, setSuccess] = useState(false);
@@ -148,37 +148,58 @@ export const RegisterScreen = () => {
               <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
                 <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
                   <AntDesign name="idcard" size={24} color="gray" style={{marginRight: 6}} />
-                  <TextInputMask
-                    style={AuthStylesGlobal.input}
-                    placeholder="DUI"
-                    placeholderTextColor="gray"
-                    onChangeText={text => setDUI(text)}
-                    editable={!DisableButton}
-                    maxLength={10}
-                    keyboardType='numeric'
-                    type="custom"
-                    options={{
-                      mask: '99999999-9',
-                      delimiter: '-',
-                    }}
-                  />
+                  {
+                    isAN ? <TextInputMask
+                      style={AuthStylesGlobal.input}
+                      placeholder="DUI"
+                      placeholderTextColor="gray"
+                      onChangeText={text => setDUI(text)}
+                      editable={!DisableButton}
+                      maxLength={10}
+                      keyboardType='numeric'
+                      type="custom"
+                      options={{
+                        mask: '99999999-9',
+                        delimiter: '-',
+                      }}
+                    /> :
+                    <TextInput
+                      style={AuthStylesGlobal.input}
+                      placeholder="DUI"
+                      placeholderTextColor="gray"
+                      onChangeText={text => setDUI(text)}
+                      editable={!DisableButton}
+                      // keyboardType='numeric'
+                    />
+                  }
                 </View>
                 <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
                   <Feather name="phone" size={24} color="gray" style={{marginRight: 6}} />
-                  <TextInputMask
-                    style={AuthStylesGlobal.input}
-                    placeholder="Telefono"
-                    placeholderTextColor="gray"
-                    onChangeText={text => setPhone(text)}
-                    keyboardType='numeric'
-                    editable={!DisableButton}
-                    maxLength={9}
-                    type="custom"
-                    options={{
-                      mask: '9999-9999',
-                      delimiter: '-',
-                    }}
-                  />
+                  {
+                    isAN ?
+                    <TextInputMask
+                      style={AuthStylesGlobal.input}
+                      placeholder="Telefono"
+                      placeholderTextColor="gray"
+                      onChangeText={text => setPhone(text)}
+                      keyboardType='numeric'
+                      editable={!DisableButton}
+                      maxLength={9}
+                      type="custom"
+                      options={{
+                        mask: '9999-9999',
+                        delimiter: '-',
+                      }}
+                    /> :
+                    <TextInput
+                      style={AuthStylesGlobal.input}
+                      placeholder="DUI"
+                      placeholderTextColor="gray"
+                      onChangeText={text => setPhone(text)}
+                      editable={!DisableButton}
+                      // keyboardType='numeric'
+                    />
+                  }
                 </View>
               </View>
               

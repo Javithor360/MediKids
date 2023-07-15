@@ -125,8 +125,8 @@ export const SelectProfilePhotoScreen = () => {
 
     return (
     <>
-        <ScrollView style={AuthStylesGlobal.mainContainer}>
-            <View style={AuthStylesGlobal.topWaveContainer}>
+        <ScrollView style={[AuthStylesGlobal.mainContainer, {backgroundColor: '#e4e2ff'}]}>
+            <View style={[AuthStylesGlobal.topWaveContainer, {backgroundColor: '#fff'}]}>
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
                 {
                     HaveBtn ?
@@ -140,10 +140,10 @@ export const SelectProfilePhotoScreen = () => {
                     </View>
                 }
             </View>
-            <View style={AuthStylesGlobal.contentContainer} >
+            <View style={[AuthStylesGlobal.contentContainer, {backgroundColor: '#fff'}]} >
                 <View style={AuthStylesGlobal.formContent} >
                     <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')}  />
-                    <Text style={AuthStylesRegisterU.Tex_md}>Tú foto de perfil</Text>
+                    <Text style={AuthStylesRegisterU.Tex_md}>Tu foto de perfil</Text>
                     <View style={AuthStylesGlobal.cont2} >
                         <Text style={AuthStylesGlobal.TextCount}>Para mayor seguridad, coloca una fotografia que pueda identificarte.</Text>
                     </View>
@@ -184,7 +184,7 @@ export const SelectProfilePhotoScreen = () => {
                     </View>
                 </View>
             </View>
-            <View style={AuthStylesGlobal.bottomWaveContainer}>
+            <View style={[AuthStylesGlobal.bottomWaveContainer, {backgroundColor: '#fff'}]}>
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_buttom.png")}/> 
             </View>
         </ScrollView>

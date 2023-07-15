@@ -15,7 +15,7 @@ import { Link, useLocation } from "react-router-dom";
 
 export const PatientsDetails = () => {
   const location = useLocation();
-  const { patient } = location.state;
+  const { patient } = location.state || {};
 
   const [active, setActive] = useState(false);
   const isModal = true;
@@ -70,13 +70,13 @@ export const PatientsDetails = () => {
         <section className="relative h-[8.3rem] w-full">
           <div className="bg-slate-400 block absolute left-0 right-0 -top-14 mx-auto rounded-full h-[10rem] w-[10rem] overflow-hidden avatar">
             <img
-              src={profileAvatar}
+              src={patient.Profile_Photo_Url}
               alt=""
-              className="object-center object-cover"
+              className="object-cover object-center"
             />
           </div>
           <div className="absolute right-4 top-3 ">
-            <p className="flex justify-center items-center gap-3 font-semibold">
+            <p className="flex items-center justify-center gap-3 font-semibold">
               <MdNotifications className="text-[#a375ff] text-[1.8rem]" />
               Proxima cita el: 22/04/2023
             </p>
@@ -121,6 +121,7 @@ export const PatientsDetails = () => {
               toggle();
               setNumbercomp(1);
             }}
+            state={location.state}
           >
             <MdOutlineReceiptLong className="text-[2.8rem] text-[#A375FF]" />
             <p className="font-semibold text-[#707070]">Ver expendiente</p>
@@ -131,6 +132,7 @@ export const PatientsDetails = () => {
               toggle();
               setNumbercomp(2);
             }}
+            state={location.state}
           >
             <MdOutlineMedication className="text-[2.8rem] text-[#A375FF]" />
             <p className="font-semibold text-[#707070]">Ver recetas</p>
@@ -141,6 +143,7 @@ export const PatientsDetails = () => {
               toggle();
               setNumbercomp(3);
             }}
+            state={location.state}
           >
             <MdPendingActions className="text-[2.8rem] text-[#A375FF]" />
             <p className="font-semibold text-[#707070]">
@@ -153,6 +156,7 @@ export const PatientsDetails = () => {
               toggle();
               setNumbercomp(4);
             }}
+            state={location.state}
           >
             <img
               src={medicalHistory}
@@ -166,6 +170,7 @@ export const PatientsDetails = () => {
           <Link
             className="rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
             to={"/patients/active/details/appoinment"}
+            state={{ patient }}
           >
             <MdOutlineMedicalInformation className="text-[2.8rem] text-[#A375FF]" />
             <p className="font-semibold text-[#707070]">Atender consulta</p>
@@ -173,7 +178,7 @@ export const PatientsDetails = () => {
         </section>
       </div>
       {toggle && (
-        <Modal active={active} toggle={toggle} onRequestClose={toggle}>
+        <Modal active={active} toggle={toggle} onRequestClose={toggle} state={patient}>
           {modalContent()}
         </Modal>
       )}

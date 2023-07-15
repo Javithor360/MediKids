@@ -7,7 +7,7 @@ import DateTimePicker from "@react-native-community/datetimepicker"
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterP, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
-import { CustomButton, DropdownComponent, RegisterPatientsQuery, SetLabel, ShowToast } from '../../index';
+import { CustomButton, DropdownComponent, RegisterPatientsQuery, SetLabel, ShowToast, getPatients } from '../../index';
 import { ScrollView } from "react-native-gesture-handler";
 import { TextInputMask } from "react-native-masked-text";
 
@@ -126,6 +126,9 @@ export const RegisterPatientScreen = () => {
       //! Server Query
       const {data} = await RegisterPatientsQuery(Email, FirstNames, LastNames, BloodType, Gender, Weight, Height, selectedDate);
 
+      //! Patients Query
+      const Patients = await getPatients(Email);
+
       if(data.success){
         //! Show success message.
         ShowToast('my_success', 'Éxito', 'Paciente Registrado correctamente');
@@ -135,7 +138,7 @@ export const RegisterPatientScreen = () => {
         setIsLoading(false);
         setSuccess(true);
           setTimeout(() => {
-            navigation.navigate('ImmunizationRecordScreen');
+            navigation.navigate('ImmunizationRecordScreen', {Patient_id: Patients.data.patients[0].id});
           }, 3000);
         }, 4000);
       }
@@ -229,37 +232,59 @@ export const RegisterPatientScreen = () => {
             <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
               <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
                 <MaterialCommIcons name="weight-pound" size={24} color="gray" style={{marginRight: 6}} />
-                <TextInputMask
-                  style={AuthStylesGlobal.input}
-                  placeholder="Peso (lb)"
-                  placeholderTextColor="gray"
-                  onChangeText={text => setWeight(text)}
-                  editable={!DisableButton}
-                  maxLength={6}
-                  keyboardType='numeric'
-                  type="custom"
-                  options={{
-                    mask: '999.99',
-                    separator: '.'
-                  }}
-                />
+                {
+                  isAN ?
+                  <TextInputMask
+                    style={AuthStylesGlobal.input}
+                    placeholder="Peso (lb)"
+                    placeholderTextColor="gray"
+                    onChangeText={text => setWeight(text)}
+                    editable={!DisableButton}
+                    maxLength={6}
+                    keyboardType='numeric'
+                    type="custom"
+                    options={{
+                      mask: '999.99',
+                      separator: '.'
+                    }}
+                  /> :
+                  <TextInput
+                    style={[AuthStylesGlobal.input, {textAlignVertical: 'top'}]}
+                    autoFocus={true}
+                    placeholder="Peso (lb)"
+                    placeholderTextColor="gray"
+                    onChangeText={text => setWeight(text)}
+                    editable={!DisableButton}
+                  />
+                }
               </View>
               <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
                 <MaterialCommIcons name="human-male-height" size={24} color="gray" style={{marginRight: 6}} />
-                <TextInputMask
-                  style={AuthStylesGlobal.input}
-                  placeholder="Estatura (m)"
-                  placeholderTextColor="gray"
-                  onChangeText={text => setHeight(text)}
-                  keyboardType='numeric'
-                  editable={!DisableButton}
-                  maxLength={4}
-                  type="custom"
-                  options={{
-                    mask: '9.99',
-                    separator: '.',
-                  }}
-                />
+                {
+                  isAN ?
+                    <TextInputMask
+                    style={AuthStylesGlobal.input}
+                    placeholder="Estatura (m)"
+                    placeholderTextColor="gray"
+                    onChangeText={text => setHeight(text)}
+                    keyboardType='numeric'
+                    editable={!DisableButton}
+                    maxLength={4}
+                    type="custom"
+                    options={{
+                      mask: '9.99',
+                      separator: '.',
+                    }}
+                  /> :
+                  <TextInput
+                    style={[AuthStylesGlobal.input, {textAlignVertical: 'top'}]}
+                    autoFocus={true}
+                    placeholder="Estatura (m)"
+                    placeholderTextColor="gray"
+                    onChangeText={text => setHeight(text)}
+                    editable={!DisableButton}
+                  />
+                }
               </View>
             </View>
             <TouchableOpacity style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91, AuthStylesRegisterP.inputBtn]} onPress={() => setShow(true)} activeOpacity={.7}>

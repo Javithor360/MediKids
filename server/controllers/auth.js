@@ -5,6 +5,8 @@ import crypto from 'crypto';
 import { initializeApp } from 'firebase/app'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 
+import ErrorResponse from "../utils/error_message.js";
+
 
 //>> IMPORT CONFIGS & FUNCTIONS
 import {pool} from '../utils/db.js';
@@ -296,9 +298,6 @@ const register_patients = async (req, res, next) => {
     const BD = new Date(Selected_Date);
     const ActualDate = new Date();
 
-    console.log(ActualDate.getFullYear() - 18);
-    console.log(BD.getFullYear());
-    
     if (ActualDate.getFullYear() - 18 > BD.getFullYear()) {
       return res.status(500).json({success: false, message: "Age isn't valid" });
     }
@@ -306,7 +305,6 @@ const register_patients = async (req, res, next) => {
 
     // GET THE USER TO LINK HIM TO THE PATIENT.
     const [responsible] = await pool.query('SELECT * FROM responsible WHERE Email = ?', [Email]);
-    console.log(responsible);
 
     // GET THE PATIENT_CODE.
     const Patient_Code = patientCode();
@@ -315,11 +313,13 @@ const register_patients = async (req, res, next) => {
     const storageRef = ref(storage, `perfil_photos/default.png`);
     const P_F = await getDownloadURL(storageRef);
 
+    console.log({First_Names, Last_Names, Birthdate: BD, Age, Gender, Blood_Type, Weight, Height, Responsible_id: responsible[0].id, Patient_Code});
+
     await pool.query('INSERT INTO patient SET ?', {First_Names, Last_Names, Birthdate: BD, Age, Gender, Blood_Type, Weight, Height, Responsible_id: responsible[0].id, Patient_Code, Medical_History_Code: null, Profile_Photo_Url: P_F, Profile_Photo_Name: null});
 
     return res.status(200).json({success: true});
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(500).json({error});
   }
 }
@@ -333,6 +333,37 @@ const test_mail = async (req, res, next) => {
   }
 }
 
+//! @route POST api/auth/doctor_login
+//! @desc Doctor's Login
+//! @access public?
+const doctor_login = async (req, res, next) => {
+  try {
+    const { User, Password } = req.body;
+
+    // CHECKING POSSIBLE EMPTY VALUES
+    if (!User || !Password) {
+      return next(new ErrorResponse("Los campos solicitados están incompletos", 400, "error"))
+    }
+
+    // CHECKING IF USER EXISTS
+    const [query_user] = await pool.query('SELECT * FROM doctors WHERE User = ?', [User]);
+    if(query_user.length == 0) {
+      return next(new ErrorResponse("El usuario ingresado no es válido", 400, "error"))
+    }
+
+    // PASSWORD CHECK
+    if(!await bcrypt.compare(Password, query_user[0].Password)) {
+      return next(new ErrorResponse("Contraseña incorrecta", 400, "error"))
+    }
+
+    // JWT CREATION
+    const token = create_jwt(query_user);
+
+    return res.status(200).json({success: true, User: query_user[0], token});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
 
 export {
   register,
@@ -343,4 +374,5 @@ export {
   reset_password,
   test_mail,
   register_patients,
+  doctor_login,
 };

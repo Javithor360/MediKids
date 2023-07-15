@@ -1,41 +1,37 @@
 //>> Importing libraries
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ImageBackground, Modal, TouchableHighlight, BackHandler, KeyboardAvoidingView,} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import DateTimePicker from "@react-native-community/datetimepicker"
+import { StyleSheet, Text, View, Image, ImageBackground,BackHandler, KeyboardAvoidingView,} from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import Checkbox from 'expo-checkbox';
 
 //>> Importing components
-import { AuthStylesGlobal, AuthStylesRegisterP, AuthStylesRegisterU } from '../../../assets/AuthStyles';
-import { isAN, isIOS } from '../../constants';
-import { CustomButton, DropdownComponent, RegisterPatientsQuery } from '../../index';
+import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
+import { isIOS } from '../../constants';
+import { CustomButton, SetLabel, ShowToast, createImmunizationRecord } from '../../index';
 import { ScrollView } from "react-native-gesture-handler";
-import { TextInputMask } from "react-native-masked-text";
-
-//>> Importing icons
-import { Feather, AntDesign, Fontisto, MaterialCommunityIcons as MaterialCommIcons, Entypo } from '@expo/vector-icons';
-import { useSelector } from "react-redux";
-import { ActivityIndicator } from "react-native-paper";
-import { Toast } from "react-native-toast-message/lib/src/Toast";
 
 export const ImmunizationRecord = () => {
   const navigation = useNavigation();
-  const Email = useSelector(state => state.responsible.Email);
+  const route = useRoute();
 
-  //! Datepicker states
-  const [date, setDate] = useState(new Date());
-  const [LastDate, setLastDate] = useState(new Date());
-  const [show, setShow] = useState(false);
-
-  //! Datepicker State
-  const [selectedDate, setSelectedDate] = useState("Fecha de Nacimiento");
-
-  //! States for the Form.
-  const [FirstNames, setFirstNames] = useState(null);
-  const [LastNames, setLastNames] = useState(null);
-  const [BloodType, setBloodType] = useState(null);
-  const [Gender, setGender] = useState(null);
-  const [Weight, setWeight] = useState(null);
-  const [Height, setHeight] = useState(null);
+  //! State for the Form.
+  const [PatientId, setPatientId] = useState(undefined);
+  const [isChecked, setIsChecked] = useState({
+    bgc: false,
+    hepatitis: false,
+    pentavalente: false,
+    poliomielitis: false,
+    rotavirus: false,
+    neumococo: false,
+    dtp: false,
+    polio: false,
+    antitetanica: false,
+    spr: false
+  });
 
   //! States for th functioning handler.
   const [Success, setSuccess] = useState(false);
@@ -46,49 +42,24 @@ export const ImmunizationRecord = () => {
   //! State For disable the button
   const [DisableButton, setDisableButton] = useState(false);
 
-  //! Show the Emergent Message (toast).
-  const showToast = (type, text1, text2) => {
-    Toast.show({
-    type:type,
-    text1:text1,
-    text2:text2,
-    duration: 4000
-    })
-  }
-
-  //* Function to handle the label animation.
-  const setLabel = () => {
-    if(isLoading){
-    //? Loading Animation
-    return <ActivityIndicator color='white' />
-    } else if(!isLoading && Success){ 
-    //? Success Label
-    return <><Entypo name="check" size={24} color="white" /><Text>Completado</Text></>
-    } else if(!isLoading && !Success){
-    //? Default Label
-    return <Text>Verificar</Text>
-    }
-  }
-
-  const registearPatientFunction = async () => {
+  const setImmunizationRecord = async () => {
     try {
       //! set the Loading animation
       setIsLoading(true);
 
       //! Server Query
-      const {data} = await RegisterPatientsQuery(Email, FirstNames, LastNames, BloodType, Gender, Weight, Height, selectedDate);
-  
+      const { data } = await createImmunizationRecord(PatientId, isChecked);
 
       if(data.success){
         //! Show success message.
-        showToast('my_success', 'Éxito', 'Paciente Registrado correctamente');
+        ShowToast('my_success', 'Éxito', 'Registro de vacunación Actualizado');
 
         //! Close loading animation
         setTimeout(() => {
         setIsLoading(false);
         setSuccess(true);
           setTimeout(() => {
-            navigation.navigate('WelcomeScreen');
+            navigation.navigate('ApplicationTab');
           }, 3000);
         }, 4000);
       }
@@ -100,7 +71,7 @@ export const ImmunizationRecord = () => {
       }, 2000);
 
       //>> Show error message.
-      showToast('my_error', 'Error', error.response.data.message);
+      ShowToast('my_error', 'Error', error.response.data.message);
     }
   }
 
@@ -121,6 +92,14 @@ export const ImmunizationRecord = () => {
     })
   }, []);
 
+  //! check the parameters of the navigation.
+  useEffect(() => {
+    if (route.params != undefined) {
+      const {Patient_id} = route.params;
+      setPatientId(Patient_id);
+    }
+  }, [route]);
+
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#e4e2ff',}}
     behavior={'padding'}>
@@ -134,13 +113,106 @@ export const ImmunizationRecord = () => {
         <View style={AuthStylesGlobal.contentContainer}>
           <View style={AuthStylesGlobal.formContent} >
             <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')} />
-            <Text style={AuthStylesRegisterU.Tex_md}>Datos del paciente</Text>
-            <View style={[AuthStylesGlobal.cont2, {marginTop: -10}]} >
+            <Text style={AuthStylesRegisterU.Tex_md}>Registro de vacunación</Text>
+            <View style={[AuthStylesGlobal.cont2,]} >
               <Text style={AuthStylesGlobal.TextCount}>¡Necesitamos la informacion del menor para hacer un muy buen trabajo!</Text>
             </View>
 
-            <View>
+            <View style={styles.vaccinesContainer}>
+              <Text style={styles.vaccinesTitle}>Seleccione las Vacunas</Text>
+              <View style={styles.separatorLine}></View>
+              <ScrollView>
+                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.bgc ? '#09998c': '#e4e3eb'}]}>
+                  <Checkbox
+                    value={isChecked.bgc}
+                    onValueChange={() => setIsChecked({...isChecked, bgc: !isChecked.bgc})} 
+                    style={{marginHorizontal: 16,}}
+                  />
+                  <Text style={{color: isChecked.bgc ? "#09998c" : "#707070"}}>BGC</Text>
+                </View>
 
+                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.hepatitis ? '#09998c': '#e4e3eb'}]}>
+                  <Checkbox
+                    value={isChecked.hepatitis}
+                    onValueChange={() => setIsChecked({...isChecked, hepatitis: !isChecked.hepatitis})} 
+                    style={{marginHorizontal: 16,}}
+                  />
+                  <Text style={{color: isChecked.hepatitis ? "#09998c" : "#707070"}}>Hepatitis B</Text>
+                </View>
+
+                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.poliomielitis ? '#09998c': '#e4e3eb'}]}>
+                  <Checkbox
+                    value={isChecked.poliomielitis}
+                    onValueChange={() => setIsChecked({...isChecked, poliomielitis: !isChecked.poliomielitis})} 
+                    style={{marginHorizontal: 16,}}
+                  />
+                  <Text style={{color: isChecked.poliomielitis ? "#09998c" : "#707070"}}>Poliomielitis</Text>
+                </View>
+
+                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.pentavalente ? '#09998c': '#e4e3eb'}]}>
+                  <Checkbox
+                    value={isChecked.pentavalente}
+                    onValueChange={() => setIsChecked({...isChecked, pentavalente: !isChecked.pentavalente})} 
+                    style={{marginHorizontal: 16,}}
+                  />
+                  <Text style={{color: isChecked.pentavalente ? "#09998c" : "#707070"}}>Pentavalente</Text>
+                </View>
+
+                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.rotavirus ? '#09998c': '#e4e3eb'}]}>
+                  <Checkbox
+                    value={isChecked.rotavirus} 
+                    onValueChange={() => setIsChecked({...isChecked, rotavirus: !isChecked.rotavirus})} 
+                    style={{marginHorizontal: 16,}}
+                  />
+                  <Text style={{color: isChecked.rotavirus ? "#09998c" : "#707070"}}>Rotavirus</Text>
+                </View>
+
+                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.neumococo ? '#09998c': '#e4e3eb'}]}>
+                  <Checkbox
+                    value={isChecked.neumococo} 
+                    onValueChange={() => setIsChecked({...isChecked, neumococo: !isChecked.neumococo})} 
+                    style={{marginHorizontal: 16,}}
+                  />
+                  <Text style={{color: isChecked.neumococo ? "#09998c" : "#707070"}}>Neumococo Conjugado</Text>
+                </View>
+
+                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.dtp ? '#09998c': '#e4e3eb'}]}>
+                  <Checkbox
+                    value={isChecked.dtp} 
+                    onValueChange={() => setIsChecked({...isChecked, dtp: !isChecked.dtp})} 
+                    style={{marginHorizontal: 16,}}
+                  />
+                  <Text style={{color: isChecked.dtp ? "#09998c" : "#707070"}}>DPT</Text>
+                </View>
+
+                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.polio ? '#09998c': '#e4e3eb'}]}>
+                  <Checkbox
+                    value={isChecked.polio} 
+                    onValueChange={() => setIsChecked({...isChecked, polio: !isChecked.polio})}
+                    style={{marginHorizontal: 16,}}
+                  />
+                  <Text style={{color: isChecked.polio ? "#09998c" : "#707070"}}>Polio Oral</Text>
+                </View>
+
+                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.antitetanica ? '#09998c': '#e4e3eb'}]}>
+                  <Checkbox
+                    value={isChecked.antitetanica} 
+                    onValueChange={() => setIsChecked({...isChecked, antitetanica: !isChecked.antitetanica})} 
+                    style={{marginHorizontal: 16,}}
+                  />
+                  <Text style={{color: isChecked.antitetanica ? "#09998c" : "#707070"}}>Antitetánica</Text>
+                </View>
+
+                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.spr ? '#09998c': '#e4e3eb'}]}>
+                  <Checkbox
+                    value={isChecked.spr}
+                    onValueChange={() => setIsChecked({...isChecked, spr: !isChecked.spr})} 
+                    style={{marginHorizontal: 16,}}
+                  />
+                  <Text style={{color: isChecked.spr ? "#09998c" : "#707070"}}>Triple viral SPR</Text>
+                </View>
+              </ScrollView>
+              
             </View>
 
             <View style={AuthStylesGlobal.buttonView}>
@@ -156,9 +228,8 @@ export const ImmunizationRecord = () => {
                 fontFamily={'poppinsBold'}
                 fontSize={16}
                 textColor={'white'}
-                Label={setLabel()}
-                // handlePress={() => {registearPatientFunction()}}
-                onPress={navigation.navigate('ApplicationTab')}
+                Label={<SetLabel isLoading={isLoading} LabelText={'Confirmar'} Success={Success}/>}
+                handlePress={() => {setImmunizationRecord()}}
                 haveShadow={true}
                 disable={DisableButton}
               />
@@ -174,5 +245,37 @@ export const ImmunizationRecord = () => {
 }
 
 const styles = StyleSheet.create({
-  
+  vaccinesContainer:{
+    marginTop: 4,
+    height: wp('85%'),
+    width: wp('85%'),
+    backgroundColor: '#f3f1fe',
+    borderRadius: 18,
+    borderColor: '#e1defb',
+    borderWidth: 1,
+  },
+  vaccinesTitle:{
+    fontSize: 18,
+    marginVertical: 14,
+    alignSelf: 'center',
+  },
+  separatorLine:{
+    height: 1,
+    width: '50%',
+    backgroundColor: '#000000',
+    alignSelf: 'center',
+    marginBottom: 12,
+    marginTop: -8,
+  },
+  vaccineTypeContainer:{
+    width: '90%',
+    height: hp('6%'),
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    // borderColor: '#e4e3eb',
+    alignSelf: 'center',
+    marginVertical: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  }
 })

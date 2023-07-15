@@ -150,7 +150,9 @@ const send_forgot_pass_email = async (reset_token, Email, res) => {
   const reset_url = `//${reset_token}`;
 
   const message_2 = `
-  <head>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
@@ -160,77 +162,91 @@ const send_forgot_pass_email = async (reset_token, Email, res) => {
         }
         .fondo{
             margin: 0 auto;
-            height: 40rem;
-            width: 50rem;
+            height: 57rem;
+            width: 60rem;
             border: solid;
             border-color: rgba(0, 0, 0, 0.068);
-            background-color: white;
         }
         .icon{
-            width: 9rem;
+            width: 35rem;
             margin-top: 2rem;
-            margin-left: 2rem;
+            margin-left: 12rem;
             margin-bottom: 2rem;
         }
+        .subtitles{
+            text-align: center;
+            margin: 1rem auto 0 auto;
+            font-size: 1.8rem;
+        }
         .title{
-          margin-top: 2rem;
-          font-size: 2rem;
-                  font-weight: bold;
-                  text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            text-align: center;
         }
         hr{
-          border: 0;
-          height: .4rem;
-          background: #93DEFF;
-          opacity: 100;
-          padding: 0;
-          margin-top: -2.5rem;
-          width: 19rem;
-          font-weight: bold;
+            border: 0;
+            height: .7rem;
+            background: #A375ff;
+            border-radius: 1em;
+            opacity: 100;
+            padding: 0;
+            margin-top: -2rem   ;
+            width: 25rem;
+            font-weight: bold;
         }
-        
+
         .title2 p{
-          text-align: center;
-          font-size: 2.5rem;
+            text-align: center;
+            margin: 2rem auto 0 auto;
+            font-size: 2.5rem;
         }
         .subs{
-          text-align: center;
-          font-size: 1.5rem;
-          margin-left: 5rem;
-          margin-right: 5rem;
+            text-align: center;
+            font-size: 2rem;
+            margin-left: 5rem;
+            margin-right: 5rem;
         }
         .copyright{
-          font-size: 1.5rem;
-        padding: 0.625rem 0;
-          color: #ffffff;
+            font-size: 1.5rem;
+          padding: 0.625rem 0;
+            color: #ffffff;
         }
         .a{
-          text-align: center;
-          font-size: 1.5rem;
+            text-align: center;
+            font-size: 2rem;
         }
-        footer{
-          background-color: rgb(78, 78, 78);
-          margin-top: 10rem;
-          height: 3rem;
-          text-align: center;
+        footer img{
+            margin-top: 0.5rem;
+            height: 7rem;
+            width: 60em;
+        }
+        .img{
+            width: 35rem;
+            float: right;
+            margin-bottom: -1em;
+            margin-right: -8em;
+        }
+        .codec{
+            font-size: 3rem;
         }
     </style>
   </head>
-  <body>
-      
-      <div class="fondo"><img class="icon" src="https://media.discordapp.net/attachments/825146450232213505/999324633478205560/Demantur_Imagotype-3.png?width=1025&height=414" alt="">
-                <h1 class="title">Cambio de contraseña</h1>
-                <hr /><br>
-            <p class="subs">tienes una solicitud para cambiar tu contraseña por favor ingrese a este link para cambiar su contraseña:</p>
-            <a href="${reset_url}"><p class="a">${reset_url}</p></a>
-            <footer>
-              <span class="copyright">
-                  Todos los derechos reservados. © 2022 Demantur
-              </span>
-            </footer>
-      </div>
-      
+  <body> 
+    <div class="fondo"><img class="icon" src="https://media.discordapp.net/attachments/842483463972978698/1113118592016339004/Horizontal_Imagotype_Black_Text.png?width=1440&height=342" alt="">
+      <h1 class="title">Cambio de <span style="color:#d58c8c;">contraseña</span></h1>
+      <hr />
+        <div class="title2">
+          <p>Solicitud para cambio de contrseña, porfavor procura no compartir con nadie el enlace:</p>
+        </div>
+        <br><br><br><br>
+        <p class="subtitles"><a href="${reset_url}"><p class="a">${reset_url}</p></a></p>
+        <img class="img" src="https://media.discordapp.net/attachments/861438024659501087/1129529003947077642/R-removebg-preview.png" alt=""><br><br><br><br><br><br><br>
+        <footer>
+          <img src="https://cdn.discordapp.com/attachments/842483463972978698/1113152523851792554/footer-waves-08.png" alt="">
+        </footer>
+    </div>
   </body>
+</html>
   `;
 
   // SEND EMAIL

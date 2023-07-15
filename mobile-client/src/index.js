@@ -30,7 +30,7 @@ export { HomeStack } from './navigators/Dashboard/HomeStack';
 export { CalendarStack } from './navigators/Dashboard/CalendarStack';
 
 //* Queries
-export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery } from './queries/authQueries';
+export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord } from './queries/Queries';
 
 //\\ Configs
 export { toastConfig } from './components/toastConfigs';

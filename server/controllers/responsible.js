@@ -7,7 +7,7 @@ import fs from 'fs';
 
 //>> IMPORT CONFIGS & FUNCTIONS 
 import {pool} from '../utils/db.js';
-import { create_code, create_jwt, create_reset_code, patientCode, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
+// import { create_code, create_jwt, create_reset_code, patientCode, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
 import firebaseConfig from '../utils/firebase.config.js';
 
 //? Startup Firebase configuration.
@@ -62,9 +62,13 @@ const get_patients = async (req, res) => {
   try {
     const { Email } = req.body;
 
+    // GET THE ID OF THE RESPONSIBLE
     const [getRespId] = await pool.query('SELECT id FROM responsible WHERE Email = ?', [Email])
 
-    return res.status(200).json({success: true, ResponsibleId: getRespId});
+    // GET THE PATIENTS OF THE RESPONSIBLE.
+    const [getPatients] = await pool.query('SELECT * FROM patient WHERE Responsible_id = ?', [getRespId[0].id])
+
+    return res.status(200).json({success: true, patients: getPatients});
   } catch (error) {
     return res.status(500).json({error});
   }
@@ -72,7 +76,7 @@ const get_patients = async (req, res) => {
 
 //! @route POST api/responsible/upload_photo
 //! @desc Reset the password and set null the tokens.
-//! @access Private!!
+//! @access Public
 const upload_pf_responsible = async (req, res, next) => {
   try {
     const {Email} = req.body;
@@ -107,9 +111,51 @@ const upload_pf_responsible = async (req, res, next) => {
   }
 }
 
+//! @route POST api/responsible/get_immunization_record
+//! @desc Get the information of the immunization record of the Patient.
+//! @access Public
+const get_immunization_record = async (req, res, next) => {
+  try {
+    const {Patient_id} = req.body;
+
+    // CREATE THE VARIABLE TO SEND THE PATIENT VACCINES.
+    let PV;
+
+    // GET THE PATIENT VACCINES RECORD.
+    if (Patient_id != null) {
+      const [PatientVaccines] = await pool.query('SELECT * FROM patient_vaccines WHERE Patient_id = ?', [Patient_id]);
+      PV = PatientVaccines;
+    } else {
+      PV = null;
+    }
+
+    return res.status(200).json({success: true, immunization_record: PV});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
+//! @route POST api/responsible/create_immunization_record
+//! @desc Set the immunization record for the specified Patient.
+//! @access Public
+const create_immunization_record = async (req, res, next) => {
+  try {
+    const {Patient_id, PatientVaccines} = req.body;
+
+    // SET THE VACCINES INTO THE TABLE OF THE DB.
+    await pool.query('INSERT INTO patient_vaccines SET ?', {Vaccine_Hepatitis_A: PatientVaccines.hepatitis, Vaccine_BGC: PatientVaccines.bgc, Vaccine_Poliomielitis: PatientVaccines.poliomielitis, Vaccine_Pentavalente: PatientVaccines.pentavalente, Vaccine_Rotavirus: PatientVaccines.rotavirus, Vaccine_Neumococo: PatientVaccines.neumococo, Vaccine_DPT: PatientVaccines.dtp, Vaccine_Polio_Oral: PatientVaccines.polio, Vaccine_Antitetanica: PatientVaccines.antitetanica, Vaccine_Triple_Viral_SPR: PatientVaccines.spr, Patient_id})
+
+    return res.status(200).json({success: true});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
 export {
   get_email_to_verify,
   get_responsible,
   get_patients,
-  upload_pf_responsible
+  upload_pf_responsible,
+  get_immunization_record,
+  create_immunization_record
 }
