@@ -158,7 +158,7 @@ export const HomeScreen = () => {
               </View>
             </View>
             <View style={{height: '40%', width: '100%', justifyContent: 'center',}}>
-              <TouchableOpacity style={styles.touchableViewBtn3}>
+              <TouchableOpacity onPress={()=>navigation.navigate('Gastro') }  style={styles.touchableViewBtn3}>
                 <Text style={{color: '#fff'}}>Más detalles</Text>
               </TouchableOpacity>
             </View>
@@ -175,7 +175,7 @@ export const HomeScreen = () => {
               </View>
             </View>
             <View style={{height: '40%', width: '100%', justifyContent: 'center',}}>
-              <TouchableOpacity style={styles.touchableViewBtn3}>
+              <TouchableOpacity  onPress={()=>navigation.navigate('Otorrino') }  style={styles.touchableViewBtn3}>
                 <Text style={{color: '#fff'}}>Más detalles</Text>
               </TouchableOpacity>
             </View>
