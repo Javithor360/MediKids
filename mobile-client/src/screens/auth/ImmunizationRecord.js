@@ -1,6 +1,6 @@
 //>> Importing libraries
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, ImageBackground,BackHandler, KeyboardAvoidingView,} from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground,BackHandler, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {
   widthPercentageToDP as wp,
@@ -122,95 +122,95 @@ export const ImmunizationRecord = () => {
               <Text style={styles.vaccinesTitle}>Seleccione las Vacunas</Text>
               <View style={styles.separatorLine}></View>
               <ScrollView>
-                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.bgc ? '#09998c': '#e4e3eb'}]}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, bgc: !isChecked.bgc })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.bgc ? '#09998c': '#e4e3eb'}]}>
                   <Checkbox
                     value={isChecked.bgc}
                     onValueChange={() => setIsChecked({...isChecked, bgc: !isChecked.bgc})} 
                     style={{marginHorizontal: 16,}}
                   />
                   <Text style={{color: isChecked.bgc ? "#09998c" : "#707070"}}>BGC</Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.hepatitis ? '#09998c': '#e4e3eb'}]}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, hepatitis: !isChecked.hepatitis })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.hepatitis ? '#09998c': '#e4e3eb'}]}>
                   <Checkbox
                     value={isChecked.hepatitis}
                     onValueChange={() => setIsChecked({...isChecked, hepatitis: !isChecked.hepatitis})} 
                     style={{marginHorizontal: 16,}}
                   />
                   <Text style={{color: isChecked.hepatitis ? "#09998c" : "#707070"}}>Hepatitis B</Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.poliomielitis ? '#09998c': '#e4e3eb'}]}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, poliomielitis: !isChecked.poliomielitis })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.poliomielitis ? '#09998c': '#e4e3eb'}]}>
                   <Checkbox
                     value={isChecked.poliomielitis}
                     onValueChange={() => setIsChecked({...isChecked, poliomielitis: !isChecked.poliomielitis})} 
                     style={{marginHorizontal: 16,}}
                   />
                   <Text style={{color: isChecked.poliomielitis ? "#09998c" : "#707070"}}>Poliomielitis</Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.pentavalente ? '#09998c': '#e4e3eb'}]}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, pentavalente: !isChecked.pentavalente })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.pentavalente ? '#09998c': '#e4e3eb'}]}>
                   <Checkbox
                     value={isChecked.pentavalente}
                     onValueChange={() => setIsChecked({...isChecked, pentavalente: !isChecked.pentavalente})} 
                     style={{marginHorizontal: 16,}}
                   />
                   <Text style={{color: isChecked.pentavalente ? "#09998c" : "#707070"}}>Pentavalente</Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.rotavirus ? '#09998c': '#e4e3eb'}]}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, rotavirus: !isChecked.rotavirus })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.rotavirus ? '#09998c': '#e4e3eb'}]}>
                   <Checkbox
                     value={isChecked.rotavirus} 
                     onValueChange={() => setIsChecked({...isChecked, rotavirus: !isChecked.rotavirus})} 
                     style={{marginHorizontal: 16,}}
                   />
                   <Text style={{color: isChecked.rotavirus ? "#09998c" : "#707070"}}>Rotavirus</Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.neumococo ? '#09998c': '#e4e3eb'}]}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, neumococo: !isChecked.neumococo })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.neumococo ? '#09998c': '#e4e3eb'}]}>
                   <Checkbox
                     value={isChecked.neumococo} 
                     onValueChange={() => setIsChecked({...isChecked, neumococo: !isChecked.neumococo})} 
                     style={{marginHorizontal: 16,}}
                   />
                   <Text style={{color: isChecked.neumococo ? "#09998c" : "#707070"}}>Neumococo Conjugado</Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.dtp ? '#09998c': '#e4e3eb'}]}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, dtp: !isChecked.dtp })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.dtp ? '#09998c': '#e4e3eb'}]}>
                   <Checkbox
                     value={isChecked.dtp} 
                     onValueChange={() => setIsChecked({...isChecked, dtp: !isChecked.dtp})} 
                     style={{marginHorizontal: 16,}}
                   />
                   <Text style={{color: isChecked.dtp ? "#09998c" : "#707070"}}>DPT</Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.polio ? '#09998c': '#e4e3eb'}]}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, polio: !isChecked.polio })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.polio ? '#09998c': '#e4e3eb'}]}>
                   <Checkbox
                     value={isChecked.polio} 
                     onValueChange={() => setIsChecked({...isChecked, polio: !isChecked.polio})}
                     style={{marginHorizontal: 16,}}
                   />
                   <Text style={{color: isChecked.polio ? "#09998c" : "#707070"}}>Polio Oral</Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.antitetanica ? '#09998c': '#e4e3eb'}]}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, antitetanica: !isChecked.antitetanica })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.antitetanica ? '#09998c': '#e4e3eb'}]}>
                   <Checkbox
                     value={isChecked.antitetanica} 
                     onValueChange={() => setIsChecked({...isChecked, antitetanica: !isChecked.antitetanica})} 
                     style={{marginHorizontal: 16,}}
                   />
                   <Text style={{color: isChecked.antitetanica ? "#09998c" : "#707070"}}>Antitetánica</Text>
-                </View>
+                </TouchableOpacity>
 
-                <View style={[styles.vaccineTypeContainer, {borderColor: isChecked.spr ? '#09998c': '#e4e3eb'}]}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, spr: !isChecked.spr })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.spr ? '#09998c': '#e4e3eb'}]}>
                   <Checkbox
                     value={isChecked.spr}
                     onValueChange={() => setIsChecked({...isChecked, spr: !isChecked.spr})} 
                     style={{marginHorizontal: 16,}}
                   />
                   <Text style={{color: isChecked.spr ? "#09998c" : "#707070"}}>Triple viral SPR</Text>
-                </View>
+                </TouchableOpacity>
               </ScrollView>
               
             </View>

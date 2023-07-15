@@ -15,6 +15,7 @@ export { ForgotPassCodeScreen } from './screens/auth/ForgotPassCodeScreen'
 export { NotificationScreen } from './screens/app/home/NotificationScreen'
 export { MyVaccines } from './screens/app/home/MyVaccines'
 export { ImmunizationRecord } from './screens/auth/ImmunizationRecord';
+export { SelectPatientScreen } from './screens/auth/SelectPatientScreen'
 
 //?? Components
 export { CustomButton } from './components/ButtonHook';

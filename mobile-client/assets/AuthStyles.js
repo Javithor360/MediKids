@@ -60,6 +60,14 @@ const AuthStylesGlobal = StyleSheet.create({
       fontSize: 35,
       fontFamily: 'poppinsBold',
    },
+   title_Text2: {
+      color: '#A375FF',
+      textAlign:'center',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: 30,
+      fontFamily: 'poppinsBold',
+   },
    customW90: {
       width:'90%',
    },
