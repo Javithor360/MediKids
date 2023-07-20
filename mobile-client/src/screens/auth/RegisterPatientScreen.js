@@ -25,6 +25,7 @@ export const RegisterPatientScreen = () => {
   const [show, setShow] = useState(false);
 
   //! Datepicker State
+  const [DateToSend, setDateToSend] = useState(null)
   const [selectedDate, setSelectedDate] = useState("Fecha de Nacimiento");
 
   //! States for the Form.
@@ -48,7 +49,8 @@ export const RegisterPatientScreen = () => {
   //>> iOS
   const onChange = (e, SelectedDate) => {
     setDate(new Date(SelectedDate));
-    setSelectedDate(new Date(SelectedDate).toLocaleDateString())
+    setSelectedDate(new Date(SelectedDate).toLocaleDateString());
+    setDateToSend(new Date(SelectedDate));
   }
   //>> Android
   const onChangeAN = (e, SelectedDate) => {
@@ -56,14 +58,16 @@ export const RegisterPatientScreen = () => {
     if(SelectedDate){
       setDate(new Date(SelectedDate));
       setSelectedDate(new Date(SelectedDate).toLocaleDateString())
+      setDateToSend(new Date(SelectedDate));
     }
   }
 
   const onCancelPicker = () => {
     if(LastDate.toLocaleDateString() == new Date().toLocaleDateString()){
-    setSelectedDate('Fecha de nacimiento');
+      setSelectedDate('Fecha de nacimiento');
     } else {
       setSelectedDate(new Date(LastDate).toLocaleDateString());
+      setDateToSend(new Date(LastDate));
     }
     setDate(LastDate);
     setShow(false)
@@ -71,6 +75,7 @@ export const RegisterPatientScreen = () => {
 
   const onDonePicker = () => {
     setSelectedDate(new Date(date).toLocaleDateString())
+    setDateToSend(new Date(date));
     setShow(false)
     setLastDate(new Date(date));
   }
@@ -124,7 +129,7 @@ export const RegisterPatientScreen = () => {
       setIsLoading(true);
 
       //! Server Query
-      const {data} = await RegisterPatientsQuery(Email, FirstNames, LastNames, BloodType, Gender, Weight, Height, selectedDate);
+      const {data} = await RegisterPatientsQuery(Email, FirstNames, LastNames, BloodType, Gender, Weight, Height, DateToSend);
 
       //! Patients Query
       const Patients = await getPatients(Email);
