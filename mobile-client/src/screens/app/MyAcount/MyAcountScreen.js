@@ -1,21 +1,30 @@
-import { ScrollView, StyleSheet, Text, View,TouchableOpacity,MaterialIconsDimensions,  ImageBackground, } from 'react-native'
+import { ScrollView, StyleSheet, Text, View,TouchableOpacity,MaterialIconsDimensions,  ImageBackground, StatusBar} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { ScreenTitle } from '../../../index';
 //Import Icons
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
 import { FontAwesome5 } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 //Redux
 import { useSelector } from 'react-redux';
 
 export const MyAcountScreen = () => {
+    const statusBarHeight = StatusBar.currentHeight;
   const responsible = useSelector(state => state.responsible)
   const navigation = useNavigation();
 
   return (
     <ScrollView style={styles.SafeAreaView}>
         <View style={styles.Contain1}>
-        <View style={styles.LineTitulo}></View>      
-        <Text style={styles.Titulo}>Mi cuenta</Text>
+            <ScreenTitle 
+                Label={"Mi Cuenta"}
+                IconName={"account-circle"}
+                fontSize={20}
+                textColor={'#FFFFFF'}
+                marginTopAdjust={statusBarHeight}
+                paddingH={40}
+            /> 
             <Text style={styles.Datos}>Datos del Encargado</Text>
             <View style={styles.containPhoto}>
                 <View style={styles.profilePhotoWrapper}>

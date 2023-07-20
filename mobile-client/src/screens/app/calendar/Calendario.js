@@ -1,14 +1,18 @@
 import { StyleSheet, Text, View,Image,TouchableOpacity, ScrollView} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScreenTitle } from '../../../index';
 
 export const Calendario = () => {
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.fullScreenContainer}>
-        <View style={styles.sectionTitleContainer}>
-          <View style={styles.lineBefore}></View>
-          <Text style={styles.sectionTitle}>Calendario y recordatorios</Text>
-        </View>
+        <ScreenTitle 
+          Label={"Calendario y recordatorios"}
+          IconName={"calendar-blank"}
+          fontSize={20}
+          textColor={'#FFFFFF'}
+          paddingH={30}
+        /> 
         <View View style={styles.reminderSectionContent}>
           <View style={styles.contentTitle}>
               <View style={styles.eventIconContainer}>

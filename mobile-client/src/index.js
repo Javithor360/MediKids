@@ -24,6 +24,7 @@ export { CustomStatusBar } from './components/CustomStatusBar';
 export { DropdownComponent } from './components/DropdownComponent';
 export { ShowToast } from './components/ShowToast'
 export { SetLabel } from './components/SetLabel';
+export { ScreenTitle } from './components/ScreenTitleHook'
 
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';
