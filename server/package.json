@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "start": "clear && nodemon index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "db:setup": "node setups/create_db.js && node setups/tables_db.js && node setups/data_db.js",
+    "db:reset": "node setups/drop_db.js && node setups/create_db.js && node setups/tables_db.js && node setups/data_db.js"
   },
   "author": "",
   "license": "ISC",

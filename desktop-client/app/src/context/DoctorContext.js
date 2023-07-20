@@ -58,9 +58,24 @@ export const DoctorProvider = ({ children }) => {
       AppointmentsQuery(Doctor_id);
       ActivePatientsQuery(Doctor_id);
 
-      
+      setActivePatients(
+        assignedPatients.filter((patient) =>
+          appointments.some(
+            (appointment) => appointment.Patient_id === patient.id
+          )
+        )
+      );
+
+      setOldPatients(
+        assignedPatients.filter(
+          (patient) =>
+            !appointments.some(
+              (appointment) => appointment.Patient_id === patient.id
+            )
+        )
+      );
     } catch (error) {
-     console.log(error); 
+      console.log(error);
     }
   };
 
@@ -71,6 +86,8 @@ export const DoctorProvider = ({ children }) => {
         setInfo,
         activePatients,
         setActivePatients,
+        oldPatients,
+        setOldPatients,
         appointments,
         setAppointments,
         DoctorInfoQuery,
