@@ -37,7 +37,7 @@ const Gastro = () => {
             </View>
           </View>
           <View style={styles.infoTextContainer}>
-            <Text style={{color: '#707070', marginLeft: wp('3%'),}}>Profesionales de la medicina que ha recibido formación en el diagnóstico y tratamiento de las enfermedades del oído, la nariz y la garganta.</Text>
+            <Text style={{color: '#707070', marginLeft: wp('3%'),}}>Profesionales de la medicina que ha recibido formación en el diagnóstico y tratamiento de las enfermedades del estomago,intestino y las paredes .</Text>
           </View>
         </View>
         <View style={styles.separator}></View>

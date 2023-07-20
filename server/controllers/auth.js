@@ -123,6 +123,7 @@ const login = async (req, res, next) => {
 
     return res.status(200).json({success: true, token, User: query_user[0]});
   } catch (error) {
+    console.log(error)
     return res.status(500).json({error});
   }
 }
@@ -294,9 +295,12 @@ const register_patients = async (req, res, next) => {
       return res.status(500).json({success: false, message: 'Ingresar valores reales (altura)'});
     }
 
+
     // CHECK THE AGE OF THE PATIENT AND GET IT.
     const BD = new Date(Selected_Date);
     const ActualDate = new Date();
+    console.log("SELECTED DATE: " + Selected_Date);
+    console.log(Selected_Date);
 
     if (ActualDate.getFullYear() - 18 > BD.getFullYear()) {
       return res.status(500).json({success: false, message: "Age isn't valid" });
