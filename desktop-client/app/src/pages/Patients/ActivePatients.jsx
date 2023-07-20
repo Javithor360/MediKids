@@ -86,7 +86,7 @@ export const ActivePatients = (props) => {
       <h1 className="mt-[2rem] text-[#a375ff] font-bold text-3xl mb-12 after:content-[''] after:bg-[#a375ff] after:block after:w-[45%] after:h-[0.1875rem] after:mx-0 after:my-auto">
         Pacientes atentidos previamente
       </h1>
-      
+
       {oldPatients.length !== 0 ? (
         <div className="overflow-x-auto w-[80%] rounded-lg border border-[#000000] mx-auto">
           <table className="table w-full">

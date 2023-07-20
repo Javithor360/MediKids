@@ -1,10 +1,10 @@
 import axios from "axios";
 
 //! Localhost Direction of the server.
-const localhost = '192.168.1.6';
+const localhost = '192.168.0.127';
 
 //\\ const of headers
-const headers_public = { headers: {'Content-Type': 'application/json'} }
+const headers_public = { headers: {'Conte¬nt-Type': 'application/json'} }
 
 //! Get the information about the Responsible.
 //@access public

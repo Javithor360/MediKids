@@ -3,12 +3,14 @@ import { MdSaveAs } from 'react-icons/md'
 import { GiBodyHeight } from 'react-icons/gi'
 import { FaWeight, FaTemperatureHigh } from 'react-icons/fa'
 import Cleave from 'cleave.js/react'
-import  TipTap  from './TipTap'
+import TipTap  from './TipTap'
+
 import Modal from '../../../components/Modal'
 
-export const EditMedicalRecord = () => {
+export const EditMedicalRecord = ({ setMedicalRecord }) => {
   const [active, setActive] = useState(false);
   const isModal = true;
+
   const toggle = () => {
     setActive(!active);
   };
@@ -58,7 +60,7 @@ export const EditMedicalRecord = () => {
     </form>
     <p className='mt-7 ml-7 font-semibold text-[#707070] text-[1.2rem]'>2. Ingrese las anotaciones para el expediente</p>
     <div className='w-[90%] ml-7 mt-7 mb-7'>
-      <TipTap />
+      <TipTap setMedicalRecord={setMedicalRecord} />
     </div>
     <p className='my-7 ml-7 font-semibold text-[#707070] text-[1.2rem]'>3. Guarda todos los datos</p>
     <button className='flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9' onClick={()=>toggle()}>

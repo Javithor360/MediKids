@@ -20,6 +20,7 @@ import {
   FaAlignRight,
   FaAlignJustify
 } from "react-icons/fa"
+import { useLocation } from 'react-router-dom';
 
 const MenuBar = ({ editor }) => {
   if (!editor) {
@@ -164,7 +165,9 @@ const MenuBar = ({ editor }) => {
   )
 }
 
-const TipTap = () => {
+const TipTap = ({setMedicalRecord}) => {
+  const location = useLocation();
+  const { patient } = location.state || {};
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -172,10 +175,14 @@ const TipTap = () => {
         types: ['heading', 'paragraph'],
       }),
     ],
+    onUpdate: ({editor}) => {
+      const html = editor.getHTML();
+      setMedicalRecord(html)
+    },
     content: `<h3 style="text-align: center;">MediKids</h3>
               <hr>
               <p style="font-weight: normal; text-align: left;"><b>Hora de inicio:</b> ${moment().format('LT')}&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <b>Fecha: </b> ${moment().format('MM/DD/YYYY')}</p>
-              <p style="font-weight: normal; text-align: left;"><b>Nombre del Paciente:</b> Javier Enrique Mejía Flores &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <b>Edad:</b> 9 años</p>
+              <p style="font-weight: normal; text-align: left;"><b>Nombre del Paciente:</b> ${patient.First_Names} ${patient.Last_Names} &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <b>Edad:</b> ${patient.Age}</p>
               <hr>
               <p style="font-weight: bold; text-align: left;">Síntomas Previos:</p>
               <ul style="">

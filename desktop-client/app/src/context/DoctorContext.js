@@ -55,21 +55,21 @@ export const DoctorProvider = ({ children }) => {
 
   const PatientsClassificator = async (Doctor_id) => {
     try {
-      AppointmentsQuery(Doctor_id);
-      ActivePatientsQuery(Doctor_id);
+      const actPats = await getActivePatients(Doctor_id, PrivateConfig);
+      const allApo = await getAllApointments(Doctor_id, PrivateConfig);
 
       setActivePatients(
-        assignedPatients.filter((patient) =>
-          appointments.some(
+        actPats.data.body.filter((patient) =>
+        allApo.data.body.some(
             (appointment) => appointment.Patient_id === patient.id
           )
         )
       );
 
       setOldPatients(
-        assignedPatients.filter(
+        actPats.data.body.filter(
           (patient) =>
-            !appointments.some(
+            !allApo.data.body.some(
               (appointment) => appointment.Patient_id === patient.id
             )
         )
