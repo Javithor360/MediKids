@@ -1,7 +1,11 @@
-import { useState } from "react";
-import { FaUserAlt } from "react-icons/fa";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import parser from "html-react-parser";
+
+import { FaUserAlt } from "react-icons/fa";
+import { MdSaveAs } from "react-icons/md";
+
+import Modal from '../../components/Modal.jsx'
 
 import {
   EditMedicalPrescription,
@@ -14,28 +18,30 @@ export const MedicalAppoinment = () => {
   const location = useLocation();
   const { patient } = location.state || {};
 
+  const [active, setActive] = useState(false);
+
   const [tabSelector, setTabSelector] = useState(1);
 
-  const [medicalRecord, setMedicalRecord] = useState("");
+  const [finalMedicalRecord, setFinalMedicalRecord] = useState("");
   const [medicalPrescript, setMedicalPrescript] = useState("");
+  const [scheAppoint, setScheAppoint] = useState({});
 
-  //switch (tabSelector) {
-  // case 1:
-  //   return <EditMedicalPrescription />;
-  // case 2:
-  //   return <EditMedicalRecord />;
-  // case 3:
-  //   return <ScheduleAppointment />;
-  // case 4:
-  //   return  <ReferPatient />;
-  // default:
-  //   return <EditMedicalPrescription />;
-  //}
+  const toggle = () => {
+    setActive(!active);
+  };
+
+  const handleData = async (e) => {
+
+  };
+
   return (
     <>
-      <p className="text-[1.8rem] text-[#707070] mt-[.6rem] ml-7">
-        Atendiendo Paciente:{" "}
-      </p>
+      <div className="flex flex-row justify-between">
+        <p className="text-[1.8rem] text-[#707070] mt-[.6rem] ml-7">
+          Atendiendo Paciente:{" "}
+        </p>
+        <button className="justify-end self-center">Finalizar consulta</button>
+      </div>
       <div className="inline-flex justify-center items-center gap-3 mt-[.5rem] ml-7">
         <FaUserAlt />
         <p>{`${patient.First_Names} ${patient.Last_Names}`}</p>
@@ -98,20 +104,48 @@ export const MedicalAppoinment = () => {
       <div className="border border-[#BBBBBB] w-[90%] h-fit mx-auto mt-5 rounded-2xl">
         <div className={tabSelector === 1 ? "block" : "hidden"}>
           <EditMedicalRecord
-            setMedicalRecord={setMedicalRecord}
+            setFinalMedicalRecord={setFinalMedicalRecord}
             state={location.state}
           />
         </div>
         <div className={tabSelector === 2 ? "block" : "hidden"}>
-          <EditMedicalPrescription setMedicalPrescript={setMedicalPrescript} state={location.state} />
+          <EditMedicalPrescription
+            setMedicalPrescript={setMedicalPrescript}
+            state={location.state}
+          />
         </div>
         <div className={tabSelector === 3 ? "block" : "hidden"}>
-          <ScheduleAppointment />
+          <ScheduleAppointment
+            setScheAppoint={setScheAppoint}
+            state={location.state}
+          />
         </div>
         <div className={tabSelector === 4 ? "block" : "hidden"}>
-          <ReferPatient />
+          <ReferPatient state={location.state} />
         </div>
       </div>
+      {toggle && (
+        <Modal active={active} toggle={toggle} onRequestClose={toggle}>
+          <div className="w-[20rem] h-[20rem]">
+            ESTAS A PUNTO DE DAR POR TERMINADA LA CITA. ESTA ACCIÓN ES
+            IRREVERSIBLE ¿ESTÁS SEGURO QUE QUIERES CONTINUAR?
+            <button
+              className="flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9"
+              onClick={() => {handleData; toggle()}}
+            >
+              <MdSaveAs />
+              Guardar y confirmar
+            </button>
+            <button
+              className="flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9"
+              onClick={() => toggle()}
+            >
+              <MdSaveAs />
+              Cancelar
+            </button>
+          </div>
+        </Modal>
+      )}
     </>
   );
 };
