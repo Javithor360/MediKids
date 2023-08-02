@@ -177,7 +177,7 @@ const TipTap = ({setMedicalRecord}) => {
     ],
     onUpdate: ({editor}) => {
       const html = editor.getHTML();
-      setMedicalRecord(html)
+      setMedicalRecord(html);
     },
     content: `<h3 style="text-align: center;">MediKids</h3>
               <hr>

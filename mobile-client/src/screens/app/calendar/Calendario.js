@@ -29,12 +29,17 @@ export const Calendario = () => {
             </View>
           </TouchableOpacity>
         </View>
+        <View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  fullScreenContainer:{
+    backgroundColor: '#FFFFFF',
+  },
   sectionTitleContainer: {
     marginTop: 20,
     marginLeft: 10,
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: 30,
+    // marginTop: 30,
     marginBottom: 5,
     width: '90%',
     height: 'auto',
@@ -140,5 +145,8 @@ const styles = StyleSheet.create({
     color: '#D48888',
     width: '90%',
     textAlign: 'center',
+  }, 
+  safeArea:{
+    backgroundColor: '#e4e2ff',
   }
 });
