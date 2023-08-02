@@ -16,6 +16,7 @@ export { NotificationScreen } from './screens/app/home/NotificationScreen'
 export { MyVaccines } from './screens/app/home/MyVaccines'
 export { ImmunizationRecord } from './screens/auth/ImmunizationRecord';
 export { SelectPatientScreen } from './screens/auth/SelectPatientScreen'
+export { AppointmentMainScreen } from './screens/app/appointment/AppointmentMainScreen'
 
 
 //?? Components
@@ -30,6 +31,7 @@ export { ScreenTitle } from './components/ScreenTitleHook'
 export { ApplicationTab } from './navigators/ApplicationTab';
 export { HomeStack } from './navigators/Dashboard/HomeStack';
 export { CalendarStack } from './navigators/Dashboard/CalendarStack';
+export { AppointmentStack } from './navigators/Dashboard/AppointmentStack';
 
 //* Queries
 export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord } from './queries/Queries';

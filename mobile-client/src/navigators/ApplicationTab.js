@@ -10,13 +10,14 @@ import { isIOS } from '../constants';
 //>>Stacks screens
 import { HomeStack } from '../navigators/Dashboard/HomeStack';
 import { CalendarStack } from '../navigators/Dashboard/CalendarStack';
+import { AppointmentStack } from '../navigators/Dashboard/AppointmentStack';
 import { MyAcountScreen } from "../screens/app/MyAcount/MyAcountScreen";
 
 //>>Tab items props array
 const TabProps = [
   {route: 'HomeStack', label: 'Inicio', iconName: 'home-variant', component: HomeStack, color: 'red'},
   {route: 'Calendario', label: 'Calendario', iconName: 'calendar-clock', component: CalendarStack, color: 'red'},
-  {route: 'Caledndario', label: 'Citas', iconName: 'clipboard-text', component: CalendarStack, color: 'red'},
+  {route: 'AppointmentStack', label: 'Citas', iconName: 'clipboard-text', component: AppointmentStack, color: 'red'},
   {route: 'Calendsdario', label: 'Medicinas', iconName: 'pill', component: CalendarStack, color: 'red'},
   {route: 'Calenddario', label: 'Mi cuenta', iconName: 'account-circle', component: MyAcountScreen, color: 'red'},
   
