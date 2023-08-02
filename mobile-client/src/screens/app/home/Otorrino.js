@@ -59,7 +59,7 @@ const Otorrino = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Hemorragia nasal</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Irritaciones debido a alergias, resfriados, estornudos o problemas sinusales. Aire muy frío o seco.</Text>
               </View>
             </View>
           </View>
@@ -75,7 +75,7 @@ const Otorrino = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Pérdida de la audición</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>La pérdida de audición puede ser leve, moderada, grave o profunda. </Text>
               </View>
             </View>
           </View>
@@ -91,7 +91,7 @@ const Otorrino = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Laringitis</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>es la inflamación de la caja de voz (laringe) por uso excesivo, irritación o infección.</Text>
               </View>
             </View>
           </View>
@@ -107,7 +107,7 @@ const Otorrino = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Sinusitis</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Las sinusitis ocurren cuando se acumula líquido en los senos paranasales (cavidades en la cara que están llenas de aire).</Text>
               </View>
             </View>
           </View>
@@ -116,7 +116,7 @@ const Otorrino = () => {
               <Image source={require('../../../../assets/icons/focus_icon.png')} style={{width: '90%', height: '90%', resizeMode: 'contain',}}></Image>
             </View>
             <View style={{width: '85%', height: '100%', justifyContent: 'center'}}>
-              <Text style={{color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab libero nihil odio </Text>
+              <Text style={{color: '#707070'}}>Todos los pacientes son analizados para un diagnostico mas preciso y tratamiento personalizado </Text>
             </View>
           </View>
         </View>

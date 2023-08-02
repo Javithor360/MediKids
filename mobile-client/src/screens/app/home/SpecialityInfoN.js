@@ -37,7 +37,7 @@ const SpecialityInfoN = () => {
             </View>
           </View>
           <View style={styles.infoTextContainer}>
-            <Text style={{color: '#707070', marginLeft: wp('3%'),}}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptate temporibus doloribus voluptatem accusamus possimus dolore neque id error at? Pariatur!</Text>
+            <Text style={{color: '#707070', marginLeft: wp('3%'),}}> En el campo de actuación se centra en la prevención, diagnóstico y tratamiento de las enfermedades del aparato respiratorio.</Text>
           </View>
         </View>
         <View style={styles.separator}></View>
@@ -45,7 +45,7 @@ const SpecialityInfoN = () => {
           Enfermedades comunes
         </Text>
         <Text style={styles.textPart}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita error voluptas fugit est molestiae, provident tenetur nemo blanditiis inventore eaque eligendi ea
+        La neumología esta encargada del estudio a profundidad de las enfermedades que afectan al aparato respiratorio. 
         </Text>
         <View style={styles.diseasesMainC}>
           <View style={styles.diseaseCard}>
@@ -59,7 +59,7 @@ const SpecialityInfoN = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Asma</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>El asma causa sibilancias, dificultad para respirar, opresión en el pecho y tos durante la noche o temprano por la mañana.</Text>
               </View>
             </View>
           </View>
@@ -75,7 +75,7 @@ const SpecialityInfoN = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Bronquitis</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>La bronquitis aguda suele ser causada por la inflamación de las vías respiratorias debido a infecciones virales,</Text>
               </View>
             </View>
           </View>
@@ -91,7 +91,7 @@ const SpecialityInfoN = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Neumonía recurrente</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Infección que afecta un pulmón o los dos. Hace que los sacos de aire, o alvéolos, de los pulmones se llenen de líquido o pus. Hay bacterias, virus u hongos que pueden provocar neumonía.</Text>
               </View>
             </View>
           </View>
@@ -107,7 +107,7 @@ const SpecialityInfoN = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Tos crónica</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>La tos crónica se define como tos que perdura más de 3 semanas. </Text>
               </View>
             </View>
           </View>
@@ -116,7 +116,7 @@ const SpecialityInfoN = () => {
               <Image source={require('../../../../assets/icons/focus_icon.png')} style={{width: '90%', height: '90%', resizeMode: 'contain',}}></Image>
             </View>
             <View style={{width: '85%', height: '100%', justifyContent: 'center'}}>
-              <Text style={{color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab libero nihil odio </Text>
+              <Text style={{color: '#707070'}}>Todos los pacientes son analizados para un diagnostico mas preciso y tratamiento personalizado </Text>
             </View>
           </View>
         </View>
