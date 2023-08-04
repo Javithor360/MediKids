@@ -158,9 +158,79 @@ const new_medical_record_entry = async (req, res, next) => {
   }
 };
 
+// ! @route POST api/doctor/get_patient_appointment_with_specific_doctor
+// ! @desc Get the patient's appointment with a specific doctor
+// ! @access private
+
+const get_patient_appointment_with_specific_doctor = async (req, res, next) => {
+  try {
+    const { Patient_id, Doctor_id } = req.body;
+
+    if(!Patient_id || !Doctor_id) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    const [doctor_check] = await pool.query("SELECT * FROM doctors WHERE id = ?", [Doctor_id]);
+    if (doctor_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided doctor doesn't exist",
+      });
+    }
+
+    const [patient_check] = await pool.query("SELECT * FROM patient WHERE id = ?", [Patient_id]);
+    if (patient_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided patient doesn't exist",
+      });
+    }
+
+    const [appointment_info] = await pool.query("SELECT * FROM medical_appointment WHERE Doctor_id = ? AND Patient_id = ?", [Doctor_id, Patient_id]);
+
+    return res.status(200).json({ success: true, body: appointment_info });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+}
+
+// ! @route POST api/doctor/get_responsible_info
+// ! @desc Gets the patient's responsible information
+// ! @access private
+
+const get_responsible_info = async (req, res, next) => {
+  try {
+    const { Responsible_id } = req.body;
+
+    if(!Responsible_id) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    const [resp_check] = await pool.query("SELECT * FROM responsible WHERE id = ?", [Responsible_id]);
+    if (resp_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided responsible doesn't exist",
+      });
+    }
+
+    return res.status(200).json({ success: true, body: resp_check })
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+}
+
 export {
   get_info,
   active_patients,
   get_appointments,
   new_medical_record_entry,
+  get_patient_appointment_with_specific_doctor,
+  get_responsible_info
 };

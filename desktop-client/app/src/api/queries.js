@@ -39,3 +39,19 @@ export const newMedicalRecordEntry = async (data, PrivateConfig) => {
     PrivateConfig
   );
 };
+
+export const getPatientAppointmentWithDoctor = async (data, PrivateConfig) => {
+  return await axios.post(
+    `http://localhost:5005/api/doctor/get_patient_appointment_with_specific_doctor`,
+    data,
+    PrivateConfig
+  );
+};
+
+export const getResponsibleInfo = async (Responsible_id, PrivateConfig) => {
+  return await axios.post(
+    `http://localhost:5005/api/doctor/get_responsible_info`,
+    { Responsible_id },
+    PrivateConfig
+  );
+}
