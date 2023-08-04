@@ -165,7 +165,7 @@ const MenuBar = ({ editor }) => {
   )
 }
 
-const TipTap = ({setMedicalRecord}) => {
+const TipTap = ({setNotes}) => {
   const location = useLocation();
   const { patient } = location.state || {};
   const editor = useEditor({
@@ -177,7 +177,7 @@ const TipTap = ({setMedicalRecord}) => {
     ],
     onUpdate: ({editor}) => {
       const html = editor.getHTML();
-      setMedicalRecord(html);
+      setNotes(html);
     },
     content: `<h3 style="text-align: center;">MediKids</h3>
               <hr>

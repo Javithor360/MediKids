@@ -3,6 +3,7 @@ import {
   getDoctorInfo,
   getActivePatients,
   getAllApointments,
+  newMedicalRecordEntry,
 } from "../api/queries";
 
 const dashContext = createContext();
@@ -79,6 +80,28 @@ export const DoctorProvider = ({ children }) => {
     }
   };
 
+  const CreateMedicalRecordEntry = async (data) => {
+    try {
+      return await newMedicalRecordEntry({
+        height: data.height,
+        weight: data.weight,
+        temperature: data.temperature,
+        notes: data.notes,
+        Patient_id: data.Patient_id
+      }, PrivateConfig);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const EndMedicalAppointment = async (medicalRecord, medicalPrescript, scheAppoint) => {
+    try {
+      CreateMedicalRecordEntry(medicalRecord);
+    } catch (error) {
+      console.log(error)
+    }
+  } 
+
   return (
     <dashContext.Provider
       value={{
@@ -94,6 +117,8 @@ export const DoctorProvider = ({ children }) => {
         ActivePatientsQuery,
         AppointmentsQuery,
         PatientsClassificator,
+        CreateMedicalRecordEntry,
+        EndMedicalAppointment
       }}
     >
       {children}

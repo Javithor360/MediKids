@@ -1,6 +1,7 @@
 import { pool } from "../utils/db.js";
 
 import ErrorResponse from "../utils/error_message.js";
+import { patientCode } from "../utils/functions.js";
 
 // ! @route POST api/doctor/get-info
 // ! @desc Get all doctor personal information
@@ -111,11 +112,55 @@ const get_appointments = async (req, res, next) => {
       [Doctor_id]
     );
 
-    return res.status(200).json({ success: true, body: appointments_info});
+    return res.status(200).json({ success: true, body: appointments_info });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });
   }
 };
 
-export { get_info, active_patients, get_appointments };
+// ! @route POST api/doctor/new_medical_record_entry
+// ! @desc Adds a new medical record entry
+// ! @access private
+
+const new_medical_record_entry = async (req, res, next) => {
+  try {
+    const { height, weight, temperature, notes, Patient_id } = req.body;
+
+    if (!height || !weight || !temperature || !notes || !Patient_id) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    if(height <= 0) return next(new ErrorResponse("La altura proporcionada no es válida", 400, "error"));
+
+    if(weight <= 0) return next(new ErrorResponse("El peso proporcionada no es válido", 400, "error"));
+
+    if(temperature <= 0) return next(new ErrorResponse("La temperatura proporcionada no es válida", 400, "error"));
+
+    // if(notes === "") return next(new ErrorResponse("", 400, "error"));
+
+    await pool.query("INSERT INTO medical_history SET ?", {
+      Medical_History_Code: patientCode(),
+      Date_Time: new Date(),
+      Diagnosis: notes,
+      Weight: weight,
+      Height: height,
+      Temperature: temperature,
+      Patient_id
+    });
+
+    return res.status(200).json({ success: true, message: `Medical record for patient #${Patient_id} was successfully inserted` });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
+export {
+  get_info,
+  active_patients,
+  get_appointments,
+  new_medical_record_entry,
+};

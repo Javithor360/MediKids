@@ -31,3 +31,11 @@ export const getAllApointments = async (Doctor_id, PrivateConfig) => {
     PrivateConfig
   );
 };
+
+export const newMedicalRecordEntry = async (data, PrivateConfig) => {
+  return await axios.post(
+    `http://localhost:5005/api/doctor/new_medical_record_entry`,
+    data,
+    PrivateConfig
+  );
+};
