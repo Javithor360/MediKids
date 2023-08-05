@@ -4,11 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 //Libraries
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
+import { useNavigation } from '@react-navigation/native'
 //Components
 import { ScreenTitle } from '../../../index';
 
 export const AppointmentMainScreen = () => {
+    const navigation = useNavigation()
   return (
     <SafeAreaView style={styles.safeArea}>
         <ScrollView style={styles.fullScreenContainer}>
@@ -104,7 +105,11 @@ export const AppointmentMainScreen = () => {
                         </View>
                     </View>
                 </View>
+                <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment') }>
+                                <Text style={{color: '#fff', fontSize: 13.5,}}>Historial</Text>
+                            </TouchableOpacity>
             </View>
+            
         </ScrollView>
     </SafeAreaView>
   )
@@ -229,5 +234,17 @@ const styles = StyleSheet.create({
         right: 10,
         position: 'absolute',
         alignSelf: 'flex-end',
-    }
+    },
+    apptBtn1:{
+        width: '60%',
+        height: 30,
+        backgroundColor: '#D58C8C',
+        borderRadius: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        bottom: 6,
+        right: 75,
+        position: 'absolute',
+        alignSelf: 'flex-end',
+    },
   });
