@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 //Libraries
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-
 //Components
 import { ScreenTitle } from '../../../index';
 
