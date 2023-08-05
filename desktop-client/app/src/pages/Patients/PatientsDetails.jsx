@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   MdNotifications,
   MdPendingActions,
@@ -12,10 +12,26 @@ import profileAvatar from "../../assets/template/walt_jr.png";
 import Modal from "../../components/Modal";
 
 import { Link, useLocation } from "react-router-dom";
+import { useDash } from "../../context/DoctorContext";
 
 export const PatientsDetails = () => {
   const location = useLocation();
   const { patient } = location.state || {};
+
+  const {
+    PatientAppointmentWithDoctor,
+    nextAppointment,
+    ResponsibleInformation,
+    responsibleInfo,
+  } = useDash();
+
+  useEffect(() => {
+    PatientAppointmentWithDoctor(
+      patient.id,
+      JSON.parse(localStorage.getItem("userSession")).id
+    );
+    ResponsibleInformation(patient.Responsible_id);
+  }, []);
 
   const [active, setActive] = useState(false);
   const isModal = true;
@@ -24,14 +40,36 @@ export const PatientsDetails = () => {
   };
   const [numbercomp, setNumbercomp] = useState(0);
 
+  const appDate = new Date(nextAppointment.Date);
+
+  console.log(responsibleInfo)
+
   const modalContent = () => {
     switch (numbercomp) {
       case 1:
         return (
-          <p isModal={isModal}>
-            Contenido 1 del modal (Crear un componente individual para desplegar
-            mejor la informacion y luego retornarlo aquí)
-          </p>
+          <div isModal={isModal} className="m-10">
+            <h1>
+              EXPEDIENTE DE {patient.First_Names.toUpperCase()}{" "}
+              {patient.Last_Names.toUpperCase()}
+            </h1>
+            <div className="data">
+              <div className="main-info">
+                <h3>Información personal</h3>
+                <p>
+                  Edad: {patient.Age} {patient.Age === 1 ? "año" : "años"}
+                </p>
+                <p>Tipo de sangre: {patient.Blood_Type}</p>
+                <p>Peso: {patient.Weight}</p>
+                <p>Altura: {patient.Height}</p>
+              </div>
+              <div className="resp-info">
+                <h3>Informaciòn del responsable</h3>
+                <p>Nombre: {responsibleInfo.First_Names} {responsibleInfo.Last_Names}</p>
+                <p>Número de contacto: {responsibleInfo.Phone}</p>
+              </div>
+            </div>
+          </div>
         );
       case 2:
         return (
@@ -78,7 +116,11 @@ export const PatientsDetails = () => {
           <div className="absolute right-4 top-3 ">
             <p className="flex items-center justify-center gap-3 font-semibold">
               <MdNotifications className="text-[#a375ff] text-[1.8rem]" />
-              Proxima cita el: 22/04/2023
+              Proxima cita el:{" "}
+              {`${appDate.getDate()}/${appDate.getMonth()}/${appDate.getFullYear()} (${appDate.toLocaleTimeString(
+                [],
+                { hour: "2-digit", minute: "2-digit" }
+              )})`}
             </p>
           </div>
         </section>
@@ -178,7 +220,12 @@ export const PatientsDetails = () => {
         </section>
       </div>
       {toggle && (
-        <Modal active={active} toggle={toggle} onRequestClose={toggle} state={patient}>
+        <Modal
+          active={active}
+          toggle={toggle}
+          onRequestClose={toggle}
+          state={patient}
+        >
           {modalContent()}
         </Modal>
       )}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdSaveAs } from "react-icons/md";
 import { GiBodyHeight } from "react-icons/gi";
 import { FaWeight, FaTemperatureHigh } from "react-icons/fa";
@@ -7,11 +7,20 @@ import TipTap from "./TipTap";
 
 import Modal from "../../../components/Modal";
 
-export const EditMedicalRecord = ({ setFinalMedicalRecord }) => {
+export const EditMedicalRecord = ({ setMedicalRecord }) => {
   const [active, setActive] = useState(false);
   const isModal = true;
 
-  const [medicalRecord, setMedicalRecord] = useState("");
+  // const [medicalRecord, setMedicalRecord] = useState({});
+
+  const [height, setHeight] = useState(0);
+  const [weight, setWeight] = useState(0);
+  const [temperature, setTemperature] = useState(0);
+  const [notes, setNotes] = useState("");
+
+  useEffect(() => {
+    setMedicalRecord({ height, weight, temperature, notes });
+  }, [height, weight, temperature, notes]);
 
   const toggle = () => {
     setActive(!active);
@@ -23,7 +32,7 @@ export const EditMedicalRecord = ({ setFinalMedicalRecord }) => {
       </p>
       <form
         action=""
-        className="flex 2xl:flex-row md:flex-col gap-7 items-center mt-7 mb-7 ml-7 w-fit"
+        className="flex items-center 2xl:flex-row md:flex-col gap-7 mt-7 mb-7 ml-7 w-fit"
       >
         <div className="inline-flex items-center gap-3">
           <GiBodyHeight className="text-[1.8rem] text-[#A375FF]" />
@@ -39,7 +48,13 @@ export const EditMedicalRecord = ({ setFinalMedicalRecord }) => {
               numeralPositiveOnly: true,
             }}
             placeholder="Ingrese la altura"
-            onChange={""}
+            onChange={(e) => {
+              if(e.target.value !== "") {
+                setHeight(e.target.value);
+              } else {
+                setHeight(0);
+              }
+            }}
             value={""}
             className={
               "w-[20rem] h-[3rem] rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
@@ -47,7 +62,7 @@ export const EditMedicalRecord = ({ setFinalMedicalRecord }) => {
           />
           <p className="text-[#BBBBBB] text-[1.2rem]">mt</p>
         </div>
-        <div className="inline-flex justify-center items-center gap-3">
+        <div className="inline-flex items-center justify-center gap-3">
           <FaWeight className="text-[1.8rem] text-[#A375FF]" />
           <Cleave
             id="weight"
@@ -60,8 +75,14 @@ export const EditMedicalRecord = ({ setFinalMedicalRecord }) => {
               numeralDecimalScale: 2,
               numeralPositiveOnly: true,
             }}
-            placeholder="Ingrese El peso"
-            onChange={""}
+            placeholder="Ingrese el peso"
+            onChange={(e) => {
+              if(e.target.value !== "") {
+                setWeight(e.target.value);
+              } else {
+                setWeight(0);
+              }
+            }}
             value={""}
             className={
               "w-[20rem] h-[3rem] rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
@@ -69,7 +90,7 @@ export const EditMedicalRecord = ({ setFinalMedicalRecord }) => {
           />
           <p className="text-[#BBBBBB] text-[1.2rem]">lb</p>
         </div>
-        <div className="inline-flex justify-center items-center gap-3">
+        <div className="inline-flex items-center justify-center gap-3">
           <FaTemperatureHigh className="text-[1.8rem] text-[#A375FF]" />
           <Cleave
             id="temp"
@@ -83,7 +104,13 @@ export const EditMedicalRecord = ({ setFinalMedicalRecord }) => {
               numeralPositiveOnly: true,
             }}
             placeholder="Ingrese la temperatura"
-            onChange={""}
+            onChange={(e) => {
+              if(e.target.value !== "") {
+                setTemperature(e.target.value);
+              } else {
+                setTemperature(0);
+              }
+            }}
             value={""}
             className={
               "w-[20rem] h-[3rem] rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
@@ -96,9 +123,9 @@ export const EditMedicalRecord = ({ setFinalMedicalRecord }) => {
         2. Ingrese las anotaciones para el expediente
       </p>
       <div className="w-[90%] ml-7 mt-7 mb-7">
-        <TipTap setMedicalRecord={setMedicalRecord} />
+        <TipTap setNotes={setNotes} />
       </div>
-      <p className="my-7 ml-7 font-semibold text-[#707070] text-[1.2rem]">
+      {/* <p className="my-7 ml-7 font-semibold text-[#707070] text-[1.2rem]">
         3. Guarda todos los datos
       </p>
       <button
@@ -107,9 +134,9 @@ export const EditMedicalRecord = ({ setFinalMedicalRecord }) => {
       >
         <MdSaveAs />
         Guardar
-      </button>
+      </button> */}
 
-      {toggle && (
+      {/* {toggle && (
         <Modal active={active} toggle={toggle} onRequestClose={toggle}>
           <div className="w-[20rem] h-[20rem]">
             Estas seguro de guardar los datos
@@ -132,7 +159,7 @@ export const EditMedicalRecord = ({ setFinalMedicalRecord }) => {
             </button>
           </div>
         </Modal>
-      )}
+      )} */}
     </>
   );
 };
