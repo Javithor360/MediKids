@@ -97,6 +97,7 @@ const login = async (req, res, next) => {
   try {
     const {Email, Password} = req.body;
 
+    console.log('??')
     // CHECKING EMPTY VALUES
     if (!Email || !Password) {
       return res.status(500).json({success: false, message: 'Valores Vacios'});
@@ -123,7 +124,7 @@ const login = async (req, res, next) => {
 
     return res.status(200).json({success: true, token, User: query_user[0]});
   } catch (error) {
-    console.log(error)
+    console.log(error);
     return res.status(500).json({error});
   }
 }

@@ -45,7 +45,7 @@ const Gastro = () => {
           Enfermedades comunes
         </Text>
         <Text style={styles.textPart}>
-        Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con los sentidos, como problemas del olfato y el gusto o trastornos del equilibrio y la audición. 
+        Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con problemas del estomago o paredes intestinales. 
         </Text>
         <View style={styles.diseasesMainC}>
           <View style={styles.diseaseCard}>
@@ -59,7 +59,7 @@ const Gastro = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Apendicitis</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Es una inflamación del apéndice, una bolsa en forma de dedo que se proyecta desde el colon en el lado inferior derecho del abdomen.  </Text>
               </View>
             </View>
           </View>
@@ -75,7 +75,7 @@ const Gastro = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Diarrea</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Es un aumento en la frecuencia de las deposiciones (más de tres al día) acompañada de una disminución de la consistencia de éstas.  </Text>
               </View>
             </View>
           </View>
@@ -91,7 +91,7 @@ const Gastro = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Enfermedad celiaca</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Los pacientes con enfermedad celíaca no toleran una proteína llamada gluten(trigo, avena, cebada,centeno).</Text>
               </View>
             </View>
           </View>
@@ -107,7 +107,7 @@ const Gastro = () => {
                 <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Control Intestinal</Text>
               </View>
               <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolorem quibusdam exercitationem excepturi et cupiditate </Text>
+                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Dificultad para aguantar una evacuación intestinal. Tiene goteo de heces sólidas o líquidas cuando menos lo espera.</Text>
               </View>
             </View>
           </View>
@@ -116,7 +116,7 @@ const Gastro = () => {
               <Image source={require('../../../../assets/icons/focus_icon.png')} style={{width: '90%', height: '90%', resizeMode: 'contain',}}></Image>
             </View>
             <View style={{width: '85%', height: '100%', justifyContent: 'center'}}>
-              <Text style={{color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab libero nihil odio </Text>
+              <Text style={{color: '#707070'}}>Todos los pacientes son analizados para un diagnostico mas preciso y tratamiento personalizado </Text>
             </View>
           </View>
         </View>

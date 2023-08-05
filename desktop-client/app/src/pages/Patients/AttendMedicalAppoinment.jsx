@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import parser from "html-react-parser";
 
 import { FaUserAlt } from "react-icons/fa";
@@ -13,28 +13,72 @@ import {
   ReferPatient,
   ScheduleAppointment,
 } from "./PatientsComponents";
+import { useDash } from "../../context/DoctorContext";
 
 export const MedicalAppoinment = () => {
   const location = useLocation();
   const { patient } = location.state || {};
 
+  let navigate = useNavigate();
+  const { EndMedicalAppointment } = useDash();
+
   const [active, setActive] = useState(false);
+  const [activeError, setActiveError] = useState(false);
+  const [chargin, setChargin] = useState(false);
 
   const [tabSelector, setTabSelector] = useState(1);
 
-  const [finalMedicalRecord, setFinalMedicalRecord] = useState("");
+  // Each component's exported information needs to have its own state to be sure that the field is not empty
+  const [medicalRecord, setMedicalRecord] = useState({});
+  const [height, setHeight] = useState(0);
+  const [weight, setWeight] = useState(0);
+  const [temperature, setTemperature] = useState(0);
+  const [notes, setNotes] = useState("");
+
   const [medicalPrescript, setMedicalPrescript] = useState("");
   const [scheAppoint, setScheAppoint] = useState({});
+
+  useEffect(() => {
+    if (height !== medicalRecord.height) setHeight(medicalRecord.height);
+    if (weight !== medicalRecord.weight) setWeight(medicalRecord.weight);
+    if (temperature !== medicalRecord.temperature)
+      setTemperature(medicalRecord.temperature);
+    if (notes !== medicalRecord.notes) setNotes(medicalRecord.notes);
+    // console.log(medicalRecord);
+    setHeight(medicalRecord.height);
+  }, [medicalRecord]);
+
+  // useEffect(() => {
+  //   console.log(medicalRecord);
+  //   console.log(`Current height: ${height}`);
+  //   console.log(`Current weight: ${weight}`);
+  //   console.log(`Current temperature: ${temperature}`);
+  //   console.log(`Current notes: ${notes}`);
+  // }, [height, weight, temperature, notes]);
 
   const toggle = () => {
     setActive(!active);
   };
 
-  const handleClick = (e) => {
+  const toggleError = () => {
+    setActiveError(!activeError);
+  };
+
+  const handleClick = async (e) => {
     e.preventDefault();
     try {
-      toggle();
-      console.log("The link was clicked.");
+      await EndMedicalAppointment(
+        { height, weight, temperature, notes, Patient_id: patient.id },
+        {},
+        {}
+      );
+      setChargin(true);
+      setTimeout(() => {
+        toggle();
+        setTimeout(() => {
+          navigate(-1);
+        }, 3000);
+      }, 3000);
     } catch (error) {
       console.log(error);
     }
@@ -47,9 +91,22 @@ export const MedicalAppoinment = () => {
           Atendiendo Paciente:{" "}
         </p>
         <button
-          className="justify-end self-center"
+          className="self-center justify-end"
           onClick={() => {
-            toggle();
+            if (
+              height === 0 ||
+              height === "" ||
+              weight === 0 ||
+              weight === "" ||
+              temperature === 0 ||
+              temperature === "" ||
+              notes === undefined ||
+              notes === ""
+            ) {
+              toggleError();
+            } else {
+              toggle();
+            }
           }}
         >
           Finalizar consulta
@@ -117,7 +174,7 @@ export const MedicalAppoinment = () => {
       <div className="border border-[#BBBBBB] w-[90%] h-fit mx-auto mt-5 rounded-2xl">
         <div className={tabSelector === 1 ? "block" : "hidden"}>
           <EditMedicalRecord
-            setFinalMedicalRecord={setFinalMedicalRecord}
+            setMedicalRecord={setMedicalRecord}
             state={location.state}
           />
         </div>
@@ -139,22 +196,88 @@ export const MedicalAppoinment = () => {
       </div>
       {toggle && (
         <Modal active={active} toggle={toggle} onRequestClose={toggle}>
-          <div className="w-[20rem] h-[20rem]">
-            ESTAS A PUNTO DE DAR POR TERMINADA LA CITA. ESTA ACCIÓN ES
-            IRREVERSIBLE ¿ESTÁS SEGURO QUE QUIERES CONTINUAR?
+          <div className="min-w-[20rem] max-w-[30rem] min-h-[20rem] m-5">
+            <h2>[!] ADVERTENCIA [!]</h2>
+            <p>
+              Esta acción de confirmación es irreversible. Por favor asegúrate
+              que todos los datos estén en orden antes de proceder
+            </p>
+            <div className="mt-5 info-container">
+              <div className={`medical-record`}>
+                <h3>Información del expediente:</h3>
+                <ul>
+                  <li>
+                    Altura: {height} lb{" "}
+                    {height && height === medicalRecord.height
+                      ? ``
+                      : `(Sin modificar)`}
+                  </li>
+                  <li>
+                    Peso: {weight} mts{" "}
+                    {weight && weight === medicalRecord.weight
+                      ? ``
+                      : `(Sin modificar)`}
+                  </li>
+                  <li>
+                    Temperatura: {temperature} °C{" "}
+                    {temperature && temperature === medicalRecord.temperature
+                      ? ``
+                      : `(Sin modificar)`}
+                  </li>
+
+                  <li>
+                    Anotaciones:{" "}
+                    {!notes ? (
+                      "Sin anotaciones"
+                    ) : (
+                      <div className="block mt-2 max-w-[25rem] border border-[#000000]">
+                        {parser(notes)}
+                      </div>
+                    )}
+                  </li>
+                </ul>
+              </div>
+              {/* FOR THE FUTURE */}
+              {/* <div className="medical-prescription"></div>
+              <div className="scheduled-appointment"></div> */}
+            </div>
+            <div className="flex mt-5">
+              <button
+                className="flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9"
+                onClick={handleClick}
+              >
+                <MdSaveAs />
+                Guardar y confirmar
+              </button>
+              <button
+                className="flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9"
+                onClick={() => toggle()}
+              >
+                <MdSaveAs />
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
+      {toggleError && (
+        <Modal
+          active={activeError}
+          toggle={toggleError}
+          onRequestClose={toggleError}
+        >
+          <div className="min-w-[20rem] max-w-[30rem] min-h-[20rem] m-5">
+            <h2>[!] ERROR [!]</h2>
+            <p>
+              Antes de finalizar esta cita, debes ingresar al menos los datos
+              del paciente (altura, peso, temperatura y anotaciones)
+            </p>
             <button
               className="flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9"
-              onClick={handleClick}
+              onClick={() => toggleError()}
             >
               <MdSaveAs />
-              Guardar y confirmar
-            </button>
-            <button
-              className="flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9"
-              onClick={() => toggle()}
-            >
-              <MdSaveAs />
-              Cancelar
+              Entendido
             </button>
           </div>
         </Modal>

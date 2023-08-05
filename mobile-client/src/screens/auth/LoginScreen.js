@@ -101,6 +101,8 @@ export const LoginScreen = () => {
         }, 4000);
       }
     } catch (error) {
+      console.log(error)
+      
       //>> Close loading animation
       setTimeout(() => {
         setIsLoading(false);
