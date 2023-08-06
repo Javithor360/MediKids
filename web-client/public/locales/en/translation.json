@@ -50,5 +50,23 @@
          "tle3":"sion",
          "sub3":"At MediKids, our mission is to provide quality, personalized pediatric health care for children and adolescents, using cutting-edge technology and a team of highly trained professionals committed to the well-being of their patients. We strive to create a welcoming and friendly environment for children and their families, and encourage education on disease prevention and maintaining a healthy lifestyle.",
          "sub4":"Our vision at MediKids is to be a leading pediatric child care clinic, recognized for our commitment to healthcare excellence, innovation and research in the field of pediatrics. We want to be a clinic that children and their families trust to receive quality and personalized medical care, and in which our team of professionals is proud to work and grow professionally. Our vision is to help children grow and develop healthily so they can reach their full potential."
+    },
+    "contact":{
+        "subtitle":"At MediKids, we understand that taking care of your children's health is a priority, and we know that questions or concerns may arise along the way. Our contact page is designed to give you the support and reassurance you need. Our team of highly trained professionals is ready to clarify all your doubts and provide you with the necessary information about our pediatric services, office hours, medical specialties and any other question you may have. We want to make sure you feel comfortable and confident choosing MediKids as your trusted child care clinic. Do not hesitate to contact us and allow us to help you in the health care of your little ones. We are here for you every step of the way.",
+        "tittle":"Do you still have ",
+        "tittle2":"questions?",
+        "label":"Enter your email",
+        "label2":"type your question",
+        "button":"send"
+    },
+    "cite":{
+        "tittle":"Requirements to schedule an",
+        "tittle1":"appointment",
+        "cont":"To book an appointment at the MediKids pediatric clinic, it is necessary to meet certain requirements. First, it's critical to have the child's information handy, including their full name, date of birth, health insurance number, and any relevant medical history. In addition, a valid contact phone number and email address must be provided, if required. Depending on clinic policy, additional documents may be required, such as insurance cards or medical references. It is also recommended to take into account any prior preparation necessary for the appointment, such as fasting or dietary restrictions. Meeting these requirements will ensure proper scheduling and effective care at the MediKids clinic.",
+        "tittle2":"Remember to take into",
+        "tittle3":"account",
+        "cont2":"When making an appointment at the MediKids pediatric clinic, it is essential to take into account a series of recommendations to ensure a smooth and efficient process. First of all, it is recommended to schedule the appointment in advance using the clinic's scheduling system, either by phone or through its online platform. Make sure you have the child's complete information handy, such as their name, date of birth, and health insurance number. Also, check if any additional documents are required, such as insurance cards, medical references or signed consents. Learn about any prior appointment preparations, such as fasting or dietary restrictions, and make sure you follow them accordingly. It is important to arrive on time on the day of the appointment to allow enough time to complete any required forms and to allow the child to become familiar with the clinic environment. If for any reason you need to cancel or change your appointment, please contact the clinic as far in advance as possible. By following these recommendations, you can enjoy a calm and efficient experience when scheduling an appointment at the MediKids pediatric clinic.",
+        "tittle4":"Steps to schedule an",
+        "tittle5":"appointment"
     }
 }
