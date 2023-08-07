@@ -51,5 +51,23 @@
          "tle3":"ion",
          "sub3":"En MediKids, nuestra misión es brindar atención médica pediátrica de calidad y personalizada para los niños y adolescentes, utilizando tecnología de vanguardia y un equipo de profesionales altamente capacitados y comprometidos con el bienestar de sus pacientes. Nos esforzamos por crear un ambiente acogedor y amigable para los niños y sus familias , y fomentamos la educación sobre la prevención de enfermedades y el mantenimiento de un estilo de vida saludable.",
          "sub4":"Nuestra visión en MediKids es ser una clínica pediátrica líder en el cuidado infantil, reconocida por nuestro compromiso con la excelencia en la atención médica, la innovación y la investigación en el campo de la pediatría. Queremos ser una clínica en la que los niños y sus familias confíen para recibir atención médica de calidad y personalizada, y en la que nuestro equipo de profesionales se sienta orgulloso de trabajar y crecer profesionalmente. Nuestra visión es ayudar a los niños a crecer y desarrollarse sanamente para que puedan alcanzar todo su potencial."
+    },
+    "contact":{
+        "subtitle":"En MediKids, entendemos que cuidar de la salud de tus hijos es una prioridad y sabemos que pueden surgir preguntas o inquietudes en el camino. Nuestra página de contacto está diseñada para brindarte el apoyo y la tranquilidad que necesitas. Nuestro equipo de profesionales altamente capacitados está listo para aclarar todas tus dudas y brindarte la información necesaria sobre nuestros servicios pediátricos, horarios de atención , especialidades médicas y cualquier otra pregunta que puedas tener. Queremos asegurarnos de que te sientas cómodo y confiado al elegir MediKids como la clínica de confianza para el cuidado de tus hijos. No dudes en contactarnos y permitirnos ayudarte en el cuidado de la salud de tus pequeños. Estamos aquí para ti en cada paso del camino.",
+        "tittle":"¿Aun tienes ",
+        "tittle2":"dudas?",
+        "label":"Digite su correo electronico",
+        "label2":"Digite su duda",
+        "button":"Enviar"
+    },
+    "cite":{
+        "tittle":"Requisitos para agendar una",
+        "tittle1":"cita",
+        "cont":"Para agendar una cita en la clínica pediátrica MediKids, es necesario cumplir con ciertos requisitos. En primer lugar, es fundamental tener a mano la información del niño, incluyendo su nombre completo, fecha de nacimiento, número de seguro médico y cualquier historial médico relevante. Además, se debe proporcionar un número de teléfono de contacto válido y una dirección de correo electrónico, en caso de ser necesario. Dependiendo de la política de la clínica, puede ser requerido presentar documentos adicionales, como tarjetas de seguro o referencias médicas. También se recomienda tener en cuenta cualquier preparación previa necesaria para la cita, como ayuno o restricciones alimentarias. Cumplir con estos requisitos asegurará una programación adecuada y una atención efectiva en la clínica MediKids.",
+        "tittle2":"Recuerda tomar en",
+        "tittle3":"cuenta",
+        "cont2":"Al agendar una cita en la clínica pediátrica MediKids, es esencial tener en cuenta una serie de recomendaciones para asegurar un proceso fluido y eficiente. En primer lugar, se recomienda agendar la cita con anticipación utilizando el sistema de programación de la clínica, ya sea por teléfono o a través de su plataforma en línea. Asegúrate de tener a mano los datos completos del niño, como su nombre, fecha de nacimiento y número de seguro médico. Además, verifica si se requiere algún documento adicional, como tarjetas de seguro, referencias médicas o consentimientos firmados. Infórmate sobre cualquier preparación previa necesaria para la cita, como ayuno o restricciones alimentarias, y asegúrate de seguirlas adecuadamente. Es importante llegar a tiempo el día de la cita para tener suficiente tiempo para completar cualquier formulario requerido y permitir que el niño se familiarice con el entorno de la clínica. Si por alguna razón necesitas cancelar o cambiar la cita, comunícate con la clínica con la mayor antelación posible. Siguiendo estas recomendaciones , podrás disfrutar de una experiencia tranquila y eficiente al agendar una cita en la clínica pediátrica MediKids.",
+        "tittle4":"Pasos para agendar una ",
+        "tittle5":"cita"
     }
 }

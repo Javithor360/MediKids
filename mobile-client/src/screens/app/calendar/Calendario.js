@@ -29,6 +29,8 @@ export const Calendario = () => {
             </View>
           </TouchableOpacity>
         </View>
+        <View>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -36,7 +38,7 @@ export const Calendario = () => {
 
 const styles = StyleSheet.create({
   fullScreenContainer:{
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
   },
   sectionTitleContainer: {
     marginTop: 20,
@@ -143,7 +145,8 @@ const styles = StyleSheet.create({
     color: '#D48888',
     width: '90%',
     textAlign: 'center',
-  }, safeArea:{
+  }, 
+  safeArea:{
     backgroundColor: '#e4e2ff',
   }
 });
