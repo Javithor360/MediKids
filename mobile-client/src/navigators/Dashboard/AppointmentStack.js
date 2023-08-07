@@ -1,8 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 //>> Importin Screens
-import { AppointmentMainScreen, OtoAppointmentProcessScreen } from '../../index'
-import { AppointmentMainScreen,HistorialAppointment } from '../../index'
+import { AppointmentMainScreen, OtoAppointmentProcessScreen, HistorialAppointment } from '../../index'
 import { Other } from '../../screens/app/home/Other'
 
 //>> Creating Stack Navigator
