@@ -5,12 +5,15 @@ import { useNavigation } from '@react-navigation/native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Entypo } from '@expo/vector-icons'; 
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 //>> Constants
 const { height } = Dimensions.get('window');
 
 export const HomeScreen = () => {
   const navigation = useNavigation()
+  const Info = useSelector(state => state.responsible);
+  const Patient = useSelector(state => state.patient);
   
   //>> Aviod Come Back
   useEffect(() => {
@@ -48,15 +51,13 @@ export const HomeScreen = () => {
           <View style={styles.titleContainer}>
             <View style={styles.welcomeMsg}>
               <Text style={{height: '100%', fontSize: 29, color: '#707070',}}>
-                Hola
+                ¡Hola!
               </Text>
+              <Text style={{fontWeight:'bold', color: '#D58C8C',fontSize: 18}}>Encargado</Text>
             </View>
             <View style={styles.userNameDsp}>
               <View style={{height: '100%', justifyContent: 'center',}}>
-                <Text style={{color: '#707070', fontSize: 18}}>Skyler White</Text>
-              </View>
-              <View style={{height: '100%', justifyContent: 'center',}}>
-                <Text style={{fontWeight:'bold', color: '#D58C8C', alignSelf: 'flex-end', marginRight: 10, fontSize: 18}}>Encargado</Text>
+                <Text style={{color: '#707070', fontSize: 18}}>{Info.FirstNames} {Info.LastNames}</Text>
               </View>
             </View>
           </View>
@@ -71,15 +72,15 @@ export const HomeScreen = () => {
               <View style={styles.patientData}>
                 <View style={[styles.patienDataText, {width: '50%', height: '100%'}]}>
                   <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Nombre del paciente:</Text>
-                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">Daniel Ernesto Vásquez Ventura</Text>
+                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{Patient.FirstNames} {Patient.LastNames}</Text>
                 </View>
                 <View style={[styles.patienDataText, {width: '25%', height: '100%'}]}>
                   <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Edad:</Text>
-                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">8 años</Text>
+                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{Patient.Age} años</Text>
                 </View>
                 <View style={[styles.patienDataText, {width: '25%', height: '100%'}]}>
                   <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Género:</Text>
-                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">Masculino</Text>
+                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{Patient.Gender}</Text>
                 </View>
               </View>
             </View>
@@ -247,6 +248,11 @@ const styles = StyleSheet.create({
   welcomeMsg:{
     width: '100%',
     height: '50%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+    
   },
   userNameDsp: {
     width: '100%',
@@ -263,7 +269,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#A375FF',
     marginRight: 'auto',
     marginLeft: 'auto',
-    marginTop: 30,
+    marginTop: 50,
     borderRadius: 20,
   },
   childIconContainer:{

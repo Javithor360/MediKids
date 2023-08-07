@@ -1,7 +1,7 @@
 //>> Importing libraries
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ImageBackground, Modal, TouchableHighlight, BackHandler, KeyboardAvoidingView,} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import DateTimePicker from "@react-native-community/datetimepicker"
 
 //>> Importing components
@@ -12,12 +12,16 @@ import { ScrollView } from "react-native-gesture-handler";
 import { TextInputMask } from "react-native-masked-text";
 
 //>> Importing icons
-import { Feather, AntDesign, Fontisto, MaterialCommunityIcons as MaterialCommIcons, Entypo } from '@expo/vector-icons';
+import { Feather, AntDesign, Fontisto, MaterialCommunityIcons as MaterialCommIcons, MaterialIcons } from '@expo/vector-icons';
 import { useSelector } from "react-redux";
 
 export const RegisterPatientScreen = () => {
   const navigation = useNavigation();
+  const route = useRoute();
   const Email = useSelector(state => state.responsible.Email);
+
+  //! Parameter State
+  const [loggedIn, setLoggedIn] = useState(false);
 
   //! Datepicker states
   const [date, setDate] = useState(new Date());
@@ -135,6 +139,16 @@ export const RegisterPatientScreen = () => {
       const Patients = await getPatients(Email);
 
       if(data.success){
+        //\\ GET THE CORRECT PATIENT ID
+        let patientId;
+        Patients.data.patients.forEach(element => {
+          if(element.Patient_Code == data.Patient_Code) {
+            patientId = element.id
+          }
+        });
+
+        console.log(patientId);
+
         //! Show success message.
         ShowToast('my_success', 'Éxito', 'Paciente Registrado correctamente');
 
@@ -142,10 +156,13 @@ export const RegisterPatientScreen = () => {
         setTimeout(() => {
         setIsLoading(false);
         setSuccess(true);
+
           setTimeout(() => {
-            navigation.navigate('ImmunizationRecordScreen', {Patient_id: Patients.data.patients[0].id});
+            navigation.navigate('ImmunizationRecordScreen', {Patient_id: patientId});
           }, 3000);
+
         }, 4000);
+
       }
     } catch (error) {
       //>> Close loading animation
@@ -171,6 +188,13 @@ export const RegisterPatientScreen = () => {
   }, [isLoading, Success]);
 
   useEffect(() => {
+    if (route.params != undefined) {
+      const {loggedIn} = route.params;
+      setLoggedIn(loggedIn);
+    }
+  }, [route]);
+
+  useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', () => {
         return true;
     })
@@ -182,9 +206,17 @@ export const RegisterPatientScreen = () => {
       <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor:'#fff' }}>
         <View style={AuthStylesGlobal.topWaveContainer}>
           <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
-          <View style={[AuthStylesGlobal.buttomCameBack]}>
-            <Text style={{color: 'white', fontSize: 20, fontFamily: 'poppinsBold'}}>Paso 2</Text>
-          </View>
+            {
+              loggedIn ?
+                <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableButton} onPress={() => navigation.goBack()}>
+                  <MaterialIcons name="arrow-back-ios" size={17} color="white" />
+                  <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
+                </TouchableOpacity>
+                :
+                <View style={[AuthStylesGlobal.buttomCameBack]}>
+                  <Text style={{color: 'white', fontSize: 20, fontFamily: 'poppinsBold'}}>Paso 2</Text>
+                </View>
+            }
         </View>
         <View style={AuthStylesGlobal.contentContainer}>
           <View style={AuthStylesGlobal.formContent} >
@@ -255,7 +287,6 @@ export const RegisterPatientScreen = () => {
                   /> :
                   <TextInput
                     style={[AuthStylesGlobal.input, {textAlignVertical: 'top'}]}
-                    autoFocus={true}
                     placeholder="Peso (lb)"
                     placeholderTextColor="gray"
                     onChangeText={text => setWeight(text)}
@@ -283,7 +314,6 @@ export const RegisterPatientScreen = () => {
                   /> :
                   <TextInput
                     style={[AuthStylesGlobal.input, {textAlignVertical: 'top'}]}
-                    autoFocus={true}
                     placeholder="Estatura (m)"
                     placeholderTextColor="gray"
                     onChangeText={text => setHeight(text)}

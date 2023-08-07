@@ -132,7 +132,7 @@ export const ApplicationTab = () => {
         tabBarStyle: {
           display: "flex",
           backgroundColor: '#A375FF',
-          height: 75,
+          height: isIOS ? 100 : 75,
           width: '100%',
           alignItems: 'center',
           justifyContent: 'center',

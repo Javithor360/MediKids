@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 //>> Importin Screens
 import { AppointmentMainScreen, OtoAppointmentProcessScreen } from '../../index'
+import { AppointmentMainScreen,HistorialAppointment } from '../../index'
 import { Other } from '../../screens/app/home/Other'
 
 //>> Creating Stack Navigator
@@ -18,6 +19,7 @@ export const AppointmentStack = () => {
     >
       <Stack.Screen name="AppointmentStack" component={AppointmentMainScreen} />
       <Stack.Screen name="OtoAppointmentProcessScreen" component={OtoAppointmentProcessScreen} />
+      <Stack.Screen name="HistorialAppointment" component={HistorialAppointment} />
       <Stack.Screen name="Other" component={Other} />
     </Stack.Navigator>
   );

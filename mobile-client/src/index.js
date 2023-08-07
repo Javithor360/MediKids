@@ -18,6 +18,7 @@ export { ImmunizationRecord } from './screens/auth/ImmunizationRecord';
 export { SelectPatientScreen } from './screens/auth/SelectPatientScreen'
 export { AppointmentMainScreen } from './screens/app/appointment/AppointmentMainScreen'
 export { OtoAppointmentProcessScreen } from './screens/app/appointment/OtoAppointmentProcessScreen'
+export { HistorialAppointment } from './screens/app/appointment/HistorialAppointment'
 
 //?? Components
 export { CustomButton } from './components/ButtonHook';
@@ -34,7 +35,7 @@ export { CalendarStack } from './navigators/Dashboard/CalendarStack';
 export { AppointmentStack } from './navigators/Dashboard/AppointmentStack';
 
 //* Queries
-export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord } from './queries/Queries';
+export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord, getAllImmunizationRecords } from './queries/Queries';
 
 //\\ Configs
 export { toastConfig } from './components/toastConfigs';

@@ -20,6 +20,7 @@ const RunStackNav = () => {
       <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} options={{gestureEnabled: false, animationEnabled: isIOS && false}} />
       <Stack.Screen name='ApplicationTab' component={ApplicationTab} options={{gestureEnabled: false, animationEnabled: isIOS && false}} />
+      <Stack.Screen name='SelectPatientScreen' component={SelectPatientScreen} options={{gestureEnabled: false, animationEnabled: isIOS && false}} />
       <Stack.Screen name='VerifyCodeScreen' component={VerifyCodeScreen} options={{gestureEnabled: false}} />
       <Stack.Screen name='ForgotPassCodeScreen' component={ForgotPassCodeScreen} options={{gestureEnabled: false}} />
       <Stack.Screen name='ResetPasswordScreen' component={ResetPasswordScreen} options={{gestureEnabled: false}} />
@@ -29,7 +30,6 @@ const RunStackNav = () => {
       <Stack.Screen name='RegisterScreen' component={RegisterScreen} />
       <Stack.Screen name='ForgotPasswordScreen' component={ForgotPasswordScreen} />
       <Stack.Screen name='SelectProfilePhotoScreen' component={SelectProfilePhotoScreen} />
-      <Stack.Screen name='SelectPatientScreen' component={SelectPatientScreen} />
     </Stack.Navigator>
   );
 }

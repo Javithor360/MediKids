@@ -12,7 +12,8 @@
     font-size: 20pt;
     float: right;
     margin-top: 3em;
-    margin-right: 15em;
+    margin-left: -2em;
+    margin-right: 5em;
 }
 
 
@@ -26,7 +27,9 @@
 }
 .infot {
     font-size: 20pt;
-    width: 40em;                                                                    
+    display: flex;
+    margin-left: 2em;
+    margin-right: -1em;                                             
 }
 .cont-kidf{
     display: flex;
@@ -34,14 +37,13 @@
 }
 .kidt {
     width: auto;
-    height: 35em;
-    margin-left: 2em;
+    height: 25em;
+    margin-left: 1em;
 }
 .cont-err{
     display: flex;
-    width: 70%;
+    width: 100%;
 }
 .btnx{
-    bottom: 0;
-    margin-top: 8em;
+    margin-top: 4em;
 }

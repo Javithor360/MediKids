@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //>> Importing components
 import { AuthStylesGlobal } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
-import { CustomButton, getImmunizationRecord, getPatients, loginResponsible, SetLabel, ShowToast } from '../../index';
+import { CustomButton, getAllImmunizationRecords, getPatients, loginResponsible, SetLabel, ShowToast } from '../../index';
 import { setLogginValues } from '../../store/slices/responsibleSlice';
 import { setStatement } from '../../store/slices/starterSlice';
 
@@ -47,9 +47,28 @@ export const LoginScreen = () => {
 
       //! Patients Query
       const Patients = await getPatients(Email);
-      
+
+      //! get ALL Vaccines records.
+      const Vaccines = await getAllImmunizationRecords();
+
+      //! LOCAL VARIABLE TO VACCINES
+      let VaccineRecord = false;
+      let Patient_Vaccine_id;
+
       //! Vaccines Query
-      const Vaccines = await getImmunizationRecord(Patients.data.patients.length != 0 ? Patients.data.patients[0].id : null);
+      if (Patients.data.patients.length != 0) {
+        Patients.data.patients.forEach(patient => {
+          Vaccines.data.PatientVaccines.forEach(Vaccine => {
+            if(patient.id == Vaccine.Patient_id){
+              VaccineRecord = false;
+              return true;
+            } else {
+              VaccineRecord = true;
+              Patient_Vaccine_id = patient.id;
+            }
+          })
+        });
+      }
 
       //! Disable go back button (after query for enable the try-catch statement).
       setDisableBack(true);
@@ -58,13 +77,13 @@ export const LoginScreen = () => {
         //! Show success message.
         ShowToast('my_success', 'Éxito', 'Inicio de Sesion completo');
 
-        // //! Set the Async Storage Logged In State.
+        //! Set the Async Storage Logged In State.
         const userSession = { Email: Email, isLoggedIn: true, jwtToken: data.token };
         await AsyncStorage.setItem('userSession', JSON.stringify(userSession));
 
-        // //! SET THE RESPONSIBLE SLICE IN REDUX
+        //! SET THE RESPONSIBLE SLICE IN REDUX
         dispatch(setLogginValues({
-          FirstNames: data.User.First_Names, 
+          FirstNames: data.User.First_Names,
           LastNames: data.User.Last_Names,
           Email: data.User.Email,
           DUI: data.User.DUI,
@@ -79,6 +98,7 @@ export const LoginScreen = () => {
         setTimeout(() => {
           setIsLoading(false);
           setSuccess(true);
+
           setTimeout(() => {
             //\\ CHECK IF HE ALREADY SET AN PF.
             if(data.User.Profile_Photo_Url == 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'){
@@ -89,12 +109,12 @@ export const LoginScreen = () => {
               navigation.navigate('RegisterPatientScreen');
 
             //\\ CHECK IF THE PATIENT HAVE BEEN SETTED THE IMMUNIZATION RECORD.
-            } else if (Vaccines.data.immunization_record.length == 0) {
-              navigation.navigate('ImmunizationRecordScreen', {Patient_id: Patients.data.patients[0].id});
+            } else if (VaccineRecord) {
+              navigation.navigate('ImmunizationRecordScreen', {Patient_id: Patient_Vaccine_id});
 
             //\\ REDIRECT THE USER TO THE DASHBOARD.
             } else {
-              navigation.navigate('ApplicationTab');
+              navigation.navigate('SelectPatientScreen');
             }
 
           }, 3000);
