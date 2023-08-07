@@ -1,10 +1,10 @@
 import axios from "axios";
 
 //! Localhost Direction of the server.
-const localhost = '192.168.0.127';
+const localhost = '192.168.0.9';
 
 //\\ const of headers
-const headers_public = { headers: {'Conte¬nt-Type': 'application/json'} }
+const headers_public = { headers: {'Content-Type': 'application/json'} }
 
 //! Get the information about the Responsible.
 //@access public
@@ -70,6 +70,12 @@ export const getPatients = async (Email) => {
 //@access public
 export const getImmunizationRecord = async (Patient_id) => {
   return await axios.post(`http://${localhost}:5005/api/responsible/get_immunization_record`, {Patient_id}, headers_public);
+}
+
+//! get ALL immunization records
+//@access public
+export const getAllImmunizationRecords = async () => {
+  return await axios.get(`http://${localhost}:5005/api/responsible/get_all_immunization_record`, headers_public);
 }
 
 //! Create the Immunization Record.

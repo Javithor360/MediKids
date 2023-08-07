@@ -21,7 +21,7 @@ export const SplashScreen = () => {
     if(State !== null) {
       setTimeout(() => {
         if(State) {
-          navigation.navigate('ApplicationTab');
+          navigation.navigate('SelectPatientScreen');
         } else {
           navigation.navigate('WelcomeScreen');
         }
