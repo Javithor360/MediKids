@@ -99,16 +99,18 @@ export const LoginPage = () => {
                 Ingrese sus credenciales para acceder
               </p>
             </div>
-            {Error && (
-              <span className="ball-description-error messages-login">
-                {Error}
-              </span>
-            )}
-            {Success && (
-              <span className="ball-description-complete messages-login">
-                {Success}
-              </span>
-            )}
+            <div className="h-[0.7rem] w-fit">
+              {Error && (
+                <span className="ball-description-error messages-login text-red-500 italic">
+                  {Error}
+                </span>
+              )}
+              {Success && (
+                <span className="ball-description-complete messages-login text-green-500 italic">
+                  {Success}
+                </span>
+              )}
+            </div>
             <div className="bg-[#D8D7FE] h-[3rem] w-[70%] rounded-xl flex border-[3px] border-transparent focus-within:shadow-md focus-within:bg-white focus-within:border-[#a375ff] focus-within:border-[2px] hover:border-[2px] hover:border-[#a375ff] ease-in duration-100">
               <div className="h-full w-[80%]">
                 <input
