@@ -1,11 +1,11 @@
 
 //>> Import Libraries
-import { StyleSheet, Text, ScrollView, Image, View, TouchableOpacity, ImageBackground, Dimensions, BackHandler } from 'react-native';
+import { StyleSheet, Text, ScrollView, Image, View, TouchableOpacity, ImageBackground, Dimensions, BackHandler,Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Entypo } from '@expo/vector-icons'; 
 import { useEffect } from 'react';
-
+import React, { useState } from 'react'
 //>> Constants
 const { height } = Dimensions.get('window');
 
@@ -20,7 +20,7 @@ export const HomeScreen = () => {
       BackHandler.exitApp();
     })
   }, [navigation]);
-
+  const [view,setView] = useState(false);
   return (
       <ScrollView style={{ height: height, backgroundColor: '#e4e2ff'}}>
         <View style={{backgroundColor:'white'}}>
@@ -37,9 +37,68 @@ export const HomeScreen = () => {
                   <Image source={require('../../../../assets/logos/Logotype_Colored.png')} style={styles.logoHeader}/>
                 </View>
                 <View style={[styles.itemContainer, {width: '20%', height: '100%'}]}>
-                  <TouchableOpacity>
+                  <TouchableOpacity  onPress={()=> setView(true)}>
                     <Entypo name="dots-three-horizontal" size={34} color="#707070" />
                   </TouchableOpacity>
+                <Modal
+
+                  animationType='fade'
+                  onDismiss={() => console.log('close')}
+                  onShow={() => console.log('show')}
+                  transparent
+                  visible={view}
+
+                >
+                  <View
+                    style={{
+                      flex: 1,
+                      backgroundColor: 'rgba(1,1,1, 0.5)',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <View style={{ height: '100%', width: '90%', backgroundColor: '#ffff', left: 45,  }}>
+                      <Text style={{ alignSelf: 'center', top: 10, fontSize: 20, color: '#707070', fontWeight: 'bold', }}>Opciones</Text>
+                      <View style={{ height: '70%', width: '90%', top: 20, alignSelf: 'center', }}>
+                        <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}>
+                        <Text style={{alignSelf: 'flex-start',left:20,fontSize:18,}}>Cambiar paciente</Text>
+                        </TouchableOpacity>
+                        <View style={styles.line}></View>
+                        <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}>
+                        <Text style={{alignSelf: 'flex-start',left:20,fontSize:18,}}>Editar Perfil</Text>
+                        </TouchableOpacity>
+                        <View style={styles.line}></View>
+                        <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}>
+                        <Text style={{alignSelf: 'flex-start',left:20,fontSize:18,}}>Cuenta</Text>
+                        </TouchableOpacity>
+                        <View style={styles.line}></View>
+                        <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}>
+                        <Text style={{alignSelf: 'flex-start',left:20,fontSize:18,}}>Cambiar idioma</Text>
+                        </TouchableOpacity>
+                        <View style={styles.line}></View>
+                        <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}> 
+                        <Text style={{color:'red',fontSize:18,alignSelf: 'flex-start',left:20,}}>Cerrar Sesión</Text>
+                        </TouchableOpacity>
+
+
+
+
+                      </View>
+
+                      <TouchableOpacity style={styles.apptBtn1} onPress={() => setView(false)} >
+                        <Text style={{ color: '#fff', fontSize: 13.5, }}>Cerrar</Text>
+                      </TouchableOpacity>
+
+
+
+
+                    </View>
+
+                  </View>
+
+                </Modal>
+
+
+
                 </View>
               </View>
             </View>
@@ -823,5 +882,22 @@ const styles = StyleSheet.create({
     marginLeft:'55%',
     top:24,
   },
-
+  apptBtn1:{
+    width: '50%',
+    height: 30,
+    backgroundColor: '#B4B4D6',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 25,
+    left:'25%',
+    position: 'absolute',
+    alignSelf: 'flex-end',
+},
+line:{
+  backgroundColor:'#CECEF6',
+  height:'0.2%',
+  width:'90%',
+  alignSelf:'flex-start',
+},
 });
