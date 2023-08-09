@@ -1,29 +1,40 @@
 //>> Importing libraries
-import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, ImageBackground,BackHandler, KeyboardAvoidingView, TouchableOpacity, FlatList} from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground, TouchableOpacity, FlatList, BackHandler} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //>> Importing components
 import { AuthStylesGlobal } from '../../../assets/AuthStyles';
+import { getPatients } from '../../index'
+import { setInitialValues } from '../../store/slices/patientSlice';
+import { setStatement } from '../../store/slices/starterSlice';
+import { setLogginValues } from '../../store/slices/responsibleSlice';
 
-const accountData = [
-  { id: '1', name: 'Daniel Vásquez', image: 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216' },
-  { id: '2', name: 'Javier Mejía', image: 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216' },
-  { id: '3', name: 'Alvin Melendez', image: 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216' },
-  //addButton (keep the order)
-  { id: 'addPatient', name: 'Añadir Paciente' },
-];
+
+//! HOW AccData WILL LOOKS.
+// const accountData = [
+//   { id: '1', name: 'Daniel Vásquez', image: 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216' },
+//   { id: 'addPatient', name: 'Añadir Paciente' },
+// ];
 
 export const SelectPatientScreen = () => {
+  const Resp = useSelector(state => state.responsible);
+  const navigation = useNavigation();
+  const route = useRoute();
+  const dispatch = useDispatch()
+  
+  const [AccData, setAccData] = useState(null);
+
+  const [ReloadSelect, setReloadSelect] = useState(null);
+
+  const [PatientData, setPatientData] = useState(null);
 
   const renderItem = ({ item }) => {
     if (item.id === 'addPatient') {
       return (
-        <TouchableOpacity style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}}>
+        <TouchableOpacity style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}} onPress={() => {navigation.navigate('RegisterPatientScreen', {loggedIn: true})}} >
           <View style={styles.itemContainer}>
             <Image source={require('../../../assets/icons/add_icon.png')} style={styles.image} />
           </View>
@@ -32,7 +43,7 @@ export const SelectPatientScreen = () => {
       );
     } else {
       return (
-        <TouchableOpacity style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}}>
+        <TouchableOpacity onPress={() => {selectPatient(item.Patient_id)}} style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}}>
           <View style={styles.itemContainer}>
             <Image source={{uri: item.image}} style={styles.image} />
           </View>
@@ -41,6 +52,117 @@ export const SelectPatientScreen = () => {
       );
     }
   };
+
+  const selectPatient = (Patient_id) => {
+    PatientData.forEach(patient => {
+      if(patient.id == Patient_id) {
+        // Change the gender to boolean
+        let FinalGender;
+        if (patient.Gender == 1) { FinalGender = 'Masculino' }
+        else { FinalGender = 'Femenino' }
+
+        //? 1 = MALE; 2 = FEMALE;
+
+        dispatch(setInitialValues({
+          FirstNames: patient.First_Names,
+          LastNames: patient.Last_Names,
+          Birth_Date: patient.Birthdate,
+          Age: patient.Age,
+          Gender: FinalGender,
+          Blood_Type: patient.Blood_Type,
+          Weight: patient.Weight,
+          Height: patient.Height,
+          Patient_Code: patient.Patient_Code,
+          Profile_Photo_Url: patient.Profile_Photo_Url
+        }))
+      }
+    });
+    navigation.navigate('ApplicationTab');
+  }
+
+  const getPatientsFunct = async () => {
+    try {
+      const {data} = await getPatients(Resp.Email);
+      setPatientData(data.patients);
+
+      let AC = [{ id: 'addPatient', name: 'Añadir Paciente' }];
+      
+      data.patients.map((patient, id) => {
+        const obj = {id: id+1, name: `${patient.First_Names} ${patient.Last_Names}`, image: patient.Profile_Photo_Url, Patient_id: patient.id};
+        AC.unshift(obj);
+      })
+
+      if( AC.length >= 5 ) {
+        AC.pop();
+      }
+
+      setAccData(AC);
+      setReloadSelect(false);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const LogoutButton = () => {
+    AsyncStorage.removeItem('userSession');
+
+    //ZAMPAR ANIMACION DE CARGANDO DANIIIIIII
+
+    //\\ Reset the Starter slice in redux
+    dispatch(setStatement({
+      Email: null,
+      State: null,
+    }))
+
+    //\\ Reset the Responsible slider in redux
+    dispatch(setLogginValues({
+      FirstNames: null,
+      LastNames: null,
+      Email: null,
+      Phone: null,
+      DUI: null,
+      Age: null,
+      ProfilePhotoUrl: null,
+      Birthdate: null,
+      jwtToken: null,
+    }))
+
+    //\\ Reset the patient slice in redux
+    dispatch(setInitialValues({
+      FirstNames: null,
+      LastNames: null,
+      Birth_Date: null,
+      Age: null,
+      Gender: null,
+      Blood_Type: null,
+      Weight: null,
+      Height: null,
+      Patient_Code: null,
+      Profile_Photo_Url: null,
+    }))
+
+    navigation.navigate('WelcomeScreen')
+  }
+
+  //\\ stater function.
+  useEffect(() => {
+    getPatientsFunct();
+  }, [ReloadSelect]);
+
+  // aux
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      return true;
+    })
+  }, []);
+
+  //! check the params.
+  useEffect(() => {
+    if (route.params != undefined) {
+      const {ReloadSelect} = route.params;
+      setReloadSelect(ReloadSelect);
+    }
+  }, [route]);
 
   return (
       <View style={{ flex: 1, backgroundColor:'#fff' }}>
@@ -54,14 +176,14 @@ export const SelectPatientScreen = () => {
             <Text style={AuthStylesGlobal.title_Text2}>Seleccione un paciente</Text>
             <View style={{width: '90%', alignItems: 'center', justifyContent: 'center',}}>
               <FlatList
-                data={accountData}
+                data={AccData}
                 numColumns={2}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
               />
             </View>
             <View style={{width: '100%', height: 60, alignItems: 'center', justifyContent: 'center', marginTop: 20,}}>
-              <TouchableOpacity style={styles.logoutBtn}>
+              <TouchableOpacity onPress={() => {LogoutButton()}} style={styles.logoutBtn}>
                 <Text style={{color: '#FFFFFF'}}>Cerrar sesión</Text>
               </TouchableOpacity>
             </View>

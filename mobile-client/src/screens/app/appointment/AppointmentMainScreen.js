@@ -1,7 +1,6 @@
 import React from 'react'
 import { Text, ScrollView, StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-
 //Libraries
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native'
@@ -51,7 +50,7 @@ export const AppointmentMainScreen = () => {
                         <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
                         <View style={{height: '65%', padding: 6}}>
                             <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de las enfermedades del oído, nariz, garganta y alergías</Text>
-                            <TouchableOpacity style={styles.apptBtn}>
+                            <TouchableOpacity style={styles.apptBtn} onPress={()=>navigation.navigate('OtoAppointmentProcessScreen')}>
                                 <Text style={{color: '#fff', fontSize: 13.5,}}>Agendar Cita</Text>
                             </TouchableOpacity>
                         </View>

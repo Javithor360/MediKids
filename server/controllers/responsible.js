@@ -135,6 +135,19 @@ const get_immunization_record = async (req, res, next) => {
   }
 }
 
+//! @route POST api/responsible/get_all_immunization_record
+//! @desc Get the information of ALL immunization records.
+//! @access Public
+const get_all_immunization_record = async (req, res, next) => {
+  try {
+    const [PatientVaccines] = await pool.query('SELECT * FROM patient_vaccines');
+  
+    return res.status(200).json({success: true, PatientVaccines: PatientVaccines});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
 //! @route POST api/responsible/create_immunization_record
 //! @desc Set the immunization record for the specified Patient.
 //! @access Public
@@ -157,5 +170,6 @@ export {
   get_patients,
   upload_pf_responsible,
   get_immunization_record,
+  get_all_immunization_record,
   create_immunization_record
 }

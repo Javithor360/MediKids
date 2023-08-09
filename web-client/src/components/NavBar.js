@@ -28,7 +28,7 @@ export const NavBar = () => {
       }
     >
       <div className="navCol1">
-        <Link className="navLink" to="">
+        <Link className="navLink" to="      ">
           {t("navbar.services")}
         </Link>
         <Link className="navLink" to="/nosotros">

@@ -90,7 +90,7 @@ const WeekDate = () => {
             ]}
           >
             <View style={styles.cardTitleWeek}>
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>Semana:</Text>
+              <Text style={{fontSize: 15, fontWeight: 'bold'}}>Semana:</Text>
             </View>
             <View style={styles.weekRangeContainer}>
               <Text style={[styles.cardText, selectedWeek === week && styles.selectedCardText]}>
@@ -102,30 +102,45 @@ const WeekDate = () => {
         ))}
       </View>
       
-      {selectedWeek && (
+      {/* {selectedWeek && (
         <View style={styles.selectedWeekContainer}>
           <Text style={styles.selectedWeekText}>Semana seleccionada: {selectedWeek}</Text>
         </View>
-      )}
+      )
+      } */}
+
+      {
+        selectedWeek ?
+        <View style={styles.selectedWeekContainer}>
+          <Text style={styles.selectedWeekText}>Semana seleccionada: {selectedWeek}</Text>
+        </View>
+        :
+        <View style={styles.selectedWeekContainer}>
+          <Text style={styles.selectedWeekText}>Cuando su solicitud sea revisada se eligirá un día de esa semana disponible para la cita</Text>
+        </View>
+      }
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   componentContainer:{
-    width: wp('100%'),
+    height: 360,
+    width: '90%',
     // backgroundColor: 'green',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 90,
+    alignSelf: 'center',
+    // paddingBottom: 80,
+    // marginBottom: 20,
   },
   navigationContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
-    backgroundColor: '#A375FF',
-    width: wp('90%'),
+    backgroundColor: '#5AB1BB',
+    width: '90%',
     height: 40,
     borderRadius: 10,
   },
@@ -140,13 +155,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   monthTitle: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#FFFFFF',
   },
   weeksContainer: {
-    width: wp('90%'),
+    width: '90%',
     // height: 250,
     // backgroundColor: 'yellow',
     flexDirection: 'column',
@@ -156,7 +171,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     borderRadius: 10,
     height: 40,
-    width: wp('90%'),
+    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 10,
@@ -182,24 +197,28 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
   },
   cardText: {
-    fontSize: 16,
+    fontSize: 14,
   },
   selectedCardText: {
     fontWeight: 'bold',
   },
   selectedWeekContainer: {
+    width: '100%',
     backgroundColor: '#fff',
-    padding: 10,
+    padding: 7,
     marginBottom: 10,
     borderRadius: 10,
     borderWidth: 1,
     borderColor:'#E8E8E8',
-    elevation: 1
+    elevation: 1,
+    // position: 'absolute',
+    // bottom: 9,
   },
   selectedWeekText: {
     fontSize: 14,
     fontStyle: 'italic',
     color: '#707070',
+    textAlign: 'center',
   },
 });
 
