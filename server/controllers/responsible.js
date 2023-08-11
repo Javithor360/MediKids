@@ -74,6 +74,22 @@ const get_patients = async (req, res) => {
   }
 }
 
+//! @route POST api/responsible/get_patient
+//! @desc Get only one patient
+//! @access Public
+const get_patient = async (req, res) => {
+  try {
+    const {PatientId} = req.body;
+
+    // GET THE PATIENT INDIVIDUALLY.
+    const [patient] = await pool.query('SELECT * FROM patient WHERE id = ?', [PatientId]);
+
+    return res.status(200).json({success: true, patient });
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
 //! @route POST api/responsible/upload_photo
 //! @desc Reset the password and set null the tokens.
 //! @access Public
@@ -168,6 +184,7 @@ export {
   get_email_to_verify,
   get_responsible,
   get_patients,
+  get_patient,
   upload_pf_responsible,
   get_immunization_record,
   get_all_immunization_record,

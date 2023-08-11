@@ -4,7 +4,7 @@ import { AntDesign } from '@expo/vector-icons';
 export const toastConfig = {
   my_success: ({ text1, text2 }) => {
     let bigContainer;
-    // if(text2.includes('\n')) bigContainer = true;
+    if(text2.includes('\n')) bigContainer = true;
 
     return (
       <View style={[styles.ContainerToast, {height: bigContainer ? 85 : 60 }]}>
@@ -21,7 +21,7 @@ export const toastConfig = {
   },
   my_error: ({ text1, text2 }) => {
     let bigContainer;
-    // if(text2.includes('\n')) bigContainer = true;
+    if(text2.includes('\n')) bigContainer = true;
 
     return (
       <View style={[styles.ContainerToast, {height: bigContainer ? 85 : 60 }]}>
@@ -38,7 +38,7 @@ export const toastConfig = {
   },
   my_warning: ({text1, text2}) => {
     let bigContainer;
-    // if(text2.includes('\n')) bigContainer = true;
+    if(text2.includes('\n')) bigContainer = true;
 
     return (
       <View style={[styles.ContainerToast, {height: bigContainer ? 85 : 60 }]}>

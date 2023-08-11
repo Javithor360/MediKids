@@ -11,7 +11,7 @@ import Checkbox from 'expo-checkbox';
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
-import { CustomButton, SetLabel, ShowToast, createImmunizationRecord } from '../../index';
+import { CustomButton, SetLabel, ShowToast, createImmunizationRecord, getPatient } from '../../index';
 import { ScrollView } from "react-native-gesture-handler";
 
 export const ImmunizationRecord = () => {
@@ -19,7 +19,7 @@ export const ImmunizationRecord = () => {
   const route = useRoute();
 
   //! State for the Form.
-  const [PatientId, setPatientId] = useState(undefined);
+  const [PatientId, setPatientId] = useState(null);
   const [isChecked, setIsChecked] = useState({
     bgc: false,
     hepatitis: false,
@@ -41,6 +41,9 @@ export const ImmunizationRecord = () => {
 
   //! State For disable the button
   const [DisableButton, setDisableButton] = useState(false);
+
+  //! State for the name of the patient.
+  const [PatientName, setPatientName] = useState(null);
 
   const setImmunizationRecord = async () => {
     try {
@@ -75,6 +78,16 @@ export const ImmunizationRecord = () => {
     }
   }
 
+  //\\ Function to get the name of the patient whose are registering.
+  const getPatientFunct = async (id) => {
+    try {
+      const {data} = await getPatient(id);
+      setPatientName(`${data.patient[0].First_Names} ${data.patient[0].Last_Names}`);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   //! Disable the send buttom
   useEffect(() => {
     if(isLoading){
@@ -100,6 +113,12 @@ export const ImmunizationRecord = () => {
     }
   }, [route]);
 
+  useEffect(() => {
+    if (PatientId != null){
+      getPatientFunct(PatientId);
+    }
+  }, [PatientId]);
+
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#e4e2ff',}}
     behavior={'padding'}>
@@ -113,10 +132,11 @@ export const ImmunizationRecord = () => {
         <View style={AuthStylesGlobal.contentContainer}>
           <View style={AuthStylesGlobal.formContent} >
             <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')} />
-            <Text style={AuthStylesRegisterU.Tex_md}>Registro de vacunación</Text>
+            <Text style={[AuthStylesRegisterU.Tex_md, {fontSize: isIOS ? 28 : 30}]}>Registro de vacunación</Text>
             <View style={[AuthStylesGlobal.cont2,]} >
               <Text style={AuthStylesGlobal.TextCount}>¡Necesitamos la informacion del menor para hacer un muy buen trabajo!</Text>
             </View>
+            <Text style={{fontSize: 16 , fontFamily: 'poppinsRegular'}}> Paciente: <Text style={{fontWeight: 'bold'}}>{PatientName}</Text></Text>
 
             <View style={styles.vaccinesContainer}>
               <Text style={styles.vaccinesTitle}>Seleccione las Vacunas</Text>

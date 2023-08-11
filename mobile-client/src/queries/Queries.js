@@ -66,6 +66,12 @@ export const getPatients = async (Email) => {
   return await axios.post(`http://${localhost}:5005/api/responsible/get_patients`, { Email }, headers_public);
 }
 
+//! Get only one patient of the Responsible.
+//@access public
+export const getPatient = async (PatientId) => {
+  return await axios.post(`http://${localhost}:5005/api/responsible/get_patient`, { PatientId }, headers_public);
+}
+
 //! Get the Immunization Record of the Patient of the Responsible.
 //@access public
 export const getImmunizationRecord = async (Patient_id) => {
