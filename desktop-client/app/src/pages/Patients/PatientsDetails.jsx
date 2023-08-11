@@ -44,8 +44,6 @@ export const PatientsDetails = () => {
 
   const appDate = new Date(nextAppointment.Date);
 
-  console.log(responsibleInfo)
-
   const modalContent = () => {
     switch (numbercomp) {
       case 1:
@@ -100,7 +98,7 @@ export const PatientsDetails = () => {
             <p className="flex items-center justify-center gap-3 font-semibold">
               <MdNotifications className="text-[#a375ff] text-[1.8rem]" />
               Proxima cita el:{" "}
-              {`${appDate.getDate()}/${appDate.getMonth()}/${appDate.getFullYear()} (${appDate.toLocaleTimeString(
+              {`${appDate.getDate()}/${appDate.getMonth() + 1}/${appDate.getFullYear()} (${appDate.toLocaleTimeString(
                 [],
                 { hour: "2-digit", minute: "2-digit" }
               )})`}
