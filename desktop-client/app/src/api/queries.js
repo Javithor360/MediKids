@@ -55,3 +55,11 @@ export const getResponsibleInfo = async (Responsible_id, PrivateConfig) => {
     PrivateConfig
   );
 }
+
+export const getPatientMedicalRecords = async (Patient_id, PrivateConfig) => {
+  return await axios.post(
+    `http://localhost:5005/api/doctor/get_patient_medical_record`,
+    { Patient_id },
+    PrivateConfig
+  );
+}

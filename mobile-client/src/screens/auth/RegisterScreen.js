@@ -132,6 +132,7 @@ export const RegisterScreen = () => {
                     placeholderTextColor="gray"
                     onChangeText={text => setFirstNames(text)}
                     editable={!DisableButton}
+                    autoCapitalize='none'
                   />
                 </View>
                 <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
@@ -142,6 +143,7 @@ export const RegisterScreen = () => {
                     placeholderTextColor="gray"
                     onChangeText={text => setLastNames(text)}
                     editable={!DisableButton}
+                    autoCapitalize='none'
                   />
                 </View>
               </View>
@@ -193,7 +195,7 @@ export const RegisterScreen = () => {
                     /> :
                     <TextInput
                       style={AuthStylesGlobal.input}
-                      placeholder="DUI"
+                      placeholder="Telefono"
                       placeholderTextColor="gray"
                       onChangeText={text => setPhone(text)}
                       editable={!DisableButton}

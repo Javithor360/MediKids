@@ -5,7 +5,8 @@ import {
   getAllApointments,
   newMedicalRecordEntry,
   getPatientAppointmentWithDoctor,
-  getResponsibleInfo
+  getResponsibleInfo,
+  getPatientMedicalRecords
 } from "../api/queries";
 
 const dashContext = createContext();
@@ -25,6 +26,7 @@ export const DoctorProvider = ({ children }) => {
 
   const [nextAppointment, setNextAppointment] = useState({});
   const [responsibleInfo, setResponsibleInfo] = useState({});
+  const [medicalRecords, setMedicalRecords] = useState([]);
   
   const PrivateConfig = {
     header: {
@@ -125,6 +127,15 @@ export const DoctorProvider = ({ children }) => {
     }
   }
 
+  const PatientMedicalRecords = async (Patient_id) => {
+    try {
+      const res = await getPatientMedicalRecords(Patient_id, PrivateConfig);
+      setMedicalRecords(res.data.body);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <dashContext.Provider
       value={{
@@ -140,6 +151,8 @@ export const DoctorProvider = ({ children }) => {
         setNextAppointment,
         responsibleInfo,
         setResponsibleInfo,
+        medicalRecords,
+        setMedicalRecords,
         DoctorInfoQuery,
         ActivePatientsQuery,
         AppointmentsQuery,
@@ -147,7 +160,8 @@ export const DoctorProvider = ({ children }) => {
         CreateMedicalRecordEntry,
         EndMedicalAppointment,
         PatientAppointmentWithDoctor,
-        ResponsibleInformation
+        ResponsibleInformation,
+        PatientMedicalRecords
       }}
     >
       {children}
