@@ -89,32 +89,40 @@ export const SelectPatientScreen = () => {
     let VaccinesNotFounded = false;
 
     //\\ Validate if the patient doesnt have an Immunization Record.
-    PatientData.forEach(patient => {
-      if(patient.id == Patient_id) {
-        VaccinesData.forEach(vaccineRec => {
-          //>> Flag to close the foreach loop
-          if (VaccinesFlag){
-            return;
+    if (VaccinesData.length != 0) {
+      PatientData.forEach(patient => {
+        if(patient.id == Patient_id) {
+          VaccinesData.forEach(vaccineRec => {
+            //>> Flag to close the foreach loop
+            if (VaccinesFlag){
+              return;
+            }
+  
+            if (patient.id == vaccineRec.Patient_id){
+              selectPatient(Patient_id);
+              VaccinesFlag = true;
+              VaccinesNotFounded = false;
+            } else {
+              VaccinesNotFounded = true;
+            }
+          })
+          if (VaccinesNotFounded) {
+            setDisableBtn(true);
+            ShowToast('my_warning', 'Warning', 'El paciente no tiene registro\n de vacunación')
+            setTimeout(() => {
+              navigation.navigate('ImmunizationRecordScreen', {Patient_id})
+            }, 2000);
           }
-
-          if (patient.id == vaccineRec.Patient_id){
-            selectPatient(Patient_id);
-            VaccinesFlag = true;
-            VaccinesNotFounded = false;
-          } else {
-            VaccinesNotFounded = true;
-          }
-        })
-        if (VaccinesNotFounded) {
-          setDisableBtn(true);
-          ShowToast('my_warning', 'Warning', 'El paciente no tiene registro\n de vacunación')
-          setTimeout(() => {
-            navigation.navigate('ImmunizationRecordScreen', {Patient_id})
-          }, 2000);
+  
         }
-
-      }
-    })
+      })
+    } else {
+      setDisableBtn(true);
+      ShowToast('my_warning', 'Warning', 'El paciente no tiene registro\n de vacunación')
+      setTimeout(() => {
+        navigation.navigate('ImmunizationRecordScreen', {Patient_id})
+      }, 2000);
+    }
   }
 
   const getPatientsFunct = async () => {
@@ -194,6 +202,7 @@ export const SelectPatientScreen = () => {
   useEffect(() => {
     getPatientsFunct();
     getImmunizationRecordFunc();
+    setDisableBtn(false);
   }, [ReloadSelect]);
 
   // aux

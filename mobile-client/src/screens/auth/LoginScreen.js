@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //>> Importing components
 import { AuthStylesGlobal } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
-import { CustomButton, getAllImmunizationRecords, getPatients, loginResponsible, SetLabel, ShowToast } from '../../index';
+import { CustomButton, getPatients, loginResponsible, SetLabel, ShowToast } from '../../index';
 import { setLogginValues } from '../../store/slices/responsibleSlice';
 import { setStatement } from '../../store/slices/starterSlice';
 
@@ -47,28 +47,6 @@ export const LoginScreen = () => {
 
       //! Patients Query
       const Patients = await getPatients(Email);
-
-      //! get ALL Vaccines records.
-      const Vaccines = await getAllImmunizationRecords();
-
-      //! LOCAL VARIABLE TO VACCINES
-      let VaccineRecord = false;
-      let Patient_Vaccine_id;
-
-      //! Vaccines Query
-      if (Patients.data.patients.length != 0) {
-        Patients.data.patients.forEach(patient => {
-          Vaccines.data.PatientVaccines.forEach(Vaccine => {
-            if(patient.id == Vaccine.Patient_id){
-              VaccineRecord = false;
-              return true;
-            } else {
-              VaccineRecord = true;
-              Patient_Vaccine_id = patient.id;
-            }
-          })
-        });
-      }
 
       //! Disable go back button (after query for enable the try-catch statement).
       setDisableBack(true);
@@ -108,13 +86,9 @@ export const LoginScreen = () => {
             } else if (Patients.data.patients.length == 0) {
               navigation.navigate('RegisterPatientScreen');
 
-            //\\ CHECK IF THE PATIENT HAVE BEEN SETTED THE IMMUNIZATION RECORD.
-            } else if (VaccineRecord) {
-              navigation.navigate('ImmunizationRecordScreen', {Patient_id: Patient_Vaccine_id});
-
             //\\ REDIRECT THE USER TO THE DASHBOARD.
             } else {
-              navigation.navigate('SelectPatientScreen');
+              navigation.replace('SelectPatientScreen');
             }
 
           }, 3000);
@@ -220,7 +194,7 @@ export const LoginScreen = () => {
             }}>Olvidé mi contraseña</Text>
 
             <View style={AuthStylesGlobal.buttonView}>
-              <CustomButton 
+              <CustomButton
                 bgColor={'#A375FF'}
                 paddingV={0}
                 paddingH={0}

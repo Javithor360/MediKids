@@ -26,7 +26,7 @@ export const HomeScreen = () => {
   }, [navigation]);
   const [view,setView] = useState(false);
   return (
-      <ScrollView style={{ height: height, backgroundColor: '#e4e2ff'}}>
+      <ScrollView style={{ height: height + 100, backgroundColor: '#e4e2ff'}}>
         <View style={{backgroundColor:'white'}}>
           <View style={styles.waveTopContent}>
             <ImageBackground source={require('../../../../assets/waves/waves_start_top.png')} style={styles.waveImg}></ImageBackground>
@@ -82,27 +82,13 @@ export const HomeScreen = () => {
                         <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}> 
                         <Text style={{color:'red',fontSize:18,alignSelf: 'flex-start',left:20,}}>Cerrar Sesión</Text>
                         </TouchableOpacity>
-
-
-
-
                       </View>
-
                       <TouchableOpacity style={styles.apptBtn1} onPress={() => setView(false)} >
                         <Text style={{ color: '#fff', fontSize: 13.5, }}>Cerrar</Text>
                       </TouchableOpacity>
-
-
-
-
                     </View>
-
                   </View>
-
                 </Modal>
-
-
-
                 </View>
               </View>
             </View>
@@ -110,14 +96,14 @@ export const HomeScreen = () => {
 
           <View style={styles.titleContainer}>
             <View style={styles.welcomeMsg}>
-              <Text style={{height: '100%', fontSize: 29, color: '#707070',}}>
+              <Text style={{height: '100%', fontSize: 29, color: '#707070', fontFamily: 'poppinsRegular'}}>
                 ¡Hola!
               </Text>
-              <Text style={{fontWeight:'bold', color: '#D58C8C',fontSize: 18}}>Encargado</Text>
+              <Text style={{fontWeight:'bold', color: '#D58C8C',fontSize: 18, fontFamily: 'poppinsBold'}}>Encargado</Text>
             </View>
             <View style={styles.userNameDsp}>
-              <View style={{height: '100%', justifyContent: 'center',}}>
-                <Text style={{color: '#707070', fontSize: 18}}>{Info.FirstNames} {Info.LastNames}</Text>
+              <View style={{height: '100%', justifyContent: 'center'}}>
+                <Text style={{color: '#707070', fontSize: 18, fontFamily: 'poppinsRegular'}}>{Info.FirstNames} {Info.LastNames}</Text>
               </View>
             </View>
           </View>
@@ -125,7 +111,7 @@ export const HomeScreen = () => {
           <View style={styles.cardInfoContainer}>
             <View style={{width: '100%', height: '16%',alignItems: 'center',}}>
               <View style={styles.childIconContainer}>
-                <Image source={require('../../../../assets/icons/kid.png')}  style={{width: '70%', resizeMode: 'contain',}} />
+                <Image source={require('../../../../assets/icons/kid.png')} style={{width: '70%', resizeMode: 'contain',}} />
               </View>
             </View>
             <View style={{width: '100%', height: '37.5%', alignItems: 'center',}}>
@@ -158,20 +144,20 @@ export const HomeScreen = () => {
             </View>
           </View>
 
-          <Text style={{marginTop: 25, marginLeft: 20, marginBottom: 20, fontSize: 29, color: '#707070',textDecorationLine: 'underline'}}>
+          <Text style={{marginTop: 25, fontSize: 29, color: '#707070',textDecorationLine: 'underline', textAlign: 'center', fontFamily: 'poppinsBold', marginBottom: -15}}>
             Recordatorios
           </Text>
           
-          <View style={{height: 'auto', width: '100%',  flexDirection: 'row',}}>
+          <View style={{height: 'auto', width: '100%', flexDirection: 'row',}}>
             <View style={styles.reminderContainer}>
               <View style={styles.reminderCard}>
-                <Text style={{marginTop: 25, fontSize: 16, fontWeight: "900", color: '#000000', textAlign: 'center',}}>Citas</Text>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: '30%', width: '80%', gap: 15}}>
-                  <Image source={require('../../../../assets/icons/note-time.png')} style={{height: '60%', resizeMode: 'contain',}}/>
-                  <Text style={{fontSize: 35, color:  '#A375FF', fontWeight: 600,}}>2</Text>
+                <Text style={{marginTop: 25, fontSize: 22,fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>Citas</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%',}}>
+                  <Image source={require('../../../../assets/icons/note-time.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
+                  <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>2</Text>
                 </View>
 
-                <Text style={{marginTop: 10, fontWeight: "900", fontSize: 15, color: '#000000'}}>Cita mas proxima:</Text>
+                <Text style={{marginTop: 10, fontWeight: "900", fontSize: 15, color: '#d17878', textAlign: 'center'}}>Próxima cita:</Text>
 
                 <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Fecha: </Text>09/05/23</Text>
 
@@ -185,17 +171,17 @@ export const HomeScreen = () => {
 
             <View style={styles.reminderContainer}>
               <View style={styles.reminderCard}>
-              <Text style={{marginTop: 25, fontSize: 16, fontWeight: "900", color: '#000000', textAlign: 'center',}}>Recetas</Text>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', height: '30%', width: '80%', gap: 15}}>
-                  <Image source={require('../../../../assets/icons/recipe.png')} style={{height: '60%', resizeMode: 'contain',}}/>
-                  <Text style={{fontSize: 35, color:  '#A375FF', fontWeight: 600,}}>1</Text>
+              <Text style={{marginTop: 25, fontSize: 22, fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>Medicinas</Text>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%',}}>
+                  <Image source={require('../../../../assets/icons/recipe.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
+                  <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>1</Text>
                 </View>
 
-                <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Medicamentos: </Text>5</Text>
+                <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Nombre: </Text>Te-entramitrozón</Text>
 
-                <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Fecha: </Text>09/05/23</Text>
+                <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Prox. dosis: </Text>09/05/23</Text>
 
-                <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Total: </Text>$50.89</Text>
+                <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Dosis: </Text>50Ml</Text>
 
                 <TouchableOpacity style={styles.touchableViewBtn2}>
                   <Text style={{color: '#fff'}}>Más detalles</Text>
@@ -204,58 +190,49 @@ export const HomeScreen = () => {
             </View>
           </View>
 
-          <Text style={{marginTop: 25, marginLeft: 20, marginBottom: 20, fontSize: 29, color: '#707070',textDecorationLine: 'underline'}}>
+          <Text style={{fontSize: 29, color: '#707070',textDecorationLine: 'underline', textAlign: 'center', fontFamily: 'poppinsBold', marginBottom: 15}}>
             Categorias
           </Text>
 
           <View style={styles.categCardContainer}>
-            <View style={{height: '60%', width: '100%', flexDirection: 'row',}}>
-              <View style={{width: '30%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
-                <Image source={require('../../../../assets/graphic-icons/gastro-icon.png')} style={{width: '100%', height: '70%', resizeMode: 'contain',}}/>
-              </View>
-              <View style={{width: '70%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
-                <Text style={{fontWeight: 600, fontSize: 22, color: "#707070", alignSelf: 'flex-start', marginLeft: 10, marginBottom: 4,}}>Gastroenterología</Text>
-                <Text style={{fontSize: 14, color: "#707070", alignSelf: 'flex-start', marginLeft: 10,}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a</Text>
-              </View>
+            <View style={{width: '35%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+              <Image source={require('../../../../assets/graphic-icons/gastro-icon.png')} style={{width: '70%', height: '60%', resizeMode: 'contain'}}/>
             </View>
-            <View style={{height: '40%', width: '100%', justifyContent: 'center',}}>
-              <TouchableOpacity onPress={()=>navigation.navigate('Gastro') }  style={styles.touchableViewBtn3}>
-                <Text style={{color: '#fff'}}>Más detalles</Text>
-              </TouchableOpacity>
+            <View style={{width: '1%', height: '85%', backgroundColor: '#707070', borderRadius: 5}} />
+            <View style={{width: '64%', height: '100%', padding: 10, flexDirection: 'column', justifyContent: 'space-evenly'}}>
+              <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>Gastroenterología</Text>
+              <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a.</Text>
+              <TouchableOpacity onPress={()=>navigation.navigate('Gastro') } style={styles.touchableViewBtn3}>
+                  <Text style={{color: '#fff'}}>Más detalles</Text>
+                </TouchableOpacity>
             </View>
           </View>
 
-          <View style={styles.categCardContainer}>
-            <View style={{height: '60%', width: '100%', flexDirection: 'row',}}>
-              <View style={{width: '30%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
-                <Image source={require('../../../../assets/graphic-icons/otorrino-icon.png')} style={{width: '100%', height: '70%', resizeMode: 'contain',}}/>
-              </View>
-              <View style={{width: '70%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
-                <Text style={{fontWeight: 600, fontSize: 22, color: "#707070", alignSelf: 'flex-start', marginLeft: 10, marginBottom: 4,}}>Otorrinolaringología</Text>
-                <Text style={{fontSize: 14, color: "#707070", alignSelf: 'flex-start', marginLeft: 10,}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a</Text>
-              </View>
+          <View style={[styles.categCardContainer, {backgroundColor: '#D8D7FE'}]}>
+            <View style={{width: '35%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+              <Image source={require('../../../../assets/graphic-icons/otorrino-icon.png')} style={{width: '70%', height: '60%', resizeMode: 'contain'}}/>
             </View>
-            <View style={{height: '40%', width: '100%', justifyContent: 'center',}}>
-              <TouchableOpacity  onPress={()=>navigation.navigate('Otorrino') }  style={styles.touchableViewBtn3}>
-                <Text style={{color: '#fff'}}>Más detalles</Text>
-              </TouchableOpacity>
+            <View style={{width: '1%', height: '85%', backgroundColor: '#707070', borderRadius: 5}} />
+            <View style={{width: '64%', height: '100%', padding: 10, flexDirection: 'column', justifyContent: 'space-evenly'}}>
+              <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>Otorrinolaringología</Text>
+              <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a.</Text>
+              <TouchableOpacity onPress={()=>navigation.navigate('Gastro') } style={styles.touchableViewBtn3}>
+                  <Text style={{color: '#fff'}}>Más detalles</Text>
+                </TouchableOpacity>
             </View>
           </View>
 
-          <View style={styles.categCardContainer}>
-            <View style={{height: '60%', width: '100%', flexDirection: 'row',}}>
-              <View style={{width: '30%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
-                <Image source={require('../../../../assets/graphic-icons/neumologia-icon.png')} style={{width: '100%', height: '70%', resizeMode: 'contain',}}/>
-              </View>
-              <View style={{width: '70%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
-                <Text style={{fontWeight: 600, fontSize: 22, color: "#707070", alignSelf: 'flex-start', marginLeft: 10, marginBottom: 4,}}>Neumología</Text>
-                <Text style={{fontSize: 14, color: "#707070", alignSelf: 'flex-start', marginLeft: 10,}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a</Text>
-              </View>
+          <View style={[styles.categCardContainer, {backgroundColor:"#90dfe7"}]}>
+            <View style={{width: '35%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+              <Image source={require('../../../../assets/graphic-icons/neumologia-icon.png')} style={{width: '70%', height: '60%', resizeMode: 'contain'}}/>
             </View>
-            <View style={{height: '40%', width: '100%', justifyContent: 'center',}}>
-              <TouchableOpacity onPress={()=>navigation.navigate('SpecialityInfoN') } style={styles.touchableViewBtn3}>
-                <Text style={{color: '#fff'}}>Más detalles</Text>
-              </TouchableOpacity>
+            <View style={{width: '1%', height: '85%', backgroundColor: '#707070', borderRadius: 5}} />
+            <View style={{width: '64%', height: '100%', padding: 10, flexDirection: 'column', justifyContent: 'space-evenly'}}>
+              <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>Neumología</Text>
+              <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a.</Text>
+              <TouchableOpacity onPress={()=>navigation.navigate('Gastro') } style={styles.touchableViewBtn3}>
+                  <Text style={{color: '#fff'}}>Más detalles</Text>
+                </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -392,7 +369,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   reminderCard: {
-    height:'90%',
+    height:'85%',
     width: '85%',
     backgroundColor: '#fff',
     borderRadius: 29,
@@ -417,14 +394,14 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   touchableViewBtn3: {
-    height: '50%',
-    width: '35%',
+    height: '25%',
+    width: '50%',
     borderRadius: 15,
     backgroundColor: '#D58C8C',
     alignItems: 'center',
     justifyContent: 'center',
-    alignSelf: 'flex-end',
-    marginRight: 30,
+    alignSelf: 'center',
+
   },
   categCardContainer: {
     width: '90%',
@@ -436,6 +413,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     borderRadius: 25,
     marginBottom: 20,
+    flexDirection: 'row',
   },
   User:{
     fontSize:20,

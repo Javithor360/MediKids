@@ -27,157 +27,160 @@ const Otorrino = () => {
             source={require('../../../../assets/bg/oto_bg_card.png')}
           />
         </View>
-        <Text style={styles.title1}>
-            ¿En que nos enfocamos?
-        </Text>
-        <View style={styles.mainInfoContainer}>
-          <View style={styles.spcIconContainer}>
-            <View style={styles.iconWrapper}>
-              <Image style={{width: '75%', height: '75%', resizeMode: 'contain',}} source={require('../../../../assets/graphic-icons/otorrino-icon.png')}></Image>
-            </View>
-          </View>
-          <View style={styles.infoTextContainer}>
-            <Text style={{color: '#707070', marginLeft: wp('3%'),}}>Profesionales de la medicina que ha recibido formación en el diagnóstico y tratamiento de las enfermedades del oído, la nariz y la garganta.</Text>
-          </View>
-        </View>
-        <View style={styles.separator}></View>
-        <Text style={styles.title1}>
-          Enfermedades comunes
-        </Text>
-        <Text style={styles.textPart}>
-        Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con los sentidos, como problemas del olfato y el gusto o trastornos del equilibrio y la audición. 
-        </Text>
-        <View style={styles.diseasesMainC}>
-          <View style={styles.diseaseCard}>
-            <View style={styles.cardIconContainer}>
-              <View style={styles.cardIconWrapper}>
-                <Image source={require('../../../../assets/icons/sangrado.png')} style={{height: '70%', width: '70%', resizeMode: 'contain',}}></Image>
-              </View>
-            </View>
-            <View style={styles.cardContentContainer}>
-              <View style={styles.cardTitle}>
-                <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Hemorragia nasal</Text>
-              </View>
-              <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Irritaciones debido a alergias, resfriados, estornudos o problemas sinusales. Aire muy frío o seco.</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.diseaseCard}>
-            <View style={styles.cardIconContainer}>
-              <View style={styles.cardIconWrapper}>
-                <Image source={require('../../../../assets/icons/oido.png')} style={{height: '70%', width: '70%', resizeMode: 'contain',}}></Image>
-              </View>
-            </View>
-            <View style={styles.cardContentContainer}>
-              <View style={styles.cardTitle}>
-                <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Pérdida de la audición</Text>
-              </View>
-              <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>La pérdida de audición puede ser leve, moderada, grave o profunda. </Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.diseaseCard}>
-            <View style={styles.cardIconContainer}>
-              <View style={styles.cardIconWrapper}>
-                <Image source={require('../../../../assets/icons/laringe.png')} style={{height: '70%', width: '70%', resizeMode: 'contain',}}></Image>
-              </View>
-            </View>
-            <View style={styles.cardContentContainer}>
-              <View style={styles.cardTitle}>
-                <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Laringitis</Text>
-              </View>
-              <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>es la inflamación de la caja de voz (laringe) por uso excesivo, irritación o infección.</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.diseaseCard}>
-            <View style={styles.cardIconContainer}>
-              <View style={styles.cardIconWrapper}>
-                <Image source={require('../../../../assets/icons/otorrinolaringologia.png')} style={{height: '70%', width: '70%', resizeMode: 'contain',}}></Image>
-              </View>
-            </View>
-            <View style={styles.cardContentContainer}>
-              <View style={styles.cardTitle}>
-                <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Sinusitis</Text>
-              </View>
-              <View style={styles.cardDescription}>
-                <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Las sinusitis ocurren cuando se acumula líquido en los senos paranasales (cavidades en la cara que están llenas de aire).</Text>
-              </View>
-            </View>
-          </View>
-          <View style={styles.noteContainer}>
-            <View style={{width: '15%', height: '100%', alignItems: 'center',justifyContent: 'center',}}>
-              <Image source={require('../../../../assets/icons/focus_icon.png')} style={{width: '90%', height: '90%', resizeMode: 'contain',}}></Image>
-            </View>
-            <View style={{width: '85%', height: '100%', justifyContent: 'center'}}>
-              <Text style={{color: '#707070'}}>Todos los pacientes son analizados para un diagnostico mas preciso y tratamiento personalizado </Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.separator}></View>
-
-        <Text style={styles.title1}>
-          Nuestro especialista
-        </Text>
-        <View style={styles.cardDoctorContainer}>
-          <View style={styles.doctorPicContainer}>
-            <ImageBackground source={require('../../../../assets/default-pics/dra-garza.png')} style={{height: '100%', width: '100%', alignSelf: 'center', justifyContent: 'center', resizeMode: 'contain'}}></ImageBackground>
-          </View>
-          <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: 600, color: '#707070', fontSize: 21}}>Dra. Fátima Garza</Text>
-          <Text style={styles.docDescription}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae veniam magni aliquid ratione molestias ut harum veritatis, illum velit non eaque voluptate officiis alias minima molestiae error aliquam sed? Suscipit.</Text>
-
-          <View style={styles.doctorTitle}>
-            <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
-              <MaterialCommunityIcons name="stethoscope" size={25} color="#707070" />
-            </View>
-            <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
-              <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
-            </View>
-          </View>
-
-          <View style={styles.doctorTitle}>
-            <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
-              <MaterialIcons name="stars" size={25} color="#707070" />
-            </View>
-            <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
-              <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
-            </View>
-          </View>
-
-          <View style={styles.doctorTitle}>
-            <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
-              <MaterialIcons name="medical-services" size={25} color="#707070" />
-            </View>
-            <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
-              <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
-            </View>
-          </View>
-
-          <View style={styles.separator2}></View>
-
-          <View style={styles.contactSection}>
-            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5}}>
-              <MaterialIcons name="mail-outline" size={18} color="#A375FF" />
-              <Text style={{color: '#707070'}}>fatimagarza@medikids.com</Text>
-            </View>
-            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5}}>
-              <MaterialIcons name="phone" size={18} color="#A375FF" />
-              <Text style={{color: '#707070'}}>2525-2525</Text>
-            </View>
-          </View>
-        </View>
-        <TouchableOpacity style={styles.programAppointmentBtn}>
-          <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
-            Agendar cita
+        <View style={styles.waveTopContent}>
+          <ImageBackground source={require('../../../../assets/waves/waves_start_top.png')} style={styles.waveImg}></ImageBackground>
+          <Text style={styles.title1}>
+              ¿En que nos enfocamos?
           </Text>
-        </TouchableOpacity>
+          <View style={styles.mainInfoContainer}>
+            <View style={styles.spcIconContainer}>
+              <View style={styles.iconWrapper}>
+                <Image style={{width: '75%', height: '75%', resizeMode: 'contain',}} source={require('../../../../assets/graphic-icons/otorrino-icon.png')}></Image>
+              </View>
+            </View>
+            <View style={styles.infoTextContainer}>
+              <Text style={{color: '#707070', marginLeft: wp('3%'),}}>Profesionales de la medicina que ha recibido formación en el diagnóstico y tratamiento de las enfermedades del oído, la nariz y la garganta.</Text>
+            </View>
+          </View>
+          <View style={styles.separator}></View>
+          <Text style={styles.title1}>
+            Enfermedades comunes
+          </Text>
+          <Text style={styles.textPart}>
+          Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con los sentidos, como problemas del olfato y el gusto o trastornos del equilibrio y la audición. 
+          </Text>
+          <View style={styles.diseasesMainC}>
+            <View style={styles.diseaseCard}>
+              <View style={styles.cardIconContainer}>
+                <View style={styles.cardIconWrapper}>
+                  <Image source={require('../../../../assets/icons/sangrado.png')} style={{height: '70%', width: '70%', resizeMode: 'contain',}}></Image>
+                </View>
+              </View>
+              <View style={styles.cardContentContainer}>
+                <View style={styles.cardTitle}>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Hemorragia nasal</Text>
+                </View>
+                <View style={styles.cardDescription}>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Irritaciones debido a alergias, resfriados, estornudos o problemas sinusales. Aire muy frío o seco.</Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.diseaseCard}>
+              <View style={styles.cardIconContainer}>
+                <View style={styles.cardIconWrapper}>
+                  <Image source={require('../../../../assets/icons/oido.png')} style={{height: '70%', width: '70%', resizeMode: 'contain',}}></Image>
+                </View>
+              </View>
+              <View style={styles.cardContentContainer}>
+                <View style={styles.cardTitle}>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Pérdida de la audición</Text>
+                </View>
+                <View style={styles.cardDescription}>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>La pérdida de audición puede ser leve, moderada, grave o profunda. </Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.diseaseCard}>
+              <View style={styles.cardIconContainer}>
+                <View style={styles.cardIconWrapper}>
+                  <Image source={require('../../../../assets/icons/laringe.png')} style={{height: '70%', width: '70%', resizeMode: 'contain',}}></Image>
+                </View>
+              </View>
+              <View style={styles.cardContentContainer}>
+                <View style={styles.cardTitle}>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Laringitis</Text>
+                </View>
+                <View style={styles.cardDescription}>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>es la inflamación de la caja de voz (laringe) por uso excesivo, irritación o infección.</Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.diseaseCard}>
+              <View style={styles.cardIconContainer}>
+                <View style={styles.cardIconWrapper}>
+                  <Image source={require('../../../../assets/icons/otorrinolaringologia.png')} style={{height: '70%', width: '70%', resizeMode: 'contain',}}></Image>
+                </View>
+              </View>
+              <View style={styles.cardContentContainer}>
+                <View style={styles.cardTitle}>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Sinusitis</Text>
+                </View>
+                <View style={styles.cardDescription}>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Las sinusitis ocurren cuando se acumula líquido en los senos paranasales (cavidades en la cara que están llenas de aire).</Text>
+                </View>
+              </View>
+            </View>
+            <View style={styles.noteContainer}>
+              <View style={{width: '15%', height: '100%', alignItems: 'center',justifyContent: 'center',}}>
+                <Image source={require('../../../../assets/icons/focus_icon.png')} style={{width: '90%', height: '90%', resizeMode: 'contain',}}></Image>
+              </View>
+              <View style={{width: '85%', height: '100%', justifyContent: 'center'}}>
+                <Text style={{color: '#707070'}}>Todos los pacientes son analizados para un diagnostico mas preciso y tratamiento personalizado </Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.separator}></View>
+
+          <Text style={styles.title1}>
+            Nuestro especialista
+          </Text>
+          <View style={styles.cardDoctorContainer}>
+            <View style={styles.doctorPicContainer}>
+              <ImageBackground source={require('../../../../assets/default-pics/dra-garza.png')} style={{height: '100%', width: '100%', alignSelf: 'center', justifyContent: 'center', resizeMode: 'contain'}}></ImageBackground>
+            </View>
+            <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: 600, color: '#707070', fontSize: 21}}>Dra. Fátima Garza</Text>
+            <Text style={styles.docDescription}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae veniam magni aliquid ratione molestias ut harum veritatis, illum velit non eaque voluptate officiis alias minima molestiae error aliquam sed? Suscipit.</Text>
+
+            <View style={styles.doctorTitle}>
+              <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+                <MaterialCommunityIcons name="stethoscope" size={25} color="#707070" />
+              </View>
+              <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
+                <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+              </View>
+            </View>
+
+            <View style={styles.doctorTitle}>
+              <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+                <MaterialIcons name="stars" size={25} color="#707070" />
+              </View>
+              <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
+                <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+              </View>
+            </View>
+
+            <View style={styles.doctorTitle}>
+              <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                <MaterialIcons name="medical-services" size={25} color="#707070" />
+              </View>
+              <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
+                <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+              </View>
+            </View>
+
+            <View style={styles.separator2}></View>
+
+            <View style={styles.contactSection}>
+              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5}}>
+                <MaterialIcons name="mail-outline" size={18} color="#A375FF" />
+                <Text style={{color: '#707070'}}>fatimagarza@medikids.com</Text>
+              </View>
+              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5}}>
+                <MaterialIcons name="phone" size={18} color="#A375FF" />
+                <Text style={{color: '#707070'}}>2525-2525</Text>
+              </View>
+            </View>
+          </View>
+          <TouchableOpacity style={styles.programAppointmentBtn}>
+            <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
+              Agendar cita
+            </Text>
+          </TouchableOpacity>
+        </View>
       </Animated.ScrollView>
     </View>
   );
@@ -208,14 +211,17 @@ const styles = {
       },
     ],
   }),
-
+  waveTopContent:{
+    height: '100%',
+    width: '100%',
+  },
+  waveImg: {
+    flex: 1,
+    height: 150,
+    resizeMode: 'cover',
+  },
   title1: {
-    fontSize: hp('3%'),
-    color: '#707070',
-    fontWeight: 600,
-    marginLeft: 15,
-    marginTop: 25,
-    marginBottom: 20,
+    marginTop: 25, fontSize: 29, color: '#707070',textDecorationLine: 'underline', textAlign: 'center', fontFamily: 'poppinsBold', marginBottom: -15
   },
   mainInfoContainer: {
     flexDirection: 'row',
