@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import parser from "html-react-parser";
+
 
 import { useDash } from '../../../context/DoctorContext'
 
@@ -12,18 +14,12 @@ export const ViewMedicalRecords = ({ responsibleInfo }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const pages = [
     <FirstPage state={patient} responsibleInfo={responsibleInfo} />,
-    ...medicalRecords.map(i => <div key={i.id}>{i.Medical_History_Code}</div>)
+    ...medicalRecords.map(i => <RecordsLayout key={i.id} record={i} />)
   ];
-
-
 
   useEffect(() => {
     PatientMedicalRecords(patient.id);
   }, [])
-
-//   useEffect(() => {
-//     console.log(medicalRecords)
-//   }, [medicalRecords])
 
 const handleNextPage = () => {
     if (currentPage < pages.length - 1) {
@@ -70,6 +66,7 @@ const handleNextPage = () => {
   );
 };
 
+// COMPONENTE DE LA PRIMERA PÁGINA DEL EXPEDIENTE, ÚNICAMENTE SE MUESTRA INFORMACIÓN DEL PACIENTE (FALTAN LAS VACUNAS)
 const FirstPage = ({ responsibleInfo }) => {
   const location = useLocation();
   const { patient } = location.state || {};
@@ -95,6 +92,31 @@ const FirstPage = ({ responsibleInfo }) => {
             Nombre: {responsibleInfo.First_Names} {responsibleInfo.Last_Names}
           </p>
           <p>Número de contacto: {responsibleInfo.Phone}</p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+// COMPONENTE LAYOUT PARA CADA REGISTRO DEL EXPEDIENTE
+const RecordsLayout = ({ record }) => {
+  console.log(record)
+  const appDate = new Date(record.Date_Time);
+  return(
+    <>
+      <h1>Registro de cita {record.Medical_History_Code} ({`${appDate.getDate()}/${appDate.getMonth() + 1}/${appDate.getFullYear()}`})</h1>
+      <div>
+        <h2>Toma de datos</h2>
+        <ul>
+          <li>Altura: {record.Height}</li>
+          <li>Peso: {record.Weight}</li>
+          <li>Temperatura: {record.Temperature}</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Anotaciones realizadas</h2>
+        <div>
+          {parser(record.Diagnosis)}
         </div>
       </div>
     </>
