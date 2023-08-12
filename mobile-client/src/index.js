@@ -17,7 +17,7 @@ export { MyVaccines } from './screens/app/home/MyVaccines'
 export { ImmunizationRecord } from './screens/auth/ImmunizationRecord';
 export { SelectPatientScreen } from './screens/auth/SelectPatientScreen'
 export { AppointmentMainScreen } from './screens/app/appointment/AppointmentMainScreen'
-export { OtoAppointmentProcessScreen } from './screens/app/appointment/OtoAppointmentProcessScreen'
+export { AppointmentProcessScreen } from './screens/app/appointment/AppointmentProcessScreen'
 export { HistorialAppointment } from './screens/app/appointment/HistorialAppointment'
 
 //?? Components

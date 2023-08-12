@@ -8,12 +8,14 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { ScreenTitle } from '../../../index';
 import WeekDate from '../../../components/WeekDate';
 
-export const OtoAppointmentProcessScreen = () => {
+export const AppointmentProcessScreen = ({ route }) => {
+  const { doctorDescription, doctor, speciality, doctorPhoto } = route.params
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.fullScreenContainer}>
         <ScreenTitle 
-          Label={"Citas - Otorrinolaringología"}
+          Label={`Citas - ${speciality}`}
           IconName={"clipboard-text-multiple"}
           fontSize={20}
           textColor={'#FFFFFF'}
@@ -22,19 +24,19 @@ export const OtoAppointmentProcessScreen = () => {
         <View style={[styles.doctorBanner, styles.shadowC]}>
           <View style={styles.leftPhotoContainer}>
             <View style={styles.photoContainer}>
-              <Image source={require('../../../../assets/default-pics/dr-guzman.png')} style={styles.photoStyles}/>
+              <Image source={doctorPhoto} style={styles.photoStyles}/>
             </View>
           </View>
           <View style={styles.rightContentContainer}>
-            <Text style={styles.drName}>Dr. Esteban Gúzman</Text>
+            <Text style={styles.drName}>{doctor}</Text>
             <View style={styles.subdivisions}></View>
             <View style={styles.insightsContainer}>
               <MaterialCommunityIcons name="stethoscope" size={24} color="white" style={{width: '18%'}}/>
-              <Text style={styles.insightsText}>Especialista en Otorrinolaringología</Text>
+              <Text style={styles.insightsText}>{doctorDescription.insight1}</Text>
             </View>
             <View style={styles.insightsContainer}>
               <MaterialIcons name="insights" size={24} color="white" style={{width: '18%'}}/>
-              <Text style={styles.insightsText}>Graduado de la universidad de españa con más de 30 años de experiencia</Text>
+              <Text style={styles.insightsText}>{doctorDescription.insight2}</Text>
             </View>
           </View>
         </View>

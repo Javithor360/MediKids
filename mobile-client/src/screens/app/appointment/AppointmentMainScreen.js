@@ -7,6 +7,21 @@ import { useNavigation } from '@react-navigation/native'
 //Components
 import { ScreenTitle } from '../../../index';
 
+const doctorDescription = {
+    otoDoctorInsights: {
+        insight1: "Especialista en otorrinolaringología",
+        insight2: "Graduado de la universidad de España con más de 30 años de experiencia",
+    },
+    gastroDoctorInsights: {
+        insight1: "Especialista en gastroenterología",
+        insight2: "Especialista en gastroenterología graduada de la facultad de Medicina de la UNAM",
+    },    
+    neuDoctorInsights: {
+        insight1: "Especialista en neumología",
+        insight2: "Graduado de la Facultad de Medicina de la Universidad Autónoma de Madrid",
+    }
+  };
+
 export const AppointmentMainScreen = () => {
     const navigation = useNavigation()
   return (
@@ -50,7 +65,12 @@ export const AppointmentMainScreen = () => {
                         <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
                         <View style={{height: '65%', padding: 6}}>
                             <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de las enfermedades del oído, nariz, garganta y alergías</Text>
-                            <TouchableOpacity style={styles.apptBtn} onPress={()=>navigation.navigate('OtoAppointmentProcessScreen')}>
+                            <TouchableOpacity style={styles.apptBtn} onPress={()=>navigation.navigate('AppointmentProcessScreen', {
+                                doctorDescription: doctorDescription.otoDoctorInsights,
+                                doctor: 'Dr. Esteban Gúzman',
+                                speciality: 'Otorrinolaringología',
+                                doctorPhoto: require("../../../../assets/default-pics/dr-guzman.png")
+                            })}>
                                 <Text style={{color: '#fff', fontSize: 13.5,}}>Agendar Cita</Text>
                             </TouchableOpacity>
                         </View>
@@ -68,13 +88,18 @@ export const AppointmentMainScreen = () => {
                             </View>
                             <View style={styles.spcTitleC}>
                                 <Text style={styles.spcTitle}>Neumología</Text>
-                                <Text style={styles.spcDoctor}>Dra. Fatima Garza</Text>
+                                <Text style={styles.spcDoctor}>Dr. Adrián Flores</Text>
                             </View>
                         </View>
                         <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
                         <View style={{height: '65%', padding: 6}}>
                             <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de enfermedades del sistema y vías respiratorias y pulmones</Text>
-                            <TouchableOpacity style={styles.apptBtn}>
+                            <TouchableOpacity style={styles.apptBtn} onPress={()=>navigation.navigate('AppointmentProcessScreen', {
+                                doctorDescription: doctorDescription.neuDoctorInsights,
+                                doctor: 'Dr. Adrian Flores',
+                                speciality: 'Neumología',
+                                doctorPhoto: require("../../../../assets/default-pics/dr-flores.png")
+                            })}>
                                 <Text style={{color: '#fff', fontSize: 13.5,}}>Agendar Cita</Text>
                             </TouchableOpacity>
                         </View>
@@ -92,21 +117,26 @@ export const AppointmentMainScreen = () => {
                             </View>
                             <View style={styles.spcTitleC}>
                                 <Text style={styles.spcTitle}>Gastroenterología</Text>
-                                <Text style={styles.spcDoctor}>Dr. Adrián Flores</Text>
+                                <Text style={styles.spcDoctor}>Dra. Fatima Garza</Text>
                             </View>
                         </View>
                         <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
                         <View style={{height: '65%', padding: 6}}>
                             <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de enfermedades del esófago, el estómago, los intestinos, y el hígado</Text>
-                            <TouchableOpacity style={styles.apptBtn}>
+                            <TouchableOpacity style={styles.apptBtn} onPress={()=>navigation.navigate('AppointmentProcessScreen', {
+                                doctorDescription: doctorDescription.gastroDoctorInsights,
+                                doctor: 'Dra. Fatima Garza',
+                                speciality: 'Gastroenterología',
+                                doctorPhoto: require("../../../../assets/default-pics/dra-garza.png")
+                            })}>
                                 <Text style={{color: '#fff', fontSize: 13.5,}}>Agendar Cita</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
                 <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment') }>
-                                <Text style={{color: '#fff', fontSize: 13.5,}}>Historial</Text>
-                            </TouchableOpacity>
+                    <Text style={{color: '#fff', fontSize: 13.5,}}>Historial</Text>
+                </TouchableOpacity>
             </View>
             
         </ScrollView>
