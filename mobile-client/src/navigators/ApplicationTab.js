@@ -12,13 +12,13 @@ import { HomeStack } from '../navigators/Dashboard/HomeStack';
 import { CalendarStack } from '../navigators/Dashboard/CalendarStack';
 import { AppointmentStack } from '../navigators/Dashboard/AppointmentStack';
 import { MyAcountScreen } from "../screens/app/MyAcount/MyAcountScreen";
-
+import { MedicinasStack } from './Dashboard/MedicinasStack';
 //>>Tab items props array
 const TabProps = [
   {route: 'HomeStack', label: 'Inicio', iconName: 'home-variant', component: HomeStack, color: 'red'},
   {route: 'Calendario', label: 'Calendario', iconName: 'calendar-clock', component: CalendarStack, color: 'red'},
   {route: 'Appointment', label: 'Citas', iconName: 'clipboard-text', component: AppointmentStack, color: 'red'},
-  {route: 'Calendsdario', label: 'Medicinas', iconName: 'pill', component: CalendarStack, color: 'red'},
+  {route: 'Medicinas', label: 'Medicinas', iconName: 'pill', component: MedicinasStack, color: 'red'},
   {route: 'Calenddario', label: 'Mi cuenta', iconName: 'account-circle', component: MyAcountScreen, color: 'red'},
 ]
 

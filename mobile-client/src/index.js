@@ -19,6 +19,7 @@ export { SelectPatientScreen } from './screens/auth/SelectPatientScreen'
 export { AppointmentMainScreen } from './screens/app/appointment/AppointmentMainScreen'
 export { OtoAppointmentProcessScreen } from './screens/app/appointment/OtoAppointmentProcessScreen'
 export { HistorialAppointment } from './screens/app/appointment/HistorialAppointment'
+export { Medicinas } from './screens/app/Medicinas/Medicinas'
 
 //?? Components
 export { CustomButton } from './components/ButtonHook';
@@ -33,6 +34,7 @@ export { ApplicationTab } from './navigators/ApplicationTab';
 export { HomeStack } from './navigators/Dashboard/HomeStack';
 export { CalendarStack } from './navigators/Dashboard/CalendarStack';
 export { AppointmentStack } from './navigators/Dashboard/AppointmentStack';
+export { MedicinasStack } from './navigators/Dashboard/MedicinasStack'
 
 //* Queries
 export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord, getAllImmunizationRecords } from './queries/Queries';
