@@ -46,7 +46,7 @@ const register = async (req, res, next) => {
 
     //4 - CHECK VALID VALUES
     // Number Phone
-    if (/^(?!.*(\d)(?:-?\1){3})([67]\d{3}-\d{4})$/.test(Phone)) {
+    if (!/^(?!.*(\d)(?:-?\1){3})([67]\d{3}-\d{4})$/.test(Phone)) {
       return res.status(500).json({success: false, message: 'Telefono invalido'});
     }
     // Email

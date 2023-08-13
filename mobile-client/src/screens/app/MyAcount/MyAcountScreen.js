@@ -119,25 +119,25 @@ export const MyAcountScreen = () => {
                     <View style={styles.lineBig}></View>
                     <Text style={[styles.DatosText, {marginTop: '7%'}]}>Acciones</Text>
                     <View style={{width: '100%', height: 70, marginTop: '2%', justifyContent: 'center', alignItems: 'center'}}>
-                        <TouchableOpacity onPress={() => {navigation.navigate('SelectProfilePhotoScreen')}} style={{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#FFDEB4',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}}>
+                        <TouchableOpacity onPress={() => {navigation.navigate('SelectProfilePhotoScreen')}} style={[{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#FFDEB4',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}, styles.ButtomShadow]}>
                             <FontAwesome5 name="user-circle" size={24} color="#434343" />
                             <Text style={{color: '#434343', fontSize: 16}}>Cambiar Foto de Perfil</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{width: '100%', height: 70, justifyContent: 'center', alignItems: 'center'}}>
-                        <TouchableOpacity onPress={() => {navigation.navigate('PatientPerfilScreen')}} style={{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#90dfe7',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}}>
+                        <TouchableOpacity onPress={() => {navigation.navigate('PatientPerfilScreen')}} style={[{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#90dfe7',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}, styles.ButtomShadow]}>
                             <MaterialCommunityIcons name="human-male-child" size={24} color="#434343" />
                             <Text style={{color: '#434343', fontSize: 16}}>Información del Paciente</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{width: '100%', height: 70, justifyContent: 'center', alignItems: 'center'}}>
-                        <TouchableOpacity onPress={() => {navigation.navigate('SelectPatientDashboard');}} style={{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#b2affb',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}}>
+                        <TouchableOpacity onPress={() => {navigation.navigate('SelectPatientDashboard');}} style={[{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#b2affb',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}, styles.ButtomShadow]}>
                             <Feather name="refresh-cw" size={24} color="#434343" />
                             <Text style={{color: '#434343', fontSize: 16}}>Cambiar de Paciente</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{width: '100%', height: 70, justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
-                        <TouchableOpacity onPress={() => {LogoutButton()}} style={{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#fff', alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10, borderColor: '#ff7171', borderWidth: 2}}>
+                        <TouchableOpacity onPress={() => {LogoutButton()}} style={[{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#fff', alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10, borderColor: '#ff7171', borderWidth: 2}, styles.ButtomShadow]}>
                             <AntDesign name="logout" size={24} color="#fd4040" />
                             <Text style={{color: '#fd4040', fontSize: 16}}>Cerrar Sesión</Text>
                         </TouchableOpacity>
@@ -174,12 +174,13 @@ InfoContainer: {
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderRadius: 10,
-    shadowColor: '#BBBBBB',
+    //IOS
+    shadowColor: '#000',
+    shadowOffset: {height: 4},
     shadowOpacity: 0.2,
     shadowRadius: 3,
     //Android
     elevation: 5,
-    shadowColor: '#000'
 },
 DatosText:{
     fontSize:24,
@@ -219,7 +220,15 @@ TextWritted:{
     marginLeft:'5%',
     marginVertical:'1%',
 },
-
+ButtomShadow:{
+    //IOS
+    shadowColor: '#000',
+    shadowOffset: {height: 4},
+    shadowOpacity: 0.15,
+    shadowRadius: 3,
+    //Android
+    elevation: 5,
+},
 containPhoto:{
     alignItems: 'center',
     justifyContent: 'center',
