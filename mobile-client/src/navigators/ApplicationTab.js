@@ -11,7 +11,7 @@ import { isIOS } from '../constants';
 import { HomeStack } from '../navigators/Dashboard/HomeStack';
 import { CalendarStack } from '../navigators/Dashboard/CalendarStack';
 import { AppointmentStack } from '../navigators/Dashboard/AppointmentStack';
-import { MyAcountScreen } from "../screens/app/MyAcount/MyAcountScreen";
+import { MyAccountStack } from './Dashboard/MyAccountStack';
 
 //>>Tab items props array
 const TabProps = [
@@ -19,7 +19,7 @@ const TabProps = [
   {route: 'Calendario', label: 'Calendario', iconName: 'calendar-clock', component: CalendarStack, color: 'red'},
   {route: 'Appointment', label: 'Citas', iconName: 'clipboard-text', component: AppointmentStack, color: 'red'},
   {route: 'Calendsdario', label: 'Medicinas', iconName: 'pill', component: CalendarStack, color: 'red'},
-  {route: 'Calenddario', label: 'Mi cuenta', iconName: 'account-circle', component: MyAcountScreen, color: 'red'},
+  {route: 'Calenddario', label: 'Mi cuenta', iconName: 'account-circle', component: MyAccountStack, color: 'red'},
 ]
 
 const Tab = createTabNav();

@@ -19,6 +19,8 @@ export { SelectPatientScreen } from './screens/auth/SelectPatientScreen'
 export { AppointmentMainScreen } from './screens/app/appointment/AppointmentMainScreen'
 export { AppointmentProcessScreen } from './screens/app/appointment/AppointmentProcessScreen'
 export { HistorialAppointment } from './screens/app/appointment/HistorialAppointment'
+export { MyAcountScreen } from './screens/app/MyAcount/MyAcountScreen'
+export { PatientPerfilScreen } from './screens/app/MyAcount/PatientPerfilScreen'
 
 //?? Components
 export { CustomButton } from './components/ButtonHook';

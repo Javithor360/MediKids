@@ -160,8 +160,6 @@ export const SelectPatientScreen = () => {
   const LogoutButton = () => {
     AsyncStorage.removeItem('userSession');
 
-    //ZAMPAR ANIMACION DE CARGANDO DANIIIIIII
-
     //\\ Reset the Starter slice in redux
     dispatch(setStatement({
       Email: null,
