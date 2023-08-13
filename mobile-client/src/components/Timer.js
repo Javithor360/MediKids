@@ -4,18 +4,18 @@ import { Stopwatch } from 'react-native-stopwatch-timer';
 
 const TimerComponent = () => {
     const [isStopwatchStart, setIsStopwatchStart] = useState(false);
-    const [time, setTime] = useState(new Date());
-    useEffect(()=>{
-        setInterval(()=>setTime(new Date()), 1000)
-    },[time, setTime]);
+    // const [time, setTime] = useState(new Date());
+    // useEffect(()=>{
+    //     setInterval(()=>setTime(new Date()), 1000)
+    // },[time, setTime]);
 
-    () => {
-        if (new Date().toLocaleTimeString() >= "22:01:00") {
-            setIsStopwatchStart(true);
-        } else {
-            setIsStopwatchStart(false);
-        }
-    }
+    // () => {
+    //     if (new Date().toLocaleTimeString() >= "22:01:00") {
+    //         setIsStopwatchStart(true);
+    //     } else {
+    //         setIsStopwatchStart(false);
+    //     }
+    // }
 
     const options = {
         container: {
