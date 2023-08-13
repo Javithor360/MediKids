@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, ScrollView, StyleSheet, View, Image, TouchableOpacity,Modal } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -7,216 +7,203 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 
 
 //Components
-import { ScreenTitle } from '../../../index';
+import { ScreenTitle, getMedicalRecords } from '../../../index';
+import { useSelector } from 'react-redux';
 
 export const HistorialAppointment = () => {
-    const [view,setView] = useState(false);
+    const jwtToken = useSelector(state => state.responsible.jwtToken);
+    
+    const [view, setView] = useState(false);
 
-  return (
-    <SafeAreaView style={styles.safeArea}>
-        <ScrollView style={styles.fullScreenContainer}>
-            <ScreenTitle 
-                Label={"Citas-Historial"}
-                IconName={"clipboard-text-multiple"}
-                fontSize={20}
-                textColor={'#FFFFFF'}
-                paddingH={30}
-            /> 
-            <View style={styles.chooseBanner}>
-                <View style={styles.chooseContent}>
-                   
-                    <View style={styles.rightTextSctn}>
-                        <View style={styles.linee}></View>
-                        <Text style={styles.titleBanner}>Historial de citas atendidas</Text>
+    useEffect(() => {
+        
+    }, []);
+
+    return (
+        <SafeAreaView style={styles.safeArea}>
+            <ScrollView style={styles.fullScreenContainer}>
+                <ScreenTitle 
+                    Label={"Citas-Historial"}
+                    IconName={"clipboard-text-multiple"}
+                    fontSize={20}
+                    textColor={'#FFFFFF'}
+                    paddingH={30}
+                /> 
+                <View style={styles.chooseBanner}>
+                    <View style={styles.chooseContent}>
+                    
+                        <View style={styles.rightTextSctn}>
+                            <View style={styles.linee}></View>
+                            <Text style={styles.titleBanner}>Historial de citas atendidas</Text>
+                        </View>
                     </View>
                 </View>
-            </View>
-            <View style={styles.cardsContainer}>
-            <View style={styles.card}>
-                    
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/otorrino-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
+                <View style={styles.cardsContainer}>
+                <View style={styles.card}>
+                        
+                        <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
+                            <View style={styles.IconTextSpc}>
+                                <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
+                                    <Image source={require('../../../../assets/graphic-icons/otorrino-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
+                                </View>
+                                <View style={styles.spcTitleC}>
+                                    <Text style={styles.spcTitle}>Otorrinolaringología</Text>
+                            
+                                </View>
                             </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Otorrinolaringología</Text>
-                         
-                            </View>
-                        </View>
-                       
-                        <View style={{  height: '65%',padding: 6,}}>
-                    
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Paciente:</Text>
-                                      <Text style={{ color: '#707070',}}>Alvin Josue Melendez Serrano</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Fecha:</Text>
-                                      <Text style={{ color: '#707070',}}>02/08/2023</Text>
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Hora:</Text>
-                                      <Text style={{ color: '#707070',}}>10:30 AM</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
-                                      <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
-                                  </View>
-                       
-                            <TouchableOpacity style={styles.apptBtn} onPress={()=> setView(true)} >
-                                <Text style={{color: '#fff', fontSize: 13.5,}}>Mas detalles</Text>
-                            </TouchableOpacity>
-                            
-                            <Modal 
-                            
-                            animationType='fade'
-                            onDismiss={()=> console.log('close')}
-                            onShow={()=>console.log('show')}
-                            transparent
-                            visible={view}
-                            
-                            >
-                                <View
-                                style={{
-                                    flex:1,
-                                    backgroundColor:'rgba(1,1,1, 0.5)',
-                                    justifyContent:'center',}}
+                        
+                            <View style={{  height: '65%',padding: 6,}}>
+                        
+                                    <View style={styles.InfoText} >
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Paciente:</Text>
+                                        <Text style={{ color: '#707070',}}>Alvin Josue Melendez Serrano</Text>
+                                    </View>
+                                    <View style={styles.InfoText} >
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Fecha:</Text>
+                                        <Text style={{ color: '#707070',}}>02/08/2023</Text>
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Hora:</Text>
+                                        <Text style={{ color: '#707070',}}>10:30 AM</Text>
+                                    </View>
+                                    <View style={styles.InfoText} >
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
+                                        <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
+                                    </View>
+                        
+                                <TouchableOpacity style={styles.apptBtn} onPress={()=> setView(true)} >
+                                    <Text style={{color: '#fff', fontSize: 13.5,}}>Mas detalles</Text>
+                                </TouchableOpacity>
+                                
+                                <Modal 
+                                
+                                animationType='fade'
+                                onDismiss={()=> console.log('close')}
+                                onShow={()=>console.log('show')}
+                                transparent
+                                visible={view}
+                                
                                 >
-                                    <View style={{height:'35%',width:'90%',backgroundColor:'#ffff',left:22,borderRadius:30,}}>
-                                    <Text style={{alignSelf:'center',top:10,fontSize:20,color:'#707070',fontWeight:'bold',}}>Detalles de la cita</Text>
-                                        <View style={{ height:'70%',width:'90%',top:20, alignSelf:'center',}}>
-                                        
-                                           
+                                    <View
+                                    style={{
+                                        flex:1,
+                                        backgroundColor:'rgba(1,1,1, 0.5)',
+                                        justifyContent:'center',}}
+                                    >
+                                        <View style={{height:'35%',width:'90%',backgroundColor:'#ffff',left:22,borderRadius:30,}}>
+                                        <Text style={{alignSelf:'center',top:10,fontSize:20,color:'#707070',fontWeight:'bold',}}>Detalles de la cita</Text>
+                                            <View style={{ height:'70%',width:'90%',top:20, alignSelf:'center',}}>
+                                            
+                                            
 
-                                            <View style={styles.InfoText} >
-                                                <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16, }}>Especialidad:</Text>
-                                                <Text style={{ color: '#707070',fontSize:16, }}>Otorrinolaringología</Text>
-                                            </View>
-                                            <View style={styles.InfoText} >
-                                                 <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10,  }}>Paciente:</Text>
-                                                <Text style={{ color: '#707070',fontSize:16,top:10, }}>Alvin Josue Melendez Serrano</Text>
-                                            </View>
-                                            <View style={styles.InfoText} >
-                                                <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10,  }}>Fecha:</Text>
-                                                 <Text style={{ color: '#707070',fontSize:16,top:10, }}>02/08/2023</Text>
-                                            </View>
-                                            <View style={styles.InfoText} >
-                                                <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10,  }}>Hora de Inicio:</Text>
-                                                <Text style={{ color: '#707070',fontSize:16,top:10, }}>11:19 AM</Text>
-                                            </View>
-                                            <View style={styles.InfoText} >
-                                                 <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Diagnostico General:</Text>
-                                                <Text style={{ color: '#707070',fontSize:16,top:10, }}>Sinusitis Alergica</Text>
+                                                <View style={styles.InfoText} >
+                                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16, }}>Especialidad:</Text>
+                                                    <Text style={{ color: '#707070',fontSize:16, }}>Otorrinolaringología</Text>
+                                                </View>
+                                                <View style={styles.InfoText} >
+                                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10,  }}>Paciente:</Text>
+                                                    <Text style={{ color: '#707070',fontSize:16,top:10, }}>Alvin Josue Melendez Serrano</Text>
+                                                </View>
+                                                <View style={styles.InfoText} >
+                                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10,  }}>Fecha:</Text>
+                                                    <Text style={{ color: '#707070',fontSize:16,top:10, }}>02/08/2023</Text>
+                                                </View>
+                                                <View style={styles.InfoText} >
+                                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10,  }}>Hora de Inicio:</Text>
+                                                    <Text style={{ color: '#707070',fontSize:16,top:10, }}>11:19 AM</Text>
+                                                </View>
+                                                <View style={styles.InfoText} >
+                                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Diagnostico General:</Text>
+                                                    <Text style={{ color: '#707070',fontSize:16,top:10, }}>Sinusitis Alergica</Text>
+                                                </View>
+                                                
+                                                <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10,  }}>Medicamentos recetados:</Text>
+                                                <Text style={{ color: '#707070',fontSize:16,top:10, }}>Acetaminofen,Morfina,Mumia,Tetratomisil500</Text>
+                                                
+
                                             </View>
                                             
-                                            <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10,  }}>Medicamentos recetados:</Text>
-                                            <Text style={{ color: '#707070',fontSize:16,top:10, }}>Acetaminofen,Morfina,Mumia,Tetratomisil500</Text>
+                                        <TouchableOpacity style={styles.apptBtn1} onPress={()=> setView(false)} >
+                                    <Text style={{color: '#fff', fontSize: 13.5,}}>Cerrar</Text>
+                                </TouchableOpacity>
+                                        
+
                                             
 
                                         </View>
-                                        
-                                    <TouchableOpacity style={styles.apptBtn1} onPress={()=> setView(false)} >
-                                <Text style={{color: '#fff', fontSize: 13.5,}}>Cerrar</Text>
-                            </TouchableOpacity>
-                                       
-
-                                        
 
                                     </View>
 
+                                </Modal>
+                            </View>
+                        </View>
+                    </View>
+
+                    <View style={styles.card}>
+                        <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
+                            <View style={styles.IconTextSpc}>
+                                <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
+                                    <Image source={require('../../../../assets/graphic-icons/neumologia-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
                                 </View>
+                                <View style={styles.spcTitleC}>
+                                    <Text style={styles.spcTitle}>Neumología</Text>
+                                </View>
+                            </View>
+                            <View style={{  height: '65%',padding: 6,}}>
+                                    <View style={styles.InfoText} >
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Paciente:</Text>
+                                        <Text style={{ color: '#707070',}}>Alvin Josue Melendez Serrano</Text>
+                                    </View>
+                                    <View style={styles.InfoText} >
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Fecha:</Text>
+                                        <Text style={{ color: '#707070',}}>02/08/2023</Text>
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Hora:</Text>
+                                        <Text style={{ color: '#707070',}}>10:30 AM</Text>
+                                    </View>
+                                    <View style={styles.InfoText} >
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
+                                        <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
+                                    </View>
+                                <TouchableOpacity style={styles.apptBtn} onPress={()=> setView(true)}>
+                                    <Text style={{color: '#fff', fontSize: 13.5,}}>Mas detalles</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
 
-                            </Modal>
+                    <View style={styles.card}>
+                        <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
+                            <View style={styles.IconTextSpc}>
+                                <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
+                                    <Image source={require('../../../../assets/graphic-icons/gastro-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
+                                </View>
+                                <View style={styles.spcTitleC}>
+                                    <Text style={styles.spcTitle}>Gastroenterología</Text>
+                                </View>
+                            </View>
+                            <View style={{ height: '65%',padding: 6,}}>
+                                    <View style={styles.InfoText} >
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Paciente:</Text>
+                                        <Text style={{ color: '#707070',}}>Alvin Josue Melendez Serrano</Text>
+                                    </View>
+                                    <View style={styles.InfoText} >
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Fecha:</Text>
+                                        <Text style={{ color: '#707070',}}>02/08/2023</Text>
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Hora:</Text>
+                                        <Text style={{ color: '#707070',}}>10:30 AM</Text>
+                                    </View>
+                                    <View style={styles.InfoText} >
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
+                                        <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
+                                    </View>
+                        
+                                <TouchableOpacity style={styles.apptBtn}      onPress={()=> setView(true)}>
+                                    <Text style={{color: '#fff', fontSize: 13.5,}}>Mas detalles</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </View>
-
-
-
-                <View style={styles.card}>
-                    
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/neumologia-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
-                            </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Neumología</Text>
-                         
-                            </View>
-                        </View>
-                       
-                        <View style={{  height: '65%',padding: 6,}}>
-                    
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Paciente:</Text>
-                                      <Text style={{ color: '#707070',}}>Alvin Josue Melendez Serrano</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Fecha:</Text>
-                                      <Text style={{ color: '#707070',}}>02/08/2023</Text>
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Hora:</Text>
-                                      <Text style={{ color: '#707070',}}>10:30 AM</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
-                                      <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
-                                  </View>
-                       
-                            <TouchableOpacity style={styles.apptBtn} onPress={()=> setView(true)}>
-                                <Text style={{color: '#fff', fontSize: 13.5,}}>Mas detalles</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.card}>
-                    
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/gastro-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
-                            </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Gastroenterología</Text>
-                         
-                            </View>
-                        </View>
-                       
-                        <View style={{  height: '65%',padding: 6,}}>
-                    
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Paciente:</Text>
-                                      <Text style={{ color: '#707070',}}>Alvin Josue Melendez Serrano</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Fecha:</Text>
-                                      <Text style={{ color: '#707070',}}>02/08/2023</Text>
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Hora:</Text>
-                                      <Text style={{ color: '#707070',}}>10:30 AM</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
-                                      <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
-                                  </View>
-                       
-                            <TouchableOpacity style={styles.apptBtn}      onPress={()=> setView(true)}>
-                                <Text style={{color: '#fff', fontSize: 13.5,}}>Mas detalles</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-                
-            </View>
-
-            
-
-
-
-
-
-
-        </ScrollView>
-    </SafeAreaView>
+            </ScrollView>
+        </SafeAreaView>
   )
 }
 

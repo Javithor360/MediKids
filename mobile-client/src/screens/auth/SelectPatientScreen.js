@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //>> Importing components
 import { AuthStylesGlobal } from '../../../assets/AuthStyles';
-import { getPatients } from '../../index'
+import { ShowToast, getAllImmunizationRecords, getPatients } from '../../index'
 import { setInitialValues } from '../../store/slices/patientSlice';
 import { setStatement } from '../../store/slices/starterSlice';
 import { setLogginValues } from '../../store/slices/responsibleSlice';
@@ -31,10 +31,14 @@ export const SelectPatientScreen = () => {
 
   const [PatientData, setPatientData] = useState(null);
 
+  const [VaccinesData, setVaccinesData] = useState(null);
+
+  const [DisableBtn, setDisableBtn] = useState(false);
+
   const renderItem = ({ item }) => {
     if (item.id === 'addPatient') {
       return (
-        <TouchableOpacity style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}} onPress={() => {navigation.navigate('RegisterPatientScreen', {loggedIn: true})}} >
+        <TouchableOpacity disabled={DisableBtn} style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}} onPress={() => {navigation.navigate('RegisterPatientScreen', {loggedIn: true})}} >
           <View style={styles.itemContainer}>
             <Image source={require('../../../assets/icons/add_icon.png')} style={styles.image} />
           </View>
@@ -43,7 +47,7 @@ export const SelectPatientScreen = () => {
       );
     } else {
       return (
-        <TouchableOpacity onPress={() => {selectPatient(item.Patient_id)}} style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}}>
+        <TouchableOpacity disabled={DisableBtn} onPress={() => {ValidatePatient(item.Patient_id)}} style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}}>
           <View style={styles.itemContainer}>
             <Image source={{uri: item.image}} style={styles.image} />
           </View>
@@ -80,6 +84,47 @@ export const SelectPatientScreen = () => {
     navigation.navigate('ApplicationTab');
   }
 
+  const ValidatePatient = (Patient_id) => {
+    let VaccinesFlag = false;
+    let VaccinesNotFounded = false;
+
+    //\\ Validate if the patient doesnt have an Immunization Record.
+    if (VaccinesData.length != 0) {
+      PatientData.forEach(patient => {
+        if(patient.id == Patient_id) {
+          VaccinesData.forEach(vaccineRec => {
+            //>> Flag to close the foreach loop
+            if (VaccinesFlag){
+              return;
+            }
+  
+            if (patient.id == vaccineRec.Patient_id){
+              selectPatient(Patient_id);
+              VaccinesFlag = true;
+              VaccinesNotFounded = false;
+            } else {
+              VaccinesNotFounded = true;
+            }
+          })
+          if (VaccinesNotFounded) {
+            setDisableBtn(true);
+            ShowToast('my_warning', 'Warning', 'El paciente no tiene registro\n de vacunación')
+            setTimeout(() => {
+              navigation.navigate('ImmunizationRecordScreen', {Patient_id})
+            }, 2000);
+          }
+  
+        }
+      })
+    } else {
+      setDisableBtn(true);
+      ShowToast('my_warning', 'Warning', 'El paciente no tiene registro\n de vacunación')
+      setTimeout(() => {
+        navigation.navigate('ImmunizationRecordScreen', {Patient_id})
+      }, 2000);
+    }
+  }
+
   const getPatientsFunct = async () => {
     try {
       const {data} = await getPatients(Resp.Email);
@@ -100,6 +145,15 @@ export const SelectPatientScreen = () => {
       setReloadSelect(false);
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  const getImmunizationRecordFunc = async () => {
+    try {
+      const {data} = await getAllImmunizationRecords();
+      setVaccinesData(data.PatientVaccines);
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -147,6 +201,8 @@ export const SelectPatientScreen = () => {
   //\\ stater function.
   useEffect(() => {
     getPatientsFunct();
+    getImmunizationRecordFunc();
+    setDisableBtn(false);
   }, [ReloadSelect]);
 
   // aux
@@ -183,7 +239,7 @@ export const SelectPatientScreen = () => {
               />
             </View>
             <View style={{width: '100%', height: 60, alignItems: 'center', justifyContent: 'center', marginTop: 20,}}>
-              <TouchableOpacity onPress={() => {LogoutButton()}} style={styles.logoutBtn}>
+              <TouchableOpacity disabled={DisableBtn} onPress={() => {LogoutButton()}} style={styles.logoutBtn}>
                 <Text style={{color: '#FFFFFF'}}>Cerrar sesión</Text>
               </TouchableOpacity>
             </View>

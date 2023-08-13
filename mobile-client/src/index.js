@@ -17,7 +17,7 @@ export { MyVaccines } from './screens/app/home/MyVaccines'
 export { ImmunizationRecord } from './screens/auth/ImmunizationRecord';
 export { SelectPatientScreen } from './screens/auth/SelectPatientScreen'
 export { AppointmentMainScreen } from './screens/app/appointment/AppointmentMainScreen'
-export { OtoAppointmentProcessScreen } from './screens/app/appointment/OtoAppointmentProcessScreen'
+export { AppointmentProcessScreen } from './screens/app/appointment/AppointmentProcessScreen'
 export { HistorialAppointment } from './screens/app/appointment/HistorialAppointment'
 export { Medicinas } from './screens/app/Medicinas/Medicinas'
 
@@ -28,6 +28,10 @@ export { DropdownComponent } from './components/DropdownComponent';
 export { ShowToast } from './components/ShowToast'
 export { SetLabel } from './components/SetLabel';
 export { ScreenTitle } from './components/ScreenTitleHook'
+export { RequestAppointmentForm } from './components/AppointmentComponents/RequestAppointmentForm'
+export { PendingAppointment } from './components/AppointmentComponents/PendingAppointment'
+export { NextAppointment } from './components/AppointmentComponents/NextAppointment'
+export { AttendingAppointment } from './components/AppointmentComponents/AttendingAppointment'
 
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';
@@ -37,7 +41,7 @@ export { AppointmentStack } from './navigators/Dashboard/AppointmentStack';
 export { MedicinasStack } from './navigators/Dashboard/MedicinasStack'
 
 //* Queries
-export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord, getAllImmunizationRecords } from './queries/Queries';
+export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord, getAllImmunizationRecords, getPatient, getMedicalRecords } from './queries/Queries';
 
 //\\ Configs
 export { toastConfig } from './components/toastConfigs';

@@ -6,6 +6,10 @@ const localhost = '192.168.0.6';
 //\\ const of headers
 const headers_public = { headers: {'Content-Type': 'application/json'} }
 
+const get_private_headers = (jwtToken) => {
+  return { headers: {"Content-Type": "application/json", "x-auth-token": jwtToken} }
+}
+
 //! Get the information about the Responsible.
 //@access public
 export const getResponsible = async (Email) => {
@@ -66,6 +70,12 @@ export const getPatients = async (Email) => {
   return await axios.post(`http://${localhost}:5005/api/responsible/get_patients`, { Email }, headers_public);
 }
 
+//! Get only one patient of the Responsible.
+//@access public
+export const getPatient = async (PatientId) => {
+  return await axios.post(`http://${localhost}:5005/api/responsible/get_patient`, { PatientId }, headers_public);
+}
+
 //! Get the Immunization Record of the Patient of the Responsible.
 //@access public
 export const getImmunizationRecord = async (Patient_id) => {
@@ -82,4 +92,10 @@ export const getAllImmunizationRecords = async () => {
 //@access public
 export const createImmunizationRecord = async (Patient_id, isChecked) => {
   return await axios.post(`http://${localhost}:5005/api/responsible/create_immunization_record`, {Patient_id, PatientVaccines: isChecked}, headers_public);
+}
+
+//! Get the Medical Records of the Responsible
+//@access Private
+export const getMedicalRecords = async (jwtToken, Patient_id) => {
+  return await axios.post(`http://${localhost}:5005/api/appointment/get_medical_records`, {Patient_id}, get_private_headers(jwtToken))
 }

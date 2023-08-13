@@ -5,15 +5,17 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
 //components
-import { ScreenTitle } from '../../../index';
+import { PendingAppointment, RequestAppointmentForm, ScreenTitle, NextAppointment, AttendingAppointment } from '../../../index';
 import WeekDate from '../../../components/WeekDate';
 
-export const OtoAppointmentProcessScreen = () => {
+export const AppointmentProcessScreen = ({ route }) => {
+  const { doctorDescription, doctor, speciality, doctorPhoto } = route.params
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.fullScreenContainer}>
         <ScreenTitle 
-          Label={"Citas - Otorrinolaringología"}
+          Label={`Citas - ${speciality}`}
           IconName={"clipboard-text-multiple"}
           fontSize={20}
           textColor={'#FFFFFF'}
@@ -22,19 +24,19 @@ export const OtoAppointmentProcessScreen = () => {
         <View style={[styles.doctorBanner, styles.shadowC]}>
           <View style={styles.leftPhotoContainer}>
             <View style={styles.photoContainer}>
-              <Image source={require('../../../../assets/default-pics/dr-guzman.png')} style={styles.photoStyles}/>
+              <Image source={doctorPhoto} style={styles.photoStyles}/>
             </View>
           </View>
           <View style={styles.rightContentContainer}>
-            <Text style={styles.drName}>Dr. Esteban Gúzman</Text>
+            <Text style={styles.drName}>{doctor}</Text>
             <View style={styles.subdivisions}></View>
             <View style={styles.insightsContainer}>
               <MaterialCommunityIcons name="stethoscope" size={24} color="white" style={{width: '18%'}}/>
-              <Text style={styles.insightsText}>Especialista en Otorrinolaringología</Text>
+              <Text style={styles.insightsText}>{doctorDescription.insight1}</Text>
             </View>
             <View style={styles.insightsContainer}>
               <MaterialIcons name="insights" size={24} color="white" style={{width: '18%'}}/>
-              <Text style={styles.insightsText}>Graduado de la universidad de españa con más de 30 años de experiencia</Text>
+              <Text style={styles.insightsText}>{doctorDescription.insight2}</Text>
             </View>
           </View>
         </View>
@@ -84,21 +86,11 @@ export const OtoAppointmentProcessScreen = () => {
         </View>
 
         <View style={[styles.requestAppointmentContainer, styles.shadowC]}>
-          <Text style={styles.requestMainTitle}>Solicitar cita médica</Text>
-          <View style={styles.sectionIconContainer}>
-            <View><MaterialCommunityIcons name="playlist-edit" size={24} color="#46929B" /></View>
-            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: 'bold',}}>Brinda la siguiente información previa</Text></View>
-          </View>
-          <TextInput placeholder='Síntomas o condición a tratar' style={styles.inputSympthoms}>
-          </TextInput>
-          <View style={styles.sectionIconContainer}>
-            <View><MaterialCommunityIcons name="calendar-week" size={24} color="#46929B" /></View>
-            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: 'bold',}}>Seleccione una de las semanas disponibles</Text></View>
-          </View>
-          <WeekDate />
-          <TouchableOpacity style={styles.requestApmtBtn}>
-            <Text style={{color: '#ffffff', fontWeight: 600, fontSize: 16,}}>Solicitar Cita</Text>
-          </TouchableOpacity>
+          
+          {/* <RequestAppointmentForm /> */}
+          {/* <PendingAppointment /> */}
+          {/* <NextAppointment /> */}
+          <AttendingAppointment />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -284,39 +276,4 @@ const styles = StyleSheet.create({
     borderTopColor: '#5AB1BB',
     overflow: 'hidden',
   },
-  requestMainTitle:{
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: '#46929B',
-    alignSelf: 'center',
-    marginVertical: 16,
-  },
-  sectionIconContainer: {
-    width: '90%',
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    marginBottom: 15,
-  },
-  inputSympthoms:{
-    width: '80%',
-    alignSelf: 'center',
-    height: 45,
-    marginBottom: 20,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor:'#5AB1BB',
-    paddingHorizontal: 10
-  },
-  requestApmtBtn:{
-    width: '50%',
-    height: 35,
-    alignSelf: 'center',
-    backgroundColor: '#5AB1BB',
-    borderRadius: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-  marginBottom: 20,
-  }
 })

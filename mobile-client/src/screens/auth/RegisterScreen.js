@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
-import { TextInputMask } from 'react-native-masked-text';
+import {MaskedTextInput} from 'react-native-mask-text';
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
@@ -130,8 +130,9 @@ export const RegisterScreen = () => {
                     autoFocus={true}
                     placeholder="Nombres"
                     placeholderTextColor="gray"
-                    onChangeText={text => setFirstNames(text)}
+                    onChangeText={text => setFirstNames(text.trim())}
                     editable={!DisableButton}
+                    autoCapitalize='none'
                   />
                 </View>
                 <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
@@ -140,66 +141,36 @@ export const RegisterScreen = () => {
                     style={AuthStylesGlobal.input}
                     placeholder="Apellidos"
                     placeholderTextColor="gray"
-                    onChangeText={text => setLastNames(text)}
+                    onChangeText={text => setLastNames(text.trim())}
                     editable={!DisableButton}
+                    autoCapitalize='none'
                   />
                 </View>
               </View>
               <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
                 <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
                   <AntDesign name="idcard" size={24} color="gray" style={{marginRight: 6}} />
-                  {
-                    isAN ? <TextInputMask
-                      style={AuthStylesGlobal.input}
-                      placeholder="DUI"
-                      placeholderTextColor="gray"
-                      onChangeText={text => setDUI(text)}
-                      editable={!DisableButton}
-                      maxLength={10}
-                      keyboardType='numeric'
-                      type="custom"
-                      options={{
-                        mask: '99999999-9',
-                        delimiter: '-',
-                      }}
-                    /> :
-                    <TextInput
-                      style={AuthStylesGlobal.input}
-                      placeholder="DUI"
-                      placeholderTextColor="gray"
-                      onChangeText={text => setDUI(text)}
-                      editable={!DisableButton}
-                      // keyboardType='numeric'
-                    />
-                  }
+                  <MaskedTextInput
+                    style={AuthStylesGlobal.input}
+                    placeholder="DUI"
+                    placeholderTextColor="gray"
+                    onChangeText={text => setDUI(text)}
+                    editable={!DisableButton}
+                    mask='99999999-9'
+                    keyboardType='numeric'
+                  />
                 </View>
                 <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
                   <Feather name="phone" size={24} color="gray" style={{marginRight: 6}} />
-                  {
-                    isAN ?
-                    <TextInputMask
+                    <MaskedTextInput
                       style={AuthStylesGlobal.input}
                       placeholder="Telefono"
                       placeholderTextColor="gray"
                       onChangeText={text => setPhone(text)}
+                      editable={!DisableButton}
+                      mask='9999-9999'
                       keyboardType='numeric'
-                      editable={!DisableButton}
-                      maxLength={9}
-                      type="custom"
-                      options={{
-                        mask: '9999-9999',
-                        delimiter: '-',
-                      }}
-                    /> :
-                    <TextInput
-                      style={AuthStylesGlobal.input}
-                      placeholder="DUI"
-                      placeholderTextColor="gray"
-                      onChangeText={text => setPhone(text)}
-                      editable={!DisableButton}
-                      // keyboardType='numeric'
                     />
-                  }
                 </View>
               </View>
               
@@ -210,7 +181,7 @@ export const RegisterScreen = () => {
                   style={AuthStylesGlobal.inputExtended}
                   placeholder="Correo electrónico"
                   placeholderTextColor="gray"
-                  onChangeText={text => setEmail(text)}
+                  onChangeText={text => setEmail(text.trim())}
                   keyboardType='email-address'
                   editable={!DisableButton}
                   autoCapitalize='none'
