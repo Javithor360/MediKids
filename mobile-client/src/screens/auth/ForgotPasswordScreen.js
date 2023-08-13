@@ -120,8 +120,9 @@ export const ForgotPasswordScreen = () => {
                             placeholderTextColor="gray"
                             keyboardType='email-address'
                             autoCapitalize='none'
-                            onChangeText={text => setEmail(text)}
+                            onChangeText={text => setEmail(text.trim())}
                             editable={!DisableButton}
+                            autoCorrect={false}
                         />
                     </View>
                     

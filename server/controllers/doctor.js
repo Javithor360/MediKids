@@ -154,7 +154,7 @@ const new_medical_record_entry = async (req, res, next) => {
 
     // if(notes === "") return next(new ErrorResponse("", 400, "error"));
 
-    await pool.query("INSERT INTO medical_history SET ?", {
+    await pool.query("INSERT INTO medical_records SET ?", {
       Medical_History_Code: patientCode(),
       Date_Time: new Date(),
       Diagnosis: notes,
@@ -271,7 +271,7 @@ const get_patient_medical_record = async (req, res, next) => {
     }
 
     const [query_check] = await pool.query(
-      "SELECT * FROM medical_history WHERE Patient_id = ?",
+      "SELECT * FROM medical_records WHERE Patient_id = ?",
       [Patient_id]
     );
 

@@ -7,6 +7,7 @@ import { Entypo } from '@expo/vector-icons';
 import { useEffect } from 'react';
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
+import {LinearGradient} from 'expo-linear-gradient'
 
 //>> Constants
 const { height } = Dimensions.get('window');
@@ -26,7 +27,8 @@ export const HomeScreen = () => {
   }, [navigation]);
   const [view,setView] = useState(false);
   return (
-      <ScrollView style={{ height: height + 100, backgroundColor: '#e4e2ff'}}>
+    <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]}>
+      <ScrollView>
         <View style={{backgroundColor:'white'}}>
           <View style={styles.waveTopContent}>
             <ImageBackground source={require('../../../../assets/waves/waves_start_top.png')} style={styles.waveImg}></ImageBackground>
@@ -237,6 +239,7 @@ export const HomeScreen = () => {
           </View>
         </View>
       </ScrollView>
+    </LinearGradient>
   )
 }
 

@@ -1,93 +1,111 @@
-import { ScrollView, StyleSheet, Text, View,TouchableOpacity,MaterialIconsDimensions,  ImageBackground, StatusBar} from 'react-native'
+import { ScrollView, StyleSheet, Text, View,TouchableOpacity, ImageBackground, StatusBar, Image} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { ScreenTitle } from '../../../index';
 //Import Icons
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons'; 
 import { FontAwesome5 } from '@expo/vector-icons'; 
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import {LinearGradient} from 'expo-linear-gradient'
 //Redux
 import { useSelector } from 'react-redux';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import Constants from 'expo-constants';
 
 export const MyAcountScreen = () => {
-    const statusBarHeight = StatusBar.currentHeight;
   const responsible = useSelector(state => state.responsible)
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{backgroundColor: '#e4e2ff',}}>
+    <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]}>
         <ScrollView style={styles.SafeAreaView}>
-            <View style={styles.Contain1}>
-                <ScreenTitle 
+            <View style={{backgroundColor:'#fff'}}>
+                <ScreenTitle
                     Label={"Mi Cuenta"}
                     IconName={"account-circle"}
                     fontSize={20}
                     textColor={'#FFFFFF'}
                     paddingH={40}
-                /> 
-                <Text style={styles.Datos}>Datos del Encargado</Text>
+                />
                 <View style={styles.containPhoto}>
                     <View style={styles.profilePhotoWrapper}>
                         <ImageBackground style={styles.profilePhotoImage} source={{uri: responsible.ProfilePhotoUrl}}>
                         </ImageBackground>
                     </View>
-                </View>  
-            </View>
-            <View style={styles.hr}></View>
-            <View style={styles.Contain2}>
-                <View style={styles.ContainDatos}>
-                    <View style={styles.ContainCardShadow} >
-                        <View style={styles.Card}>
-                            <View style={styles.ContainCard}>
-                                <View style={styles.ContainCardText2}>
-                                    <View style={{flexDirection: 'row'}}>
-                                        <AntDesign name="profile" size={24} color="#A375FF" marginLeft='5%' marginTop='1%' />
-                                        <Text style={styles.Nombre}>Nombre:</Text>
-                                    </View>
-                                    <Text style={styles.NombreT}>{responsible.FirstNames} {responsible.LastNames}</Text>
-                                </View>
-                                <View style={styles.line}></View>
-                                <View style={styles.ContainCardText2}>
-                                    <View style={{flexDirection: 'row',}}>
-                                        <MaterialIcons name="alternate-email" size={24} color="#A375FF" marginLeft='5%' marginTop='1%' />
-                                        <Text style={styles.Email}>Email:</Text>
-                                    </View>
-                                    <Text style={styles.EmailT}>{responsible.Email}</Text>
-                                </View>
-                                <View style={styles.line}></View>
-                                <View style={styles.ContainCardText}>
-                                    <AntDesign name="idcard" size={24} color="#A375FF" marginLeft='5%' marginTop='1%' />
-                                    <Text style={styles.DUI}>DUI:</Text>
-                                    <Text style={styles.DUIT}>{responsible.DUI}</Text>
-                                </View>
-                                <View style={styles.line}></View>
-                                <View style={[styles.ContainCardText, {marginBottom: 10,}]}>
-                                    <AntDesign name="phone" size={24} color="#A375FF"  marginLeft='5%' />
-                                    <Text style={styles.NumTele}>Teléfono:</Text>
-                                    <Text style={styles.NumTeleT}>{responsible.Phone}</Text>
-                                </View>
-                            </View>
-                            <View style={styles.line}></View>
-                            <View style={{width: '100%', height: 60, marginTop: 4, justifyContent: 'center', alignItems: 'center'}}>
-                                <TouchableOpacity onPress={() => {navigation.navigate('SelectProfilePhotoScreen')}} style={{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#FFDEB4',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}}>
-                                    <FontAwesome5 name="user-circle" size={24} color="#707070" />
-                                    <Text style={{color: '#707070', fontSize: 16}}>Cambiar Foto de Perfil</Text>
-                                </TouchableOpacity>
-                            </View>    
-                        </View>
-                        {/* <TouchableOpacity onPress={() => {navigation.navigate('SelectProfilePhotoScreen')}} style={{ height: '10%',width: '90%',borderRadius: 15,backgroundColor: '#D04343',alignItems: 'center',justifyContent: 'center',marginTop: 10,}}>
-                            <Text style={{color: '#fff'}}>Cerrar Sesión</Text>
-                        </TouchableOpacity> */}
-                    </View>
                 </View>
+                <View style={styles.ContainerView}>
+                    <Text>hola</Text>
+                </View>
+                {/* <View style={styles.Contain1}>
+                    
+                    
+                </View>
+                <View style={styles.Contain2}>
+                    <Text style={styles.Datos}>Datos del Encargado</Text>
+                    <View style={styles.ContainDatos}>
+                        <View style={styles.ContainCardShadow} >
+                            <View style={styles.Card}>
+                                <View style={styles.ContainCard}>
+                                    <View style={styles.ContainCardText2}>
+                                        <View style={{flexDirection: 'row'}}>
+                                            <AntDesign name="profile" size={24} color="#A375FF" marginLeft='5%' marginTop='1%' />
+                                            <Text style={styles.Nombre}>Nombre:</Text>
+                                        </View>
+                                        <Text style={styles.NombreT}>{responsible.FirstNames} {responsible.LastNames}</Text>
+                                    </View>
+                                    <View style={styles.line}></View>
+                                    <View style={styles.ContainCardText2}>
+                                        <View style={{flexDirection: 'row',}}>
+                                            <MaterialIcons name="alternate-email" size={24} color="#A375FF" marginLeft='5%' marginTop='1%' />
+                                            <Text style={styles.Email}>Email:</Text>
+                                        </View>
+                                        <Text style={styles.EmailT}>{responsible.Email}</Text>
+                                    </View>
+                                    <View style={styles.line}></View>
+                                    <View style={styles.ContainCardText}>
+                                        <AntDesign name="idcard" size={24} color="#A375FF" marginLeft='5%' marginTop='1%' />
+                                        <Text style={styles.DUI}>DUI:</Text>
+                                        <Text style={styles.DUIT}>{responsible.DUI}</Text>
+                                    </View>
+                                    <View style={styles.line}></View>
+                                    <View style={[styles.ContainCardText, {marginBottom: 10,}]}>
+                                        <AntDesign name="phone" size={24} color="#A375FF"  marginLeft='5%' />
+                                        <Text style={styles.NumTele}>Teléfono:</Text>
+                                        <Text style={styles.NumTeleT}>{responsible.Phone}</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.line}></View>
+                                <View style={{width: '100%', height: 60, marginTop: 4, justifyContent: 'center', alignItems: 'center'}}>
+                                    <TouchableOpacity onPress={() => {navigation.navigate('SelectProfilePhotoScreen')}} style={{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#FFDEB4',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}}>
+                                        <FontAwesome5 name="user-circle" size={24} color="#707070" />
+                                        <Text style={{color: '#707070', fontSize: 16}}>Cambiar Foto de Perfil</Text>
+                                    </TouchableOpacity>
+                                </View>    
+                            </View>
+                        </View>
+                    </View>
+                </View> */}
             </View>
         </ScrollView>
-    </SafeAreaView>
+    </LinearGradient>
   )
 }
 
 const styles = StyleSheet.create({
+ContainerView: {
+    backgroundColor:'#FFFFFF',
+    marginTop:-70,
+    paddingTop: '20%',
+    //iOS
+    shadowColor: '#BBBBBB',
+    // shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    //Android
+    elevation: 5,
+    shadowColor: '#000',
+    borderRadius: 30,
+    paddingBottom: 30,
+    paddingHorizontal: 20
+},
 Titulo:{
     fontSize:25,
     bottom:'10%',
@@ -110,16 +128,17 @@ Datos:{
     color:'#A375FF',
 },
 SafeAreaView:{
-    backgroundColor:'white',
     height:'100%',
+    marginTop: Constants.statusBarHeight
 },
 Contain1:{
-    height:400,
+    height:350,
     alignItems:'center',
+    backgroundColor: '#CECEF'
 },
 Contain2:{
-    height:500,
-    backgroundColor:'white',
+    height:550,
+
 },
 ContainDatos:{
     width:'100%',
@@ -220,14 +239,15 @@ NumTeleT:{
     marginVertical:'1%',
 },
 containPhoto:{
-    alignItems: 'center', 
+    alignItems: 'center',
     justifyContent: 'center',
-    width: '100%',  
-    marginTop:'5%',
+    width: '100%',
+    marginTop: '-5%',
+    zIndex: 1000
 },
 profilePhotoWrapper:{
-    height: 200,
-    width: 200,
+    height: 130,
+    width: 130,
     marginVertical: '2%',
     borderRadius: 100,
     overflow: 'hidden',
