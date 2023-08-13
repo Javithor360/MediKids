@@ -2,23 +2,23 @@ import React from 'react'
 //>>Libraries
 import { createBottomTabNavigator as createTabNav } from "@react-navigation/bottom-tabs";
 import { useEffect, useRef } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { MaterialIcons } from '@expo/vector-icons'; 
 import { isIOS } from '../constants';
 //>>Stacks screens
 import { HomeStack } from '../navigators/Dashboard/HomeStack';
 import { CalendarStack } from '../navigators/Dashboard/CalendarStack';
 import { AppointmentStack } from '../navigators/Dashboard/AppointmentStack';
 import { MyAccountStack } from './Dashboard/MyAccountStack';
+import { MedicinasStack } from './Dashboard/MedicinasStack';
 
 //>>Tab items props array
 const TabProps = [
   {route: 'HomeStack', label: 'Inicio', iconName: 'home-variant', component: HomeStack, color: 'red'},
   {route: 'Calendario', label: 'Calendario', iconName: 'calendar-clock', component: CalendarStack, color: 'red'},
   {route: 'Appointment', label: 'Citas', iconName: 'clipboard-text', component: AppointmentStack, color: 'red'},
-  {route: 'Calendsdario', label: 'Medicinas', iconName: 'pill', component: CalendarStack, color: 'red'},
+  {route: 'Medicinas', label: 'Medicinas', iconName: 'pill', component: MedicinasStack, color: 'red'},
   {route: 'Calenddario', label: 'Mi cuenta', iconName: 'account-circle', component: MyAccountStack, color: 'red'},
 ]
 
