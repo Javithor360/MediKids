@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native'
 //Components
-import { ScreenTitle } from '../../../index';
+import { AppointmentStatus, ScreenTitle } from '../../../index';
 
 const doctorDescription = {
     otoDoctorInsights: {
@@ -34,6 +34,7 @@ export const AppointmentMainScreen = () => {
                 textColor={'#FFFFFF'}
                 paddingH={30}
             /> 
+            <AppointmentStatus />
             <View style={styles.chooseBanner}>
                 <View style={styles.chooseContent}>
                     <View style={styles.leftIconSctn}>
@@ -134,11 +135,19 @@ export const AppointmentMainScreen = () => {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment') }>
-                    <Text style={{color: '#fff', fontSize: 13.5,}}>Historial</Text>
-                </TouchableOpacity>
             </View>
-            
+            <View style={[styles.requestAppointmentContainer, styles.btcYellow, styles.shadowC]}>
+                <Text style={[styles.requestMainTitle, styles.colorYellow]}>Historial de citas</Text>
+
+                {/* <Image source={require('../../../../assets/graphic-icons/history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 16,}}></Image>
+                <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment') }>
+                    <Text style={{color: '#fff', fontSize: 13.5,}}>Ver historial</Text>
+                </TouchableOpacity> */}
+                
+                
+                <Image source={require('../../../../assets/graphic-icons/no_history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 10,}}></Image>
+                <Text style={{alignSelf: 'center', marginBottom: 20, color: '#707070'}}>Todavía no hay registros en el historial</Text>
+            </View>
         </ScrollView>
     </SafeAreaView>
   )
@@ -265,15 +274,51 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-end',
     },
     apptBtn1:{
-        width: '60%',
+        width: '35%',
         height: 30,
         backgroundColor: '#D58C8C',
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        bottom: 6,
-        right: 75,
-        position: 'absolute',
-        alignSelf: 'flex-end',
+        alignSelf: 'center',
+        marginBottom: 16,
+    },
+    requestAppointmentContainer:{
+        // height: 800,
+        width: wp('90%'),
+        backgroundColor: '#ffffff',
+        alignSelf: 'center',
+        borderRadius: 20,
+        marginTop: 30,
+        marginBottom: 30,
+        borderTopWidth: 9,
+        overflow: 'hidden',
+        borderWidth: 1,
+        borderColor: '#EBEBEB',
+    },
+    btcYellow:{
+        borderTopColor: '#FCC277',
+    },
+    btcGreen:{
+        borderTopColor: '#5AB1BB',
+    },
+    shadowC:{
+        //iOS
+        shadowColor: '#707070',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        //Android
+        elevation: 5,
+        shadowColor: '#707070',
+    },
+    requestMainTitle:{
+        fontSize: 20,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        marginVertical: 16,
+    },
+    colorYellow:{
+        color: '#F8991E',
     },
   });

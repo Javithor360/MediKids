@@ -36,6 +36,7 @@ export { NextAppointment } from './components/AppointmentComponents/NextAppointm
 export { AttendingAppointment } from './components/AppointmentComponents/AttendingAppointment'
 export { AppointmentResults } from './components/AppointmentComponents/AppointmentResults'
 export { AppointmentMedicines } from './components/AppointmentComponents/AppointmentMedicines'
+export  { AppointmentStatus } from './components/AppointmentComponents/AppointmentStatus'
 
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';
