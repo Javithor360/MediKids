@@ -34,6 +34,8 @@ export { RequestAppointmentForm } from './components/AppointmentComponents/Reque
 export { PendingAppointment } from './components/AppointmentComponents/PendingAppointment'
 export { NextAppointment } from './components/AppointmentComponents/NextAppointment'
 export { AttendingAppointment } from './components/AppointmentComponents/AttendingAppointment'
+export { AppointmentResults } from './components/AppointmentComponents/AppointmentResults'
+export { AppointmentMedicines } from './components/AppointmentComponents/AppointmentMedicines'
 
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';

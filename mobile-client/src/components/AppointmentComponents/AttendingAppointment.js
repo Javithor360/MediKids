@@ -89,12 +89,21 @@ const styles = StyleSheet.create({
     cardContainer: {
         width: wp('80%'),
         borderRadius: 20,
-        elevation: 4,
         backgroundColor: '#fff',
         padding: 16,
         alignSelf: 'center',
         marginBottom: 16,
         flexDirection: 'column',
+        //iOS
+        shadowColor: '#707070',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        //Android
+        elevation: 5,
+        shadowColor: '#707070',
+        borderWidth: 1,
+        borderColor: '#E6E6E6',
     },
     personalInfoContainer:{
         flexDirection: 'row',
@@ -110,11 +119,18 @@ const styles = StyleSheet.create({
     iconBack: {
         borderRadius: 10,
         backgroundColor: '#96C1C6',
-        elevation: 4,
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 10,
         paddingHorizontal: 10,
+        //iOS
+        shadowColor: '#707070',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        //Android
+        elevation: 5,
+        shadowColor: '#707070',
     },
     someDetailsC: {
         justifyContent: 'center',

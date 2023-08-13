@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
 //components
-import { PendingAppointment, RequestAppointmentForm, ScreenTitle, NextAppointment, AttendingAppointment } from '../../../index';
+import { PendingAppointment, RequestAppointmentForm, ScreenTitle, NextAppointment, AttendingAppointment, AppointmentResults, AppointmentMedicines } from '../../../index';
 import WeekDate from '../../../components/WeekDate';
 
 export const AppointmentProcessScreen = ({ route }) => {
@@ -21,6 +21,19 @@ export const AppointmentProcessScreen = ({ route }) => {
           textColor={'#FFFFFF'}
           paddingH={30}
         /> 
+        {/* Appointment ComponentWrapper */}
+        <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcGreen, styles.wMb]}>
+          {/* <RequestAppointmentForm /> */}
+          {/* <PendingAppointment /> */}
+          {/* <NextAppointment /> */}
+          {/* <AttendingAppointment /> */}
+          <AppointmentResults />
+        </View>
+        {/* Medicines Container */}
+        <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcYellow, styles.wMb]}>
+          <AppointmentMedicines />
+        </View>
+
         <View style={[styles.doctorBanner, styles.shadowC]}>
           <View style={styles.leftPhotoContainer}>
             <View style={styles.photoContainer}>
@@ -41,7 +54,7 @@ export const AppointmentProcessScreen = ({ route }) => {
           </View>
         </View>
 
-        <View style={[styles.informationContainer, styles.shadowC]}>
+        <View style={[styles.informationContainer, styles.shadowC, styles.wMb]}>
           <View style={styles.infoMainContentC}>
             <Text style={styles.infoMainTitle}>A tener en cuenta</Text>
             <Text style={{color: '#707070'}}>Cada uno de nuestros pacientes recibe una atención personalizada, nuestros médicos se encargan de analizar detalladamente cada uno de los casos para brindar el diagnostico adecuado siempre, es por ello que en cada cita se toma en cuenta la siguiente metodología</Text>
@@ -84,14 +97,10 @@ export const AppointmentProcessScreen = ({ route }) => {
             </View>
           </View>
         </View>
-
-        <View style={[styles.requestAppointmentContainer, styles.shadowC]}>
-          
-          {/* <RequestAppointmentForm /> */}
-          {/* <PendingAppointment /> */}
-          {/* <NextAppointment /> */}
-          <AttendingAppointment />
-        </View>
+        {/* Request componentWrapper */}
+        {/* <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcGreen]}>
+          <RequestAppointmentForm />
+        </View> */}
       </ScrollView>
     </SafeAreaView>
   )
@@ -137,11 +146,18 @@ const styles = StyleSheet.create({
     height: '70%',
     backgroundColor: '#fff',
     borderRadius: 10,
-    elevation: 5,
     borderWidth: 3,
     borderColor: '#CDCDF3',
     alignItems: 'center',
     justifyContent: 'flex-end',
+    //iOS
+    shadowColor: '#707070',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    //Android
+    elevation: 5,
+    shadowColor: '#707070',
   },
   insightsContainer:{
     width: '85%',
@@ -179,12 +195,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   shadowC:{
-    elevation: 4,
     //iOS
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowColor: '#707070',
+    shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.2,
-    shadowRadius: 4,
+    shadowRadius: 3,
+    //Android
+    elevation: 5,
+    shadowColor: '#707070',
   },
   infoMainContentC:{
     width: '90%',
@@ -270,10 +288,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     alignSelf: 'center',
     borderRadius: 20,
-    marginTop: 30,
-    marginBottom: 30,
     borderTopWidth: 9,
-    borderTopColor: '#5AB1BB',
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#EBEBEB',
   },
+  btcYellow:{
+    borderTopColor: '#FCC277',
+  },
+  btcGreen:{
+    borderTopColor: '#5AB1BB',
+  },
+  wMt:{
+    marginTop: 30,
+  },
+  wMb:{
+    marginBottom: 30,
+  }
 })
