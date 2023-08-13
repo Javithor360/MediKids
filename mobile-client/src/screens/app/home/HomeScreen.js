@@ -9,9 +9,6 @@ import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import {LinearGradient} from 'expo-linear-gradient'
 
-//>> Constants
-const { height } = Dimensions.get('window');
-
 export const HomeScreen = () => {
   const navigation = useNavigation()
   const Info = useSelector(state => state.responsible);
