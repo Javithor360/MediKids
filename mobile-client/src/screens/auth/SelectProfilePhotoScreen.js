@@ -63,7 +63,7 @@ export const SelectProfilePhotoScreen = () => {
             const manipImage = await manipulateAsync(
                 ImgUri,
                 [],
-                {compress: 0.7}
+                {compress: 0.9}
             )
 
             const formData = new FormData();
@@ -81,7 +81,11 @@ export const SelectProfilePhotoScreen = () => {
                     setIsLoading(false);
                     setSuccess(true);
                     setTimeout(() => {
-                        navigation.navigate('RegisterPatientScreen');
+                        if(HaveBtn){
+                            navigation.goBack();
+                        } else {
+                            navigation.navigate('RegisterPatientScreen');
+                        }
                     }, 5000);
                 }, 4000);
                 
@@ -112,7 +116,7 @@ export const SelectProfilePhotoScreen = () => {
                 })
             }
             
-        }
+        } 
     }, [route]);
 
     useEffect(() => {

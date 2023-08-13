@@ -10,13 +10,13 @@ const Stack = createStackNavigator();
 export const MedicinasStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Medicinas"
+      initialRouteName="MedicineScreen"
       screenOptions={{
         headerBackTitleVisible: false,
         headerShown: false
       }}
     >
-      <Stack.Screen name="Medicinas" component={Medicinas} />
+      <Stack.Screen name="MedicineScreen" component={Medicinas} />
     
     </Stack.Navigator>
   );
