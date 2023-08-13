@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS medikids_db . Responsible (
 	Reset_Pass_Expire DATETIME,
 	Email_Verify_code VARCHAR(45),
 	PRIMARY KEY (id),
-  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
+	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
 );
 
 CREATE TABLE IF NOT EXISTS medikids_db . Patient (
@@ -60,14 +60,14 @@ CREATE TABLE IF NOT EXISTS medikids_db . Calendar (
 	ON UPDATE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS medikids_db . Medical_History (
+CREATE TABLE IF NOT EXISTS medikids_db . Medical_Records (
 	id INT NOT NULL AUTO_INCREMENT,
 	Medical_History_Code VARCHAR(45) NOT NULL,
 	Date_Time DATETIME NOT NULL,
 	Diagnosis LONGTEXT NOT NULL,
 	Weight FLOAT NOT NULL,
 	Height FLOAT NOT NULL,
-	Temperature  FLOAT NOT NULL,
+	Temperature FLOAT NOT NULL,
 	Patient_id INT NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
@@ -79,37 +79,20 @@ CREATE TABLE IF NOT EXISTS medikids_db . Medical_History (
 CREATE TABLE IF NOT EXISTS medikids_db . Medical_Prescription (
 	id INT NOT NULL AUTO_INCREMENT,
 	Medical_Prescription_Code VARCHAR(45) NOT NULL,
-	Date_Time DATETIME NOT NULL,
+	Medicine_Name VARCHAR(100) NOT NULL,
+	Instructions MEDIUMTEXT NOT NULL,
 	Description MEDIUMTEXT NOT NULL,
+	Created_Date DATETIME NOT NULL,
+	Starting_Dose_Date DATE NOT NULL,
+	Finishing_Dose_Date DATE NOT NULL,
+	Dose VARCHAR(45) NOT NULL,
 	Patient_id INT NOT NULL,
+	Time_Dose INT NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
 	FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION
-);
-
-
-CREATE TABLE IF NOT EXISTS medikids_db . Medical_Recipe (
-	id INT NOT NULL AUTO_INCREMENT,
-	Name VARCHAR(45) NOT NULL,
-	Starting_Date DATE NOT NULL,
-	Finishing_Date DATE NOT NULL,
-	Dose VARCHAR(45) NOT NULL,
-	Time_Dose INT NOT NULL,
-	Medical_Prescription_id INT NOT NULL,
-	PRIMARY KEY (id),
-	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-	FOREIGN KEY(Medical_Prescription_id) REFERENCES medikids_db . Medical_Prescription(id)
-	ON DELETE NO ACTION
-	ON UPDATE NO ACTION
-);
-
-CREATE TABLE IF NOT EXISTS medikids_db . Specialties (
-	id INT NOT NULL AUTO_INCREMENT,
-	Name VARCHAR(45) NOT NULL,
-	PRIMARY KEY (id),
-	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
 );
 
 CREATE TABLE IF NOT EXISTS medikids_db . Doctors (
@@ -122,17 +105,14 @@ CREATE TABLE IF NOT EXISTS medikids_db . Doctors (
 	Profile_Photo VARCHAR(200) NOT NULL,
 	Speciality_id INT NOT NULL,
 	PRIMARY KEY (id),
-	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-	FOREIGN KEY(Speciality_id) REFERENCES medikids_db . Specialties(id)
-	ON DELETE NO ACTION
-	ON UPDATE NO ACTION
+	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
 );
 
 CREATE TABLE IF NOT EXISTS medikids_db . Notices (
 	id INT NOT NULL AUTO_INCREMENT,
-	Description  LONGTEXT NOT NULL,
+	Description LONGTEXT NOT NULL,
 	Date_Time DATETIME NOT NULL,
-	Doctor_id INT NOT NULL, 
+	Doctor_id INT NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
 	FOREIGN KEY(Doctor_id) REFERENCES medikids_db . Doctors(id)
@@ -145,39 +125,13 @@ CREATE TABLE IF NOT EXISTS medikids_db . Medical_Appointment (
 	Doctor_id INT NOT NULL,
 	Responsible_id INT NOT NULL,
 	Patient_id INT NOT NULL,
-	Description VARCHAR(150) NOT NULL,
-	Date DATE NOT NULL,
-	Hour TIME NOT NULL,
+	State INT NOT NULL,
+	Weeks VARCHAR(100),
+	Description VARCHAR(150),
+	Date DATE,
+	Hour TIME,
 	PRIMARY KEY (id),
 	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
-);
-
-CREATE TABLE IF NOT EXISTS medikids_db . Responsible_Appointment_Detail (
-	id INT NOT NULL AUTO_INCREMENT,
-	Responsible_id INT NOT NULL,
-	Appointment_id INT NOT NULL,
-	PRIMARY KEY (id),
-	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-	FOREIGN KEY(Responsible_id) REFERENCES medikids_db . Responsible(id)
-	ON DELETE NO ACTION
-	ON UPDATE NO ACTION,
-	FOREIGN KEY(Appointment_id) REFERENCES medikids_db . Medical_Appointment(id)
-	ON DELETE NO ACTION
-	ON UPDATE NO ACTION
-);
-
-CREATE TABLE IF NOT EXISTS medikids_db . Doctor_Appointment_Detail (
-	id INT NOT NULL AUTO_INCREMENT,
-	Doctor_id INT NOT NULL,
-	Appointment_id INT NOT NULL,
-	PRIMARY KEY (id),
-	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-	FOREIGN KEY(Doctor_id) REFERENCES medikids_db . Doctors(id)
-	ON DELETE NO ACTION
-	ON UPDATE NO ACTION,
-	FOREIGN KEY(Appointment_id) REFERENCES medikids_db . Medical_Appointment(id)
-	ON DELETE NO ACTION
-	ON UPDATE NO ACTION
 );
 
 CREATE TABLE IF NOT EXISTS medikids_db . patients_monitoring (
@@ -213,3 +167,12 @@ CREATE TABLE IF NOT EXISTS medikids_db . patient_vaccines (
 	ON DELETE NO ACTION
 	ON UPDATE NO ACTION
 );
+
+CREATE TABLE IF NOT EXISTS medikids_db . documents_dui (
+	id INT NOT NULL AUTO_INCREMENT,
+	DUI INT NOT NULL,
+	First_Names VARCHAR(255) NOT NULL,
+	Last_Names VARCHAR(255) NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
+)

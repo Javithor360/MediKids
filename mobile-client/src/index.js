@@ -35,7 +35,7 @@ export { CalendarStack } from './navigators/Dashboard/CalendarStack';
 export { AppointmentStack } from './navigators/Dashboard/AppointmentStack';
 
 //* Queries
-export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord, getAllImmunizationRecords, getPatient } from './queries/Queries';
+export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord, getAllImmunizationRecords, getPatient, getMedicalRecords } from './queries/Queries';
 
 //\\ Configs
 export { toastConfig } from './components/toastConfigs';

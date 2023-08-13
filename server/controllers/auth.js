@@ -5,13 +5,11 @@ import crypto from 'crypto';
 import { initializeApp } from 'firebase/app'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 
-import ErrorResponse from "../utils/error_message.js";
-
-
 //>> IMPORT CONFIGS & FUNCTIONS
 import {pool} from '../utils/db.js';
 import { create_code, create_jwt, create_reset_code, patientCode, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
 import firebaseConfig from '../utils/firebase.config.js';
+import ErrorResponse from "../utils/error_message.js";
 
 //? Startup Firebase configuration.
 initializeApp(firebaseConfig.firebaseConfig);
@@ -48,7 +46,7 @@ const register = async (req, res, next) => {
 
     //4 - CHECK VALID VALUES
     // Number Phone
-    if (!/\D*\(?(\d{3})?\)?\D*(\d{4})\D*(\d{4})/.test(Phone)) {
+    if (/^(?!.*(\d)(?:-?\1){3})([67]\d{3}-\d{4})$/.test(Phone)) {
       return res.status(500).json({success: false, message: 'Telefono invalido'});
     }
     // Email

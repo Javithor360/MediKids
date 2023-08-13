@@ -1,125 +1,125 @@
 import React from 'react'
 import { Text, ScrollView, StyleSheet, View, Image, TouchableOpacity } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 //Libraries
+import {LinearGradient} from 'expo-linear-gradient'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native'
+import Constants from 'expo-constants';
 //Components
 import { ScreenTitle } from '../../../index';
 
 export const AppointmentMainScreen = () => {
     const navigation = useNavigation()
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]}>
         <ScrollView style={styles.fullScreenContainer}>
-            <ScreenTitle 
-                Label={"Citas"}
-                IconName={"clipboard-text-multiple"}
-                fontSize={20}
-                textColor={'#FFFFFF'}
-                paddingH={30}
-            /> 
-            <View style={styles.chooseBanner}>
-                <View style={styles.chooseContent}>
-                    <View style={styles.leftIconSctn}>
-                        <View style={styles.iconShadow}>
-                            <Image source={require('../../../../assets/graphic-icons/cita-medica.png')} style={{width: '90%', height: '90%', resizeMode: 'contain'}} />
-                        </View>
-                    </View>
-                    <View style={styles.rightTextSctn}>
-                        <View style={styles.linee}></View>
-                        <Text style={styles.titleBanner}>Elige la especialidad en la que agendarás una cita</Text>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.cardsContainer}>
-                <View style={styles.card}>
-                    <View style={{width: '35%', height: '100%'}}>
-                        <Image source={require('../../../../assets/bg/spc_oto.png')} style={{width: '100%', height: '100%', resizeMode: 'cover',}} />
-                    </View>
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/otorrino-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
-                            </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Otorrinolaringología</Text>
-                                <Text style={styles.spcDoctor}>Dr. Esteban Gúzman</Text>
+            <View style={{backgroundColor: '#FFFFFF'}}>
+                <ScreenTitle
+                    Label={"Citas"}
+                    IconName={"clipboard-text-multiple"}
+                    fontSize={20}
+                    textColor={'#FFFFFF'}
+                    paddingH={30}
+                /> 
+                <View style={styles.chooseBanner}>
+                    <View style={styles.chooseContent}>
+                        <View style={styles.leftIconSctn}>
+                            <View style={styles.iconShadow}>
+                                <Image source={require('../../../../assets/graphic-icons/cita-medica.png')} style={{width: '90%', height: '90%', resizeMode: 'contain'}} />
                             </View>
                         </View>
-                        <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
-                        <View style={{height: '65%', padding: 6}}>
-                            <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de las enfermedades del oído, nariz, garganta y alergías</Text>
-                            <TouchableOpacity style={styles.apptBtn} onPress={()=>navigation.navigate('OtoAppointmentProcessScreen')}>
-                                <Text style={{color: '#fff', fontSize: 13.5,}}>Agendar Cita</Text>
-                            </TouchableOpacity>
+                        <View style={styles.rightTextSctn}>
+                            <View style={styles.linee}></View>
+                            <Text style={styles.titleBanner}>Elige la especialidad en la que agendarás una cita</Text>
                         </View>
                     </View>
                 </View>
+                <View style={styles.cardsContainer}>
+                    <View style={styles.card}>
+                        <View style={{width: '35%', height: '100%'}}>
+                            <Image source={require('../../../../assets/bg/spc_oto.png')} style={{width: '100%', height: '100%', resizeMode: 'cover',}} />
+                        </View>
+                        <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',}}>
+                            <View style={styles.IconTextSpc}>
+                                <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
+                                    <Image source={require('../../../../assets/graphic-icons/otorrino-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
+                                </View>
+                                <View style={styles.spcTitleC}>
+                                    <Text style={styles.spcTitle}>Otorrinolaringología</Text>
+                                    <Text style={styles.spcDoctor}>Dr. Esteban Gúzman</Text>
+                                </View>
+                            </View>
+                            <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
+                            <View style={{height: '65%', padding: 6}}>
+                                <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de las enfermedades del oído, nariz, garganta y alergías</Text>
+                                <TouchableOpacity style={styles.apptBtn} onPress={()=>navigation.navigate('OtoAppointmentProcessScreen')}>
+                                    <Text style={{color: '#fff', fontSize: 13.5,}}>Agendar Cita</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
 
-                <View style={styles.card}>
-                    <View style={{width: '35%', height: '100%'}}>
-                        <Image source={require('../../../../assets/bg/spc_neu.png')} style={{width: '100%', height: '100%', resizeMode: 'cover',}} />
-                    </View>
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/neumologia-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
+                    <View style={styles.card}>
+                        <View style={{width: '35%', height: '100%'}}>
+                            <Image source={require('../../../../assets/bg/spc_neu.png')} style={{width: '100%', height: '100%', resizeMode: 'cover',}} />
+                        </View>
+                        <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',}}>
+                            <View style={styles.IconTextSpc}>
+                                <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
+                                    <Image source={require('../../../../assets/graphic-icons/neumologia-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
+                                </View>
+                                <View style={styles.spcTitleC}>
+                                    <Text style={styles.spcTitle}>Neumología</Text>
+                                    <Text style={styles.spcDoctor}>Dra. Fatima Garza</Text>
+                                </View>
                             </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Neumología</Text>
-                                <Text style={styles.spcDoctor}>Dra. Fatima Garza</Text>
+                            <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
+                            <View style={{height: '65%', padding: 6}}>
+                                <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de enfermedades del sistema y vías respiratorias y pulmones</Text>
+                                <TouchableOpacity style={styles.apptBtn}>
+                                    <Text style={{color: '#fff', fontSize: 13.5,}}>Agendar Cita</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
-                        <View style={{height: '65%', padding: 6}}>
-                            <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de enfermedades del sistema y vías respiratorias y pulmones</Text>
-                            <TouchableOpacity style={styles.apptBtn}>
-                                <Text style={{color: '#fff', fontSize: 13.5,}}>Agendar Cita</Text>
-                            </TouchableOpacity>
-                        </View>
                     </View>
-                </View>
 
-                <View style={styles.card}>
-                    <View style={{width: '35%', height: '100%'}}>
-                        <Image source={require('../../../../assets/bg/spc_gas.png')} style={{width: '100%', height: '100%', resizeMode: 'cover',}} />
-                    </View>
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/gastro-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
+                    <View style={styles.card}>
+                        <View style={{width: '35%', height: '100%'}}>
+                            <Image source={require('../../../../assets/bg/spc_gas.png')} style={{width: '100%', height: '100%', resizeMode: 'cover',}} />
+                        </View>
+                        <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',}}>
+                            <View style={styles.IconTextSpc}>
+                                <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
+                                    <Image source={require('../../../../assets/graphic-icons/gastro-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
+                                </View>
+                                <View style={styles.spcTitleC}>
+                                    <Text style={styles.spcTitle}>Gastroenterología</Text>
+                                    <Text style={styles.spcDoctor}>Dr. Adrián Flores</Text>
+                                </View>
                             </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Gastroenterología</Text>
-                                <Text style={styles.spcDoctor}>Dr. Adrián Flores</Text>
+                            <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
+                            <View style={{height: '65%', padding: 6}}>
+                                <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de enfermedades del esófago, el estómago, los intestinos, y el hígado</Text>
+                                <TouchableOpacity style={styles.apptBtn}>
+                                    <Text style={{color: '#fff', fontSize: 13.5,}}>Agendar Cita</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
-                        <View style={{height: '65%', padding: 6}}>
-                            <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de enfermedades del esófago, el estómago, los intestinos, y el hígado</Text>
-                            <TouchableOpacity style={styles.apptBtn}>
-                                <Text style={{color: '#fff', fontSize: 13.5,}}>Agendar Cita</Text>
-                            </TouchableOpacity>
-                        </View>
                     </View>
+                    <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment') }>
+                        <Text style={{color: '#fff', fontSize: 13.5,}}>Historial</Text>
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment') }>
-                                <Text style={{color: '#fff', fontSize: 13.5,}}>Historial</Text>
-                            </TouchableOpacity>
             </View>
             
         </ScrollView>
-    </SafeAreaView>
+    </LinearGradient>
   )
 }
 
 const styles = StyleSheet.create({
     fullScreenContainer:{
-      backgroundColor: '#FFFFFF',
-    },
-    safeArea:{
-      backgroundColor: '#e4e2ff',
+      marginTop: Constants.statusBarHeight,
     },
     chooseBanner: {
         height: 180,

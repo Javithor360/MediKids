@@ -167,7 +167,7 @@ export const LoginScreen = () => {
                 style={AuthStylesGlobal.inputExtended}
                 placeholder="Email"
                 placeholderTextColor="gray"
-                onChangeText={text => setEmail(text)}
+                onChangeText={text => setEmail(text.trim())}
                 keyboardType='email-address'
                 editable={!DisableButton}
                 autoCapitalize='none'

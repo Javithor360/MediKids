@@ -9,7 +9,7 @@ import { AuthStylesGlobal, AuthStylesRegisterP, AuthStylesRegisterU } from '../.
 import { isAN, isIOS } from '../../constants';
 import { CustomButton, DropdownComponent, RegisterPatientsQuery, SetLabel, ShowToast, getPatients } from '../../index';
 import { ScrollView } from "react-native-gesture-handler";
-import { TextInputMask } from "react-native-masked-text";
+import {MaskedTextInput} from 'react-native-mask-text';
 
 //>> Importing icons
 import { Feather, AntDesign, Fontisto, MaterialCommunityIcons as MaterialCommIcons, MaterialIcons } from '@expo/vector-icons';
@@ -234,7 +234,7 @@ export const RegisterPatientScreen = () => {
                   autoFocus={true}
                   placeholder="Nombres"
                   placeholderTextColor="gray"
-                  onChangeText={text => setFirstNames(text)}
+                  onChangeText={text => setFirstNames(text.trim())}
                   editable={!DisableButton}
                 />
               </View>
@@ -244,7 +244,7 @@ export const RegisterPatientScreen = () => {
                   style={AuthStylesGlobal.input}
                   placeholder="Apellidos"
                   placeholderTextColor="gray"
-                  onChangeText={text => setLastNames(text)}
+                  onChangeText={text => setLastNames(text.trim())}
                   editable={!DisableButton}
                 />
               </View>
@@ -269,57 +269,27 @@ export const RegisterPatientScreen = () => {
             <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
               <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
                 <MaterialCommIcons name="weight-pound" size={24} color="gray" style={{marginRight: 6}} />
-                {
-                  isAN ?
-                  <TextInputMask
-                    style={AuthStylesGlobal.input}
-                    placeholder="Peso (lb)"
-                    placeholderTextColor="gray"
-                    onChangeText={text => setWeight(text)}
-                    editable={!DisableButton}
-                    maxLength={6}
-                    keyboardType='numeric'
-                    type="custom"
-                    options={{
-                      mask: '999.99',
-                      separator: '.'
-                    }}
-                  /> :
-                  <TextInput
+                  <MaskedTextInput
                     style={[AuthStylesGlobal.input, {textAlignVertical: 'top'}]}
                     placeholder="Peso (lb)"
                     placeholderTextColor="gray"
                     onChangeText={text => setWeight(text)}
                     editable={!DisableButton}
+                    keyboardType='numeric'
+                    mask='999.99'
                   />
-                }
               </View>
               <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
                 <MaterialCommIcons name="human-male-height" size={24} color="gray" style={{marginRight: 6}} />
-                {
-                  isAN ?
-                    <TextInputMask
-                    style={AuthStylesGlobal.input}
-                    placeholder="Estatura (m)"
-                    placeholderTextColor="gray"
-                    onChangeText={text => setHeight(text)}
-                    keyboardType='numeric'
-                    editable={!DisableButton}
-                    maxLength={4}
-                    type="custom"
-                    options={{
-                      mask: '9.99',
-                      separator: '.',
-                    }}
-                  /> :
-                  <TextInput
-                    style={[AuthStylesGlobal.input, {textAlignVertical: 'top'}]}
-                    placeholder="Estatura (m)"
-                    placeholderTextColor="gray"
-                    onChangeText={text => setHeight(text)}
-                    editable={!DisableButton}
-                  />
-                }
+                <MaskedTextInput
+                  style={[AuthStylesGlobal.input, {textAlignVertical: 'top'}]}
+                  placeholder="Estatura (m)"
+                  placeholderTextColor="gray"
+                  onChangeText={text => setHeight(text)}
+                  editable={!DisableButton}
+                  mask= '9.99'
+                  keyboardType='numeric'
+                />
               </View>
             </View>
             <TouchableOpacity style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91, AuthStylesRegisterP.inputBtn]} onPress={() => setShow(true)} activeOpacity={.7}>
