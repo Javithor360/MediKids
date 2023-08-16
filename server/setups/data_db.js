@@ -19,21 +19,6 @@ initializeApp(firebaseConfig.firebaseConfig);
 const storage = getStorage();
 const storageRef = ref(storage, `perfil_photos/default.png`);
 
-const specialties = [
-  {
-    id: 1,
-    Name: "Neumología",
-  },
-  {
-    id: 2,
-    Name: "Gastroenterología",
-  },
-  {
-    id: 3,
-    Name: "Otorrinolaringología",
-  },
-];
-
 const responsibles = [
   {
     First_Names: "Alvin Josué",
@@ -362,6 +347,8 @@ const appointments = [
     Doctor_id: 1,
     Responsible_id: 1,
     Patient_id: 1,
+    State: 2,
+    Weeks: "Segunda semana de agosto",
     Description: "Chequeo mensual",
     Date: "2023-09-23",
     Hour: "13:00:00",
@@ -370,6 +357,8 @@ const appointments = [
     Doctor_id: 1,
     Responsible_id: 1,
     Patient_id: 2,
+    State: 2,
+    Weeks: "Segunda semana de agosto",
     Description: "Chequeo mensual",
     Date: "2023-08-26",
     Hour: "15:00:00",
@@ -378,6 +367,8 @@ const appointments = [
     Doctor_id: 2,
     Responsible_id: 2,
     Patient_id: 4,
+    State: 2,
+    Weeks: "Segunda semana de agosto",
     Description: "Chequeo mensual",
     Date: "2023-08-01",
     Hour: "08:00:00",
@@ -386,6 +377,8 @@ const appointments = [
     Doctor_id: 2,
     Responsible_id: 2,
     Patient_id: 5,
+    State: 2,
+    Weeks: "Segunda semana de agosto",
     Description: "Chequeo mensual",
     Date: "2023-10-23",
     Hour: "09:00:00",
@@ -394,6 +387,8 @@ const appointments = [
     Doctor_id: 2,
     Responsible_id: 2,
     Patient_id: 6,
+    State: 2,
+    Weeks: "Segunda semana de agosto",
     Description: "Chequeo mensual",
     Date: "2023-08-16",
     Hour: "10:00:00",
@@ -402,6 +397,8 @@ const appointments = [
     Doctor_id: 3,
     Responsible_id: 3,
     Patient_id: 8,
+    State: 2,
+    Weeks: "Segunda semana de agosto",
     Description: "Chequeo mensual",
     Date: "2013-11-11",
     Hour: "15:00:00",
@@ -410,6 +407,8 @@ const appointments = [
     Doctor_id: 3,
     Responsible_id: 4,
     Patient_id: 9,
+    State: 2,
+    Weeks: "Segunda semana de agosto",
     Description: "Chequeo mensual",
     Date: "2023-10-11",
     Hour: "12:00:00",
@@ -421,17 +420,6 @@ db.connect(() => {
 
   console.log(`[DB] Connection successfully established, starting data insertion process...`);
   try {
-    // DEFINING SPECIALTIES
-    console.log(`[DB] - Inserting into "specialties" -`);
-    for (let i = 0; i < specialties.length; i++) {
-      db.query(`INSERT INTO specialties SET ? `, {
-        id: specialties[i].id,
-        Name: specialties[i].Name,
-      });
-      console.log(
-        `[DB] Specialty with id #${specialties[i].id} "${specialties[i].Name}" has been created...`
-      );
-    }
 
     // CREATING RESPONSIBLES
     console.log(`[DB] - Inserting into "responsible" -`);
@@ -515,6 +503,8 @@ db.connect(() => {
         Doctor_id: appointments[i].Doctor_id,
         Responsible_id: appointments[i].Responsible_id,
         Patient_id: appointments[i].Patient_id,
+        State: appointments[i].State,
+        Weeks: appointments[i].Weeks,
         Description: appointments[i].Description,
         Date: appointments[i].Date,
         Hour: appointments[i].Hour,

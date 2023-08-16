@@ -32,7 +32,7 @@ db.connect(() => {
           Reset_Pass_Expire DATETIME,
           Email_Verify_code VARCHAR(45),
           PRIMARY KEY (id),
-        UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
+          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
       );
       `);
     console.log(
@@ -58,7 +58,7 @@ db.connect(() => {
           Profile_Photo_Name VARCHAR(200),
           PRIMARY KEY (id),
           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Responsible_id) REFERENCES ${config_env.DATABASE} . Responsible(id)
+          FOREIGN KEY(Responsible_id) REFERENCES medikids_db . Responsible(id)
           ON DELETE NO ACTION
           ON UPDATE NO ACTION
       );
@@ -79,7 +79,7 @@ db.connect(() => {
           Responsible_id INT NOT NULL,
           PRIMARY KEY (id),
           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Responsible_id) REFERENCES ${config_env.DATABASE} . Responsible(id)
+          FOREIGN KEY(Responsible_id) REFERENCES medikids_db . Responsible(id)
           ON DELETE NO ACTION
           ON UPDATE NO ACTION
       );
@@ -90,18 +90,18 @@ db.connect(() => {
   
     // MEDICAL HISTORY TABLE
     db.query(`
-      CREATE TABLE IF NOT EXISTS ${config_env.DATABASE} . Medical_History (
+      CREATE TABLE IF NOT EXISTS ${config_env.DATABASE} . Medical_Records (
           id INT NOT NULL AUTO_INCREMENT,
           Medical_History_Code VARCHAR(45) NOT NULL,
           Date_Time DATETIME NOT NULL,
           Diagnosis LONGTEXT NOT NULL,
           Weight FLOAT NOT NULL,
           Height FLOAT NOT NULL,
-          Temperature  FLOAT NOT NULL,
+          Temperature FLOAT NOT NULL,
           Patient_id INT NOT NULL,
           PRIMARY KEY (id),
           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Patient_id) REFERENCES ${config_env.DATABASE} . Patient(id)
+          FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)
           ON DELETE NO ACTION
           ON UPDATE NO ACTION
       );
@@ -115,52 +115,24 @@ db.connect(() => {
       CREATE TABLE IF NOT EXISTS ${config_env.DATABASE} . Medical_Prescription (
           id INT NOT NULL AUTO_INCREMENT,
           Medical_Prescription_Code VARCHAR(45) NOT NULL,
-          Date_Time DATETIME NOT NULL,
+          Medicine_Name VARCHAR(100) NOT NULL,
+          Instructions MEDIUMTEXT NOT NULL,
           Description MEDIUMTEXT NOT NULL,
+          Created_Date DATETIME NOT NULL,
+          Starting_Dose_Date DATE NOT NULL,
+          Finishing_Dose_Date DATE NOT NULL,
+          Dose VARCHAR(45) NOT NULL,
           Patient_id INT NOT NULL,
+          Time_Dose INT NOT NULL,
           PRIMARY KEY (id),
           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Patient_id) REFERENCES ${config_env.DATABASE} . Patient(id)
+          FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)
           ON DELETE NO ACTION
           ON UPDATE NO ACTION
       );
     `);
     console.log(
       `[DB] ${config_env.DATABASE}'s "Medical_Prescription" table successfully created...`
-    );
-  
-    // MEDICAL RECIPE TABLE
-    db.query(`
-      CREATE TABLE IF NOT EXISTS ${config_env.DATABASE} . Medical_Recipe (
-          id INT NOT NULL AUTO_INCREMENT,
-          Name VARCHAR(45) NOT NULL,
-          Starting_Date DATE NOT NULL,
-          Finishing_Date DATE NOT NULL,
-          Dose VARCHAR(45) NOT NULL,
-          Time_Dose INT NOT NULL,
-          Medical_Prescription_id INT NOT NULL,
-          PRIMARY KEY (id),
-          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Medical_Prescription_id) REFERENCES ${config_env.DATABASE} . Medical_Prescription(id)
-          ON DELETE NO ACTION
-          ON UPDATE NO ACTION
-      );
-    `);
-    console.log(
-      `[DB] ${config_env.DATABASE}'s "Medical_Recipe" table successfully created...`
-    );
-  
-    // SPECIALTIES TABLE
-    db.query(`
-      CREATE TABLE IF NOT EXISTS ${config_env.DATABASE} . Specialties (
-          id INT NOT NULL AUTO_INCREMENT,
-          Name VARCHAR(45) NOT NULL,
-          PRIMARY KEY (id),
-          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
-      );
-    `);
-    console.log(
-      `[DB] ${config_env.DATABASE}'s "Specialties" table successfully created...`
     );
   
     // DOCTORS TABLE
@@ -175,10 +147,7 @@ db.connect(() => {
           Profile_Photo VARCHAR(200) NOT NULL,
           Speciality_id INT NOT NULL,
           PRIMARY KEY (id),
-          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Speciality_id) REFERENCES ${config_env.DATABASE} . Specialties(id)
-          ON DELETE NO ACTION
-          ON UPDATE NO ACTION
+          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
       );
     `);
     console.log(
@@ -189,12 +158,12 @@ db.connect(() => {
     db.query(`
       CREATE TABLE IF NOT EXISTS ${config_env.DATABASE} . Notices (
           id INT NOT NULL AUTO_INCREMENT,
-          Description  LONGTEXT NOT NULL,
+          Description LONGTEXT NOT NULL,
           Date_Time DATETIME NOT NULL,
-          Doctor_id INT NOT NULL, 
+          Doctor_id INT NOT NULL,
           PRIMARY KEY (id),
           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Doctor_id) REFERENCES ${config_env.DATABASE} . Doctors(id)
+          FOREIGN KEY(Doctor_id) REFERENCES medikids_db . Doctors(id)
           ON DELETE NO ACTION
           ON UPDATE NO ACTION
       );
@@ -210,55 +179,17 @@ db.connect(() => {
           Doctor_id INT NOT NULL,
           Responsible_id INT NOT NULL,
           Patient_id INT NOT NULL,
-          Description VARCHAR(150) NOT NULL,
-          Date DATE NOT NULL,
-          Hour TIME NOT NULL,
+          State INT NOT NULL,
+          Weeks VARCHAR(100),
+          Description VARCHAR(150),
+          Date DATE,
+          Hour TIME,
           PRIMARY KEY (id),
           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
       );
     `);
     console.log(
       `[DB] ${config_env.DATABASE}'s "Medical_Appointment" table successfully created...`
-    );
-  
-    // RESPONSIBLE APPOINTMENT DETAIL TABLE
-    db.query(`
-      CREATE TABLE IF NOT EXISTS ${config_env.DATABASE} . Responsible_Appointment_Detail (
-          id INT NOT NULL AUTO_INCREMENT,
-          Responsible_id INT NOT NULL,
-          Appointment_id INT NOT NULL,
-          PRIMARY KEY (id),
-          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Responsible_id) REFERENCES ${config_env.DATABASE} . Responsible(id)
-          ON DELETE NO ACTION
-          ON UPDATE NO ACTION,
-          FOREIGN KEY(Appointment_id) REFERENCES ${config_env.DATABASE} . Medical_Appointment(id)
-          ON DELETE NO ACTION
-          ON UPDATE NO ACTION
-      );
-    `);
-    console.log(
-      `[DB] ${config_env.DATABASE}'s "Responsible_Appointment_Detail" table successfully created...`
-    );
-  
-    // DOCTOR APPOINTMENT DETAIL TABLE
-    db.query(`
-      CREATE TABLE IF NOT EXISTS ${config_env.DATABASE} . Doctor_Appointment_Detail (
-          id INT NOT NULL AUTO_INCREMENT,
-          Doctor_id INT NOT NULL,
-          Appointment_id INT NOT NULL,
-          PRIMARY KEY (id),
-          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Doctor_id) REFERENCES ${config_env.DATABASE} . Doctors(id)
-          ON DELETE NO ACTION
-          ON UPDATE NO ACTION,
-          FOREIGN KEY(Appointment_id) REFERENCES ${config_env.DATABASE} . Medical_Appointment(id)
-          ON DELETE NO ACTION
-          ON UPDATE NO ACTION
-      );
-    `);
-    console.log(
-      `[DB] ${config_env.DATABASE}'s "Doctor_Appointment_Detail" table successfully created...`
     );
   
     // PATIENTS MONITORING TABLE
@@ -269,10 +200,10 @@ db.connect(() => {
           Patient_id INT NOT NULL,
           PRIMARY KEY (id),
           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Doctor_id) REFERENCES ${config_env.DATABASE} . Doctors(id)
+          FOREIGN KEY(Doctor_id) REFERENCES medikids_db . Doctors(id)
           ON DELETE NO ACTION
           ON UPDATE NO ACTION,
-          FOREIGN KEY(Patient_id) REFERENCES ${config_env.DATABASE} . Patient(id)
+          FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)
           ON DELETE NO ACTION
           ON UPDATE NO ACTION
       );
@@ -298,13 +229,28 @@ db.connect(() => {
           Patient_id INT NOT NULL,
           PRIMARY KEY (id),
           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Patient_id) REFERENCES ${config_env.DATABASE} . Patient(id)
+          FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)
           ON DELETE NO ACTION
           ON UPDATE NO ACTION
       );
     `);
     console.log(
       `[DB] ${config_env.DATABASE}'s "patient_vaccines" table successfully created...`
+    );
+
+    // PATIENT VACCTINES TABLE
+    db.query(`
+      CREATE TABLE IF NOT EXISTS ${config_env.DATABASE} . documents_dui (
+          id INT NOT NULL AUTO_INCREMENT,
+          DUI INT NOT NULL,
+          First_Names VARCHAR(255) NOT NULL,
+          Last_Names VARCHAR(255) NOT NULL,
+          PRIMARY KEY (id),
+          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
+      );
+    `);
+    console.log(
+      `[DB] ${config_env.DATABASE}'s "documents_dui" table successfully created...`
     );
   
     console.log(`[DB] TABLES COMMAND FINISHED, ALL TABLES HAVE BEEN CREATED!`);
