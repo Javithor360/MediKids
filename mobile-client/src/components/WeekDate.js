@@ -1,11 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { eachWeekOfInterval, addDays, isSunday, format, startOfMonth, subMonths, addMonths } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { MaterialIcons } from '@expo/vector-icons'; 
 
-const WeekDate = () => {
+const WeekDate = ({setWeek}) => {
   const currentDate = new Date();
   const startDate = currentDate;
   const endDate = new Date(2023, 11, 31);
@@ -41,6 +41,7 @@ const WeekDate = () => {
 
   const goToPreviousMonth = () => {
     setSelectedWeek(null);
+    setWeek(null);
     const previousMonth = subMonths(currentMonth, 1);
 
     const isFirstWeekIncluded = weeksWithoutSundays.some(
@@ -54,6 +55,7 @@ const WeekDate = () => {
 
   const goToNextMonth = () => {
     setSelectedWeek(null);
+    setWeek(null);
     const nextMonth = addMonths(currentMonth, 1);
     if (nextMonth <= endDate) {
       setCurrentMonth(nextMonth);
@@ -63,6 +65,10 @@ const WeekDate = () => {
   const handleSelectWeek = (weekRange) => {
     setSelectedWeek(selectedWeek === weekRange ? null : weekRange);
   };
+
+  useEffect(() => {
+    setWeek(selectedWeek);
+  }, [selectedWeek]);
 
   return (
     <View style={styles.componentContainer}>
@@ -125,7 +131,7 @@ const WeekDate = () => {
 
 const styles = StyleSheet.create({
   componentContainer:{
-    height: 360,
+    // height: '20%',
     width: '90%',
     // backgroundColor: 'green',
     // justifyContent: 'center',

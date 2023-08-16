@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS medikids_db . Medical_Appointment (
 	Responsible_id INT NOT NULL,
 	Patient_id INT NOT NULL,
 	State INT NOT NULL,
-	Weeks VARCHAR(100),
+	Week VARCHAR(100),
 	Description VARCHAR(150),
 	Date DATE,
 	Hour TIME,

@@ -1,7 +1,6 @@
 
 //>> libraries
 import { View, Text, ScrollView, StyleSheet, Image, TextInput, TouchableOpacity, Dimensions } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
@@ -11,12 +10,10 @@ import Constants from 'expo-constants';
 //>> components
 import { PendingAppointment, RequestAppointmentForm, ScreenTitle, NextAppointment, AttendingAppointment, AppointmentResults, AppointmentMedicines } from '../../../index';
 import WeekDate from '../../../components/WeekDate';
-
-//>> Constants
-const { height } = Dimensions.get('screen');
+import { useEffect } from 'react';
 
 export const AppointmentProcessScreen = ({ route }) => {
-  const { doctorDescription, doctor, speciality, doctorPhoto } = route.params
+  const { doctorDescription, doctor, speciality, doctorPhoto, Doctor_id, appointmentInfo } = route.params
 
   return (
     <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
@@ -30,17 +27,22 @@ export const AppointmentProcessScreen = ({ route }) => {
             paddingH={30}
           /> 
           {/* Appointment ComponentWrapper */}
-          <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcGreen, styles.wMb]}>
-            {/* <RequestAppointmentForm />
-            <PendingAppointment />
-            <NextAppointment />
-            <AttendingAppointment /> */}
-            <AppointmentResults />
-          </View>
+          {
+            (appointmentInfo?.State != null) &&
+              <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcGreen, styles.wMb]}>
+                { appointmentInfo.State == 1 && <PendingAppointment /> }
+                { appointmentInfo.State == 2 && <NextAppointment /> }
+                { appointmentInfo.State == 3 && <AttendingAppointment /> }
+                { appointmentInfo.State == 4 && <AppointmentResults /> }
+              </View>
+          }
           {/* Medicines Container */}
-          <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcYellow, styles.wMb]}>
-            <AppointmentMedicines />
-          </View>
+          {
+            (appointmentInfo?.State == 4) &&
+              <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcYellow, styles.wMb]}>
+                <AppointmentMedicines />
+              </View>
+          }
 
           <View style={[styles.doctorBanner, styles.shadowC]}>
             <View style={styles.leftPhotoContainer}>
@@ -106,9 +108,13 @@ export const AppointmentProcessScreen = ({ route }) => {
             </View>
           </View>
           {/* Request componentWrapper */}
-          {/* <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcGreen]}>
-            <RequestAppointmentForm />
-          </View> */}
+          {
+            (appointmentInfo?.State == null) &&
+              <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcGreen]}>
+                <RequestAppointmentForm Doctor_id={Doctor_id} />
+              </View>
+          }
+          
         </View>
       </ScrollView>
     </LinearGradient>

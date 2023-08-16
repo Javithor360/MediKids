@@ -1,30 +1,120 @@
+
+//>> Import libreries
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Octicons } from '@expo/vector-icons';
+import { useSelector } from 'react-redux';
 
-export const AppointmentStatus = () => {
-  return (
-    <>
-        <View style={[styles.requestAppointmentContainer, styles.btcGreen, styles.shadowC]}>
-            <Text style={[styles.requestMainTitle, styles.colorGreen]}>Actividad de citas</Text>
+export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id}) => {
+    const appointmentsState = useSelector(state => state.appointments);
+    const navigation = useNavigation()
+
+    const getAppointmentState = () => {
+        let appointmentStateValue;
+
+        if (Doctor_id == 1) { appointmentStateValue = appointmentsState.OtorrinoState }
+        else if (Doctor_id == 2) { appointmentStateValue = appointmentsState.NeumoState }
+        else if (Doctor_id == 3) { appointmentStateValue = appointmentsState.GastroState }
+
+        if (appointmentStateValue == 1){ return 'SOLICITADA' }
+        else if (appointmentStateValue == 2){ return 'PENDIENTE' }
+        else if (appointmentStateValue == 3){ return 'EN PROGRESO' }
+        else if (appointmentStateValue == 4){ return 'TERMINADA' }
+        else if (appointmentStateValue == 0){ return 'PROGRAMADA' }
+    }
+    
+    const getAppointmentInfo = () => {
+        let appointmentInfo = {
+            State: null,
+            Doctor_id: null,
+            Week: null,
+            Description: null,
+            Date: null,
+            Hour: null,
+        }
+
+        if (Doctor_id == 1) {
+            appointmentInfo.State = appointmentsState.OtorrinoState;
+            appointmentInfo.Doctor_id = appointmentsState.Otorrino_Doctor_id;
+            appointmentInfo.Week = appointmentsState.Otorrino_Week;
+            appointmentInfo.Description = appointmentsState.Otorrino_Description;
+            appointmentInfo.Date = appointmentsState.Otorrino_Date;
+            appointmentInfo.Hour = appointmentsState.Otorrino_Hour;
+        } else if (Doctor_id == 2) {
+            appointmentInfo.State = appointmentsState.NeumoState;
+            appointmentInfo.Doctor_id = appointmentsState.Neumo_Doctor_id;
+            appointmentInfo.Week = appointmentsState.Neumo_Week;
+            appointmentInfo.Description = appointmentsState.Neumo_Description;
+            appointmentInfo.Date = appointmentsState.Neumo_Date;
+            appointmentInfo.Hour = appointmentsState.Neumo_Hour;
+        } else if (Doctor_id == 3){
+            appointmentInfo.State = appointmentsState.GastroState;
+            appointmentInfo.Doctor_id = appointmentsState.Gastro_Doctor_id;
+            appointmentInfo.Week = appointmentsState.Gastro_Week;
+            appointmentInfo.Description = appointmentsState.Gastro_Description;
+            appointmentInfo.Date = appointmentsState.Gastro_Date;
+            appointmentInfo.Hour = appointmentsState.Gastro_Hour;
+        }
+
+        return appointmentInfo;
+    }
+
+    const getDoctorPhoto = () => {
+        if (Doctor_id == 1) { return require("../../../assets/default-pics/dr-guzman.png") }
+        else if (Doctor_id == 2) { return require("../../../assets/default-pics/dr-flores.png") }
+        else if (Doctor_id == 3) { return require("../../../assets/default-pics/dra-garza.png") }
+    }
+
+    const getDoctorDescription = () => {
+        const doctorDescription = {
+            otoDoctorInsights: {
+                insight1: "Especialista en otorrinolaringología",
+                insight2: "Graduado de la universidad de España con más de 30 años de experiencia",
+            },
+            gastroDoctorInsights: {
+                insight1: "Especialista en gastroenterología",
+                insight2: "Especialista en gastroenterología graduada de la facultad de Medicina de la UNAM",
+            },    
+            neuDoctorInsights: {
+                insight1: "Especialista en neumología",
+                insight2: "Graduado de la Facultad de Medicina de la Universidad Autónoma de Madrid",
+            }
+        };
+
+        if (Doctor_id == 1) { return doctorDescription.otoDoctorInsights }
+        else if (Doctor_id == 2) { return doctorDescription.neuDoctorInsights }
+        else if (Doctor_id == 3) { return doctorDescription.gastroDoctorInsights }
+    }
+
+    return (
+        <>
             <View style={[styles.statusContainer, styles.shadowC]}>
                 <View style={styles.statusInsideCard}>
                     <View>
-                        <Image source={require('../../../assets/graphic-icons/otorrino-icon.png')} style={{width: 50, height: 50, resizeMode: 'contain',}}/>
+                        <Image source={ImageIcon} style={{width: 50, height: 50, resizeMode: 'contain',}}/>
                     </View>
                     <View style={styles.statusContentC}>
-                        <View style={{borderBottomColor: '#c6c6c6', borderBottomWidth: 1,}}><Text style={{fontSize: 18, fontWeight: 'bold', color: '#707070'}}>Otorrinolaringología</Text></View>
-                        <Text style={{color: '#707070',}}>Dr. Esteban Gúzman</Text>
+                        <View style={{borderBottomColor: '#c6c6c6', borderBottomWidth: 1,}}><Text style={{fontSize: 18, fontWeight: 'bold', color: '#707070'}}>{Specialty}</Text></View>
+                        <Text style={{color: '#707070',}}>{DoctorName}</Text>
                         <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
-                            <Text style={styles.specificStatusText}>PENDIENTE</Text>
-                            <TouchableOpacity style={styles.moreInfoBtn}><Text style={{color: '#ffffff'}}>Más Información</Text></TouchableOpacity>
+                            <Text style={styles.specificStatusText}>{getAppointmentState()}</Text>
+                            <TouchableOpacity style={styles.moreInfoBtn}
+                                onPress={()=>navigation.navigate('AppointmentProcessScreen', {
+                                    doctorDescription: getDoctorDescription(),
+                                    doctor: DoctorName,
+                                    speciality: Specialty,
+                                    doctorPhoto: getDoctorPhoto(),
+                                    Doctor_id,
+                                    appointmentInfo: getAppointmentInfo(),
+                            })}>
+                                <Text style={{color: '#ffffff'}}>Más Información</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
             </View>
-        </View>
-    </>
-  )
+        </>
+    )
 }
 
 const styles = StyleSheet.create({
