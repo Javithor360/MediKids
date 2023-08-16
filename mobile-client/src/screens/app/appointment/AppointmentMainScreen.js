@@ -6,7 +6,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import Constants from 'expo-constants';
-
+import { useTranslation } from 'react-i18next';
 //>> Components
 import { AppointmentStatus, ScreenTitle } from '../../../index';
 
@@ -29,13 +29,14 @@ const doctorDescription = {
   };
 
 export const AppointmentMainScreen = () => {
+    const { t } = useTranslation();
     const navigation = useNavigation()
   return (
     <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
         <ScrollView style={styles.fullScreenContainer}>
             <View style={{backgroundColor:'#fff'}}>
                 <ScreenTitle
-                    Label={"Citas"}
+                    Label={t('appointmentTitle')}
                     IconName={"clipboard-text-multiple"}
                     fontSize={20}
                     textColor={'#FFFFFF'}

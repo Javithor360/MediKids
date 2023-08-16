@@ -13,6 +13,7 @@ import AppStack from './src/navigators/AppStack';
 import store from './src/store/app/store';
 import AppCommon from './AppCommon';
 import { toastConfig } from './src';
+import './src/localization/i18n'
 
 
 export default function App() {

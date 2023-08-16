@@ -7,9 +7,13 @@ import { Entypo } from '@expo/vector-icons';
 import { useEffect } from 'react';
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
-import {LinearGradient} from 'expo-linear-gradient'
-
+import { LinearGradient } from 'expo-linear-gradient'
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from '../../../components/LanguageSelector';
 export const HomeScreen = () => {
+
+  const { t } = useTranslation();
+
   const navigation = useNavigation()
   const Info = useSelector(state => state.responsible);
   const Patient = useSelector(state => state.patient);
@@ -23,6 +27,8 @@ export const HomeScreen = () => {
     })
   }, [navigation]);
   const [view,setView] = useState(false);
+  const [lngModal, setLngModal] = useState(false);
+
   return (
     <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]}>
       <ScrollView>
@@ -43,6 +49,16 @@ export const HomeScreen = () => {
                   <TouchableOpacity  onPress={()=> setView(true)}>
                     <Entypo name="dots-three-horizontal" size={34} color="#707070" />
                   </TouchableOpacity>
+  
+                <Modal
+                  animationType='fade'
+                  onDismiss={() => console.log('close')}
+                  onShow={() => console.log('show')}
+                  transparent
+                  visible={lngModal}
+                >
+                    <LanguageSelector closeModal={() => setLngModal(false)}/>
+                </Modal>
                 <Modal
 
                   animationType='fade'
@@ -74,8 +90,9 @@ export const HomeScreen = () => {
                         <Text style={{alignSelf: 'flex-start',left:20,fontSize:18,}}>Cuenta</Text>
                         </TouchableOpacity>
                         <View style={styles.line}></View>
-                        <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}>
-                        <Text style={{alignSelf: 'flex-start',left:20,fontSize:18,}}>Cambiar idioma</Text>
+                        <TouchableOpacity onPress={()=> setLngModal(true)} style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19}}>
+                          <Text style={{alignSelf: 'flex-start',left:20,fontSize:18,}}>Cambiar idioma</Text>
+
                         </TouchableOpacity>
                         <View style={styles.line}></View>
                         <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}> 
@@ -96,7 +113,8 @@ export const HomeScreen = () => {
           <View style={styles.titleContainer}>
             <View style={styles.welcomeMsg}>
               <Text style={{height: '100%', fontSize: 29, color: '#707070', fontFamily: 'poppinsRegular'}}>
-                ¡Hola!
+                {/* ¡Hola! */}
+                {t('hello')}
               </Text>
               <Text style={{fontWeight:'bold', color: '#D58C8C',fontSize: 18, fontFamily: 'poppinsBold'}}>Encargado</Text>
             </View>
@@ -106,7 +124,6 @@ export const HomeScreen = () => {
               </View>
             </View>
           </View>
-
           <View style={styles.cardInfoContainer}>
             <View style={{width: '100%', height: '16%',alignItems: 'center',}}>
               <View style={styles.childIconContainer}>

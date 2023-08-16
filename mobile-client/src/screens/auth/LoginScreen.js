@@ -5,7 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { useTranslation } from 'react-i18next';
 //>> Importing components
 import { AuthStylesGlobal } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
@@ -14,6 +14,7 @@ import { setLogginValues } from '../../store/slices/responsibleSlice';
 import { setStatement } from '../../store/slices/starterSlice';
 
 export const LoginScreen = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const route = useRoute();
@@ -158,14 +159,14 @@ export const LoginScreen = () => {
         <View style={AuthStylesGlobal.contentContainer} >
           <View style={AuthStylesGlobal.formContent} >
             <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')}  />
-            <Text style={AuthStylesGlobal.title_Text}>¡Bienvenido!</Text>
+            <Text style={AuthStylesGlobal.title_Text}>{t('loginScn.welcomeT')}</Text>
 
             <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
               <MaterialCommIcons name='email-outline' size={24} color={'gray'} style={{marginRight: 6}} />
               <TextInput
                 autoFocus={true}
                 style={AuthStylesGlobal.inputExtended}
-                placeholder="Email"
+                placeholder={t('loginScn.emailT')}
                 placeholderTextColor="gray"
                 onChangeText={text => setEmail(text.trim())}
                 keyboardType='email-address'
@@ -180,7 +181,7 @@ export const LoginScreen = () => {
               <TextInput
                 style={AuthStylesGlobal.inputExtended}
                 secureTextEntry={true}
-                placeholder="Contraseña"
+                placeholder={t('loginScn.passT')}
                 placeholderTextColor="gray"
                 onChangeText={text => setPassword(text)}
                 editable={!DisableButton}
@@ -191,7 +192,7 @@ export const LoginScreen = () => {
               if(!DisableBack){
                 navigation.navigate('ForgotPasswordScreen')
               }
-            }}>Olvidé mi contraseña</Text>
+            }}>{t('loginScn.forgotPass')}</Text>
 
             <View style={AuthStylesGlobal.buttonView}>
               <CustomButton
@@ -206,20 +207,20 @@ export const LoginScreen = () => {
                 fontFamily={'poppinsBold'}
                 fontSize={16}
                 textColor={'white'}
-                Label={<SetLabel isLoading={isLoading} LabelText={'Iniciar Sesión'} Success={Success}/>}
+                Label={<SetLabel isLoading={isLoading} LabelText={t('loginScn.loginT')} Success={Success}/>}
                 handlePress={() => {userLoggingIn()}}
                 haveShadow={true}
                 disable={DisableButton}
               /> 
             </View>
             <View style={AuthStylesGlobal.cont2} >
-              <Text style={AuthStylesGlobal.TextCount}>¿No tienes una cuenta?</Text>
+              <Text style={AuthStylesGlobal.TextCount}>{t('loginScn.dontHaveA')}</Text>
               <TouchableOpacity>
                 <Text style={AuthStylesGlobal.TextReg} disabled={DisableButton} onPress={()=>{
                   if(!DisableBack){
                     navigation.navigate('RegisterScreen')
                   }
-                }}>Regístrate</Text>
+                }}>{t('loginScn.signup')}</Text>
               </TouchableOpacity>
             </View>
           </View>

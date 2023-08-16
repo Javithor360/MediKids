@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 import {MaskedTextInput} from 'react-native-mask-text';
-
+import { useTranslation } from 'react-i18next';
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
@@ -16,6 +16,7 @@ import { setStatement } from '../../store/slices/starterSlice';
 import { Feather, AntDesign, MaterialIcons, MaterialCommunityIcons as MaterialCommIcons } from '@expo/vector-icons';
 
 export const RegisterScreen = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigation = useNavigation()
 
@@ -121,14 +122,14 @@ export const RegisterScreen = () => {
           <View style={AuthStylesGlobal.contentContainer}>
             <View style={AuthStylesGlobal.formContent} >
               <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')}  />
-              <Text style={AuthStylesRegisterU.Tex_md}>Datos del encargado</Text>
+              <Text style={AuthStylesRegisterU.Tex_md}>{t('register1.title')}</Text>
               <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
                 <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW50]} >
                   <Feather name="user" size={24} color='gray' style={{marginRight: 6}} />
                   <TextInput
                     style={AuthStylesGlobal.input}
                     autoFocus={true}
-                    placeholder="Nombres"
+                    placeholder={t('globals.name')}
                     placeholderTextColor="gray"
                     onChangeText={text => setFirstNames(text.trim())}
                     editable={!DisableButton}
@@ -139,7 +140,7 @@ export const RegisterScreen = () => {
                   <Feather name="user" size={24} color='gray' style={{marginRight: 6}} />
                   <TextInput
                     style={AuthStylesGlobal.input}
-                    placeholder="Apellidos"
+                    placeholder={t('globals.lastName')}
                     placeholderTextColor="gray"
                     onChangeText={text => setLastNames(text.trim())}
                     editable={!DisableButton}
@@ -164,7 +165,7 @@ export const RegisterScreen = () => {
                   <Feather name="phone" size={24} color="gray" style={{marginRight: 6}} />
                     <MaskedTextInput
                       style={AuthStylesGlobal.input}
-                      placeholder="Telefono"
+                      placeholder={t('globals.cellphone')}
                       placeholderTextColor="gray"
                       onChangeText={text => setPhone(text)}
                       editable={!DisableButton}
@@ -179,7 +180,7 @@ export const RegisterScreen = () => {
                 <TextInput
                   type="custom"
                   style={AuthStylesGlobal.inputExtended}
-                  placeholder="Correo electrónico"
+                  placeholder={t('globals.email')}
                   placeholderTextColor="gray"
                   onChangeText={text => setEmail(text.trim())}
                   keyboardType='email-address'
@@ -192,7 +193,7 @@ export const RegisterScreen = () => {
                 <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
                 <TextInput
                   style={AuthStylesGlobal.inputExtended}
-                  placeholder="Contraseña"
+                  placeholder={t('globals.pass')}
                   placeholderTextColor="gray"
                   onChangeText={text => setPassword(text)}
                   secureTextEntry={true}
@@ -203,7 +204,7 @@ export const RegisterScreen = () => {
                 <MaterialIcons name="lock-outline" size={24} color={'gray'} style={{marginRight: 6}} />
                 <TextInput
                   style={AuthStylesGlobal.inputExtended}
-                  placeholder="Confirmar Contraseña"
+                  placeholder={t('globals.confirmPassword')}
                   placeholderTextColor="gray"
                   onChangeText={text => setConfPass(text)}
                   secureTextEntry={true}
@@ -223,16 +224,16 @@ export const RegisterScreen = () => {
                   fontFamily={'poppinsBold'}
                   fontSize={16}
                   textColor={'white'}
-                  Label={<SetLabel LabelText={'Registrarse'} Success={Success} isLoading={isLoading} />}
+                  Label={<SetLabel LabelText={t('globals.signup')} Success={Success} isLoading={isLoading} />}
                   handlePress={() => {registerNewUser()}}
                   haveShadow={true}
                   disable={DisableButton}
                 /> 
               </View>
               <View style={AuthStylesGlobal.cont2} >
-                <Text style={AuthStylesGlobal.TextCount}>¿Ya tienes una cuenta?</Text>
+                <Text style={AuthStylesGlobal.TextCount}>{t('register1.alreadyAcc')}</Text>
                 <TouchableOpacity disabled={DisableButton}>
-                  <Text style={AuthStylesGlobal.TextReg} onPress={()=>navigation.navigate('LoginScreen')}>Inicia sesión</Text>
+                  <Text style={AuthStylesGlobal.TextReg} onPress={()=>navigation.navigate('LoginScreen')}>{t('globals.login')}</Text>
                 </TouchableOpacity>
               </View>
             </View>

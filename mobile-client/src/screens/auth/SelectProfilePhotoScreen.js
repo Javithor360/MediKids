@@ -6,7 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {manipulateAsync} from 'expo-image-manipulator'
-
+import { useTranslation } from 'react-i18next';
 //>> Importing components
 import  { AuthStylesGlobal, AuthStylesRegisterU, SelectProfilePhoto }  from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
@@ -16,6 +16,7 @@ import { changePerfilPhoto } from '../../store/slices/responsibleSlice';
 const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
 
 export const SelectProfilePhotoScreen = () => {
+    const { t } = useTranslation();
     const navigation = useNavigation();
     const responsible = useSelector(state => state.responsible);
     const dispatch = useDispatch();
@@ -147,9 +148,9 @@ export const SelectProfilePhotoScreen = () => {
             <View style={[AuthStylesGlobal.contentContainer, {backgroundColor: '#fff'}]} >
                 <View style={AuthStylesGlobal.formContent} >
                     <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')}  />
-                    <Text style={AuthStylesRegisterU.Tex_md}>Tu foto de perfil</Text>
+                    <Text style={AuthStylesRegisterU.Tex_md}>{t('selectPhoto.title')}</Text>
                     <View style={AuthStylesGlobal.cont2} >
-                        <Text style={AuthStylesGlobal.TextCount}>Para mayor seguridad, coloca una fotografia que pueda identificarte.</Text>
+                        <Text style={AuthStylesGlobal.TextCount}>{t('selectPhoto.text2')}</Text>
                     </View>
                     <View style={[SelectProfilePhoto.hr, SelectProfilePhoto.customMarginB_2]} />
                     <View style={SelectProfilePhoto.profilePhotoWrapper}>
@@ -157,7 +158,7 @@ export const SelectProfilePhotoScreen = () => {
                     </View>
                     <TouchableOpacity disabled={DisableButton} style={SelectProfilePhoto.uploadBtn} activeOpacity={0.5} onPress={() => pickeImage()}>
                         <MaterialIcons name="drive-folder-upload" size={24} color="#707070" />
-                        <Text style={SelectProfilePhoto.uploadTxt}>Seleccionar</Text>
+                        <Text style={SelectProfilePhoto.uploadTxt}>{t('selectPhoto.selectBtn')}</Text>
                     </TouchableOpacity>
                     <View style={[SelectProfilePhoto.hr, SelectProfilePhoto.customMarginB_1]} />
                     <View style={AuthStylesGlobal.buttonView}>
@@ -173,7 +174,7 @@ export const SelectProfilePhotoScreen = () => {
                             fontFamily={'poppinsBold'}
                             fontSize={16}
                             textColor={'white'}
-                            Label={<SetLabel LabelText={'Cambiar'} Success={Success} isLoading={isLoading} />}
+                            Label={<SetLabel LabelText={t('selectPhoto.changeBtn')} Success={Success} isLoading={isLoading} />}
                             disable={DisableButton}
                             handlePress={() => {
                                 if(ImageEl != null) {

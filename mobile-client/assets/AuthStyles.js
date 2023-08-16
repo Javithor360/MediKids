@@ -224,8 +224,9 @@ const SelectProfilePhoto = StyleSheet.create({
       backgroundColor: '#D8D7FE',
       width: '60%',
       alignItems: 'center',
-      justifyContent: 'space-between',
+      justifyContent: 'center',
       borderRadius: 10,
+      gap: 6
    },
    uploadTxt:{
       fontSize: 18,
