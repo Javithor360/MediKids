@@ -15,6 +15,7 @@ import { ViewMedicalRecords } from './PatientsComponents/index.jsx'
 
 import { Link, useLocation } from "react-router-dom";
 import { useDash } from "../../context/DoctorContext";
+import { ViewMedicalPrescriptions } from "./PatientsComponents/ViewMedicalPrescriptions";
 
 export const PatientsDetails = () => {
   const location = useLocation();
@@ -49,15 +50,14 @@ export const PatientsDetails = () => {
       case 1:
         return (
           <div isModal={isModal} className="m-10">
-            <ViewMedicalRecords responsibleInfo={responsibleInfo}  />
+            <ViewMedicalRecords responsibleInfo={responsibleInfo} />
           </div>
         );
       case 2:
         return (
-          <p isModal={isModal}> 
-            Contenido 2 del modal (Crear un componente individual para desplegar
-            mejor la informacion y luego retornarlo aquí)
-          </p>
+          <div isModal={isModal} className="m-10">
+            <ViewMedicalPrescriptions />
+          </div>
         );
       case 3:
         return (
@@ -160,7 +160,7 @@ export const PatientsDetails = () => {
             <MdOutlineMedication className="text-[2.8rem] text-[#A375FF]" />
             <p className="font-semibold text-[#707070]">Ver recetas</p>
           </Link>
-          <Link
+          {/* <Link
             className="rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
             onClick={() => {
               toggle();
@@ -172,7 +172,7 @@ export const PatientsDetails = () => {
             <p className="font-semibold text-[#707070]">
               Ver Historial clínico
             </p>
-          </Link>
+          </Link> */}
           <Link
             className="rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
             onClick={() => {
