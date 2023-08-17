@@ -147,125 +147,125 @@ export const MyVaccines = () => {
 
   )
 }
-const styles = StyleSheet.create({ 
-Contain:{
+  const styles = StyleSheet.create({ 
+  Contain:{
+      backgroundColor:'white',
+
+  },
+  Expediente:{
+      fontSize:25,
+      bottom:'5.2%',
+      alignSelf:'flex-start',
+      marginLeft:'10%',
+      color:'#707070',
+      
+  },
+  LineTitulo:{
+      backgroundColor:'#707070',
+      height:2,
+      width:'5.1%',
+      alignSelf:'flex-start',
+      marginTop:'20%',
+      marginLeft:'4%',
+      bottom:'3%',
+  },
+  Contain1:{
     backgroundColor:'white',
-
-},
-Expediente:{
-    fontSize:25,
-    bottom:'5.2%',
-    alignSelf:'flex-start',
-    marginLeft:'10%',
-    color:'#707070',
-    
-},
-LineTitulo:{
-    backgroundColor:'#707070',
-    height:2,
-    width:'5.1%',
-    alignSelf:'flex-start',
-    marginTop:'20%',
-    marginLeft:'4%',
-    bottom:'3%',
- },
- Contain1:{
-  backgroundColor:'white',
-  height:180,
-  width:380,
-  alignSelf:'center',
-  borderRadius:30,
-  
-
-
- },
- ContainShadow1:{
-  backgroundColor:'#CECEF6',
-  borderRadius:20,
-  width:385,
-  height:190,
-  alignSelf:'center',
-  bottom:30,
-  
-
- },
- ContainShadow2:{
-  backgroundColor:'#CECEF6',
-  borderRadius:20,
-  width:385,
-  height:620,
-  alignSelf:'center',
-  bottom:30,
-
- },
- Vaccines:{
-  top:10,
-  
- },
- ContainText:{
-    flexDirection:'row',
-    padding:5,
-    marginLeft:10,
-    top:15,
-   
-
-    
- 
- 
- },
- Text1:{
-marginLeft:2,
- },
- Text2:{
-  marginTop:15,
-  fontSize:16,
-
- },
- Contain2:{
-    backgroundColor:'white',
-    height:605,
+    height:180,
     width:380,
     alignSelf:'center',
-    
     borderRadius:30,
+    
 
-   },
-   Contain3:{
-    flexDirection:'row',
+
+  },
+  ContainShadow1:{
+    backgroundColor:'#CECEF6',
+    borderRadius:20,
+    width:385,
+    height:190,
+    alignSelf:'center',
+    bottom:30,
+    
+
+  },
+  ContainShadow2:{
+    backgroundColor:'#CECEF6',
+    borderRadius:20,
+    width:385,
+    height:620,
+    alignSelf:'center',
+    bottom:30,
+
+  },
+  Vaccines:{
+    top:10,
+    
+  },
+  ContainText:{
+      flexDirection:'row',
+      padding:5,
+      marginLeft:10,
+      top:15,
+    
+
+      
+  
+  
+  },
+  Text1:{
+  marginLeft:2,
+  },
+  Text2:{
+    marginTop:15,
+    fontSize:16,
+
+  },
+  Contain2:{
+      backgroundColor:'red',
+      height:605,
+      width:380,
+      alignSelf:'center',
+      
+      borderRadius:30,
+
+    },
+    Contain3:{
+      flexDirection:'row',
     alignItems:'center',
     justifyContent:'space-between',
-    // backgroundColor:'red'
-   },
-   ContainVaccines:{
-    marginLeft:15,
-    marginTop:10,
-    //backgroundColor:'green',
-    height:'100%',
-    width:'80%'
+      // backgroundColor:'red'
+    },
+    ContainVaccines:{
+      marginLeft:15,
+      marginTop:10,
+      //backgroundColor:'green',
+      height:'100%',
+      width:'80%'
+      
+      
+    },
+    ContainTexVaccines:{
+      flexDirection:'row',
     
     
-   },
-   ContainTexVaccines:{
-    flexDirection:'row',
-   
+    },
+  Apartado:{
+    color:'#707070',
+    fontSize:20,
+    left:20,
+    top:10,
+    fontWeight:'bold',
+  },
+  ContainCheck:{
+    left:55,
+    top:16,
+    backgroundColor:'red',
+  },
+  Check:{
+    marginTop:11,
   
-   },
- Apartado:{
-  color:'#707070',
-  fontSize:20,
-  left:20,
-  top:10,
-  fontWeight:'bold',
- },
- ContainCheck:{
-  left:55,
-  top:16,
-  backgroundColor:'red',
- },
- Check:{
-  marginTop:11,
- 
-  
- },
+    
+  },
 
-})
+  })
