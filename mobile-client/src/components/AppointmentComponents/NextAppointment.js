@@ -3,35 +3,37 @@ import { View, Text, StyleSheet, Image } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 
-export const NextAppointment = () => {
-  return (
-    <>
-        <Text style={styles.requestMainTitle}>Cita pendiente</Text>
-        <View style={styles.contentContainer}>
-            <View style={styles.iconContainer}><Image style={styles.imageLolIcon} source={require('../../../assets/graphic-icons/next_appointment_2.png')}></Image></View>
-            <View style={styles.separateWays}></View>
-            <View style={styles.containerTextDetails}>
-                <Text style={styles.textNxt}>Tiene una próxima cita:</Text>
-                <View style={styles.dateDetailsContainer}>
-                    <View style={styles.dateWIcon}>
-                        <MaterialCommunityIcons name="calendar-week" size={20} color="#46929B" />
-                        <Text style={styles.textsemiBold}>Fecha:</Text>
-                        <Text style={{color:'#707070'}}>10/09/2023</Text>
+export const NextAppointment = ({appointmentInfo, doctor}) => {
+    const getDate = () => { return new Date(appointmentInfo.Date).toLocaleDateString() };
+
+    return (
+        <>
+            <Text style={styles.requestMainTitle}>Cita pendiente</Text>
+            <View style={styles.contentContainer}>
+                <View style={styles.iconContainer}><Image style={styles.imageLolIcon} source={require('../../../assets/graphic-icons/next_appointment_2.png')}></Image></View>
+                <View style={styles.separateWays}></View>
+                <View style={styles.containerTextDetails}>
+                    <Text style={styles.textNxt}>Tiene una próxima cita:</Text>
+                    <View style={styles.dateDetailsContainer}>
+                        <View style={styles.dateWIcon}>
+                            <MaterialCommunityIcons name="calendar-week" size={20} color="#46929B" />
+                            <Text style={styles.textsemiBold}>Fecha:</Text>
+                            <Text style={{color:'#707070'}}>{ getDate() }</Text>
+                        </View>
+                        <View style={styles.dateWIcon}>
+                            <MaterialCommunityIcons name="clock" size={20} color="#46929B" />
+                            <Text style={styles.textsemiBold}>Hora:</Text>
+                            <Text style={{color:'#707070'}}>{appointmentInfo.Hour} { }</Text>
+                        </View>
                     </View>
-                    <View style={styles.dateWIcon}>
-                        <MaterialCommunityIcons name="clock" size={20} color="#46929B" />
-                        <Text style={styles.textsemiBold}>Hora:</Text>
-                        <Text style={{color:'#707070'}}>1:00 pm</Text>
+                    <View style={styles.docInfoDetails}>
+                        <MaterialCommunityIcons     name="stethoscope" size={20} color="#46929B" />
+                        <Text style={styles.textsemiBold}>Médico:</Text>
+                        <Text style={{color:'#707070'}}>{doctor}</Text>
                     </View>
-                </View>
-                <View style={styles.docInfoDetails}>
-                    <MaterialCommunityIcons     name="stethoscope" size={20} color="#46929B" />
-                    <Text style={styles.textsemiBold}>Médico:</Text>
-                    <Text style={{color:'#707070'}}>Dr. Andrés Flores</Text>
                 </View>
             </View>
-        </View>
-    </>
+        </>
   )
 }
 

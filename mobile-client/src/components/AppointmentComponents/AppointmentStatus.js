@@ -107,7 +107,7 @@ export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id})
                                     Doctor_id,
                                     appointmentInfo: getAppointmentInfo(),
                             })}>
-                                <Text style={{color: '#ffffff'}}>Más Información</Text>
+                                <Text style={{color: '#ffffff'}}>Ver Más</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

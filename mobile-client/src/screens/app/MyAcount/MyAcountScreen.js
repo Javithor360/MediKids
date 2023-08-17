@@ -58,7 +58,7 @@ export const MyAcountScreen = () => {
       Profile_Photo_Url: null,
     }))
 
-    navigation.navigate('WelcomeScreen')
+    navigation.navigate('LoginScreen', {swipeBack: false});
   }
 
   return (

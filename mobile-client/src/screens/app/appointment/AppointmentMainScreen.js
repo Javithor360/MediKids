@@ -1,8 +1,8 @@
 
 //>> Libraries
-import { Text, ScrollView, StyleSheet, View, Image, TouchableOpacity, Dimensions } from 'react-native'
+import { Text, ScrollView, StyleSheet, View, Image, TouchableOpacity, Dimensions, Animated } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import Constants from 'expo-constants';
 import { useTranslation } from 'react-i18next';
@@ -13,6 +13,11 @@ import { AppointmentStatus, ScreenTitle, getMedicalAppointments } from '../../..
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangeNeumoState, ChangeOtorrinoValues, ChangeOtorrinoState, ChangeNeumoValues, ChangeGastroState, ChangeGastroValues } from '../../../store/slices/appointmentsSlice';
 
+//! Cancel the warning.
+const av = new Animated.Value(0);
+av.addListener(() => {return});
+
+//! Information to single component statement.
 const doctorDescription = {
     otoDoctorInsights: {
         insight1: "Especialista en otorrinolaringología",
@@ -30,7 +35,8 @@ const doctorDescription = {
 
 export const AppointmentMainScreen = () => {
     const dispatch = useDispatch();
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+    const isFocused = useIsFocused()
 
     //! Get elements from the redux state.
     const Patient_Code = useSelector(state => state.patient.Patient_Code);
@@ -79,7 +85,8 @@ export const AppointmentMainScreen = () => {
 
     useEffect(() => {
         getAppointments();
-    }, [appointmentsState]);
+    }, [appointmentsState, isFocused]);
+
 
     return (
         <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
@@ -208,15 +215,12 @@ export const AppointmentMainScreen = () => {
                     </View>
                     <View style={[styles.requestAppointmentContainer, styles.btcYellow, styles.shadowC]}>
                         <Text style={[styles.requestMainTitle, styles.colorYellow]}>Historial de citas</Text>
-
-                        <Image source={require('../../../../assets/graphic-icons/history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 16,}}></Image>
+                        {/* <Image source={require('../../../../assets/graphic-icons/history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 16,}}></Image>
                         <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment') }>
                             <Text style={{color: '#fff', fontSize: 13.5,}}>Ver historial</Text>
-                        </TouchableOpacity>
-                        
-                        
-                        {/* <Image source={require('../../../../assets/graphic-icons/no_history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 10,}}></Image>
-                        <Text style={{alignSelf: 'center', marginBottom: 20, color: '#707070'}}>Todavía no hay registros en el historial</Text> */}
+                        </TouchableOpacity> */}
+                        <Image source={require('../../../../assets/graphic-icons/no_history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 10,}}></Image>
+                        <Text style={{alignSelf: 'center', marginBottom: 20, color: '#707070'}}>Todavía no hay registros en el historial</Text>
                     </View>
                 </View>
             </ScrollView>
@@ -225,19 +229,6 @@ export const AppointmentMainScreen = () => {
 }
 
 const styles = StyleSheet.create({
-    requestAppointmentContainer:{
-        // height: 800,
-        width: wp('90%'),
-        backgroundColor: '#ffffff',
-        alignSelf: 'center',
-        borderRadius: 20,
-        marginTop: 30,
-        marginBottom: 30,
-        borderTopWidth: 9,
-        overflow: 'hidden',
-        borderWidth: 1,
-        borderColor: '#EBEBEB',
-    },
     fullScreenContainer:{
         height: '100%',
         marginTop: Constants.statusBarHeight
@@ -258,6 +249,13 @@ const styles = StyleSheet.create({
         borderTopColor: '#CDCDF3',
         alignItems: 'center',
         // justifyContent: 'center',
+        shadowColor: '#000',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        //Android
+        elevation: 5,
+        shadowColor: '#000',
     },
     colorGreen: {
         color: '#46929B',
@@ -309,10 +307,13 @@ const styles = StyleSheet.create({
         top: -30,
         elevation: 4,
         //iOS
-        shadowColor: '#707070',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
+        shadowColor: '#000',
+        shadowOffset: {width: -2, height: 4},
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        //Android
+        elevation: 5,
+        shadowColor: '#000',
         paddingVertical: 20,
     },
     card: {
@@ -375,7 +376,6 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     requestAppointmentContainer:{
-        // height: 800,
         width: wp('90%'),
         backgroundColor: '#ffffff',
         alignSelf: 'center',
@@ -383,7 +383,6 @@ const styles = StyleSheet.create({
         marginTop: 30,
         marginBottom: 30,
         borderTopWidth: 9,
-        overflow: 'hidden',
         borderWidth: 1,
         borderColor: '#EBEBEB',
     },
