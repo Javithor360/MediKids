@@ -1,17 +1,23 @@
 //>> import
-import { BackHandler, Dimensions, ImageBackground, SafeAreaView, StyleSheet, Text, View, } from 'react-native'
+import { useState } from 'react';
+import { BackHandler, Dimensions, ImageBackground, SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native'
 import { CustomButton } from '../../index';
 import Constans from 'expo-constants'
 import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { isIOS } from '../../constants';
+import { isIOS, isAN } from '../../constants';
+import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
+import { MaterialIcons } from '@expo/vector-icons'; 
+import LanguageSelector from '../../components/LanguageSelector';
+import { useTranslation } from 'react-i18next';
 
 //>> constants
 const { height } = Dimensions.get('window');
 
 export const WelcomeScreen = () => {
   const navigation = useNavigation()
-
+  const [lngModal, setLngModal] = useState(false);
+   const { t } = useTranslation();
   //>> Aviod Come Back
   useEffect(() => {
     navigation.addListener('beforeRemove', (e) => {
@@ -25,7 +31,19 @@ export const WelcomeScreen = () => {
     <>
       <View style={styles.imageBgView}>
         <ImageBackground style={styles.imageBg} source={require('../../../assets/waves/waves_start_top.png')} resizeMode='contain' />
+        
       </View>
+      <TouchableOpacity activeOpacity={0.5} style={styles.buttomCameBack} onPress={() => setLngModal(true)}>
+          <MaterialIcons name="language" size={17} color="white" />
+          <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>{t('welcomeScn.language_title')}</Text>
+      </TouchableOpacity>
+      <Modal 
+        animationType='fade'
+        transparent
+        visible={lngModal}
+      >
+        <LanguageSelector closeModal={() => setLngModal(false)}/>
+      </Modal>
       <SafeAreaView>
         <View>
           <ImageBackground style={styles.image} source={require('../../../assets/logos/adaptive-icon.png')} resizeMode='contain' />
@@ -33,10 +51,10 @@ export const WelcomeScreen = () => {
         <View style={styles.hr} />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>
-            ¡La mejor atención para los pequeños!
+            {t('welcomeScn.main_title')}
           </Text>
           <Text style={styles.paragrhap}>
-            MediKids te ofrece la mejor calidad de atención medica especializada en pediatría.
+            {t('welcomeScn.main_description')}
           </Text>
         </View>
         <View style={{...styles.hr, ...styles.hr2}} />
@@ -53,7 +71,7 @@ export const WelcomeScreen = () => {
             fontFamily={'poppinsBold'}
             fontSize={20}
             textColor={'white'}
-            Label={"Iniciar Sesión"}
+            Label={t('welcomeScn.login_btn')}
             handlePress={() => {navigation.navigate('LoginScreen');}}
             haveShadow={true}
           /> 
@@ -70,7 +88,7 @@ export const WelcomeScreen = () => {
             fontFamily={'poppinsBold'}
             fontSize={20}
             textColor={'black'}
-            Label={"Registrarse"}
+            Label={t('welcomeScn.register_btn')}
             handlePress={() => {navigation.navigate('RegisterScreen');}}
             haveShadow={true}
           /> 
@@ -84,6 +102,18 @@ export const WelcomeScreen = () => {
 }
 
 const styles = StyleSheet.create({
+  buttomCameBack: {
+    top: '5%',
+    left: 15,
+    backgroundColor: '#A375FF',
+    position: 'absolute',
+    borderRadius: 6,
+    flexDirection: 'row',
+    paddingHorizontal: 14,
+    alignItems: 'center',
+    paddingVertical: isIOS ? 8 : 0,
+    zIndex: 2,
+  },
   image: {
     height: isIOS ? height / 3 : height / 2.8 ,
     marginTop: isIOS ? '5%' : '15%',

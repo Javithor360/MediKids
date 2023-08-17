@@ -1,0 +1,51 @@
+{
+    "selectLng": {
+        "title": "Seleccionar Idioma",
+        "lng_name_en": "Inglés",
+        "lng_name_es": "Español",
+        "btn": "Aceptar"
+    },
+    "welcomeScn": {
+        "language_title": "ES",
+        "main_title": "¡La mejor atención para los pequeños!",
+        "main_description": "MediKids te ofrece la mejor calidad de atención medica especializada en pediatría.",
+        "login_btn": "Iniciar Sesión",
+        "register_btn": "Registrarse"
+    },
+    "loginScn": {
+        "welcomeT" : "¡Bienvenido!",
+        "emailT": "Email",
+        "passT": "Contraseña",
+        "forgotPass": "Olvidé mi contraseña",
+        "loginT": "Iniciar sesión",
+        "dontHaveA" : "¿No tienes un cuenta?",
+        "signup": "Registrarse"
+    },
+    "globals": {
+        "email": "Email",
+        "pass": "Contraseña",
+        "signup": "Registrarse",
+        "login": "Iniciar sesión",
+        "name": "Nombres",
+        "lastName": "Apellidos",
+        "age": "edad",
+        "cellphone": "Teléfono",
+        "confirmPassword": "Confirmar contraseña",
+        "logout": "Cerrar sesión"
+    },
+    "register1": {
+        "title": "Datos del encargado",
+        "alreadyAcc": "¿Ya tienes una cuenta?"
+    },
+    "verifyCode": {
+        "title": "Código de verificación",
+        "text2": "Su Email a verificar es: ",
+        "verifyBtn": "Verificar"
+    },
+    "selectPhoto": {
+        "title": "Tu foto de perfil",
+        "text2": "Para mayor seguridad, coloca una fotografía que pueda identificarte.",
+        "selectBtn": "Seleccionar",
+        "changeBtn": "Aceptar"
+    }
+}

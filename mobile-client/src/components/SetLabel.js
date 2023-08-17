@@ -1,4 +1,4 @@
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import { Entypo } from '@expo/vector-icons'
 

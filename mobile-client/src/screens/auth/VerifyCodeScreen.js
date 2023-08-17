@@ -3,7 +3,7 @@ import { Text, View, Image, ImageBackground, BackHandler } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-
+import { useTranslation } from 'react-i18next';
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
@@ -12,6 +12,7 @@ import InputCodeField from '../../components/InputCodeField';
 
 
 export const VerifyCodeScreen = () => {
+    const { t } = useTranslation();
     const navigation = useNavigation();
 
     //! Get the Email from the global State
@@ -89,8 +90,8 @@ export const VerifyCodeScreen = () => {
                 <View style={AuthStylesGlobal.formContent} >
                     <Image style={AuthStylesGlobal.logoImage2} source={require('../../../assets/logos/Logotype_Colored.png')}  />
                     <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/graphic-icons/verify-code.png')}  />
-                    <Text style={AuthStylesRegisterU.Tex_md}>Código de verificación</Text>
-                    <Text>Su Email a verificar es: <Text style={{color:'#A375FF', fontWeight: 'bold', fontStyle: 'italic', fontSize:15}}>{Email}</Text></Text>
+                    <Text style={AuthStylesRegisterU.Tex_md}>{t('verifyCode.title')}</Text>
+                    <Text>{t('verifyCode.text2')}<Text style={{color:'#A375FF', fontWeight: 'bold', fontStyle: 'italic', fontSize:15}}>{Email}</Text></Text>
 
                     <InputCodeField value={verifyCode} setValue={setVerifyCode} />
                     
@@ -107,7 +108,7 @@ export const VerifyCodeScreen = () => {
                             fontFamily={'poppinsBold'}
                             fontSize={16}
                             textColor={'white'}
-                            Label={<SetLabel LabelText={'Verificar'} Success={Success} isLoading={isLoading} />}
+                            Label={<SetLabel LabelText={t('verifyCode.verifyBtn')} Success={Success} isLoading={isLoading} />}
                             handlePress={() => {verifyUserCode()}}
                             haveShadow={true}
                             disable={DisableBtn}

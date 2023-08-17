@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //! Localhost Direction of the server.
-const localhost = '192.168.0.9';
+const localhost = '192.168.33.231';
 
 //\\ const of headers
 const headers_public = { headers: {'Content-Type': 'application/json'} }
@@ -98,4 +98,16 @@ export const createImmunizationRecord = async (Patient_id, isChecked) => {
 //@access Private
 export const getMedicalRecords = async (jwtToken, Patient_id) => {
   return await axios.post(`http://${localhost}:5005/api/appointment/get_medical_records`, {Patient_id}, get_private_headers(jwtToken))
+}
+
+//! Create the request appointment for the Patient.
+//@access Private
+export const requestMedicalAppointment = async (jwtToken, Patient_Code, Doctor_id, Week, Description) => {
+  return await axios.post(`http://${localhost}:5005/api/appointment/request_medical_appointment`, {Patient_Code, Doctor_id, Week, Description}, get_private_headers(jwtToken));
+}
+
+//! Get the appointments of the Patient.
+//@access Private
+export const getMedicalAppointments = async (jwtToken, Patient_Code) => {
+  return await axios.post(`http://${localhost}:5005/api/appointment/get_medical_appointments`, {Patient_Code}, get_private_headers(jwtToken));
 }
