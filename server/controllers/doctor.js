@@ -164,12 +164,10 @@ const new_medical_record_entry = async (req, res, next) => {
       Patient_id,
     });
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: `Medical record for patient #${Patient_id} was successfully inserted`,
-      });
+    return res.status(200).json({
+      success: true,
+      message: `Medical record for patient #${Patient_id} was successfully inserted`,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });
@@ -290,6 +288,79 @@ const get_patient_medical_record = async (req, res, next) => {
   }
 };
 
+// ! @route POST api/doctor/set_medical_prescription
+// ! @desc Stablish a new prescription for a patient
+// ! @access private
+
+const set_medical_prescription = async (req, res, next) => {
+  try {
+    // missing Starting_Dose_Date & Medical_Prescription_Code
+    const {
+      Medicine_Name,
+      Instructions,
+      Description,
+      Starting_Dose_Date,
+      Finishing_Dose_Date,
+      Dose,
+      Patient_id,
+      Time_Dose,
+    } = req.body;
+
+    if (
+      !Medicine_Name ||
+      !Instructions ||
+      !Description ||
+      !Starting_Dose_Date ||
+      !Finishing_Dose_Date ||
+      !Dose ||
+      !Patient_id ||
+      !Time_Dose
+    ) {
+      return res.status(500).json({
+        success: false,
+        message: "You must provide every field with a value",
+      });
+    }
+
+    if (new Date() > (new Date(Finishing_Dose_Date) || new Date(Starting_Dose_Date))) {
+      return res.status(500).json({
+        success: false,
+        message: "Dose dates can not be higher than the actual date.",
+      });
+    }
+
+    const [patient_check] = await pool.query(
+      "SELECT * FROM patient WHERE id =",
+      [Patient_id]
+    );
+
+    if (!patient_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided patient does not exist",
+      });
+    }
+
+    await pool.query("INSERT INTO medical_prescription SET ?", {
+      Medical_Prescription_Code: patientCode(),
+      Medicine_Name,
+      Instructions,
+      Description,
+      Created_Date: new Date(),
+      Starting_Dose_Date,
+      Finishing_Dose_Date,
+      Dose,
+      Patient_id,
+      Time_Dose,
+    })
+
+    return res.status(200).json({ success: true, message: `A new medical prescription has been added to the patient with id ${Patient_id}` });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
 export {
   get_info,
   active_patients,
@@ -298,4 +369,5 @@ export {
   get_patient_appointment_with_specific_doctor,
   get_responsible_info,
   get_patient_medical_record,
+  set_medical_prescription,
 };
