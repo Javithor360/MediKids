@@ -215,24 +215,12 @@ export const AppointmentMainScreen = () => {
                     </View>
                     <View style={[styles.requestAppointmentContainer, styles.btcYellow, styles.shadowC]}>
                         <Text style={[styles.requestMainTitle, styles.colorYellow]}>Historial de citas</Text>
-<<<<<<< Updated upstream
-
-                        <Image source={require('../../../../assets/graphic-icons/history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 16,}}></Image>
-                        <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment') }>
-                            <Text style={{color: '#fff', fontSize: 13.5,}}>Ver historial</Text>
-                        </TouchableOpacity>
-                        
-                        
-                        {/* <Image source={require('../../../../assets/graphic-icons/no_history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 10,}}></Image>
-                        <Text style={{alignSelf: 'center', marginBottom: 20, color: '#707070'}}>Todavía no hay registros en el historial</Text> */}
-=======
                         {/* <Image source={require('../../../../assets/graphic-icons/history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 16,}}></Image>
                         <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment') }>
                             <Text style={{color: '#fff', fontSize: 13.5,}}>Ver historial</Text>
                         </TouchableOpacity> */}
                         <Image source={require('../../../../assets/graphic-icons/no_history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 10,}}></Image>
                         <Text style={{alignSelf: 'center', marginBottom: 20, color: '#707070'}}>Todavía no hay registros en el historial</Text>
->>>>>>> Stashed changes
                     </View>
                 </View>
             </ScrollView>
