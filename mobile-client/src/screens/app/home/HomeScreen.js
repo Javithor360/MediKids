@@ -114,7 +114,7 @@ export const HomeScreen = () => {
             <View style={styles.welcomeMsg}>
               <Text style={{height: '100%', fontSize: 29, color: '#707070', fontFamily: 'poppinsRegular'}}>
                 {/* ¡Hola! */}
-                {t('hello')}
+                {t('homePage.welcomeMsg')}
               </Text>
               <Text style={{fontWeight:'bold', color: '#D58C8C',fontSize: 18, fontFamily: 'poppinsBold'}}>Encargado</Text>
             </View>

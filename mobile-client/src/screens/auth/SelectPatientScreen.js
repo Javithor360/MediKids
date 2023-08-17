@@ -81,7 +81,7 @@ export const SelectPatientScreen = () => {
         }))
       }
     });
-    navigation.navigate('ApplicationTab');
+    navigation.replace('ApplicationTab');
   }
 
   const ValidatePatient = (Patient_id) => {

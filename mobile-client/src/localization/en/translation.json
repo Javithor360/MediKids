@@ -1,4 +1,7 @@
 {
+    "homePage": {
+        "welcomeMsg": "Hello!"
+    },
     "selectLng": {
         "title": "Select language",
         "lng_name_en": "English",
