@@ -1,7 +1,7 @@
 import { isActive } from "@tiptap/react";
 import React, { useEffect, useState } from "react";
 
-export const AddMedicalPrescription = ({ setNewMedicalPrescriptionEntry }) => {
+export const   AddMedicalPrescription = ({ setNewMedicalPrescriptionEntry }) => {
   const [selectedOption, setSelectedOption] = useState(false);
   const [medicines, setMedicines] = useState([
     {
