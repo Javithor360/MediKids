@@ -43,6 +43,8 @@ export const AppointmentMainScreen = () => {
     const appointmentsState = useSelector(state => state.appointments);
     const jwtToken = useSelector(state => state.responsible.jwtToken);
 
+    const [AppointmentsRecord, setAppointmentsRecord] = useState(null);
+
     //! function to get the values of the appointments
     const getAppointments = async () => {
         try {
@@ -83,8 +85,28 @@ export const AppointmentMainScreen = () => {
         }
     }
 
+    const getHistoryAppointment = async () => {
+        try {
+            const {data} = await getMedicalAppointments(jwtToken, Patient_Code);
+            let selectedAppmt = [];
+
+            data.medical_appointments.forEach(appointment => {
+                if (appointment.State == 4){
+                    selectedAppmt.push(appointment);
+                }
+            });
+
+            if (selectedAppmt.length > 0){
+                setAppointmentsRecord(selectedAppmt);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         getAppointments();
+        getHistoryAppointment();
     }, [appointmentsState, isFocused]);
 
 
@@ -215,12 +237,24 @@ export const AppointmentMainScreen = () => {
                     </View>
                     <View style={[styles.requestAppointmentContainer, styles.btcYellow, styles.shadowC]}>
                         <Text style={[styles.requestMainTitle, styles.colorYellow]}>Historial de citas</Text>
-                        {/* <Image source={require('../../../../assets/graphic-icons/history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 16,}}></Image>
-                        <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment') }>
-                            <Text style={{color: '#fff', fontSize: 13.5,}}>Ver historial</Text>
-                        </TouchableOpacity> */}
-                        <Image source={require('../../../../assets/graphic-icons/no_history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 10,}}></Image>
-                        <Text style={{alignSelf: 'center', marginBottom: 20, color: '#707070'}}>Todavía no hay registros en el historial</Text>
+                        {
+                            AppointmentsRecord != null ?
+                                <>
+                                    <Image source={require('../../../../assets/graphic-icons/history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 16,}}></Image>
+                                    <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment', {
+                                        AppointmentsRecord: AppointmentsRecord
+                                    }) }>
+                                        <Text style={{color: '#fff', fontSize: 13.5,}}>Ver historial</Text>
+                                    </TouchableOpacity>
+                                </>
+                                :
+                                <>
+                                    <Image source={require('../../../../assets/graphic-icons/no_history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 10,}}></Image>
+                                    <Text style={{alignSelf: 'center', marginBottom: 20, color: '#707070'}}>Todavía no hay registros en el historial</Text>
+                                </>
+                        }
+
+
                     </View>
                 </View>
             </ScrollView>
