@@ -6,7 +6,9 @@ import {
   newMedicalRecordEntry,
   getPatientAppointmentWithDoctor,
   getResponsibleInfo,
-  getPatientMedicalRecords
+  getPatientMedicalRecords,
+  getPatientMedicalPrescription,
+  setPatientMedicalPrescription
 } from "../api/queries";
 
 const dashContext = createContext();
@@ -27,6 +29,7 @@ export const DoctorProvider = ({ children }) => {
   const [nextAppointment, setNextAppointment] = useState({});
   const [responsibleInfo, setResponsibleInfo] = useState({});
   const [medicalRecords, setMedicalRecords] = useState([]);
+  const [medicalPrescriptions, setMedicalPrescriptions] = useState([]);
   
   const PrivateConfig = {
     header: {
@@ -136,6 +139,23 @@ export const DoctorProvider = ({ children }) => {
     }
   }
 
+  const PatientMedicalPrescriptions = async (Patient_id) => {
+    try {
+      const res = await getPatientMedicalPrescription(Patient_id, PrivateConfig);
+      setMedicalPrescriptions(res.data.body);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const AddMedicalPrescription = async (data) => {
+    try {
+      return await setPatientMedicalPrescription(data, PrivateConfig);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <dashContext.Provider
       value={{
@@ -153,6 +173,8 @@ export const DoctorProvider = ({ children }) => {
         setResponsibleInfo,
         medicalRecords,
         setMedicalRecords,
+        medicalPrescriptions,
+        setMedicalPrescriptions,
         DoctorInfoQuery,
         ActivePatientsQuery,
         AppointmentsQuery,
@@ -161,7 +183,9 @@ export const DoctorProvider = ({ children }) => {
         EndMedicalAppointment,
         PatientAppointmentWithDoctor,
         ResponsibleInformation,
-        PatientMedicalRecords
+        PatientMedicalRecords,
+        PatientMedicalPrescriptions,
+        AddMedicalPrescription
       }}
     >
       {children}

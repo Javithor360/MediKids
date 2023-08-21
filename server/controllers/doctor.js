@@ -322,7 +322,10 @@ const set_medical_prescription = async (req, res, next) => {
       });
     }
 
-    if (new Date() > (new Date(Finishing_Dose_Date) || new Date(Starting_Dose_Date))) {
+    if (
+      new Date() >
+      (new Date(Finishing_Dose_Date) || new Date(Starting_Dose_Date))
+    ) {
       return res.status(500).json({
         success: false,
         message: "Dose dates can not be higher than the actual date.",
@@ -330,11 +333,11 @@ const set_medical_prescription = async (req, res, next) => {
     }
 
     const [patient_check] = await pool.query(
-      "SELECT * FROM patient WHERE id =",
+      "SELECT * FROM patient WHERE id = ?",
       [Patient_id]
     );
 
-    if (!patient_check.length != 1) {
+    if (patient_check.length != 1) {
       return res.status(500).json({
         success: false,
         message: "Provided patient does not exist",
@@ -347,14 +350,50 @@ const set_medical_prescription = async (req, res, next) => {
       Instructions,
       Description,
       Created_Date: new Date(),
-      Starting_Dose_Date,
-      Finishing_Dose_Date,
+      Starting_Dose_Date: new Date(Starting_Dose_Date),
+      Finishing_Dose_Date: new Date(Finishing_Dose_Date),
       Dose,
       Patient_id,
       Time_Dose,
-    })
+    });
 
-    return res.status(200).json({ success: true, message: `A new medical prescription has been added to the patient with id ${Patient_id}` });
+    return res.status(200).json({
+      success: true,
+      message: `A new medical prescription has been added to the patient with id ${Patient_id}`,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
+// ! @route POST api/doctor/get_medical_prescription
+// ! @desc Obtains all the patient's prescriptions
+// ! @access private
+
+const get_medical_prescriptions = async (req, res, next) => {
+  try {
+    const { Patient_id } = req.body;
+
+    if (!Patient_id) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    const [query_check] = await pool.query(
+      "SELECT * FROM medical_prescription WHERE Patient_id = ?",
+      [Patient_id]
+    );
+
+    // NOT NEEDED YET
+    // if(query_check.length != 1) {
+    //   return res.status(500).json({
+    //     success: false,
+    //     message: "This patient has not medical prescriptions yet"
+    //   })
+    // }
+    return res.status(200).json({ success: true, body: query_check });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });
@@ -370,4 +409,5 @@ export {
   get_responsible_info,
   get_patient_medical_record,
   set_medical_prescription,
+  get_medical_prescriptions,
 };

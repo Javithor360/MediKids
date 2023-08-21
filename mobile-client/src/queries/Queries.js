@@ -1,6 +1,7 @@
 import axios from "axios";
 
 //! Localhost Direction of the server.
+
 const localhost = '192.168.1.6';
 
 //\\ const of headers

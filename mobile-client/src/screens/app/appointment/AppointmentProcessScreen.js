@@ -31,8 +31,8 @@ export const AppointmentProcessScreen = ({ route }) => {
             (appointmentInfo?.State != null) &&
               <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcGreen, styles.wMb]}>
                 { appointmentInfo.State == 1 && <PendingAppointment /> }
-                { appointmentInfo.State == 2 && <NextAppointment /> }
-                { appointmentInfo.State == 3 && <AttendingAppointment /> }
+                { appointmentInfo.State == 2 && <NextAppointment appointmentInfo={appointmentInfo} doctor={doctor} /> }
+                { appointmentInfo.State == 3 && <AttendingAppointment appointmentInfo={appointmentInfo}/> }
                 { appointmentInfo.State == 4 && <AppointmentResults /> }
               </View>
           }
@@ -135,7 +135,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 9,
     borderTopColor: '#CDCDF3',
     flexDirection: 'row',
-    overflow: 'hidden',
   },
   leftPhotoContainer:{
     width: '40%',
@@ -205,17 +204,18 @@ const styles = StyleSheet.create({
     borderTopWidth: 9,
     borderTopColor: '#D58C8C',
     flexDirection: 'row',
-    overflow: 'hidden',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10
+    // overflow: 'hidden',
   },
   shadowC:{
-    //iOS
-    shadowColor: '#707070',
+    shadowColor: '#000',
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.2,
     shadowRadius: 3,
     //Android
     elevation: 5,
-    shadowColor: '#707070',
+    shadowColor: '#000',
   },
   infoMainContentC:{
     width: '90%',
@@ -302,9 +302,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 20,
     borderTopWidth: 9,
-    overflow: 'hidden',
     borderWidth: 1,
     borderColor: '#EBEBEB',
+    marginBottom: 30
   },
   btcYellow:{
     borderTopColor: '#FCC277',
