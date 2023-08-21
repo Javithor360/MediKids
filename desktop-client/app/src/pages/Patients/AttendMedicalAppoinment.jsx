@@ -119,7 +119,6 @@ export const MedicalAppoinment = () => {
     });
 
     if (emptyCounter === 7) {
-      setMedicalPrescript([]);
       newErrorMessages.splice(newErrorMessages.length - 7, 7);
     }
 
