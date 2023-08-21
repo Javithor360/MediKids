@@ -6,7 +6,9 @@ import {
 } from 'react-native-responsive-screen';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
+import { useNavigation } from '@react-navigation/native';
 const Gastro = () => {
+  const navigation = useNavigation();
   const scrollA = useRef(new Animated.Value(0)).current;
   return (
     <View style={{backgroundColor: '#fff',}}>
@@ -34,7 +36,7 @@ const Gastro = () => {
           </Text>
           <View style={styles.mainInfoContainer}>
             <View style={styles.spcIconContainer}>
-              <View style={styles.iconWrapper}>
+              <View style={[styles.iconWrapper, styles.colorYellow]}>
                 <Image style={{width: '75%', height: '75%', resizeMode: 'contain',}} source={require('../../../../assets/graphic-icons/gastro-icon.png')}></Image>
               </View>
             </View>
@@ -95,7 +97,7 @@ const Gastro = () => {
                   <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Enfermedad celiaca</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Los pacientes con enfermedad celíaca no toleran una proteína llamada gluten(trigo, avena, cebada,centeno).</Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Los pacientes con enfermedad celíaca no toleran una proteína llamada gluten (trigo, avena, cebada,centeno).</Text>
                 </View>
               </View>
             </View>
@@ -132,31 +134,31 @@ const Gastro = () => {
                 <ImageBackground source={require('../../../../assets/default-pics/dra-garza.png')} style={{height: '100%', width: '100%', alignSelf: 'center', justifyContent: 'center', resizeMode: 'contain'}}></ImageBackground>
               </View>
               <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: 600, color: '#707070', fontSize: 21}}>Dra. Fátima Garza</Text>
-              <Text style={styles.docDescription}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae veniam magni aliquid ratione molestias ut harum veritatis, illum velit non eaque voluptate officiis alias minima molestiae error aliquam sed? Suscipit.</Text>
+              <Text style={styles.docDescription}>"Cuando veo la sonrisa de mis pacientes, esa es la verdadera recompensa"</Text>
 
               <View style={styles.doctorTitle}>
-                <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+                <View style={{height: '100%', alignItems: 'center', justifyContent: 'center',}}>
                   <MaterialCommunityIcons name="stethoscope" size={25} color="#707070" />
                 </View>
-                <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
+                <View style={{height: '100%', justifyContent: 'center'}}>
                   <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
                 </View>
               </View>
 
               <View style={styles.doctorTitle}>
-                <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+                <View style={{height: '100%', alignItems: 'center', justifyContent: 'center',}}>
                   <MaterialIcons name="stars" size={25} color="#707070" />
                 </View>
-                <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
+                <View style={{height: '100%', justifyContent: 'center'}}>
                   <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
                 </View>
               </View>
 
               <View style={styles.doctorTitle}>
-                <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                <View style={{height: '100%', alignItems: 'center', justifyContent: 'center'}}>
                   <MaterialIcons name="medical-services" size={25} color="#707070" />
                 </View>
-                <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
+                <View style={{height: '100%', justifyContent: 'center'}}>
                   <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
                 </View>
               </View>
@@ -175,7 +177,7 @@ const Gastro = () => {
               </View>
             </View>
 
-            <TouchableOpacity style={styles.programAppointmentBtn}>
+            <TouchableOpacity onPress={()=>navigation.navigate('AppointmentStack') } style={styles.programAppointmentBtn}>
               <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
                 Agendar cita
               </Text>
@@ -216,7 +218,7 @@ const styles = {
   title1: {
     fontSize: 25,
     marginTop: 10,
-    marginBottom: 7,
+    marginBottom: 20,
     color: '#707070',
     textDecorationLine: 'underline',
     textAlign: 'center',
@@ -232,21 +234,20 @@ const styles = {
   },
   mainInfoContainer: {
     flexDirection: 'row',
-    width: wp('90%'),
-    height: hp('15%'),
-    marginLeft: 15,
+    width: '90%',
+    height: hp('20%'),
+    alignSelf: 'center',
   },
   spcIconContainer: {
     width: '35%',
     height: '100%',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
   },
   iconWrapper: {
     height: '90%',
-    width: '80%',
+    width: '90%',
     borderRadius: 20,
-    backgroundColor: '#ffe6e6',
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 4,
@@ -256,10 +257,20 @@ const styles = {
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
+  colorYellow: {
+    backgroundColor: '#FDEBD0',
+  },
+  colorBlue: {
+    backgroundColor: '#D4E6F1',
+  },
+  colorGreen: {
+    backgroundColor: '#D5F5E3',
+  },
   infoTextContainer: {
     width: '65%',
-    height: '100%',
+    minHeight: '100%',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   separator: {
     width: wp('93%'),
@@ -272,23 +283,22 @@ const styles = {
     color: '#707070',
     width: wp('85%'),
     textAlign: 'justify',
-
+    marginVertical: 10,
   },
   diseasesMainC: {
     width: '100%',
-    height: 520,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10
+    paddingVertical: 30,
   },
   diseaseCard: {
     marginHorizontal: 'auto',
     width: '90%',
-    height: wp('25%'),
-    backgroundColor: '#F8F9F9',
+    height: wp('35%'),
+    backgroundColor: '#EFE8F0',
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 30,
     flexDirection: 'row',
     elevation: 4,
     //iOS
@@ -334,16 +344,16 @@ const styles = {
     justifyContent: 'center',
   },
   noteContainer:{
-    height: '10%',
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginVertical: 10,
   },
   cardDoctorContainer: {
     marginBottom: 10,
     width: wp('85%'),
-    height: 550,
+    height: 515,
     borderRadius: 25,
     borderTopWidth: 10,
     borderTopColor: '#D8D7FE',
@@ -366,18 +376,20 @@ const styles = {
     backgroundColor: '#e6e6fd',
   },
   docDescription: {
-    width: '100%',
+    width: '90%',
     alignSelf: 'center',
     color: '#707070',
-    marginLeft: 20,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginBottom: 10,
   },
   doctorTitle: {
-    width: '95%',
+    // width: '80%',
     height: '10%',
     alignSelf: 'center',
     marginTop: 5,
     flexDirection: 'row',
-    gap: 4,
+    gap: 10,
   },
   separator2: {
     width: '100%',

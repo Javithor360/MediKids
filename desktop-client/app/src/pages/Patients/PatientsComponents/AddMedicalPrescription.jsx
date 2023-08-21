@@ -1,7 +1,14 @@
 import { isActive } from "@tiptap/react";
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
-export const AddMedicalPrescription = ({ setNewMedicalPrescriptionEntry }) => {
+export const AddMedicalPrescription = ({
+  setNewMedicalPrescriptionEntry,
+  newMedicalPrescriptionEntry,
+}) => {
+  const location = useLocation();
+  const { patient } = location.state || {};
+
   const [selectedOption, setSelectedOption] = useState(false);
   const [medicines, setMedicines] = useState([
     {
@@ -13,8 +20,8 @@ export const AddMedicalPrescription = ({ setNewMedicalPrescriptionEntry }) => {
         add_description: "",
         add_dose: "",
         add_time_dose: "",
-        add_starting_dose_date_: "",
-        add_finishing_dose_date_: "",
+        add_starting_dose_date: "",
+        add_finishing_dose_date: "",
       },
     },
   ]);
@@ -27,6 +34,24 @@ export const AddMedicalPrescription = ({ setNewMedicalPrescriptionEntry }) => {
     setMedicines(updateMedicineComponents);
   }, [selectedOption]);
 
+  useEffect(() => {
+    setNewMedicalPrescriptionEntry(
+      medicines.map((m) => ({
+        hasSelectedYes: selectedOption,
+        data: {
+          Medicine_Name: m.formData.add_medicine_name,
+          Instructions: m.formData.add_instructions,
+          Description: m.formData.add_description,
+          Starting_Dose_Date: m.formData.add_starting_dose_date,
+          Finishing_Dose_Date: m.formData.add_finishing_dose_date,
+          Dose: m.formData.add_dose,
+          Patient_id: patient.id,
+          Time_Dose: m.formData.add_time_dose,
+        }
+      }))
+    );
+  }, [medicines])
+
   const handleAddComponent = async () => {
     const newMedicine = {
       id: medicines.length,
@@ -37,8 +62,8 @@ export const AddMedicalPrescription = ({ setNewMedicalPrescriptionEntry }) => {
         add_description: "",
         add_dose: "",
         add_time_dose: "",
-        add_starting_dose_date_: "",
-        add_finishing_dose_date_: "",
+        add_starting_dose_date: "",
+        add_finishing_dose_date: "",
       },
     };
     setMedicines([...medicines, newMedicine]);
@@ -51,7 +76,7 @@ export const AddMedicalPrescription = ({ setNewMedicalPrescriptionEntry }) => {
     }
   };
 
-  const handleInputChange = (medicine_id, input_name, value) => {
+  const handleInputChange = async (medicine_id, input_name, value) => {
     const updatedMedicines = medicines.map((m) => {
       if (m.id === medicine_id) {
         return {
@@ -76,10 +101,6 @@ export const AddMedicalPrescription = ({ setNewMedicalPrescriptionEntry }) => {
     }));
     setMedicines(toggleMedicines);
   };
-
-  useEffect(() => {
-    console.log(medicines)
-  }, [medicines])
 
   return (
     <div className="bg-cyan-100">
@@ -111,7 +132,12 @@ export const AddMedicalPrescription = ({ setNewMedicalPrescriptionEntry }) => {
         </form>
       </div>
       {medicines.map((m) => (
-        <MedicinesLayout key={m.id} isActive={selectedOption} m={m} onInputChange={handleInputChange} />
+        <MedicinesLayout
+          key={m.id}
+          isActive={selectedOption}
+          m={m}
+          onInputChange={handleInputChange}
+        />
       ))}
       <div
         className={`${
