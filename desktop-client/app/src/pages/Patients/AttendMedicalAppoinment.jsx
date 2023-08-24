@@ -136,7 +136,7 @@ export const MedicalAppoinment = () => {
     try {
       await EndMedicalAppointment(
         { height, weight, temperature, notes, Patient_id: patient.id },
-        {},
+        { medicalPrescript },
         {}
       );
       setChargin(true);
