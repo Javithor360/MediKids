@@ -50,17 +50,16 @@ export const EditMedicalPrescription = ({ setMedicalPrescript }) => {
       edited_prescriptions: editMedicalPrescription,
       new_prescriptions: newMedicalPrescriptionEntry,
     })
-  }, [newMedicalPrescriptionEntry]);
+  }, [newMedicalPrescriptionEntry, editMedicalPrescription]);
   
   return (
     <>
       <p className="mt-7 ml-7">RECETA MÉDICA DEL PACIENTE</p>
       <EditExistingMedicalPrescription
-        setMedicalPrescript={setEditMedicalPrescription}
-        editMedicalPrescription={editMedicalPrescription}
+        setEditMedicalPrescription={setEditMedicalPrescription}
       />
       <AddMedicalPrescription
-        setNewMedicalPrescriptionEntry={setNewMedicalPrescriptionEntry} newMedicalPrescriptionEntry={newMedicalPrescriptionEntry}
+        setNewMedicalPrescriptionEntry={setNewMedicalPrescriptionEntry}
       />
     </>
   );

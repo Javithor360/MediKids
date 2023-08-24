@@ -3,20 +3,41 @@ import { useLocation } from "react-router-dom";
 
 import { useDash } from "../../../context/DoctorContext";
 
-export const EditExistingMedicalPrescription = ({ setMedicalPrescript }) => {
+export const EditExistingMedicalPrescription = ({
+  setEditMedicalPrescription,
+}) => {
   const location = useLocation();
   const { patient } = location.state || {};
 
   const { PatientMedicalPrescriptions, medicalPrescriptions } = useDash();
 
+  const [data, setData] = useState(medicalPrescriptions);
+  const [editedData, setEditedData] = useState([]);
   const [editPrescription, setEditPrescription] = useState(false);
 
   useEffect(() => {
     PatientMedicalPrescriptions(patient.id);
   }, []);
 
+  useEffect(() => {
+    setEditMedicalPrescription(data);
+  }, [data]);
+
   const handleChange = async () => {
     setEditPrescription(!editPrescription);
+  };
+
+  const handleInputChange = (event, index, field) => {
+    const { value } = event.target;
+
+    const updatedItem = { ...data[index], [field]: value };
+    console.log(`big lol: ${JSON.stringify(updatedItem)}`);
+
+    setData((prevData) => {
+      const newData = [...prevData];
+      newData[index] = updatedItem;
+      return newData;
+    });
   };
 
   return (
@@ -67,83 +88,85 @@ export const EditExistingMedicalPrescription = ({ setMedicalPrescript }) => {
               </tr>
             </thead>
             <tbody>
-              {medicalPrescriptions.map((m) => {
-                return (
-                  <tr key={m.id}>
-                    <td>{m.Medical_Prescription_Code}</td>
-                    <td>
-                      <input
-                        disabled={!editPrescription}
-                        type="text"
-                        name="edit_medicine_name"
-                        id="edit_medicine_name"
-                        defaultValue={m.Medicine_Name}
-                        required
-                      />
-                    </td>
-                    <td>
-                      <input
-                        disabled={!editPrescription}
-                        type="text"
-                        name="edit_instructions"
-                        id="edit_instructions"
-                        defaultValue={m.Instructions}
-                        required
-                      />
-                    </td>
-                    <td>
-                      <input
-                        disabled={!editPrescription}
-                        type="text"
-                        name="edit_description"
-                        id="edit_description"
-                        defaultValue={m.Description}
-                        required
-                      />
-                    </td>
-                    <td>
-                      <input
-                        disabled={!editPrescription}
-                        type="text"
-                        name="edit_dose"
-                        id="edit_dose"
-                        defaultValue={m.Dose}
-                        required
-                      />
-                    </td>
-                    <td>
-                      <input
-                        disabled={!editPrescription}
-                        type="text"
-                        name="edit_time_dose"
-                        id="edit_time_dose"
-                        defaultValue={m.Time_Dose}
-                        required
-                      />
-                    </td>
-                    <td>
-                      <input
-                        disabled={!editPrescription}
-                        type="date"
-                        name="edit_starting_dose_date"
-                        id=""
-                        defaultValue={new Date(m.Starting_Dose_Date).toISOString().substring(0,10)}
-                        required
-                      />
-                    </td>
-                    <td>
-                      <input
-                        disabled={!editPrescription}
-                        type="date"
-                        name="edit_finishing_dose_date"
-                        id="edit_finishing_dose_date"
-                        defaultValue={new Date(m.Finishing_Dose_Date).toISOString().substring(0,10)}
-                        required
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
+              {medicalPrescriptions.map((m, index) => (
+                <tr key={m.id}>
+                  <td>{m.Medical_Prescription_Code}</td>
+                  <td>
+                    <input
+                      disabled={!editPrescription}
+                      type="text"
+                      name="Medicine_Name"
+                      defaultValue={m.Medicine_Name}
+                      onBlur={(e) => handleInputChange(e, index, e.target.name)}
+                      required
+                    />
+                  </td>
+                  <td>
+                    <input
+                      disabled={!editPrescription}
+                      type="text"
+                      name="Instructions"
+                      defaultValue={m.Instructions}
+                      onBlur={(e) => handleInputChange(e, index, e.target.name)}
+                      required
+                    />
+                  </td>
+                  <td>
+                    <input
+                      disabled={!editPrescription}
+                      type="text"
+                      name="Description"
+                      defaultValue={m.Description}
+                      onBlur={(e) => handleInputChange(e, index, e.target.name)}
+                      required
+                    />
+                  </td>
+                  <td>
+                    <input
+                      disabled={!editPrescription}
+                      type="text"
+                      name="Dose"
+                      defaultValue={m.Dose}
+                      onBlur={(e) => handleInputChange(e, index, e.target.name)}
+                      required
+                    />
+                  </td>
+                  <td>
+                    <input
+                      disabled={!editPrescription}
+                      type="text"
+                      name="Time_Dose"
+                      defaultValue={m.Time_Dose}
+                      onBlur={(e) => handleInputChange(e, index, e.target.name)}
+                      required
+                    />
+                  </td>
+                  <td>
+                    <input
+                      disabled={!editPrescription}
+                      type="date"
+                      name="Starting_Dose_Date"
+                      defaultValue={new Date(m.Starting_Dose_Date)
+                        .toISOString()
+                        .substring(0, 10)}
+                      onBlur={(e) => handleInputChange(e, index, e.target.name)}
+                      required
+                    />
+                  </td>
+                  <td>
+                    <input
+                      disabled={!editPrescription}
+                      type="date"
+                      name="Finishing_Dose_Date"
+                      defaultValue={new Date(m.Finishing_Dose_Date)
+                        .toISOString()
+                        .substring(0, 10)}
+                      onBlur={(e) => handleInputChange(e, index, e.target.name)}
+                      required
+                    />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </form>
