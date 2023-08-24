@@ -8,7 +8,6 @@ import {
 } from "react-icons/md";
 import medicalHistory from "../../assets/icons/overview_FILL0_wght400_GRAD0_opsz48.svg";
 import profileAvatar from "../../assets/template/walt_jr.png";
-import '../../assets/scss/lol.scss'
 import Modal from "../../components/Modal";
 
 import { ViewMedicalRecords } from './PatientsComponents/index.jsx'
