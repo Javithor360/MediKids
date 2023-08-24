@@ -92,7 +92,7 @@ export const EditExistingMedicalPrescription = ({
               </tr>
             </thead>
             <tbody>
-              {medicalPrescriptions.map((m) => {
+              {medicalPrescriptions.map((m, index) => {
                 return (
                   <tr key={m.id} class="text-center">
                     <td class="border-r border-[#BBBBBB]">{m.Medical_Prescription_Code}</td>
