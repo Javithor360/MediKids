@@ -10,13 +10,14 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { ScreenTitle, getMedicalRecords } from '../../../index';
 import { useSelector } from 'react-redux';
 
-export const HistorialAppointment = () => {
+export const HistorialAppointment = ({ route }) => {
     const jwtToken = useSelector(state => state.responsible.jwtToken);
+    const { AppointmentsRecord } = route.params;
     
     const [view, setView] = useState(false);
 
     useEffect(() => {
-        
+        console.log(AppointmentsRecord);
     }, []);
 
     return (

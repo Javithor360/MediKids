@@ -6,7 +6,9 @@ import {
 } from 'react-native-responsive-screen';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
+import { useNavigation } from '@react-navigation/native';
 const Otorrino = () => {
+  const navigation = useNavigation();
   const scrollA = useRef(new Animated.Value(0)).current;
   return (
     <View style={{backgroundColor: '#fff',}}>
@@ -30,25 +32,27 @@ const Otorrino = () => {
         <View style={styles.waveTopContent}>
           <ImageBackground source={require('../../../../assets/waves/waves_start_top.png')} style={styles.waveImg}></ImageBackground>
           <Text style={styles.title1}>
-              ¿En que nos enfocamos?
+            ¿En que nos enfocamos?
           </Text>
           <View style={styles.mainInfoContainer}>
             <View style={styles.spcIconContainer}>
-              <View style={styles.iconWrapper}>
-                <Image style={{width: '75%', height: '75%', resizeMode: 'contain',}} source={require('../../../../assets/graphic-icons/otorrino-icon.png')}></Image>
+              <View style={[styles.iconWrapper, styles.colorBlue]}>
+                <Image style={{width: '75%', height: '75%', resizeMode: 'contain'}} source={require('../../../../assets/graphic-icons/otorrino-icon.png')}></Image>
               </View>
             </View>
             <View style={styles.infoTextContainer}>
-              <Text style={{color: '#707070', marginLeft: wp('3%'),}}>Profesionales de la medicina que ha recibido formación en el diagnóstico y tratamiento de las enfermedades del oído, la nariz y la garganta.</Text>
+              <Text style={{color: '#707070', textAlign: 'justify', alignItems: 'center',}}>Estos médicos ven una amplia gama de enfermedades y patologías relacionadas con los sentidos, como problemas del olfato y el gusto o trastornos del equilibrio y la audición. </Text>
             </View>
           </View>
-          <View style={styles.separator}></View>
+          <View style={[styles.separator, {marginBottom: 30}]}></View>
           <Text style={styles.title1}>
             Enfermedades comunes
           </Text>
-          <Text style={styles.textPart}>
-          Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con los sentidos, como problemas del olfato y el gusto o trastornos del equilibrio y la audición. 
-          </Text>
+          <View style={{alignItems: 'center'}}>
+            <Text style={styles.textPart}>
+              Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con problemas del estomago o paredes intestinales. 
+            </Text>
+          </View>
           <View style={styles.diseasesMainC}>
             <View style={styles.diseaseCard}>
               <View style={styles.cardIconContainer}>
@@ -77,7 +81,7 @@ const Otorrino = () => {
                   <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Pérdida de la audición</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>La pérdida de audición puede ser leve, moderada, grave o profunda. </Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>La pérdida de audición puede ser leve, moderada, grave o profunda ocasionada por diversos factores</Text>
                 </View>
               </View>
             </View>
@@ -93,7 +97,7 @@ const Otorrino = () => {
                   <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Laringitis</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>es la inflamación de la caja de voz (laringe) por uso excesivo, irritación o infección.</Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Es la inflamación de la caja de voz (laringe) por uso excesivo, irritación o infección y que se puede volver crónica</Text>
                 </View>
               </View>
             </View>
@@ -114,72 +118,71 @@ const Otorrino = () => {
               </View>
             </View>
             <View style={styles.noteContainer}>
-              <View style={{width: '15%', height: '100%', alignItems: 'center',justifyContent: 'center',}}>
-                <Image source={require('../../../../assets/icons/focus_icon.png')} style={{width: '90%', height: '90%', resizeMode: 'contain',}}></Image>
-              </View>
-              <View style={{width: '85%', height: '100%', justifyContent: 'center'}}>
-                <Text style={{color: '#707070'}}>Todos los pacientes son analizados para un diagnostico mas preciso y tratamiento personalizado </Text>
-              </View>
+              <Image source={require('../../../../assets/icons/focus_icon.png')} style={{width: '10%', height: '80%', resizeMode: 'contain', marginHorizontal: 4}}></Image>
+              <Text style={{color: '#707070', width:'75%', textAlign: 'justify', marginHorizontal: 4}}>Todos los pacientes son analizados para un diagnostico mas preciso y tratamiento personalizado </Text>
             </View>
           </View>
 
           <View style={styles.separator}></View>
 
           <Text style={styles.title1}>
-            Nuestro especialista
+            Nuestro Especialista
           </Text>
-          <View style={styles.cardDoctorContainer}>
-            <View style={styles.doctorPicContainer}>
-              <ImageBackground source={require('../../../../assets/default-pics/dra-garza.png')} style={{height: '100%', width: '100%', alignSelf: 'center', justifyContent: 'center', resizeMode: 'contain'}}></ImageBackground>
-            </View>
-            <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: 600, color: '#707070', fontSize: 21}}>Dra. Fátima Garza</Text>
-            <Text style={styles.docDescription}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae veniam magni aliquid ratione molestias ut harum veritatis, illum velit non eaque voluptate officiis alias minima molestiae error aliquam sed? Suscipit.</Text>
+          <View style={{flexDirection: 'column', alignItems: 'center', marginTop: 10}}>
+            <View style={styles.cardDoctorContainer}>
+              <View style={styles.doctorPicContainer}>
+                <ImageBackground source={require('../../../../assets/default-pics/dr-guzman.png')} style={{height: '100%', width: '100%', alignSelf: 'center', justifyContent: 'center', resizeMode: 'contain'}}></ImageBackground>
+              </View>
+              <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: 600, color: '#707070', fontSize: 21}}>Dr. Esteban Guzmán</Text>
+              <Text style={styles.docDescription}>"Mi prioridad son los pacientes y la satisfacción de los padres al ver a sus hijos crecer sanos"</Text>
 
-            <View style={styles.doctorTitle}>
-              <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
-                <MaterialCommunityIcons name="stethoscope" size={25} color="#707070" />
+              <View style={styles.doctorTitle}>
+                <View style={{height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+                  <MaterialCommunityIcons name="stethoscope" size={25} color="#707070" />
+                </View>
+                <View style={{height: '100%', justifyContent: 'center'}}>
+                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                </View>
               </View>
-              <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
-                <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+
+              <View style={styles.doctorTitle}>
+                <View style={{ height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+                  <MaterialIcons name="stars" size={25} color="#707070" />
+                </View>
+                <View style={{height: '100%', justifyContent: 'center'}}>
+                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                </View>
+              </View>
+
+              <View style={styles.doctorTitle}>
+                <View style={{height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                  <MaterialIcons name="medical-services" size={25} color="#707070" />
+                </View>
+                <View style={{height: '100%', justifyContent: 'center'}}>
+                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                </View>
+              </View>
+
+              <View style={styles.separator2}></View>
+
+              <View style={styles.contactSection}>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5}}>
+                  <MaterialIcons name="mail-outline" size={18} color="#A375FF" />
+                  <Text style={{color: '#707070'}}>drguzman@medikids.com</Text>
+                </View>
+                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5}}>
+                  <MaterialIcons name="phone" size={18} color="#A375FF" />
+                  <Text style={{color: '#707070'}}>2525-2525</Text>
+                </View>
               </View>
             </View>
 
-            <View style={styles.doctorTitle}>
-              <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center',}}>
-                <MaterialIcons name="stars" size={25} color="#707070" />
-              </View>
-              <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
-                <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
-              </View>
-            </View>
-
-            <View style={styles.doctorTitle}>
-              <View style={{width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
-                <MaterialIcons name="medical-services" size={25} color="#707070" />
-              </View>
-              <View style={{width: '80%', height: '100%', justifyContent: 'center'}}>
-                <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
-              </View>
-            </View>
-
-            <View style={styles.separator2}></View>
-
-            <View style={styles.contactSection}>
-              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5}}>
-                <MaterialIcons name="mail-outline" size={18} color="#A375FF" />
-                <Text style={{color: '#707070'}}>fatimagarza@medikids.com</Text>
-              </View>
-              <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5}}>
-                <MaterialIcons name="phone" size={18} color="#A375FF" />
-                <Text style={{color: '#707070'}}>2525-2525</Text>
-              </View>
-            </View>
-          </View>
-          <TouchableOpacity style={styles.programAppointmentBtn}>
-            <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
-              Agendar cita
-            </Text>
+              <TouchableOpacity onPress={()=>navigation.navigate("AppointmentStack")} style={styles.programAppointmentBtn}>
+              <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
+                Agendar cita
+              </Text>
           </TouchableOpacity>
+          </View>
         </View>
       </Animated.ScrollView>
     </View>
@@ -211,35 +214,40 @@ const styles = {
       },
     ],
   }),
+
+  title1: {
+    fontSize: 25,
+    marginTop: 10,
+    marginBottom: 20,
+    color: '#707070',
+    textDecorationLine: 'underline',
+    textAlign: 'center',
+    fontFamily: 'poppinsBold',
+  },
   waveTopContent:{
-    height: '100%',
     width: '100%',
   },
   waveImg: {
     flex: 1,
-    height: 150,
+    height: 80,
     resizeMode: 'cover',
-  },
-  title1: {
-    marginTop: 25, fontSize: 29, color: '#707070',textDecorationLine: 'underline', textAlign: 'center', fontFamily: 'poppinsBold', marginBottom: -15
   },
   mainInfoContainer: {
     flexDirection: 'row',
-    width: wp('90%'),
-    height: hp('15%'),
-    marginLeft: 15,
+    width: '90%',
+    height: hp('20%'),
+    alignSelf: 'center',
   },
   spcIconContainer: {
     width: '35%',
     height: '100%',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
   },
   iconWrapper: {
     height: '90%',
-    width: '80%',
+    width: '90%',
     borderRadius: 20,
-    backgroundColor: '#ffe6e6',
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 4,
@@ -249,10 +257,20 @@ const styles = {
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
+  colorYellow: {
+    backgroundColor: '#B2BABB',
+  },
+  colorBlue: {
+    backgroundColor: '#D4E6F1',
+  },
+  colorGreen: {
+    backgroundColor: '#D5F5E3',
+  },
   infoTextContainer: {
     width: '65%',
-    height: '100%',
+    minHeight: '100%',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   separator: {
     width: wp('93%'),
@@ -262,23 +280,25 @@ const styles = {
     marginVertical: 15,
   },
   textPart: {
-    marginLeft: 15,
     color: '#707070',
-    width: wp('90%'),
+    width: wp('85%'),
+    textAlign: 'justify',
+    marginVertical: 10,
   },
   diseasesMainC: {
-    width: wp('88%'),
-    height: 520,
-    marginTop: 20,
-    marginLeft: 25,
-    marginBottom: 20,
+    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 30,
   },
   diseaseCard: {
-    width: '100%',
-    height: wp('25%'),
-    backgroundColor: '#F8F9F9',
+    marginHorizontal: 'auto',
+    width: '90%',
+    height: wp('35%'),
+    backgroundColor: '#EFE8F0',
     borderRadius: 10,
-    marginBottom: 20,
+    marginBottom: 30,
     flexDirection: 'row',
     elevation: 4,
     //iOS
@@ -286,6 +306,7 @@ const styles = {
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    
   },
   cardIconContainer: {
     width: '25%',
@@ -323,17 +344,16 @@ const styles = {
     justifyContent: 'center',
   },
   noteContainer:{
-    width: wp('88%'),
-    height: hp('5%'),
-    // alignSelf: 'center',
+    width: '100%',
     flexDirection: 'row',
-    gap: 4
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
   },
   cardDoctorContainer: {
-    marginLeft: 15,
     marginBottom: 10,
     width: wp('85%'),
-    height: 550,
+    height: 515,
     borderRadius: 25,
     borderTopWidth: 10,
     borderTopColor: '#D8D7FE',
@@ -356,18 +376,20 @@ const styles = {
     backgroundColor: '#e6e6fd',
   },
   docDescription: {
-    width: '100%',
+    width: '90%',
     alignSelf: 'center',
     color: '#707070',
-    marginLeft: 20,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginBottom: 10,
   },
   doctorTitle: {
-    width: '95%',
+    // width: '80%',
     height: '10%',
     alignSelf: 'center',
     marginTop: 5,
     flexDirection: 'row',
-    gap: 4,
+    gap: 10,
   },
   separator2: {
     width: '100%',
@@ -388,11 +410,11 @@ const styles = {
     width: '85%',
     height: hp('5%'),
     backgroundColor: '#D58C8C',
-    marginLeft: 20,
     alignItems: 'center',
-    justifyContent: 'center',    
+    justifyContent: 'center',
     borderRadius: 10,
     marginVertical: 20,
+    marginBottom: 40
   }
 };
 

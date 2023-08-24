@@ -1,6 +1,6 @@
 
 //>> Import Libraries
-import { StyleSheet, Text, ScrollView, Image, View, TouchableOpacity, ImageBackground, Dimensions, BackHandler,Modal } from 'react-native';
+import { StyleSheet, Text, ScrollView, Image, View, TouchableOpacity, ImageBackground, Dimensions, BackHandler, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Entypo } from '@expo/vector-icons'; 
@@ -10,6 +10,8 @@ import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient'
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../../../components/LanguageSelector';
+import Constants from 'expo-constants';
+
 export const HomeScreen = () => {
 
   const { t } = useTranslation();
@@ -75,7 +77,7 @@ export const HomeScreen = () => {
                       justifyContent: 'center',
                     }}
                   >
-                    <View style={{ height: '100%', width: '90%', backgroundColor: '#ffff', left: 45,  }}>
+                    <View style={{ height: '100%', width: '90%', backgroundColor: '#ffff', left: 45,  paddingTop: Constants.statusBarHeight }}>
                       <Text style={{ alignSelf: 'center', top: 10, fontSize: 20, color: '#707070', fontWeight: 'bold', }}>Opciones</Text>
                       <View style={{ height: '70%', width: '90%', top: 20, alignSelf: 'center', }}>
                         <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}>
@@ -210,11 +212,11 @@ export const HomeScreen = () => {
             Categorias
           </Text>
 
-          <View style={styles.categCardContainer}>
+          <View style={[styles.categCardContainer, {backgroundColor: '#FDEBD0'}]}>
             <View style={{width: '35%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
               <Image source={require('../../../../assets/graphic-icons/gastro-icon.png')} style={{width: '70%', height: '60%', resizeMode: 'contain'}}/>
             </View>
-            <View style={{width: '1%', height: '85%', backgroundColor: '#707070', borderRadius: 5}} />
+            <View style={{width: 1.5, height: '55%', backgroundColor: '#B2BABB', borderRadius: 5}} />
             <View style={{width: '64%', height: '100%', padding: 10, flexDirection: 'column', justifyContent: 'space-evenly'}}>
               <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>Gastroenterología</Text>
               <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a.</Text>
@@ -224,29 +226,29 @@ export const HomeScreen = () => {
             </View>
           </View>
 
-          <View style={[styles.categCardContainer, {backgroundColor: '#D8D7FE'}]}>
+          <View style={[styles.categCardContainer, {backgroundColor: '#D4E6F1'}]}>
             <View style={{width: '35%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
               <Image source={require('../../../../assets/graphic-icons/otorrino-icon.png')} style={{width: '70%', height: '60%', resizeMode: 'contain'}}/>
             </View>
-            <View style={{width: '1%', height: '85%', backgroundColor: '#707070', borderRadius: 5}} />
+            <View style={{width: 1.5, height: '55%', backgroundColor: '#B2BABB', borderRadius: 5}} />
             <View style={{width: '64%', height: '100%', padding: 10, flexDirection: 'column', justifyContent: 'space-evenly'}}>
               <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>Otorrinolaringología</Text>
               <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a.</Text>
-              <TouchableOpacity onPress={()=>navigation.navigate('Gastro') } style={styles.touchableViewBtn3}>
+              <TouchableOpacity onPress={()=>navigation.navigate('Otorrino') } style={styles.touchableViewBtn3}>
                   <Text style={{color: '#fff'}}>Más detalles</Text>
                 </TouchableOpacity>
             </View>
           </View>
 
-          <View style={[styles.categCardContainer, {backgroundColor:"#90dfe7"}]}>
+          <View style={[styles.categCardContainer, {backgroundColor:"#D5F5E3"}]}>
             <View style={{width: '35%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
               <Image source={require('../../../../assets/graphic-icons/neumologia-icon.png')} style={{width: '70%', height: '60%', resizeMode: 'contain'}}/>
             </View>
-            <View style={{width: '1%', height: '85%', backgroundColor: '#707070', borderRadius: 5}} />
+            <View style={{width: 1.5, height: '55%', backgroundColor: '#B2BABB', borderRadius: 5}} />
             <View style={{width: '64%', height: '100%', padding: 10, flexDirection: 'column', justifyContent: 'space-evenly'}}>
               <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>Neumología</Text>
               <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a.</Text>
-              <TouchableOpacity onPress={()=>navigation.navigate('Gastro') } style={styles.touchableViewBtn3}>
+              <TouchableOpacity onPress={()=>navigation.navigate('SpecialityInfoN') } style={styles.touchableViewBtn3}>
                   <Text style={{color: '#fff'}}>Más detalles</Text>
                 </TouchableOpacity>
             </View>
@@ -431,6 +433,15 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginBottom: 20,
     flexDirection: 'row',
+    //iOS
+    shadowColor: '#000000',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    //Android
+    elevation: 5,
+    shadowColor: '#000000',
+
   },
   User:{
     fontSize:20,
