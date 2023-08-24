@@ -1,25 +1,34 @@
 
 //>> Import Libraries
-import { StyleSheet, Text, ScrollView, Image, View, TouchableOpacity, ImageBackground, Dimensions, BackHandler, Modal } from 'react-native';
-import { useNavigation } from '@react-navigation/native'
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { Entypo } from '@expo/vector-icons'; 
-import { useEffect } from 'react';
-import React, { useState } from 'react'
+import { StyleSheet, Text, ScrollView, Image, View, TouchableOpacity, ImageBackground, BackHandler, Modal } from 'react-native';
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons'; 
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient'
 import { useTranslation } from 'react-i18next';
-import LanguageSelector from '../../../components/LanguageSelector';
 import Constants from 'expo-constants';
 
+//>> Import Components
+import LanguageSelector from '../../../components/LanguageSelector';
+import {getMedicalAppointments, getMedicalPrescriptions} from '../../../index'
+
 export const HomeScreen = () => {
-
   const { t } = useTranslation();
-
   const navigation = useNavigation()
   const Info = useSelector(state => state.responsible);
   const Patient = useSelector(state => state.patient);
-  
+  const jwtToken = useSelector(state => state.responsible.jwtToken);
+  const isFocused = useIsFocused()
+
+  //! States for the modals.
+  const [view,setView] = useState(false);
+  const [lngModal, setLngModal] = useState(false);
+
+  //! Widget States
+  const [AppointmentWidget, setAppointmentWidget] = useState([]);
+  const [MedicinesWidget, setMedicinesWidget] = useState([]);
+
   //>> Aviod Come Back
   useEffect(() => {
     navigation.addListener('beforeRemove', (e) => {
@@ -28,8 +37,56 @@ export const HomeScreen = () => {
       BackHandler.exitApp();
     })
   }, [navigation]);
-  const [view,setView] = useState(false);
-  const [lngModal, setLngModal] = useState(false);
+
+  //! Functions to get the information for the widgets and notifications
+  const getAppointmentInfo = async () => {
+    try {
+      const {data} = await getMedicalAppointments(jwtToken, Patient.Patient_Code);
+      // let dates = [];
+
+      // data.medical_appointments.forEach(element => {
+      //   dates.push(new Date(element.Date));
+      // });
+
+      const nextAppointment = data.medical_appointments.reduce((closestApp, dateApp) => {
+        if (dateApp.Date != null) {
+          const now = new Date();
+          const timeDiff = Math.abs(new Date(dateApp.Date) - now);
+          const closestTimeDiff = Math.abs(new Date(closestApp.Date) - now);
+  
+          return timeDiff < closestTimeDiff ? dateApp : closestApp; 
+        }
+      })
+
+      console.log(nextAppointment);
+
+      setAppointmentWidget(nextAppointment);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const getMedicinesInfo = async () => {
+    try {
+      // MODIFICAR IDDDDDDD
+      const {data} = await getMedicalPrescriptions(jwtToken, 1);
+      setMedicinesWidget(data.Prescriptions);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //! Get the date in string
+  const getLocaleDateString = (Fechant) => {
+    return new Date(Fechant).toLocaleDateString();
+  }
+
+
+  //! Functions starting the view.
+  useEffect(() => {
+    getAppointmentInfo();
+    getMedicinesInfo();
+  }, [isFocused]);
 
   return (
     <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]}>
@@ -48,7 +105,7 @@ export const HomeScreen = () => {
                   <Image source={require('../../../../assets/logos/Logotype_Colored.png')} style={styles.logoHeader}/>
                 </View>
                 <View style={[styles.itemContainer, {width: '20%', height: '100%'}]}>
-                  <TouchableOpacity  onPress={()=> setView(true)}>
+                  <TouchableOpacity onPress={()=> setView(true)}>
                     <Entypo name="dots-three-horizontal" size={34} color="#707070" />
                   </TouchableOpacity>
   
@@ -62,13 +119,11 @@ export const HomeScreen = () => {
                     <LanguageSelector closeModal={() => setLngModal(false)}/>
                 </Modal>
                 <Modal
-
                   animationType='fade'
                   onDismiss={() => console.log('close')}
                   onShow={() => console.log('show')}
                   transparent
                   visible={view}
-
                 >
                   <View
                     style={{
@@ -170,20 +225,26 @@ export const HomeScreen = () => {
             <View style={styles.reminderContainer}>
               <View style={styles.reminderCard}>
                 <Text style={{marginTop: 25, fontSize: 22,fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>Citas</Text>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%',}}>
-                  <Image source={require('../../../../assets/icons/note-time.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
-                  <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>2</Text>
-                </View>
-
-                <Text style={{marginTop: 10, fontWeight: "900", fontSize: 15, color: '#d17878', textAlign: 'center'}}>Próxima cita:</Text>
-
-                <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Fecha: </Text>09/05/23</Text>
-
-                <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Hora: </Text>2:00 PM</Text>
-
-                <TouchableOpacity style={styles.touchableViewBtn2}>
-                  <Text style={{color: '#fff'}}>Más detalles</Text>
-                </TouchableOpacity>
+                  <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%',}}>
+                    <Image source={require('../../../../assets/icons/note-time.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
+                    <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{AppointmentWidget?.length}</Text>
+                  </View>
+                  {
+                    AppointmentWidget?.length != 0 ?
+                      <>
+                        <Text style={{marginTop: 10, fontWeight: "900", fontSize: 15, color: '#d17878', textAlign: 'center'}}>Próxima cita:</Text>
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Fecha: </Text>09/05/23</Text>
+                        {/* <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Hora: </Text>2:00 PM</Text> */}
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Estado: </Text>Pendiente</Text>
+                        <TouchableOpacity style={styles.touchableViewBtn2}>
+                          <Text style={{color: '#fff'}}>Más detalles</Text>
+                        </TouchableOpacity>
+                      </>
+                      :
+                      <View>
+                        <Text>No hay citas DANI</Text>
+                      </View>
+                  }
               </View>
             </View>
 
@@ -192,18 +253,24 @@ export const HomeScreen = () => {
               <Text style={{marginTop: 25, fontSize: 22, fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>Medicinas</Text>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%',}}>
                   <Image source={require('../../../../assets/icons/recipe.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
-                  <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>1</Text>
+                  <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{MedicinesWidget?.length}</Text>
                 </View>
+                  {
+                    MedicinesWidget?.length != 0 ?
+                      <>
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Nombre: </Text>{MedicinesWidget[0].Medicine_Name}</Text>
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Finalización: </Text>{getLocaleDateString(MedicinesWidget[0].Finishing_Dose_Date)}</Text>
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Dosis: </Text>{MedicinesWidget[0].Dose}</Text>
+                        <TouchableOpacity style={styles.touchableViewBtn2}>
+                          <Text style={{color: '#fff'}}>Más detalles</Text>
+                        </TouchableOpacity>
+                      </>
+                      :
+                      <View>
+                        <Text>No hay medicinas</Text>
+                      </View>
+                  }
 
-                <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Nombre: </Text>Te-entramitrozón</Text>
-
-                <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Prox. dosis: </Text>09/05/23</Text>
-
-                <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Dosis: </Text>50Ml</Text>
-
-                <TouchableOpacity style={styles.touchableViewBtn2}>
-                  <Text style={{color: '#fff'}}>Más detalles</Text>
-                </TouchableOpacity>
               </View>
             </View>
           </View>

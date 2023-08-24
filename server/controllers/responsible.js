@@ -180,6 +180,21 @@ const create_immunization_record = async (req, res, next) => {
   }
 }
 
+//! @route POST api/responsible/get_medical_prescriptions
+//! @desc Get the medical prescription of the patient of the responsible.
+//! @access Private
+const get_medical_prescriptions = async (req, res, next) => {
+  try {
+    const { Patient_id } = req.body;
+
+    const [PatientPrescriptions] = await pool.query('SELECT * FROM medical_prescription WHERE Patient_id = ?', [Patient_id]);
+
+    return res.status(200).json({success: true, Prescriptions: PatientPrescriptions})
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
 export {
   get_email_to_verify,
   get_responsible,
@@ -188,5 +203,6 @@ export {
   upload_pf_responsible,
   get_immunization_record,
   get_all_immunization_record,
-  create_immunization_record
+  create_immunization_record,
+  get_medical_prescriptions
 }

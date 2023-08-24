@@ -1,309 +1,153 @@
 
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { useNavigation } from '@react-navigation/native'
-import { StyleSheet, Text, View,Image,TouchableOpacity, ScrollView,Modal} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet, Text, View,Image,ScrollView } from 'react-native';
 import { ScreenTitle } from '../../../index';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import React, { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { LinearGradient } from 'expo-linear-gradient';
+import Constants from 'expo-constants';
+import { useSelector } from 'react-redux';
+import { getMedicalPrescriptions } from '../../../index'
+import { isIOS } from '../../../constants';
+
 export const Medicinas = () => {
-    const navigation = useNavigation();
-    const [view,setView] = useState(false);
-  return (
-    <SafeAreaView>
-      
-         <ScrollView style={styles.fullScreenContainer}>
-            <ScreenTitle 
-                Label={"Medicinas"}
-                IconName={"clipboard-text-multiple"}
-                fontSize={20}
-                textColor={'#FFFFFF'}
-                paddingH={30}
-            /> 
-            <View style={styles.chooseBanner}>
-                <View style={styles.chooseContent}>
-                   
-                    <View style={styles.rightTextSctn}>
-                        <View style={styles.linee}></View>
-                        <Text style={styles.titleBanner}>Medicamentos recetados</Text>
-                    </View>
-                </View>
-            </View>
-            <View style={styles.cardsContainer}>
+    const jwtToken = useSelector(state => state.responsible.jwtToken);
+    // const Patient_id = useSelector(state => state.patient.id);
+
+    //! State for the medical prescriptions
+    const [Prescriptions, setPrescriptions] = useState(null);
+
+    const getMPfunct = async () => {
+        try {
+            const {data} = await getMedicalPrescriptions(jwtToken, 1);
+
+            setPrescriptions(data.Prescriptions);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const getLocaleDateString = (Fechant) => {
+        return new Date(Fechant).toLocaleDateString();
+    }
+
+    const getDoctor = (Key) => {
+        switch (Key) {
+            case 1:
+                return 'Dr. Esteban Gúzman';
+            case 2:
+                return 'Dr. Adrian Flores';
+            case 3:
+                return 'Dra. Fatima Garza';
+        }
+    }
+
+    const CardComponent = ({Prescription}) => {
+        return (
             <View style={styles.card}>
-                    
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/medication.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
-                            </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Tetratomisil 500</Text>
-                         
-                            </View>
+                <View style={{width: '100%', height: '100%', borderBottomColor: '#D6D6D6', paddingHorizontal: 20}}>
+                    <View style={styles.IconTextSpc}>
+                        <View style={{width: '18%', height: '100%', paddingTop: 8, paddingBottom: 4}}>
+                            <Image source={require('../../../../assets/graphic-icons/medication.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
                         </View>
-                       
-                        <View style={{  height: '65%',padding: 6,}}>
-                    
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Dosis:</Text>
-                                      <Text style={{ color: '#707070',}}>Una tableta de 500mg cada 12 horas</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Inicio del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/08/2023</Text>
-                                      
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                  <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Fin del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/09/2023</Text>
-                                    </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
-                                      <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
-                                  </View>
-                       
-                           
+                        <View style={styles.spcTitleC}>
+                            <Text style={styles.spcTitle}>{Prescription.Medicine_Name}</Text>
+                            <Text style={{fontSize: 12, color: '#000' }}>#{Prescription.Medical_Prescription_Code}</Text>
+                        </View>
+                    </View>
+                    <View style={{width: '100%', alignItems: 'center'}}><View style={styles.line2} /></View>
+                    <View>
+                        <View style={styles.InfoText} >
+                            <Text>
+                                <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Instrucción:</Text>
+                                <Text style={{ color: '#707070'}}> {Prescription.Instructions} </Text>
+                            </Text>
+                            
+                        </View>
+                        <View style={[styles.InfoText, {flexDirection: 'column', gap: 0}]} >
+                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Periodo del tratamiento:</Text>
+                            <Text style={{ color: '#707070',}}>{getLocaleDateString(Prescription.Starting_Dose_Date)} - {getLocaleDateString(Prescription.Finishing_Dose_Date)}</Text>
+                        </View>
+                        <View style={styles.InfoText} >
+                            <Text style={{ color: '#A375FF', fontWeight: 'bold'}}>Numero de dosis por día:</Text>
+                            <Text style={{ color: '#707070',}}>{Prescription.Time_Dose} al dia</Text>
+                        </View>
+                        <View style={styles.InfoText} >
+                            <Text style={{ color: '#A375FF', fontWeight: 'bold'}}>Asignado por:</Text>
+                            <Text style={{ color: '#707070',}}>{getDoctor(Prescription.Doctor_id)}</Text>
                         </View>
                     </View>
                 </View>
-
-                <View style={styles.card}>
-                    
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/medication.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
-                            </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Tetratomisil 500</Text>
-                         
-                            </View>
-                        </View>
-                       
-                        <View style={{  height: '65%',padding: 6,}}>
-                    
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Dosis:</Text>
-                                      <Text style={{ color: '#707070',}}>Una tableta de 500mg cada 12 horas</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Inicio del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/08/2023</Text>
-                                      
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                  <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Fin del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/09/2023</Text>
-                                    </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
-                                      <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
-                                  </View>
-                       
-                           
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.card}>
-                    
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/medication.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
-                            </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Tetratomisil 500</Text>
-                         
-                            </View>
-                        </View>
-                       
-                        <View style={{  height: '65%',padding: 6,}}>
-                    
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Dosis:</Text>
-                                      <Text style={{ color: '#707070',}}>Una tableta de 500mg cada 12 horas</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Inicio del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/08/2023</Text>
-                                      
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                  <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Fin del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/09/2023</Text>
-                                    </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
-                                      <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
-                                  </View>
-                       
-                           
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.card}>
-                    
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/medication.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
-                            </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Tetratomisil 500</Text>
-                         
-                            </View>
-                        </View>
-                       
-                        <View style={{  height: '65%',padding: 6,}}>
-                    
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Dosis:</Text>
-                                      <Text style={{ color: '#707070',}}>Una tableta de 500mg cada 12 horas</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Inicio del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/08/2023</Text>
-                                      
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                  <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Fin del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/09/2023</Text>
-                                    </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
-                                      <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
-                                  </View>
-                       
-                           
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.card}>
-                    
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/medication.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
-                            </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Tetratomisil 500</Text>
-                         
-                            </View>
-                        </View>
-                       
-                        <View style={{  height: '65%',padding: 6,}}>
-                    
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Dosis:</Text>
-                                      <Text style={{ color: '#707070',}}>Una tableta de 500mg cada 12 horas</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Inicio del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/08/2023</Text>
-                                      
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                  <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Fin del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/09/2023</Text>
-                                    </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
-                                      <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
-                                  </View>
-                       
-                           
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.card}>
-                    
-                    <View style={{width: '65%', height: '100%', borderBottomColor: '#D6D6D6',left:20,}}>
-                        <View style={styles.IconTextSpc}>
-                            <View style={{width: '18%', height: '100%', paddingLeft: 4,}}>
-                                <Image source={require('../../../../assets/graphic-icons/medication.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
-                            </View>
-                            <View style={styles.spcTitleC}>
-                                <Text style={styles.spcTitle}>Tetratomisil 500</Text>
-                         
-                            </View>
-                        </View>
-                       
-                        <View style={{  height: '65%',padding: 6,}}>
-                    
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Dosis:</Text>
-                                      <Text style={{ color: '#707070',}}>Una tableta de 500mg cada 12 horas</Text>
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Inicio del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/08/2023</Text>
-                                      
-                                  </View>
-                                  <View style={styles.InfoText} >
-                                  <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Fin del tratamiento:</Text>
-                                      <Text style={{ color: '#707070',}}>02/09/2023</Text>
-                                    </View>
-                                  <View style={styles.InfoText} >
-                                      <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico:</Text>
-                                      <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
-                                  </View>
-                       
-                           
-                        </View>
-                    </View>
-                </View>
-
-
-
-             
-
-                
-
-               
-                
             </View>
+        )
+    }
+
+    useEffect(() => {
+        getMPfunct();
+    }, []);
+
+    return (
+        <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
+            <ScrollView style={styles.fullScreenContainer}>
+                <View style={{backgroundColor:'#fff'}}>
+                    <ScreenTitle
+                        Label={"Medicinas"}
+                        IconName={"clipboard-text-multiple"}
+                        fontSize={20}
+                        textColor={'#FFFFFF'}
+                        paddingH={30}
+                    /> 
+                    <View style={styles.chooseBanner}>
+                        <View style={styles.chooseContent}>
+                        
+                            <View style={styles.rightTextSctn}>
+                                <View style={styles.linee} />
+                                <Text style={styles.titleBanner}>Medicamentos Activos</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.cardsContainer}>
+                        {
+                            Prescriptions.length != 0 ?
+                                Prescriptions.map((Prescription, i) => {
+                                    return (
+                                        <CardComponent Prescription={Prescription} key={i}/>
+                                    )
+                                })
+                                :
+                                <View>
+
+                                </View>
+                        }
+                    </View>
+                </View>
             </ScrollView>
-
-            
-
-
-
-
-
-
-    </SafeAreaView>
-    
-  )
+        </LinearGradient>
+    )
 }
 const styles = StyleSheet.create({
   fullScreenContainer:{
-    backgroundColor: '#FFFFFF',
+    height: '100%',
+    marginTop: Constants.statusBarHeight
   },
   safeArea:{
     backgroundColor: '#e4e2ff',
   },
   chooseBanner: {
-      height: 100,
-      width: wp('90%'),
-      alignSelf: 'center',
-      backgroundColor: '#B4B4D6',
-      borderRadius: 20,
-      borderTopWidth: 8,
-      borderTopColor: '#CDCDF3',
-      alignItems: 'center',
-      // justifyContent: 'center',
+    height: 100,
+    width: wp('90%'),
+    alignSelf: 'center',
+    backgroundColor: '#B4B4D6',
+    borderRadius: 20,
+    borderTopWidth: 8,
+    borderTopColor: '#CDCDF3',
+    alignItems: 'center',
   },
   chooseContent: {
-      width: '95%',
-      height: '70%',
-      flexDirection: 'row',
-      paddingH: wp('10%'),
-      marginTop: hp('1.5%'),
+    width: '95%',
+    height: '70%',
+    flexDirection: 'row',
+    paddingH: wp('10%'),
+    marginTop: '2%',
   },
   leftIconSctn: {
       width: '30%',
@@ -320,7 +164,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
   },
   rightTextSctn:{
-      width: '70%',
+      width: '100%',
       height: '100%',
       justifyContent: 'center',
   },
@@ -330,94 +174,97 @@ const styles = StyleSheet.create({
       color: '#ffffff',
       marginHorizontal: 8,
       bottom:5,
+      width: '100%'
   },
   linee: {
       height: 2,
-      width: 40,
+      width: 60,
       backgroundColor: '#fff',
-      marginBottom: 6,
+      marginBottom: 10,
       marginLeft: 8,
   },
+  line2:{
+    height: 1.5,
+    width: '95%',
+    backgroundColor: '#707070',
+    marginBottom: 10,
+    marginTop: -6,
+    borderRadius: 10,
+  },
   cardsContainer:{
-      backgroundColor: '#fff',
-      width: wp('90%'),
-      alignSelf: 'center',
-      borderRadius: 20,
-      top: -30,
-      elevation: 4,
-      //iOS
-      shadowColor: '#707070',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.25,
-      shadowRadius: 3.84,
-      paddingVertical: 20,
+    backgroundColor: '#fff',
+    width: wp('90%'),
+    alignSelf: 'center',
+    borderRadius: 20,
+    top: -30,
+    elevation: 4,
+    //iOS
+    shadowColor: '#707070',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    paddingVertical: 20,
   },
   card: {
-      width: '95%',
-      height: 170,
-      alignSelf: 'center',
-      borderRadius: 18,
-      flexDirection: 'row',
-      overflow: 'hidden',
-      borderBottomColor: '#CDCDF3',
-      borderBottomWidth: 5,
-      borderColor: '#EBEBEB',
-      borderWidth: 1,
-      marginBottom: 20,
-      backgroundColor:'#ffff',
+    width: '90%',
+    height: 260,
+    alignSelf: 'center',
+    borderRadius: 18,
+    flexDirection: 'row',
+    borderBottomColor: '#CDCDF3',
+    borderBottomWidth: 5,
+    borderColor: '#EBEBEB',
+    borderWidth: 1,
+    backgroundColor:'#ffff',
   },
   IconTextSpc: {
-      width: '100%',
-      height: '35%',
-      flexDirection: 'row',
-      // borderBottomColor: '#EBEBEB',
-      // borderBottomWidth: 1,
+    width: '100%',
+    height: '35%',
+    flexDirection: 'row',
   },
   spcTitleC:{
-      flexDirection: 'column',
-      width: '82%',
-      height: '100%',
-      paddingHorizontal: 6,
-      justifyContent: 'center',
-      
+    flexDirection: 'column',
+    width: '82%',
+    height: '100%',
+    paddingHorizontal: 10,
+    justifyContent: 'center',
+    paddingTop: 4
   },
   spcTitle:{
-      color: '#707070',
-      fontWeight: 600,
-      fontSize: 16,
-
+    color: '#707070',
+    fontWeight: 600,
+    fontSize: 16,
   },
-  
   apptBtn:{
-      width: '50%',
-      height: 30,
-      backgroundColor: '#B4B4D6',
-      borderRadius: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
-      bottom: 10,
-      left:'95%',
-      position: 'absolute',
-      alignSelf: 'flex-end',
+    width: '50%',
+    height: 30,
+    backgroundColor: '#B4B4D6',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 10,
+    left:'95%',
+    position: 'absolute',
+    alignSelf: 'flex-end',
   },
   apptBtn1:{
-      width: '50%',
-      height: 30,
-      backgroundColor: '#B4B4D6',
-      borderRadius: 20,
-      alignItems: 'center',
-      justifyContent: 'center',
-      bottom: 20,
-      left:'25%',
-      position: 'absolute',
-      alignSelf: 'flex-end',
+    width: '50%',
+    height: 30,
+    backgroundColor: '#B4B4D6',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    bottom: 20,
+    left:'25%',
+    position: 'absolute',
+    alignSelf: 'flex-end',
   },
   InfoText:{
-      
-    
-      flexDirection:'row',
-      gap:5,
-
+    flexDirection:'row',
+    textAlign: 'justify',
+    gap:5,
+    width: '102%',
+    marginBottom: isIOS ? 10 : 8
   },
  
 });
