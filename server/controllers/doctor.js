@@ -294,41 +294,18 @@ const get_patient_medical_record = async (req, res, next) => {
 
 const set_medical_prescription = async (req, res, next) => {
   try {
-    // missing Starting_Dose_Date & Medical_Prescription_Code
-    const {
-      Medicine_Name,
-      Instructions,
-      Description,
-      Starting_Dose_Date,
-      Finishing_Dose_Date,
-      Dose,
-      Patient_id,
-      Time_Dose,
-    } = req.body;
-
+    const { Patient_id, Doctor_id, edited_prescriptions, new_prescriptions } =
+      req.body;
+    console.log(req.body)
     if (
-      !Medicine_Name ||
-      !Instructions ||
-      !Description ||
-      !Starting_Dose_Date ||
-      !Finishing_Dose_Date ||
-      !Dose ||
       !Patient_id ||
-      !Time_Dose
+      !Doctor_id ||
+      !edited_prescriptions ||
+      !new_prescriptions
     ) {
       return res.status(500).json({
         success: false,
         message: "You must provide every field with a value",
-      });
-    }
-
-    if (
-      new Date() >
-      (new Date(Finishing_Dose_Date) || new Date(Starting_Dose_Date))
-    ) {
-      return res.status(500).json({
-        success: false,
-        message: "Dose dates can not be higher than the actual date.",
       });
     }
 
@@ -344,23 +321,55 @@ const set_medical_prescription = async (req, res, next) => {
       });
     }
 
-    await pool.query("INSERT INTO medical_prescription SET ?", {
-      Medical_Prescription_Code: patientCode(),
-      Medicine_Name,
-      Instructions,
-      Description,
-      Created_Date: new Date(),
-      Starting_Dose_Date: new Date(Starting_Dose_Date),
-      Finishing_Dose_Date: new Date(Finishing_Dose_Date),
-      Dose,
-      Patient_id,
-      Time_Dose,
+    const [doctor_check] = await pool.query(
+      "SELECT * FROM doctors WHERE id = ?",
+      [Doctor_id]
+    );
+
+    if (doctor_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided doctor does not exist",
+      });
+    }
+
+    // NEW PRESCRIPTIONS VALIDATIONS
+    new_prescriptions.map((np, i) => {
+      if (
+        new Date() >
+        (new Date(np.Finishing_Dose_Date) || new Date(np.Starting_Dose_Date))
+      ) {
+        return res.status(500).json({
+          success: false,
+          message: `Dose dates on new medicine #${
+            i + 1
+          } can not be lower than the actual date.`,
+        });
+      }
     });
 
-    return res.status(200).json({
-      success: true,
-      message: `A new medical prescription has been added to the patient with id ${Patient_id}`,
+    new_prescriptions.map(async (np) => {
+      await pool.query(`INSERT INTO medical_prescription SET ?`, {
+        Medical_Prescription_Code: patientCode(),
+        Patient_id,
+        Doctor_id,
+        Medicine_Name: np.data.Medicine_Name,
+        Instructions: np.data.Instructions,
+        Description: np.data.Description,
+        Created_Date: new Date(),
+        Starting_Dose_Date: new Date(np.data.Starting_Dose_Date),
+        Finishing_Dose_Date: new Date(np.data.Finishing_Dose_Date),
+        Dose: np.data.Dose,
+        Time_Dose: np.data.Time_Dose,
+      });
     });
+
+    return res
+      .status(200)
+      .json({
+        success: true,
+        body: `Medical prescription for patient #${Patient_id} has been updated. ${new_prescriptions.length} new medicines were added, ${edited_prescriptions.length} had been updated.`,
+      });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });

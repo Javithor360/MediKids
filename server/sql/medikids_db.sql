@@ -79,6 +79,8 @@ CREATE TABLE IF NOT EXISTS medikids_db . Medical_Records (
 CREATE TABLE IF NOT EXISTS medikids_db . Medical_Prescription (
 	id INT NOT NULL AUTO_INCREMENT,
 	Medical_Prescription_Code VARCHAR(45) NOT NULL,
+	Patient_id INT NOT NULL,
+	Doctor_id INT NOT NULL,
 	Medicine_Name VARCHAR(100) NOT NULL,
 	Instructions MEDIUMTEXT NOT NULL,
 	Description MEDIUMTEXT NOT NULL,
@@ -86,7 +88,6 @@ CREATE TABLE IF NOT EXISTS medikids_db . Medical_Prescription (
 	Starting_Dose_Date DATE NOT NULL,
 	Finishing_Dose_Date DATE NOT NULL,
 	Dose VARCHAR(45) NOT NULL,
-	Patient_id INT NOT NULL,
 	Time_Dose INT NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
