@@ -22,8 +22,12 @@ export const MedicalAppoinment = () => {
   let navigate = useNavigate();
   const { EndMedicalAppointment } = useDash();
 
+  // Variables utilized by modals
   const [active, setActive] = useState(false);
-  const [activeError, setActiveError] = useState(false);
+  const [errorHandler, setErrorHandler] = useState(false);
+  const [errorMessage, setErrorMessage] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+
   const [chargin, setChargin] = useState(false);
 
   const [tabSelector, setTabSelector] = useState(1);
@@ -35,8 +39,31 @@ export const MedicalAppoinment = () => {
   const [temperature, setTemperature] = useState(0);
   const [notes, setNotes] = useState("");
 
-  const [medicalPrescript, setMedicalPrescript] = useState("");
+  const [medicalPrescript, setMedicalPrescript] = useState([]);
   const [scheAppoint, setScheAppoint] = useState({});
+
+  const pages = [
+    <MedicalRecordConfirmation
+      medicalRecord={medicalRecord}
+      height={height}
+      weight={weight}
+      temperature={temperature}
+      notes={notes}
+    />,
+    <MedicalPrescriptionConfirmation medicalPrescript={medicalPrescript} />,
+  ];
+
+  const handleNextPage = () => {
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
 
   useEffect(() => {
     if (height !== medicalRecord.height) setHeight(medicalRecord.height);
@@ -48,20 +75,60 @@ export const MedicalAppoinment = () => {
     setHeight(medicalRecord.height);
   }, [medicalRecord]);
 
-  // useEffect(() => {
-  //   console.log(medicalRecord);
-  //   console.log(`Current height: ${height}`);
-  //   console.log(`Current weight: ${weight}`);
-  //   console.log(`Current temperature: ${temperature}`);
-  //   console.log(`Current notes: ${notes}`);
-  // }, [height, weight, temperature, notes]);
-
   const toggle = () => {
     setActive(!active);
   };
 
   const toggleError = () => {
-    setActiveError(!activeError);
+    setErrorHandler(!errorHandler);
+  };
+
+  const toggleValidator = () => {
+    const newErrorMessages = [];
+    let isEmpty = false;
+    let emptyCounter = 0;
+
+    // Validating medical record variables
+    for (const key in medicalRecord) {
+      if (!medicalRecord[key]) {
+        newErrorMessages.push(
+          `En el registro de expediente, el dato de '${key}' no está completo.`
+        );
+        isEmpty = true;
+      }
+    }
+
+    medicalPrescript.new_prescriptions.forEach((item, index) => {
+      for (const key in item.data) {
+        if (!item.data[key]) {
+          newErrorMessages.push(
+            `En la asignación de nueva receta médica, el dato de '${key} (${
+              index + 1
+            })' no está completo`
+          );
+          if (
+            medicalPrescript.new_prescriptions.length === 1 &&
+            medicalPrescript.new_prescriptions[index].hasSelectedYes === false
+          ) {
+            emptyCounter++;
+          }
+          isEmpty = true;
+        }
+        // }
+      }
+    });
+
+    if (emptyCounter === 7) {
+      newErrorMessages.splice(newErrorMessages.length - 7, 7);
+    }
+
+    setErrorMessage(newErrorMessages);
+
+    if (isEmpty && newErrorMessages.length > 0) {
+      toggleError();
+    } else {
+      toggle();
+    }
   };
 
   const handleClick = async (e) => {
@@ -90,25 +157,7 @@ export const MedicalAppoinment = () => {
         <p className="text-[1.8rem] text-[#707070] mt-[.6rem] ml-7">
           Atendiendo Paciente:{" "}
         </p>
-        <button
-          className="self-center justify-end"
-          onClick={() => {
-            if (
-              height === 0 ||
-              height === "" ||
-              weight === 0 ||
-              weight === "" ||
-              temperature === 0 ||
-              temperature === "" ||
-              notes === undefined ||
-              notes === ""
-            ) {
-              toggleError();
-            } else {
-              toggle();
-            }
-          }}
-        >
+        <button className="self-center justify-end" onClick={toggleValidator}>
           Finalizar consulta
         </button>
       </div>
@@ -202,49 +251,16 @@ export const MedicalAppoinment = () => {
               Esta acción de confirmación es irreversible. Por favor asegúrate
               que todos los datos estén en orden antes de proceder
             </p>
-            <div className="mt-5 info-container">
-              <div className={`medical-record`}>
-                <h3>Información del expediente:</h3>
-                <ul>
-                  <li>
-                    Altura: {height} lb{" "}
-                    {height && height === medicalRecord.height
-                      ? ``
-                      : `(Sin modificar)`}
-                  </li>
-                  <li>
-                    Peso: {weight} mts{" "}
-                    {weight && weight === medicalRecord.weight
-                      ? ``
-                      : `(Sin modificar)`}
-                  </li>
-                  <li>
-                    Temperatura: {temperature} °C{" "}
-                    {temperature && temperature === medicalRecord.temperature
-                      ? ``
-                      : `(Sin modificar)`}
-                  </li>
-
-                  <li>
-                    Anotaciones:{" "}
-                    {!notes ? (
-                      "Sin anotaciones"
-                    ) : (
-                      <div className="block mt-2 max-w-[25rem] border border-[#000000]">
-                        {parser(notes)}
-                      </div>
-                    )}
-                  </li>
-                </ul>
-              </div>
-              {/* FOR THE FUTURE */}
-              {/* <div className="medical-prescription"></div>
-              <div className="scheduled-appointment"></div> */}
-            </div>
+            <div className="mt-5 info-container">{pages[currentPage]}</div>
             <div className="flex mt-5">
               <button
-                className="flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9"
+                className={`${
+                  currentPage !== pages.length - 1
+                    ? `bg-gray-500`
+                    : `bg-[#A375FF]`
+                } flex items-center justify-center border-2 border-[#707070]  text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9`}
                 onClick={handleClick}
+                disabled={currentPage !== pages.length - 1}
               >
                 <MdSaveAs />
                 Guardar y confirmar
@@ -257,21 +273,35 @@ export const MedicalAppoinment = () => {
                 Cancelar
               </button>
             </div>
+            <button onClick={handlePreviousPage} disabled={currentPage === 0}>
+              Regresar
+            </button>
+            <button
+              onClick={handleNextPage}
+              disabled={currentPage === pages.length - 1}
+            >
+              Siguiente
+            </button>
           </div>
         </Modal>
       )}
       {toggleError && (
         <Modal
-          active={activeError}
+          active={errorHandler}
           toggle={toggleError}
           onRequestClose={toggleError}
         >
-          <div className="min-w-[20rem] max-w-[30rem] min-h-[20rem] m-5">
+          <div className="min-w-[20rem] max-w-[45rem] min-h-[20rem] m-5">
             <h2>[!] ERROR [!]</h2>
             <p>
-              Antes de finalizar esta cita, debes ingresar al menos los datos
-              del paciente (altura, peso, temperatura y anotaciones)
+              Parece que hay algunos detalles que revisar antes de finalizar la
+              consulta:
             </p>
+            <ul>
+              {errorMessage.map((i) => {
+                return <li key={i}>{placeholderChanger(i)}</li>;
+              })}
+            </ul>
             <button
               className="flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9"
               onClick={() => toggleError()}
@@ -283,5 +313,77 @@ export const MedicalAppoinment = () => {
         </Modal>
       )}
     </>
+  );
+};
+
+const placeholderChanger = (str) => {
+  const variable_names = {
+    height: "altura",
+    weight: "peso",
+    temperature: "temperatura",
+    notes: "anotaciones en expediente",
+    Medicine_Name: "nombre de la medicina",
+    Instructions: "instructions",
+    Description: "descripción",
+    Starting_Dose_Date: "fecha de inicio de la dosis",
+    Finishing_Dose_Date: "fecha de finalización de la dosis",
+    Dose: "dosis",
+    Time_Dose: "aplicación de dosis por día",
+  };
+  return str.replace(
+    /\b(?:height|weight|temperature|notes|Medicine_Name|Instructions|Description|Starting_Dose_Date|Finishing_Dose_Date|Dose|Time_Dose)\b/g,
+    (match) => variable_names[match]
+  );
+};
+
+// Modal's first page: Medical record related...
+const MedicalRecordConfirmation = ({ medicalRecord }) => {
+  return (
+    <div className="medical-record">
+      <h3>Información del expediente:</h3>
+      <ul>
+        <li>Altura: {medicalRecord.height} lb </li>
+        <li>Peso: {medicalRecord.weight} mts </li>
+        <li>Temperatura: {medicalRecord.temperature} °C </li>
+
+        <li>
+          Anotaciones:
+          <div className="block mt-2 max-w-[25rem] border border-[#000000]">
+            {parser(medicalRecord.notes)}
+          </div>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+const MedicalPrescriptionConfirmation = ({
+  medicalPrescript,
+  errorMessage,
+}) => {
+  return (
+    <div className="medical-prescription">
+      <h3>Información de la receta médica</h3>
+      {medicalPrescript.new_prescriptions.length === 1 &&
+      medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (
+        <div>No se han agregado medicamentos nuevos</div>
+      ) : (
+        medicalPrescript.new_prescriptions.map((m, i) => {
+          return (
+            <div key={i}>
+              <p>Nombre del medicamento: {m.data.Medicine_Name}</p>
+              <p>Instrucciones: {m.data.Instructions}</p>
+              <p>Descripción: {m.data.Description}</p>
+              <p>Dosis: {m.data.Dose}</p>
+              <p>Dosis por día: {m.data.Time_Dose}</p>
+              <p>Fecha de inicio de dosis: {m.data.Starting_Dose_Date}</p>
+              <p>
+                Fecha de finalización de dosis: {m.data.Finishing_Dose_Date}
+              </p>
+            </div>
+          );
+        })
+      )}
+    </div>
   );
 };
