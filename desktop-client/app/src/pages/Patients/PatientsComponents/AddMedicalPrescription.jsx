@@ -6,7 +6,6 @@ import { useLocation } from "react-router-dom";
 
 export const AddMedicalPrescription = ({
   setNewMedicalPrescriptionEntry,
-  newMedicalPrescriptionEntry,
 }) => {
   const location = useLocation();
   const { patient } = location.state || {};

@@ -3,20 +3,41 @@ import { useLocation } from "react-router-dom";
 
 import { useDash } from "../../../context/DoctorContext";
 
-export const EditExistingMedicalPrescription = ({ setMedicalPrescript }) => {
+export const EditExistingMedicalPrescription = ({
+  setEditMedicalPrescription,
+}) => {
   const location = useLocation();
   const { patient } = location.state || {};
 
   const { PatientMedicalPrescriptions, medicalPrescriptions } = useDash();
 
+  const [data, setData] = useState(medicalPrescriptions);
+  const [editedData, setEditedData] = useState([]);
   const [editPrescription, setEditPrescription] = useState(false);
 
   useEffect(() => {
     PatientMedicalPrescriptions(patient.id);
   }, []);
 
+  useEffect(() => {
+    setEditMedicalPrescription(data);
+  }, [data]);
+
   const handleChange = async () => {
     setEditPrescription(!editPrescription);
+  };
+
+  const handleInputChange = (event, index, field) => {
+    const { value } = event.target;
+
+    const updatedItem = { ...data[index], [field]: value };
+    console.log(`big lol: ${JSON.stringify(updatedItem)}`);
+
+    setData((prevData) => {
+      const newData = [...prevData];
+      newData[index] = updatedItem;
+      return newData;
+    });
   };
 
   return (
@@ -79,22 +100,19 @@ export const EditExistingMedicalPrescription = ({ setMedicalPrescript }) => {
                       <input
                         disabled={!editPrescription}
                         type="text"
-                        name="edit_medicine_name"
-                        id="edit_medicine_name"
+                        name="Medicine_Name"
                         defaultValue={m.Medicine_Name}
+                        onBlur={(e) => handleInputChange(e, index, e.target.name)}
                         required
-                        
-                        
-                
                       />
                     </td>
                     <td class="border-r border-[#BBBBBB]">
                       <input
                         disabled={!editPrescription}
                         type="text"
-                        name="edit_instructions"
-                        id="edit_instructions"
+                        name="Instructions"
                         defaultValue={m.Instructions}
+                        onBlur={(e) => handleInputChange(e, index, e.target.name)}
                         required
                       />
                     </td>
@@ -102,9 +120,9 @@ export const EditExistingMedicalPrescription = ({ setMedicalPrescript }) => {
                       <input
                         disabled={!editPrescription}
                         type="text"
-                        name="edit_description"
-                        id="edit_description"
+                        name="Description"
                         defaultValue={m.Description}
+                        onBlur={(e) => handleInputChange(e, index, e.target.name)}
                         required
                       />
                     </td>
@@ -112,9 +130,9 @@ export const EditExistingMedicalPrescription = ({ setMedicalPrescript }) => {
                       <input
                         disabled={!editPrescription}
                         type="text"
-                        name="edit_dose"
-                        id="edit_dose"
+                        name="Dose"
                         defaultValue={m.Dose}
+                        onBlur={(e) => handleInputChange(e, index, e.target.name)}
                         required
                       />
                     </td>
@@ -122,20 +140,19 @@ export const EditExistingMedicalPrescription = ({ setMedicalPrescript }) => {
                       <input
                         disabled={!editPrescription}
                         type="text"
-                        name="edit_time_dose"
-                        id="edit_time_dose"
+                        name="Time_Dose"
                         defaultValue={m.Time_Dose}
+                        onBlur={(e) => handleInputChange(e, index, e.target.name)}
                         required
                       />
                     </td>
                     <td class="border-r border-[#BBBBBB]">
                       <input
-                      
                         disabled={!editPrescription}
                         type="date"
-                        name="edit_starting_dose_date"
-                        id=""
+                        name="Starting_Dose_Date"
                         defaultValue={new Date(m.Starting_Dose_Date).toISOString().substring(0,10)}
+                        onBlur={(e) => handleInputChange(e, index, e.target.name)}
                         required
                       />
                     </td>
@@ -143,9 +160,9 @@ export const EditExistingMedicalPrescription = ({ setMedicalPrescript }) => {
                       <input
                         disabled={!editPrescription}
                         type="date"
-                        name="edit_finishing_dose_date"
-                        id="edit_finishing_dose_date"
+                        name="Finishing_Dose_Date"
                         defaultValue={new Date(m.Finishing_Dose_Date).toISOString().substring(0,10)}
+                        onBlur={(e) => handleInputChange(e, index, e.target.name)}
                         required
                       />
                     </td>
