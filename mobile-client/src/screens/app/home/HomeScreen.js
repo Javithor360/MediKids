@@ -162,7 +162,7 @@ export const HomeScreen = () => {
             </View>
           </View>
 
-          <Text style={{marginTop: 25, fontSize: 29, color: '#707070',textDecorationLine: 'underline', textAlign: 'center', fontFamily: 'poppinsBold', marginBottom: -15}}>
+          <Text style={{marginTop: 30, fontSize: 29, color: '#707070',textDecorationLine: 'underline', textAlign: 'center', fontFamily: 'poppinsBold', marginBottom: -15}}>
             Recordatorios
           </Text>
           
@@ -208,7 +208,7 @@ export const HomeScreen = () => {
             </View>
           </View>
 
-          <Text style={{fontSize: 29, color: '#707070',textDecorationLine: 'underline', textAlign: 'center', fontFamily: 'poppinsBold', marginBottom: 15}}>
+          <Text style={{fontSize: 30, color: '#707070',textDecorationLine: 'underline', textAlign: 'center', fontFamily: 'poppinsBold', marginBottom: 15}}>
             Categorias
           </Text>
 
