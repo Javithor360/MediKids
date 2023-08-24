@@ -296,7 +296,6 @@ const set_medical_prescription = async (req, res, next) => {
   try {
     const { Patient_id, Doctor_id, edited_prescriptions, new_prescriptions } =
       req.body;
-    console.log(req.body)
     if (
       !Patient_id ||
       !Doctor_id ||
