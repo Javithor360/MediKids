@@ -112,23 +112,24 @@ db.connect(() => {
   
     // MEDICAL PRESCRIPTION TABLE
     db.query(`
-      CREATE TABLE IF NOT EXISTS ${config_env.DATABASE} . Medical_Prescription (
-          id INT NOT NULL AUTO_INCREMENT,
-          Medical_Prescription_Code VARCHAR(45) NOT NULL,
-          Medicine_Name VARCHAR(100) NOT NULL,
-          Instructions MEDIUMTEXT NOT NULL,
-          Description MEDIUMTEXT NOT NULL,
-          Created_Date DATETIME NOT NULL,
-          Starting_Dose_Date DATE NOT NULL,
-          Finishing_Dose_Date DATE NOT NULL,
-          Dose VARCHAR(45) NOT NULL,
-          Patient_id INT NOT NULL,
-          Time_Dose INT NOT NULL,
-          PRIMARY KEY (id),
-          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-          FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)
-          ON DELETE NO ACTION
-          ON UPDATE NO ACTION
+      CREATE TABLE IF NOT EXISTS medikids_db . Medical_Prescription (
+        id INT NOT NULL AUTO_INCREMENT,
+        Medical_Prescription_Code VARCHAR(45) NOT NULL,
+        Patient_id INT NOT NULL,
+        Doctor_id INT NOT NULL,
+        Medicine_Name VARCHAR(100) NOT NULL,
+        Instructions MEDIUMTEXT NOT NULL,
+        Description MEDIUMTEXT NOT NULL,
+        Created_Date DATETIME NOT NULL,
+        Starting_Dose_Date DATE NOT NULL,
+        Finishing_Dose_Date DATE NOT NULL,
+        Dose VARCHAR(45) NOT NULL,
+        Time_Dose INT NOT NULL,
+        PRIMARY KEY (id),
+        UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+        FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
       );
     `);
     console.log(

@@ -75,6 +75,10 @@ export const MedicalAppoinment = () => {
     setHeight(medicalRecord.height);
   }, [medicalRecord]);
 
+  useEffect(() => {
+    console.log(medicalPrescript);
+  }, [medicalPrescript]);
+
   const toggle = () => {
     setActive(!active);
   };
@@ -136,7 +140,7 @@ export const MedicalAppoinment = () => {
     try {
       await EndMedicalAppointment(
         { height, weight, temperature, notes, Patient_id: patient.id },
-        {},
+        { medicalPrescript },
         {}
       );
       setChargin(true);
@@ -351,26 +355,30 @@ const MedicalPrescriptionConfirmation = ({
   return (
     <div className="medical-prescription">
       <h3>Información de la receta médica</h3>
-      {medicalPrescript.new_prescriptions.length === 1 &&
-      medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (
-        <div>No se han agregado medicamentos nuevos</div>
-      ) : (
-        medicalPrescript.new_prescriptions.map((m, i) => {
-          return (
-            <div key={i}>
-              <p>Nombre del medicamento: {m.data.Medicine_Name}</p>
-              <p>Instrucciones: {m.data.Instructions}</p>
-              <p>Descripción: {m.data.Description}</p>
-              <p>Dosis: {m.data.Dose}</p>
-              <p>Dosis por día: {m.data.Time_Dose}</p>
-              <p>Fecha de inicio de dosis: {m.data.Starting_Dose_Date}</p>
-              <p>
-                Fecha de finalización de dosis: {m.data.Finishing_Dose_Date}
-              </p>
-            </div>
-          );
-        })
-      )}
+      <ul>
+        <li>Receta de medicamentos editada</li>
+        <li>Nuevos medicamentos agregados</li>
+        {medicalPrescript.new_prescriptions.length === 1 &&
+        medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (
+          <div>No se han agregado medicamentos nuevos</div>
+        ) : (
+          medicalPrescript.new_prescriptions.map((m, i) => {
+            return (
+              <div key={i}>
+                <p>Nombre del medicamento: {m.data.Medicine_Name}</p>
+                <p>Instrucciones: {m.data.Instructions}</p>
+                <p>Descripción: {m.data.Description}</p>
+                <p>Dosis: {m.data.Dose}</p>
+                <p>Dosis por día: {m.data.Time_Dose}</p>
+                <p>Fecha de inicio de dosis: {m.data.Starting_Dose_Date}</p>
+                <p>
+                  Fecha de finalización de dosis: {m.data.Finishing_Dose_Date}
+                </p>
+              </div>
+            );
+          })
+        )}
+      </ul>
     </div>
   );
 };

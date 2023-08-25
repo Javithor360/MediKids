@@ -3,8 +3,11 @@ import React, { useEffect, useState } from "react";
 import { GiBodyHeight } from "react-icons/gi";
 import { EditExistingMedicalPrescription } from "./EditExistingMedicalPrescription";
 import { AddMedicalPrescription } from "./AddMedicalPrescription";
+import { useLocation } from "react-router-dom";
 
 export const EditMedicalPrescription = ({ setMedicalPrescript }) => {
+  const location = useLocation();
+  const { patient } = location.state || {};
   /* 
     NEW MEDICAL PRESCRIPTION STRUCTURE
     {
@@ -42,20 +45,21 @@ export const EditMedicalPrescription = ({ setMedicalPrescript }) => {
 
   useEffect(() => {
     setMedicalPrescript({
+      Patient_id: patient.id,
+      Doctor_id: JSON.parse(localStorage.getItem('userSession')).id,
       edited_prescriptions: editMedicalPrescription,
       new_prescriptions: newMedicalPrescriptionEntry,
     })
-  }, [newMedicalPrescriptionEntry]);
+  }, [newMedicalPrescriptionEntry, editMedicalPrescription]);
   
   return (
     <>
       <p className="mt-7 ml-7">RECETA MÉDICA DEL PACIENTE</p>
       <EditExistingMedicalPrescription
-        setMedicalPrescript={setEditMedicalPrescription}
-        editMedicalPrescription={editMedicalPrescription}
+        setEditMedicalPrescription={setEditMedicalPrescription}
       />
       <AddMedicalPrescription
-        setNewMedicalPrescriptionEntry={setNewMedicalPrescriptionEntry} newMedicalPrescriptionEntry={newMedicalPrescriptionEntry}
+        setNewMedicalPrescriptionEntry={setNewMedicalPrescriptionEntry}
       />
     </>
   );
