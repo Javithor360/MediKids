@@ -205,19 +205,6 @@ export const MedicalAppoinment = () => {
           >
             Programar cita
           </div>
-
-          <div
-            className={
-              tabSelector === 4
-                ? "w-fit h-fit cursor-pointer border-b-[2px] border-[#707070] font-semibold font-[#707070] select-none"
-                : "w-fit h-fit cursor-pointer select-none"
-            }
-            onClick={() => {
-              setTabSelector(4);
-            }}
-          >
-            Referir paciente
-          </div>
         </div>
       </div>
       <div className="border border-[#BBBBBB] w-[90%] h-fit mx-auto mt-5 rounded-2xl">

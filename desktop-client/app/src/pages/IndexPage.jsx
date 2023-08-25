@@ -6,6 +6,7 @@ import { ModalTestComponent } from "../components/ModalTestComponent.jsx";
 import { MdNotifications, MdChat, MdDescription } from "react-icons/md"
 
 import { useDash } from "../context/DoctorContext";
+import{ CalendarPicker } from "./Patients/PatientsComponents/CalendarPicker.jsx";
 
 export const IndexPage = () => {
   const { DoctorInfoQuery, Info } = useDash();
@@ -85,14 +86,12 @@ export const IndexPage = () => {
           <p className="ml-7 font-semibold text-[3rem]">2</p>
           <Link className="absolute right-7 bottom-5 bg-[#A5C8CF] h-[2.5rem] w-[6.5rem] rounded-xl text-center table hover:-translate-y-[2px] hover:rounded-md ease-in transition-all"><span className="table-cell font-semibold align-middle">Ver más</span></Link>
         </div>
-
         <div className="rounded-[42px] border-2 border-[#E67B7B] relative p-3">
           <p className="relative before:content before:block before:w-[30px] before:h-[4px] before:top-[50%] before:absolute before:bg-black before:-left-[3rem] ml-[4.3rem] mt-5 font-semibold">Solicitudes activas</p>
           <p className="mx-5 mt-5 mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio dolores consequuntur.</p>
           <p className="ml-7 font-semibold text-[3rem]">2</p>
           <Link className="absolute right-7 bottom-5 bg-[#E67B7B] h-[2.5rem] w-[6.5rem] rounded-xl text-center table hover:-translate-y-[2px] hover:rounded-md ease-in transition-all"><span className="table-cell font-semibold align-middle">Ver más</span></Link>
         </div>
-
         <div className="rounded-[42px] border-2 border-[#BB85D5] relative p-3">
           <p className="relative before:content before:block before:w-[30px] before:h-[4px] before:top-[50%] before:absolute before:bg-black before:-left-[3rem] ml-[4.3rem] mt-5 font-semibold">Solicitud de citas</p>
           <p className="mx-5 mt-5 mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio dolores consequuntur.</p>
