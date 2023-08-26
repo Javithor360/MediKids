@@ -68,6 +68,7 @@ export const SelectPatientScreen = () => {
         //? 1 = MALE; 2 = FEMALE;
 
         dispatch(setInitialValues({
+          Patient_id: patient.id,
           FirstNames: patient.First_Names,
           LastNames: patient.Last_Names,
           Birth_Date: patient.Birthdate,

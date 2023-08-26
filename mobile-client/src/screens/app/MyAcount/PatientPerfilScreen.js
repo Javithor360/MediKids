@@ -1,105 +1,177 @@
 
 //>> IMPORT LIBRERIES
-import { ScrollView, StyleSheet, Text, View,TouchableOpacity, ImageBackground, Dimensions} from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { ScrollView, StyleSheet, Text, View, ImageBackground, Dimensions} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { MaterialIcons, MaterialCommunityIcons, AntDesign, FontAwesome5, Feather } from '@expo/vector-icons'; 
+import { MaterialIcons, MaterialCommunityIcons, AntDesign, Feather } from '@expo/vector-icons'; 
 import Constants from 'expo-constants';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+
+//>> IMPORT COMPONENTS
 import { ScreenTitle } from '../../../components/ScreenTitleHook';
+import { getImmunizationRecord } from '../../../index'
+
 //>> Constants
 const { height } = Dimensions.get('window');
 
 export const PatientPerfilScreen = () => {
-  const navigation = useNavigation();
-  return (
-    <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]}>
-        <ScrollView style={styles.MainContainer}>
-            <View style={{backgroundColor:'#fff'}}>
-                <ScreenTitle
-                    Label={"Datos del paciente"}
-                    IconName={"account-child"}
-                    fontSize={20}
-                    textColor={'#FFFFFF'}
-                    paddingH={40}
-                />
-                <View style={styles.containPhoto}>
-                    <View style={styles.profilePhotoWrapper}>
-                        <ImageBackground style={styles.profilePhotoImage} source={require('../../../../assets/default-pics/default-profile-pic.png')}>
-                        </ImageBackground>
+    const PatientData = useSelector(state => state.patient);
+
+    //! State tp Vaccines Array.
+    const [ShowVaccines, setShowVaccines] = useState(null);
+
+    //! Function to get the birth date of the patient.
+    const getBirthDate = () => new Date(PatientData.Birth_Date).toLocaleDateString();
+
+    //! function to get the Immunization Record.
+    const getVaccinesRecord = async () => {
+        try {
+            const {data} = await getImmunizationRecord(PatientData.Patient_id);
+            setShowVaccines([
+                {Name: 'Hepatitis A', State: data.immunization_record[0].Vaccine_Hepatitis_A},
+                {Name: 'Vacuna BCG', State: data.immunization_record[0].Vaccine_BGC},
+                {Name: 'Poliomielitis', State: data.immunization_record[0].Vaccine_Poliomielitis},
+                {Name: 'Pentavalente', State: data.immunization_record[0].Vaccine_Pentavalente},
+                {Name: 'Rotavirus', State: data.immunization_record[0].Vaccine_Rotavirus},
+                {Name: 'Neumococo', State: data.immunization_record[0].Vaccine_Neumococo},
+                {Name: 'Vacuna DPT', State: data.immunization_record[0].Vaccine_DPT},
+                {Name: 'Vacuna Polio Oral', State: data.immunization_record[0].Vaccine_Polio_Oral},
+                {Name: 'Antitetanica', State: data.immunization_record[0].Vaccine_Antitetanica},
+                {Name: 'Triple Viral SPR', State: data.immunization_record[0].Vaccine_Triple_Viral_SPR},
+            ])
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    
+    //! Get the Vaccines Component
+    const getVaccinesCompt = (VaccineName, VaccineState, i) => {
+        return (
+            <>
+                <View style={[styles.vaccineCard, {borderColor: VaccineState ? '#09998c' : '#FF5252', marginBottom: i == 9 && 40}]} key={i}>
+                    <Text style={styles.vacTitle}>{VaccineName}</Text>
+                    {
+                        VaccineState ?
+                            <MaterialIcons name="check-circle-outline" size={24} color="#09998c" style={{alignSelf: 'center',}}/>
+                            :
+                            <Feather name="x-circle" size={24} color="#FF5252" style={{alignSelf: 'center'}}/>
+                    }
+                </View>
+            </>
+        )
+    }
+
+    useEffect(() => {
+        getVaccinesRecord();
+    }, []);
+    
+    return (
+        <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{}}>
+            <ScrollView style={styles.MainContainer}>
+                <View style={{backgroundColor:'#fff'}}>
+                    <ScreenTitle
+                        Label={"Datos del paciente"}
+                        IconName={"account-child"}
+                        fontSize={20}
+                        textColor={'#FFFFFF'}
+                        paddingH={40}
+                    />
+                    <View style={styles.containPhoto}>
+                        <View style={styles.profilePhotoWrapper}>
+                            <ImageBackground style={styles.profilePhotoImage} source={{uri: PatientData.Profile_Photo_Url}}>
+                            </ImageBackground>
+                        </View>
+                    </View>
+                    <View style={styles.ContainerView}>
+                        <Text style={styles.DatosText}>Datos del Paciente</Text>
+                        <View style={styles.InfoContainer}>
+                            <View style={styles.ContainCardText}>
+                                <View style={{flexDirection: 'row'}}>
+                                    <AntDesign name="profile" size={24} color="#7225f9" marginLeft='5%' marginTop='1%' />
+                                    <Text style={styles.TextForImput}>Nombre:</Text>
+                                </View>
+                                <Text style={styles.TextWritted}>{PatientData.FirstNames} {PatientData.LastNames}</Text>
+                            </View>
+                            <View style={styles.line}></View>
+
+                            <View style={styles.ContainCardText}>
+                                <View style={{flexDirection: 'row',}}>
+                                    <MaterialCommunityIcons name="calendar-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%'/>
+                                    <Text style={styles.TextForImput}>Fecha de nacimiento:</Text>
+                                </View>
+                                <Text style={styles.TextWritted}>{getBirthDate()}</Text>
+                            </View>
+                            <View style={styles.line}></View>
+
+                            <View style={styles.ContainCardText}>
+                                <View style={{flexDirection: 'row',}}>
+                                    <MaterialIcons name="person-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%' />
+                                    <Text style={styles.TextForImput}>Género:</Text>
+                                </View>
+                                <Text style={styles.TextWritted}>{PatientData.Gender}</Text>
+                            </View>
+                            <View style={styles.line}></View>
+
+                            <View style={styles.ContainCardText}>
+                                <View style={{flexDirection: 'row',}}>
+                                    <MaterialCommunityIcons name="timeline-plus-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%'/>
+                                    <Text style={styles.TextForImput}>Edad:</Text>
+                                </View>
+                                <Text style={styles.TextWritted}>{PatientData.Age} año/s</Text>
+                            </View>
+                        </View>
+                        <View style={styles.lineBig}></View>
+
+                        <Text style={[styles.DatosText, {marginTop: '7%'}]}>Cartilla de vacunación</Text>
+                        <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={[styles.InfoContainer, {backgroundColor: '#CECEF6', maxHeight: 550, height: 600 }]}>
+                            {
+                                ShowVaccines != null &&
+                                    ShowVaccines.map((Vaccine, i) => {
+                                        return getVaccinesCompt(Vaccine.Name, Vaccine.State, i)
+                                    })
+                            }
+                        </ScrollView>
                     </View>
                 </View>
-                <View style={styles.ContainerView}>
-                    <Text style={styles.DatosText}>Datos del Paciente</Text>
-                    <View style={styles.InfoContainer}>
-                        <View style={styles.ContainCardText}>
-                            <View style={{flexDirection: 'row'}}>
-                                <AntDesign name="profile" size={24} color="#7225f9" marginLeft='5%' marginTop='1%' />
-                                <Text style={styles.TextForImput}>Nombre:</Text>
-                            </View>
-                            <Text style={styles.TextWritted}>Daniel Ernesto Vásquez Ventura</Text>
-                        </View>
-                        <View style={styles.line}></View>
-
-                        <View style={styles.ContainCardText}>
-                            <View style={{flexDirection: 'row',}}>
-                                <MaterialCommunityIcons name="calendar-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%'/>
-                                <Text style={styles.TextForImput}>Fecha de nacimiento:</Text>
-                            </View>
-                            <Text style={styles.TextWritted}>28/07/2005</Text>
-                        </View>
-                        <View style={styles.line}></View>
-
-                        <View style={styles.ContainCardText}>
-                            <View style={{flexDirection: 'row',}}>
-                                <MaterialIcons name="person-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%' />
-                                <Text style={styles.TextForImput}>Género:</Text>
-                            </View>
-                            <Text style={styles.TextWritted}>Masculino</Text>
-                        </View>
-                        <View style={styles.line}></View>
-
-                        <View style={styles.ContainCardText}>
-                            <View style={{flexDirection: 'row',}}>
-                                <MaterialCommunityIcons name="timeline-plus-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%'/>
-                                <Text style={styles.TextForImput}>Edad:</Text>
-                            </View>
-                            <Text style={styles.TextWritted}>8 años</Text>
-                        </View>
-                    </View>
-                    <View style={styles.lineBig}></View>
-
-                    <Text style={[styles.DatosText, {marginTop: '7%'}]}>Cartilla de vacunación</Text>
-                    <View style={[styles.InfoContainer, {backgroundColor: '#f3f3f3',}]}>
-                      <View style={styles.vaccineCard}>
-                          <Text style={styles.vacTitle}>1. Poliomielitis</Text>
-                          <MaterialIcons name="check-circle-outline" size={24} color="#09998c" style={{alignSelf: 'center',}}/>
-                      </View>
-                    </View>
-                </View>
-            </View>
-        </ScrollView>
-    </LinearGradient>
-  )
+            </ScrollView>
+        </LinearGradient>
+    )
 }
 
 const styles = StyleSheet.create({
 vaccineCard: {
-  width: '90%',
-  borderWidth: 1,
-  borderColor:'#09998c',
-  borderRadius: 10,
-  alignSelf: 'center',
-  flexDirection: 'row',
-  paddingHorizontal: 30,
-  justifyContent: 'space-between',
-  marginBottom: 20,
-  height: 50,
-  marginTop: 10,
+    width: '90%',
+    borderWidth: 2,
+    borderRadius: 10,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    paddingHorizontal: 30,
+    justifyContent: 'space-between',
+    marginBottom: 10,
+    height: 50,
+    marginTop: 10,
+    backgroundColor: '#fafafa',
+    //IOS
+    shadowColor: '#000',
+    shadowOffset: {height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    //Android
+    elevation: 5,
+},
+scrollStyles: {
+    //IOS
+    shadowColor: '#000',
+    shadowOffset: {height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    //Android
+    elevation: 5,
 },
 vacTitle: {
-  fontSize: 16,
-  paddingVertical:9,
-  alignSelf: 'center',
+    fontSize: 16,
+    paddingVertical:9,
+    alignSelf: 'center',
 },
 ContainerView: {
     backgroundColor:'#FFFFFF',
@@ -117,10 +189,10 @@ ContainerView: {
     borderTopRightRadius: 30,
     paddingBottom: 30,
     paddingHorizontal: 20,
-    height: height + 150,
+    height: height + 400,
 },
 InfoContainer: {
-    backgroundColor: '#CECEF6',
+    backgroundColor: '#F4F4F4',
     marginTop: 20,
     paddingHorizontal: 20,
     paddingVertical: 15,

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 //! Configurate the initial state of the Slice
 const initialState = {
+  Patient_id: null,
   FirstNames: null,
   LastNames: null,
   Birth_Date: null,
@@ -20,7 +21,8 @@ const patientSlice = createSlice({
   initialState,
   reducers: {
     setInitialValues: (state, action) => {
-      const {FirstNames, LastNames, Birth_Date, Age, Gender, Blood_Type, Weight, Height, Patient_Code, Profile_Photo_Url} = action.payload;
+      const {Patient_id, FirstNames, LastNames, Birth_Date, Age, Gender, Blood_Type, Weight, Height, Patient_Code, Profile_Photo_Url} = action.payload;
+      state.Patient_id = Patient_id;
       state.FirstNames = FirstNames;
       state.LastNames = LastNames;
       state.Birth_Date = Birth_Date;
