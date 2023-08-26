@@ -1,7 +1,8 @@
 import axios from "axios";
+import ip from "../ip";
 
 //! Localhost Direction of the server.
-const localhost = '192.168.0.8';
+const localhost = ip();
 
 //\\ const of headers
 const headers_public = { headers: {'Content-Type': 'application/json'} }
