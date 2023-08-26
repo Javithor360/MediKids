@@ -4,6 +4,7 @@ import parser from "html-react-parser";
 
 import { FaUserAlt } from "react-icons/fa";
 import { MdSaveAs } from "react-icons/md";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import Modal from "../../components/Modal.jsx";
 
@@ -161,7 +162,8 @@ export const MedicalAppoinment = () => {
         <p className="text-[1.8rem] text-[#707070] mt-[.6rem] ml-7">
           Atendiendo Paciente:{" "}
         </p>
-        <button className="self-center justify-end" onClick={toggleValidator}>
+        <button className="flex flex-row items-center justify-center px-3 py-2 border border-[#c6c6c6] bg-[#D8D7FE] rounded-lg self-center gap-2 hover:bg-[#c9c8e8d3] ease-in duration-200" onClick={toggleValidator}>
+          <AiOutlineCheckCircle  />
           Finalizar consulta
         </button>
       </div>

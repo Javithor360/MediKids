@@ -3,6 +3,8 @@ import Calendar from 'react-calendar';
 import '../../../assets/scss/CalendarPickerStyles.scss'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 import { BsChevronDoubleLeft, BsChevronDoubleRight } from 'react-icons/bs'
+import { TiDeleteOutline } from "react-icons/ti";
+
 export function CalendarPicker() {
   const [value, setValue] = useState(null);
   const currentDate = new Date();
@@ -33,10 +35,12 @@ export function CalendarPicker() {
         {
             value ?
             <>
-                <div className='w-fit mx-auto bg-[#f7f7f7] px-5 py-2 border border-[#c6c6c6] rounded-lg mt-4'>
-                    <p className=''><span className='font-semibold'>Fecha seleccionada: </span>{formatDate(value)}</p>
+                <div className='flex flex-row gap-4 w-fit items-center ml-7'>
+                  <div className='w-fit bg-[#f7f7f7] px-5 py-1 border border-[#c6c6c6] rounded-lg'>
+                      <p className=''><span className='font-semibold'>Fecha seleccionada: </span>{formatDate(value)}</p>
+                  </div>
+                  <button className='flex flex-row items-center justify-center h-[2rem] w-fit text-[#ffffff] mx-auto rounded-lg' onClick={()=>setValue(null)}><TiDeleteOutline className='text-red-500 text-[1.2rem] mt-[.1rem]'/><span className='text-red-500 h-fit'>Borrar</span></button>
                 </div>
-                <button className='py-1 px-5 my-4 text-[#ffffff] mx-auto block rounded-lg bg-[#A375FF]' onClick={()=>setValue(null)}>Borrar</button>
             </>
             :
             null

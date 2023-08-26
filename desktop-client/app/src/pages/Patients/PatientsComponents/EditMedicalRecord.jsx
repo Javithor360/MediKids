@@ -28,7 +28,7 @@ export const EditMedicalRecord = ({ setMedicalRecord }) => {
   return (
     <>
       <p className="mt-7 ml-7 font-semibold text-[#707070] text-[1.2rem]">
-        1. Ingrese los siguentes datos
+        1. Ingrese los siguientes datos
       </p>
       <form
         action=""
