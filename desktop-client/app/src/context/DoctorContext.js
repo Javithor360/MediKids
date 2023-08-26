@@ -107,6 +107,7 @@ export const DoctorProvider = ({ children }) => {
   const EndMedicalAppointment = async (medicalRecord, medicalPrescript, scheAppoint) => {
     try {
       CreateMedicalRecordEntry(medicalRecord);
+      AddMedicalPrescription(medicalPrescript);
     } catch (error) {
       console.log(error)
     }
@@ -148,9 +149,18 @@ export const DoctorProvider = ({ children }) => {
     }
   }
 
-  const AddMedicalPrescription = async (data) => {
+  const AddMedicalPrescription = async (body) => {
     try {
-      return await setPatientMedicalPrescription(data, PrivateConfig);
+      const new_prescriptions = body.medicalPrescript.new_prescriptions.map((m) => {
+        const { hasSelectedYes, ...rest } = m;
+        return rest;
+      });
+      return await setPatientMedicalPrescription({
+        Patient_id: body.medicalPrescript.Patient_id,
+        Doctor_id: body.medicalPrescript.Doctor_id,
+        edited_prescriptions: body.medicalPrescript.edited_prescriptions,
+        new_prescriptions: new_prescriptions
+      }, PrivateConfig);
     } catch (error) {
       console.log(error);
     }

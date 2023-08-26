@@ -48,8 +48,9 @@ export const Sidebar = () => {
               />
             </div>
           </div>
+          <div className="h-[1px] my-[.5rem] w-[90%] mx-auto bg-[#e6e6e6] "></div>
         </div>
-        <div className="divider w-[90%] mx-auto"></div>
+
         <ul className="relative m-0 list-none px-[0.2rem] overflow-y-auto overflow-x-hidden">
           <li className="relative">
             <Link
@@ -167,8 +168,8 @@ export const Sidebar = () => {
             )}
           </li>
         </ul>
-        <div className="divider w-[90%] mx-auto"></div>
         <div className="relative m-0 list-none px-[0.2rem] mt-auto py-6">
+          <div className="h-[1px] my-[.5rem] w-[90%] mx-auto bg-[#e6e6e6] "></div>
           <ul className="relative m-0 list-none px-[0.2rem] align-bottom">
             <li className="relative">
               <span className="flex items-center h-12 truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white">

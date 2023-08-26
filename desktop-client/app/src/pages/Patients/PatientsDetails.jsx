@@ -8,7 +8,6 @@ import {
 } from "react-icons/md";
 import medicalHistory from "../../assets/icons/overview_FILL0_wght400_GRAD0_opsz48.svg";
 import profileAvatar from "../../assets/template/walt_jr.png";
-
 import Modal from "../../components/Modal";
 
 import { ViewMedicalRecords } from './PatientsComponents/index.jsx'
@@ -106,34 +105,34 @@ export const PatientsDetails = () => {
           </div>
         </section>
         <section className="mt-[]">
-          <div className="overflow-x-auto w-[80%] rounded-[2rem] border border-[#BBBBBB] mx-auto">
+          <div className="overflow-x-auto w-[80%] rounded-[1rem] border border-[#BBBBBB] mx-auto">
             <table className="table w-[100%]">
               {/* head */}
-              <thead className="bg-[#d8d7fe]">
-                <tr className="text-center">
-                  <th className="border-b border-r border-[#BBBBBB]">Edad</th>
-                  <th className="border-b border-r border-[#BBBBBB]">
-                    Tipo Sanguíneo
-                  </th>
-                  <th className="border-b border-r border-[#BBBBBB]">Peso</th>
-                  <th className="border-b border-[#BBBBBB]">Altura</th>
-                </tr>
-              </thead>
-              <tbody className="">
+              <div className="bg-[#d8d7fe] flex flex-row w-[100%] h-[2.4rem] items-center">
+                  <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
+                    <span className="h-fit font-semibold text-[1rem]">Edad</span></div>
+                  <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
+                    <span className="font-semibold text-[1rem]">Tipo Sanguíneo</span>
+                  </div>
+                  <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
+                    <span className="font-semibold text-[1rem]">Peso</span></div>
+                  <div className="flex border-b border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
+                    <span className="font-semibold text-[1rem]">Altura</span>
+                  </div>
+              </div>
+              <div className="h-[3rem] flex-row flex">
                 {/* row 1 */}
-                <tr className="text-center">
-                  <td className="border-r border-[#BBBBBB]">
+                  <div className="flex w-[33.33%] h-full justify-center items-center text-center border-r border-[#BBBBBB]">
                     {patient.Age} años
-                  </td>
-                  <td className="border-r border-[#BBBBBB]">
+                  </div>
+                  <div className="flex w-[33.33%] h-full justify-center items-center text-center border-r border-[#BBBBBB]">
                     {patient.Blood_Type}
-                  </td>
-                  <td className="border-r border-[#BBBBBB]">
+                  </div>
+                  <div className="flex w-[33.33%] h-full justify-center items-center text-center border-r border-[#BBBBBB]">
                     {patient.Weight} lb
-                  </td>
-                  <td className="">{patient.Height} m</td>
-                </tr>
-              </tbody>
+                  </div>
+                  <div className="flex w-[33.33%] h-full justify-center items-center text-center">{patient.Height} m</div>
+              </div>
             </table>
           </div>
         </section>

@@ -10,9 +10,12 @@ export const ActivePatients = (props) => {
 
   return (
     <>
-      <h1 className="text-[#a375ff] font-bold text-3xl mb-12 after:content-[''] after:bg-[#a375ff] after:block after:w-[30%] after:h-[0.1875rem] after:mx-0 after:my-auto">
-        Pacientes activos
-      </h1>
+      <div className="w-fit border-b-[0.1875rem] border-b-[#a375ff] mb-12">
+        <h1 className="text-[#a375ff] font-bold text-3xl">
+          Pacientes activos
+        </h1>
+      </div>
+      
 
       {activePatients.length !== 0 ? (
         <div className="overflow-x-auto w-[80%] rounded-lg border border-[#000000] mx-auto">
@@ -83,9 +86,11 @@ export const ActivePatients = (props) => {
         </div>
       )}
 
-      <h1 className="mt-[2rem] text-[#a375ff] font-bold text-3xl mb-12 after:content-[''] after:bg-[#a375ff] after:block after:w-[45%] after:h-[0.1875rem] after:mx-0 after:my-auto">
-        Pacientes atentidos previamente
-      </h1>
+      <div className="w-fit border-b-[0.1875rem] border-b-[#a375ff] mt-12 mb-12">
+        <h1 className="text-[#a375ff] font-bold text-3xl">
+          Pacientes atentidos previamente
+        </h1>
+      </div>
 
       {oldPatients.length !== 0 ? (
         <div className="overflow-x-auto w-[80%] rounded-lg border border-[#000000] mx-auto">

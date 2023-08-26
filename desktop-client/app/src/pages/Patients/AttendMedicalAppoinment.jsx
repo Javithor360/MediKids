@@ -4,6 +4,7 @@ import parser from "html-react-parser";
 
 import { FaUserAlt } from "react-icons/fa";
 import { MdSaveAs } from "react-icons/md";
+import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import Modal from "../../components/Modal.jsx";
 
@@ -75,6 +76,10 @@ export const MedicalAppoinment = () => {
     setHeight(medicalRecord.height);
   }, [medicalRecord]);
 
+  useEffect(() => {
+    console.log(medicalPrescript);
+  }, [medicalPrescript]);
+
   const toggle = () => {
     setActive(!active);
   };
@@ -136,7 +141,7 @@ export const MedicalAppoinment = () => {
     try {
       await EndMedicalAppointment(
         { height, weight, temperature, notes, Patient_id: patient.id },
-        {},
+        { medicalPrescript },
         {}
       );
       setChargin(true);
@@ -157,7 +162,8 @@ export const MedicalAppoinment = () => {
         <p className="text-[1.8rem] text-[#707070] mt-[.6rem] ml-7">
           Atendiendo Paciente:{" "}
         </p>
-        <button className="self-center justify-end" onClick={toggleValidator}>
+        <button className="flex flex-row items-center justify-center px-3 py-2 border border-[#c6c6c6] bg-[#D8D7FE] rounded-lg self-center gap-2 hover:bg-[#c9c8e8d3] ease-in duration-200" onClick={toggleValidator}>
+          <AiOutlineCheckCircle  />
           Finalizar consulta
         </button>
       </div>
@@ -204,19 +210,6 @@ export const MedicalAppoinment = () => {
             }}
           >
             Programar cita
-          </div>
-
-          <div
-            className={
-              tabSelector === 4
-                ? "w-fit h-fit cursor-pointer border-b-[2px] border-[#707070] font-semibold font-[#707070] select-none"
-                : "w-fit h-fit cursor-pointer select-none"
-            }
-            onClick={() => {
-              setTabSelector(4);
-            }}
-          >
-            Referir paciente
           </div>
         </div>
       </div>
@@ -364,26 +357,30 @@ const MedicalPrescriptionConfirmation = ({
   return (
     <div className="medical-prescription">
       <h3>Información de la receta médica</h3>
-      {medicalPrescript.new_prescriptions.length === 1 &&
-      medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (
-        <div>No se han agregado medicamentos nuevos</div>
-      ) : (
-        medicalPrescript.new_prescriptions.map((m, i) => {
-          return (
-            <div key={i}>
-              <p>Nombre del medicamento: {m.data.Medicine_Name}</p>
-              <p>Instrucciones: {m.data.Instructions}</p>
-              <p>Descripción: {m.data.Description}</p>
-              <p>Dosis: {m.data.Dose}</p>
-              <p>Dosis por día: {m.data.Time_Dose}</p>
-              <p>Fecha de inicio de dosis: {m.data.Starting_Dose_Date}</p>
-              <p>
-                Fecha de finalización de dosis: {m.data.Finishing_Dose_Date}
-              </p>
-            </div>
-          );
-        })
-      )}
+      <ul>
+        <li>Receta de medicamentos editada</li>
+        <li>Nuevos medicamentos agregados</li>
+        {medicalPrescript.new_prescriptions.length === 1 &&
+        medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (
+          <div>No se han agregado medicamentos nuevos</div>
+        ) : (
+          medicalPrescript.new_prescriptions.map((m, i) => {
+            return (
+              <div key={i}>
+                <p>Nombre del medicamento: {m.data.Medicine_Name}</p>
+                <p>Instrucciones: {m.data.Instructions}</p>
+                <p>Descripción: {m.data.Description}</p>
+                <p>Dosis: {m.data.Dose}</p>
+                <p>Dosis por día: {m.data.Time_Dose}</p>
+                <p>Fecha de inicio de dosis: {m.data.Starting_Dose_Date}</p>
+                <p>
+                  Fecha de finalización de dosis: {m.data.Finishing_Dose_Date}
+                </p>
+              </div>
+            );
+          })
+        )}
+      </ul>
     </div>
   );
 };

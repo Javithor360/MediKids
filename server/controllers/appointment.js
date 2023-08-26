@@ -70,6 +70,7 @@ const get_medical_appointments = async (req, res, next) => {
     //? Get the list of medical appointments.
     const [medical_appointments] = await pool.query('SELECT * FROM medical_appointment WHERE Patient_id = ?', [Patient_id[0].id]);
 
+    console.log(medical_appointments);
     return res.status(200).json({success: true, medical_appointments});
   } catch (error) {
     return res.status(500).json({ error });
