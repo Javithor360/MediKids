@@ -163,6 +163,8 @@ const new_medical_record_entry = async (req, res, next) => {
       Weight: weight,
       Height: height,
       Temperature: temperature,
+      Diagnosis_Mobile: "Placeholder text",
+      Prescriptions_Codes: "Placeholder text"
     });
 
     return res.status(200).json({
