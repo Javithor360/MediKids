@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import TextAlign from '@tiptap/extension-text-align'
@@ -168,6 +169,7 @@ const MenuBar = ({ editor }) => {
 const TipTap = ({setNotes}) => {
   const location = useLocation();
   const { patient } = location.state || {};
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -176,29 +178,40 @@ const TipTap = ({setNotes}) => {
       }),
     ],
     onUpdate: ({editor}) => {
-      const html = editor.getHTML();
-      setNotes(html);
+      const html = editor.getText();
+      const startIndex = html.indexOf('Anotaciones generales:') + 'Anotaciones generales:'.length;
+      const endIndex = html.length;
+      const generalAnnotation = html.substring(startIndex, endIndex).trim();
+      setNotes(generalAnnotation);
+      console.log(generalAnnotation);
     },
-    content: `<h3 style="text-align: center;">MediKids</h3>
-              <hr>
-              <p style="font-weight: normal; text-align: left;"><b>Hora de inicio:</b> ${moment().format('LT')}&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <b>Fecha: </b> ${moment().format('MM/DD/YYYY')}</p>
-              <p style="font-weight: normal; text-align: left;"><b>Nombre del Paciente:</b> ${patient.First_Names} ${patient.Last_Names} &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <b>Edad:</b> ${patient.Age}</p>
-              <hr>
-              <p style="font-weight: bold; text-align: left;">Síntomas Previos:</p>
-              <ul style="">
-                <li></li>
-              </ul>
-              <hr>
-              <p style="font-weight: bold; text-align: left;">Anotaciones generales: </p>
+    content: `
+      <h3 style="text-align: center;">MediKids</h3>
+      <hr>
+      <p style="font-weight: normal; text-align: left;"><b>Hora de inicio:</b> ${moment().format('LT')}&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <b>Fecha: </b> ${moment().format('MM/DD/YYYY')}</p>
+      <p style="font-weight: normal; text-align: left;"><b>Nombre del Paciente:</b> ${patient.First_Names} ${patient.Last_Names} &nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp; <b>Edad:</b> ${patient.Age}</p>
+      <hr>
+      <p style="font-weight: bold; text-align: left;">Síntomas Previos:</p>
+      <ul style="">
+        <li></li>
+      </ul>
+      <hr>
+      <p style="font-weight: bold; text-align: left;">Anotaciones generales: </p>
     `,
-  })
+  });
 
   return (
+    <>
     <div className='textEditorContainer'>
       <MenuBar editor={editor} />
-      <EditorContent editor={editor} className='h-[20rem]'/>
+      <div className='editor-content'>
+        <EditorContent editor={editor} className='h-[20rem]' />
+      </div>
     </div>
-  )
-}
+    <div>
+  </div>
+  </> 
+  );
+};
 
 export default TipTap;
