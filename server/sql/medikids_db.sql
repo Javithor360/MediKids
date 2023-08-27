@@ -62,13 +62,14 @@ CREATE TABLE IF NOT EXISTS medikids_db . Calendar (
 
 CREATE TABLE IF NOT EXISTS medikids_db . Medical_Records (
 	id INT NOT NULL AUTO_INCREMENT,
+	Patient_id INT NOT NULL,
+	Doctor_id INT NOT NULL,
 	Medical_History_Code VARCHAR(45) NOT NULL,
 	Date_Time DATETIME NOT NULL,
 	Diagnosis LONGTEXT NOT NULL,
 	Weight FLOAT NOT NULL,
 	Height FLOAT NOT NULL,
 	Temperature FLOAT NOT NULL,
-	Patient_id INT NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
 	FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)

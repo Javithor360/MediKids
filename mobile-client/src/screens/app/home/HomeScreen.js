@@ -11,7 +11,10 @@ import Constants from 'expo-constants';
 
 //>> Import Components
 import LanguageSelector from '../../../components/LanguageSelector';
-import {getMedicalAppointments, getMedicalPrescriptions} from '../../../index'
+import { getMedicalAppointments, getMedicalPrescriptions } from '../../../index'
+
+//! Deafult foto
+const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
 
 export const HomeScreen = () => {
   const { t } = useTranslation();
@@ -28,6 +31,7 @@ export const HomeScreen = () => {
   //! Widget States
   const [AppointmentWidget, setAppointmentWidget] = useState([]);
   const [MedicinesWidget, setMedicinesWidget] = useState([]);
+  const [NumberOfApptm, setNumberOfApptm] = useState(0);
 
   //>> Aviod Come Back
   useEffect(() => {
@@ -42,24 +46,12 @@ export const HomeScreen = () => {
   const getAppointmentInfo = async () => {
     try {
       const {data} = await getMedicalAppointments(jwtToken, Patient.Patient_Code);
-      // let dates = [];
 
-      // data.medical_appointments.forEach(element => {
-      //   dates.push(new Date(element.Date));
-      // });
-
-      const nextAppointment = data.medical_appointments.reduce((closestApp, dateApp) => {
-        if (dateApp.Date != null) {
-          const now = new Date();
-          const timeDiff = Math.abs(new Date(dateApp.Date) - now);
-          const closestTimeDiff = Math.abs(new Date(closestApp.Date) - now);
-  
-          return timeDiff < closestTimeDiff ? dateApp : closestApp; 
-        }
+      const nextAppointment = data.medical_appointments.find(appointment => {
+        return appointment.State != 4;
       })
-
-      console.log(nextAppointment);
-
+      
+      setNumberOfApptm(data.medical_appointments.length);
       setAppointmentWidget(nextAppointment);
     } catch (error) {
       console.log(error);
@@ -68,8 +60,7 @@ export const HomeScreen = () => {
 
   const getMedicinesInfo = async () => {
     try {
-      // MODIFICAR IDDDDDDD
-      const {data} = await getMedicalPrescriptions(jwtToken, 1);
+      const {data} = await getMedicalPrescriptions(jwtToken, Patient.id);
       setMedicinesWidget(data.Prescriptions);
     } catch (error) {
       console.log(error);
@@ -81,6 +72,19 @@ export const HomeScreen = () => {
     return new Date(Fechant).toLocaleDateString();
   }
 
+  //! Get the State in String
+  const getStateString = (state) => {
+    switch (state) {
+      case 0:
+        return 'Programada';
+      case 1:
+        return 'Solicitada';
+      case 3:
+        return 'confirmada';
+      case 4:
+        return 'Ejecutandose';
+    }
+  }
 
   //! Functions starting the view.
   useEffect(() => {
@@ -184,7 +188,14 @@ export const HomeScreen = () => {
           <View style={styles.cardInfoContainer}>
             <View style={{width: '100%', height: '16%',alignItems: 'center',}}>
               <View style={styles.childIconContainer}>
-                <Image source={require('../../../../assets/icons/kid.png')} style={{width: '70%', resizeMode: 'contain',}} />
+                {
+                  defaultProfPhoto != Patient.Profile_Photo_Url ?
+                    <View style={styles.profilePhotoWrapper}>
+                      <ImageBackground style={styles.profilePhotoImage} source={{uri: Patient.Profile_Photo_Url}} />
+                    </View>
+                    :
+                    <Image source={require('../../../../assets/icons/kid.png')} style={{width: '70%', resizeMode: 'contain',}} />
+                }
               </View>
             </View>
             <View style={{width: '100%', height: '37.5%', alignItems: 'center',}}>
@@ -195,11 +206,11 @@ export const HomeScreen = () => {
                 </View>
                 <View style={[styles.patienDataText, {width: '25%', height: '100%'}]}>
                   <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Edad:</Text>
-                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{Patient.Age} años</Text>
+                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{Patient.Age} {Patient.Age > 1 ? 'años' : 'año'}</Text>
                 </View>
                 <View style={[styles.patienDataText, {width: '25%', height: '100%'}]}>
-                  <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Género:</Text>
-                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{Patient.Gender}</Text>
+                  <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Código:</Text>
+                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{Patient.Patient_Code}</Text>
                 </View>
               </View>
             </View>
@@ -227,16 +238,16 @@ export const HomeScreen = () => {
                 <Text style={{marginTop: 25, fontSize: 22,fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>Citas</Text>
                   <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%',}}>
                     <Image source={require('../../../../assets/icons/note-time.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
-                    <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{AppointmentWidget?.length}</Text>
+                    <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{NumberOfApptm}</Text>
                   </View>
                   {
-                    AppointmentWidget?.length != 0 ?
+                    AppointmentWidget != null && AppointmentWidget.length != 0 ?
                       <>
                         <Text style={{marginTop: 10, fontWeight: "900", fontSize: 15, color: '#d17878', textAlign: 'center'}}>Próxima cita:</Text>
-                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Fecha: </Text>09/05/23</Text>
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Fecha: </Text>{AppointmentWidget.Date == null ? 'Pendiente' : getLocaleDateString(AppointmentWidget.Date)}</Text>
                         {/* <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Hora: </Text>2:00 PM</Text> */}
-                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Estado: </Text>Pendiente</Text>
-                        <TouchableOpacity style={styles.touchableViewBtn2}>
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Estado: </Text>{getStateString(AppointmentWidget.State)}</Text>
+                        <TouchableOpacity style={styles.touchableViewBtn2} onPress={() => navigation.navigate('Appointment')}>
                           <Text style={{color: '#fff'}}>Más detalles</Text>
                         </TouchableOpacity>
                       </>
@@ -256,12 +267,12 @@ export const HomeScreen = () => {
                   <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{MedicinesWidget?.length}</Text>
                 </View>
                   {
-                    MedicinesWidget?.length != 0 ?
+                    MedicinesWidget != null && MedicinesWidget.length != 0 ?
                       <>
                         <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Nombre: </Text>{MedicinesWidget[0].Medicine_Name}</Text>
                         <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Finalización: </Text>{getLocaleDateString(MedicinesWidget[0].Finishing_Dose_Date)}</Text>
                         <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Dosis: </Text>{MedicinesWidget[0].Dose}</Text>
-                        <TouchableOpacity style={styles.touchableViewBtn2}>
+                        <TouchableOpacity style={styles.touchableViewBtn2} onPress={() => navigation.navigate('Medicinas')}>
                           <Text style={{color: '#fff'}}>Más detalles</Text>
                         </TouchableOpacity>
                       </>
@@ -335,6 +346,18 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 150,
     resizeMode: 'cover',
+  },
+  profilePhotoImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover'
+  },
+  profilePhotoWrapper: {
+    height: 80,
+    width: 80,
+    marginVertical: '2%',
+    borderRadius: 125,
+    overflow: 'hidden',
   },
   TopLogoBtnContainer: {
     position: 'absolute',
@@ -498,7 +521,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
     borderRadius: 25,
-    marginBottom: 20,
+    marginBottom: 30,
     flexDirection: 'row',
     //iOS
     shadowColor: '#000000',

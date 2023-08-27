@@ -147,8 +147,6 @@ export const RegisterPatientScreen = () => {
           }
         });
 
-        console.log(patientId);
-
         //! Show success message.
         ShowToast('my_success', 'Éxito', 'Paciente Registrado correctamente');
 

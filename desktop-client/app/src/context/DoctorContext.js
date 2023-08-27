@@ -93,11 +93,12 @@ export const DoctorProvider = ({ children }) => {
   const CreateMedicalRecordEntry = async (data) => {
     try {
       return await newMedicalRecordEntry({
+        Patient_id: data.Patient_id,
+        Doctor_id: data.Doctor_id,
         height: data.height,
         weight: data.weight,
         temperature: data.temperature,
         notes: data.notes,
-        Patient_id: data.Patient_id
       }, PrivateConfig);
     } catch (error) {
       console.log(error)

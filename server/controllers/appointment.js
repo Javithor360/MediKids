@@ -20,7 +20,7 @@ const get_medical_records = async (req, res, next) => {
     const {Patient_id} = req.body;
 
     //? SELECT THE MEDICAL RECORDS FROM THE DATABASE.
-    const [Medical_Records] = await pool.query('SELECT * FROM medical_records WHERE Patient_id = ?', [Patient_id]);
+    const [Medical_Records] = await pool.query('SELECT id, Medical_History_Code, Date_Time, Weight, Height, Temperature, Patient_id FROM medical_records WHERE Patient_id = ?', [Patient_id]);
 
     return res.status(200).json({success: true, medical_records: Medical_Records});
   } catch (error) {
@@ -70,7 +70,6 @@ const get_medical_appointments = async (req, res, next) => {
     //? Get the list of medical appointments.
     const [medical_appointments] = await pool.query('SELECT * FROM medical_appointment WHERE Patient_id = ?', [Patient_id[0].id]);
 
-    console.log(medical_appointments);
     return res.status(200).json({success: true, medical_appointments});
   } catch (error) {
     return res.status(500).json({ error });

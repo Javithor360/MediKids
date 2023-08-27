@@ -50,5 +50,11 @@
         "text2": "Para mayor seguridad, coloca una fotografía que pueda identificarte.",
         "selectBtn": "Seleccionar",
         "changeBtn": "Aceptar"
+    },
+    "selectPhotoPatient": {
+        "title": "Foto del Paciente",
+        "text2": "Para mayor eficacia y seguridad, coloca una fotografía que identifique al menor.",
+        "selectBtn": "Seleccionar",
+        "changeBtn": "Aceptar"
     }
 }
