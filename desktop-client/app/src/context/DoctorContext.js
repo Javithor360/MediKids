@@ -8,7 +8,7 @@ import {
   getResponsibleInfo,
   getPatientMedicalRecords,
   getPatientMedicalPrescription,
-  setPatientMedicalPrescription
+  setPatientMedicalPrescription,
 } from "../api/queries";
 
 const dashContext = createContext();
@@ -30,7 +30,7 @@ export const DoctorProvider = ({ children }) => {
   const [responsibleInfo, setResponsibleInfo] = useState({});
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [medicalPrescriptions, setMedicalPrescriptions] = useState([]);
-  
+
   const PrivateConfig = {
     header: {
       "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export const DoctorProvider = ({ children }) => {
 
       setActivePatients(
         actPats.data.body.filter((patient) =>
-        allApo.data.body.some(
+          allApo.data.body.some(
             (appointment) => appointment.Patient_id === patient.id
           )
         )
@@ -92,80 +92,101 @@ export const DoctorProvider = ({ children }) => {
 
   const CreateMedicalRecordEntry = async (data) => {
     try {
-      return await newMedicalRecordEntry({
-        Patient_id: data.Patient_id,
-        Doctor_id: data.Doctor_id,
-        height: data.height,
-        weight: data.weight,
-        temperature: data.temperature,
-        notes: data.notes,
-      }, PrivateConfig);
+      return await newMedicalRecordEntry(
+        {
+          Patient_id: data.Patient_id,
+          Doctor_id: data.Doctor_id,
+          height: data.height,
+          weight: data.weight,
+          temperature: data.temperature,
+          notes: data.notes,
+        },
+        PrivateConfig
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  const EndMedicalAppointment = async (medicalRecord, medicalPrescript, scheAppoint) => {
+  const EndMedicalAppointment = async (
+    medicalRecord,
+    medicalPrescript,
+    scheAppoint
+  ) => {
     try {
       CreateMedicalRecordEntry(medicalRecord);
       AddMedicalPrescription(medicalPrescript);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const PatientAppointmentWithDoctor = async (Patient_id, Doctor_id) => {
     try {
-      const res = await getPatientAppointmentWithDoctor({ Patient_id, Doctor_id}, PrivateConfig);
+      const res = await getPatientAppointmentWithDoctor(
+        { Patient_id, Doctor_id },
+        PrivateConfig
+      );
       setNextAppointment(res.data.body[0]);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const ResponsibleInformation = async (Responsible_id) => {
     try {
       const res = await getResponsibleInfo(Responsible_id, PrivateConfig);
       setResponsibleInfo(res.data.body[0]);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const PatientMedicalRecords = async (Patient_id) => {
     try {
       const res = await getPatientMedicalRecords(Patient_id, PrivateConfig);
       setMedicalRecords(res.data.body);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   const PatientMedicalPrescriptions = async (Patient_id) => {
     try {
-      const res = await getPatientMedicalPrescription(Patient_id, PrivateConfig);
+      const res = await getPatientMedicalPrescription(
+        Patient_id,
+        PrivateConfig
+      );
       setMedicalPrescriptions(res.data.body);
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const AddMedicalPrescription = async (body) => {
-    try {
-      const new_prescriptions = body.medicalPrescript.new_prescriptions.map((m) => {
-        const { hasSelectedYes, ...rest } = m;
-        return rest;
-      });
-      return await setPatientMedicalPrescription({
-        Patient_id: body.medicalPrescript.Patient_id,
-        Doctor_id: body.medicalPrescript.Doctor_id,
-        edited_prescriptions: body.medicalPrescript.edited_prescriptions,
-        new_prescriptions: new_prescriptions
-      }, PrivateConfig);
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+
+  const AddMedicalPrescription = async (body) => {
+    try {
+      if (body.medicalPrescript.new_prescriptions.length > 0) {
+        const new_prescriptions = body.medicalPrescript.new_prescriptions.map(
+          (m) => {
+            const { hasSelectedYes, ...rest } = m;
+            return rest;
+          }
+        );
+        await setPatientMedicalPrescription(
+          {
+            Patient_id: body.medicalPrescript.Patient_id,
+            Doctor_id: body.medicalPrescript.Doctor_id,
+            edited_prescriptions: body.medicalPrescript.edited_prescriptions,
+            new_prescriptions: new_prescriptions,
+          },
+          PrivateConfig
+        );
+      }
+      return;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <dashContext.Provider
@@ -196,7 +217,7 @@ export const DoctorProvider = ({ children }) => {
         ResponsibleInformation,
         PatientMedicalRecords,
         PatientMedicalPrescriptions,
-        AddMedicalPrescription
+        AddMedicalPrescription,
       }}
     >
       {children}
