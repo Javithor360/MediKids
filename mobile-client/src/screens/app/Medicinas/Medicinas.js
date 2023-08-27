@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   cardsContainer:{
-    backgroundColor: '#fff',
+    backgroundColor: '#f8f8f8',
     width: wp('90%'),
     alignSelf: 'center',
     borderRadius: 20,
@@ -221,7 +221,14 @@ const styles = StyleSheet.create({
     borderColor: '#EBEBEB',
     borderWidth: 1,
     backgroundColor:'#ffff',
-    marginBottom: 20
+    marginBottom: 20,
+    elevation: 4,
+    //iOS
+    shadowColor: '#707070',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    paddingVertical: 20,
   },
   IconTextSpc: {
     width: '100%',

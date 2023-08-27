@@ -67,9 +67,11 @@ CREATE TABLE IF NOT EXISTS medikids_db . Medical_Records (
 	Medical_History_Code VARCHAR(45) NOT NULL,
 	Date_Time DATETIME NOT NULL,
 	Diagnosis LONGTEXT NOT NULL,
+	Diagnosis_Mobile TEXT NOT NULL,
 	Weight FLOAT NOT NULL,
 	Height FLOAT NOT NULL,
 	Temperature FLOAT NOT NULL,
+	Prescriptions_Codes VARCHAR(150) NOT NULL,
 	PRIMARY KEY (id),
 	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
 	FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)

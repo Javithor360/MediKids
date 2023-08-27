@@ -19,6 +19,7 @@ import { useDash } from "../../context/DoctorContext";
 export const MedicalAppoinment = () => {
   const location = useLocation();
   const { patient } = location.state || {};
+  const Doctor_id = JSON.parse(localStorage.getItem("userSession")).id
 
   let navigate = useNavigate();
   const { EndMedicalAppointment } = useDash();
@@ -140,7 +141,7 @@ export const MedicalAppoinment = () => {
     e.preventDefault();
     try {
       await EndMedicalAppointment(
-        { height, weight, temperature, notes, Patient_id: patient.id },
+        { height, weight, temperature, notes, Patient_id: patient.id, Doctor_id },
         { medicalPrescript },
         {}
       );
