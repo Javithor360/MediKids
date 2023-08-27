@@ -23,6 +23,12 @@ export const uploadPFResponsible = async (FormData) => {
   return await axios.post(`http://${localhost}:5005/api/responsible/upload_pf_responsible`, FormData, {headers: {'Content-Type': 'multipart/form-data'}});
 }
 
+//! Upload the Perfil Photo of the Patient.
+//@access public
+export const uploadPFPatient = async (jwtToken, FormData) => {
+  return await axios.post(`http://${localhost}:5005/api/responsible/upload_pf_patient`, FormData, {headers: {'Content-Type': 'multipart/form-data', "x-auth-token": jwtToken}});
+}
+
 //! Register a Responsible user.
 //@access public
 export const registerResponsible = async (First_Names, Last_Names, Email, Password, ConfPass, DUI, Birthdate, Phone) => {

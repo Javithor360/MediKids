@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
 //>> Importin Screens
-import { LoginScreen, SplashScreen, WelcomeScreen, RegisterScreen, ApplicationTab, RegisterPatientScreen, ForgotPasswordScreen, ResetPasswordScreen, VerifyCodeScreen, SelectProfilePhotoScreen,ForgotPassCodeScreen, ImmunizationRecord, SelectPatientScreen} from '../index'
+import { LoginScreen, SplashScreen, WelcomeScreen, RegisterScreen, ApplicationTab, RegisterPatientScreen, ForgotPasswordScreen, ResetPasswordScreen, VerifyCodeScreen, SelectProfilePhotoScreen, ForgotPassCodeScreen, ImmunizationRecord, SelectPatientScreen, SelectPatientPPScreen} from '../index'
 import { isIOS } from "../constants";
 
 //>> Creating Stack Navigator
@@ -31,6 +31,7 @@ const RunStackNav = () => {
       <Stack.Screen name='RegisterScreen' component={RegisterScreen} />
       <Stack.Screen name='ForgotPasswordScreen' component={ForgotPasswordScreen} />
       <Stack.Screen name='SelectProfilePhotoScreen' component={SelectProfilePhotoScreen} />
+      <Stack.Screen name='SelectPatientPPScreen' component={SelectPatientPPScreen} />
     </Stack.Navigator>
   );
 }

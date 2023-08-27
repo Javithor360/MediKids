@@ -51,6 +51,12 @@
         "selectBtn": "Select",
         "changeBtn": "Done"
     },
+    "selectPhotoPatient": {
+        "title": "Patient's photo",
+        "text2": "For greater efficiency and security, place a photograph that identifies the minor.",
+        "selectBtn": "Select",
+        "changeBtn": "Done"
+    },
     "registerPatient": {
         "title": "Patient's information",
         "text2": "We need the child's information to do a great job!"

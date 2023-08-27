@@ -22,7 +22,7 @@ const patientSlice = createSlice({
   reducers: {
     setInitialValues: (state, action) => {
       const {Patient_id, FirstNames, LastNames, Birth_Date, Age, Gender, Blood_Type, Weight, Height, Patient_Code, Profile_Photo_Url} = action.payload;
-      state.Patient_id = Patient_id;
+      state.id = Patient_id;
       state.FirstNames = FirstNames;
       state.LastNames = LastNames;
       state.Birth_Date = Birth_Date;
@@ -33,11 +33,14 @@ const patientSlice = createSlice({
       state.Height = Height;
       state.Patient_Code = Patient_Code;
       state.Profile_Photo_Url = Profile_Photo_Url;
+    },
+    changePFPatient: (state, action) => {
+      state.Profile_Photo_Url = action.payload;
     }
   }
 })
 
 //! export actions
-export const { setInitialValues } = patientSlice.actions;
+export const { setInitialValues, changePFPatient } = patientSlice.actions;
 //! export reducer
 export default patientSlice.reducer;

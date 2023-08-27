@@ -187,9 +187,46 @@ const get_medical_prescriptions = async (req, res, next) => {
   try {
     const { Patient_id } = req.body;
 
-    const [PatientPrescriptions] = await pool.query('SELECT * FROM medical_prescription WHERE Patient_id = ?', [Patient_id]);
-
+    const [PatientPrescriptions] = await pool.query('SELECT * FROM medical_prescription WHERE Patient_id = ? AND Finishing_Dose_Date > CURDATE()', [Patient_id]);
+    
     return res.status(200).json({success: true, Prescriptions: PatientPrescriptions})
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
+//! @route POST api/responsible/upload_pf_patient
+//! @desc Change the patient perfil photo
+//! @access Private
+const upload_pf_patient = async (req, res, next) => {
+  try {
+    const {Patient_id} = req.body;
+
+    //? Set name of the foto.
+    const name = v4();
+
+    //? Reference to the storage where the photo will be upload.
+    const storageRef = ref(storage, `patient_pf/${name}`);
+    
+    //? Create the config for the upload.
+    const metadata = {contentType: req.file.mimetype};
+
+    //? Get the buffer of the image;
+    const buffer = fs.readFileSync(req.file.path);
+    
+    //? Upload the image.
+    await uploadBytesResumable(storageRef, buffer, metadata);
+
+    //? Get the url from the snapshot.
+    const url = await getDownloadURL(storageRef);
+
+    //! Save in the database;
+    await pool.query('UPDATE Patient SET Profile_Photo_Url = ?, Profile_Photo_Name = ? WHERE id = ?', [url, name, Patient_id]);
+
+    //>> Delete File fron upload directory.
+    fs.unlink(req.file.path, (err) => {if (err) throw err});
+
+    return res.status(200).json({success: true, url});
   } catch (error) {
     return res.status(500).json({error});
   }
@@ -204,5 +241,6 @@ export {
   get_immunization_record,
   get_all_immunization_record,
   create_immunization_record,
-  get_medical_prescriptions
+  get_medical_prescriptions,
+  upload_pf_patient
 }

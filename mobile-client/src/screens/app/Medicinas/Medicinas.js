@@ -1,24 +1,29 @@
 
+//>> IMPORT LIBRERIES
 import { StyleSheet, Text, View,Image,ScrollView } from 'react-native';
-import { ScreenTitle } from '../../../index';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useEffect, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import Constants from 'expo-constants';
 import { useSelector } from 'react-redux';
-import { getMedicalPrescriptions } from '../../../index'
+import { useIsFocused } from '@react-navigation/native';
+
+//>> IMPORT COMPONENTS
+import { ScreenTitle } from '../../../index';
 import { isIOS } from '../../../constants';
+import { getMedicalPrescriptions } from '../../../index'
 
 export const Medicinas = () => {
+    const isFocused = useIsFocused()
     const jwtToken = useSelector(state => state.responsible.jwtToken);
-    // const Patient_id = useSelector(state => state.patient.id);
+    const Patient_id = useSelector(state => state.patient.id);
 
     //! State for the medical prescriptions
     const [Prescriptions, setPrescriptions] = useState(null);
 
     const getMPfunct = async () => {
         try {
-            const {data} = await getMedicalPrescriptions(jwtToken, 1);
+            const {data} = await getMedicalPrescriptions(jwtToken, Patient_id);
 
             setPrescriptions(data.Prescriptions);
         } catch (error) {
@@ -83,7 +88,7 @@ export const Medicinas = () => {
 
     useEffect(() => {
         getMPfunct();
-    }, []);
+    }, [isFocused]);
 
     return (
         <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
@@ -107,7 +112,7 @@ export const Medicinas = () => {
                     </View>
                     <View style={styles.cardsContainer}>
                         {
-                            Prescriptions.length != 0 ?
+                            Prescriptions != null && Prescriptions.length != 0 ?
                                 Prescriptions.map((Prescription, i) => {
                                     return (
                                         <CardComponent Prescription={Prescription} key={i}/>
@@ -115,7 +120,7 @@ export const Medicinas = () => {
                                 })
                                 :
                                 <View>
-
+                                    <Text>DaniLOL</Text>
                                 </View>
                         }
                     </View>
@@ -192,7 +197,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   cardsContainer:{
-    backgroundColor: '#fff',
+    backgroundColor: '#f8f8f8',
     width: wp('90%'),
     alignSelf: 'center',
     borderRadius: 20,
@@ -216,6 +221,14 @@ const styles = StyleSheet.create({
     borderColor: '#EBEBEB',
     borderWidth: 1,
     backgroundColor:'#ffff',
+    marginBottom: 20,
+    elevation: 4,
+    //iOS
+    shadowColor: '#707070',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    paddingVertical: 20,
   },
   IconTextSpc: {
     width: '100%',

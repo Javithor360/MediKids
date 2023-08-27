@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 
 //>> Components
-import { AppointmentStatus, ScreenTitle, getMedicalAppointments } from '../../../index';
+import { AppointmentStatus, ScreenTitle, getMedicalAppointments, getMedicalRecords } from '../../../index';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChangeNeumoState, ChangeOtorrinoValues, ChangeOtorrinoState, ChangeNeumoValues, ChangeGastroState, ChangeGastroValues } from '../../../store/slices/appointmentsSlice';
 
@@ -40,6 +40,7 @@ export const AppointmentMainScreen = () => {
 
     //! Get elements from the redux state.
     const Patient_Code = useSelector(state => state.patient.Patient_Code);
+    const Patient_id = useSelector(state => state.patient.id);
     const appointmentsState = useSelector(state => state.appointments);
     const jwtToken = useSelector(state => state.responsible.jwtToken);
 
@@ -87,18 +88,8 @@ export const AppointmentMainScreen = () => {
 
     const getHistoryAppointment = async () => {
         try {
-            const {data} = await getMedicalAppointments(jwtToken, Patient_Code);
-            let selectedAppmt = [];
-
-            data.medical_appointments.forEach(appointment => {
-                if (appointment.State == 4){
-                    selectedAppmt.push(appointment);
-                }
-            });
-
-            if (selectedAppmt.length > 0){
-                setAppointmentsRecord(selectedAppmt);
-            }
+            const {data} = await getMedicalRecords(jwtToken, Patient_id);
+            setAppointmentsRecord(data.medical_records);
         } catch (error) {
             console.log(error);
         }
@@ -238,7 +229,7 @@ export const AppointmentMainScreen = () => {
                     <View style={[styles.requestAppointmentContainer, styles.btcYellow, styles.shadowC]}>
                         <Text style={[styles.requestMainTitle, styles.colorYellow]}>Historial de citas</Text>
                         {
-                            AppointmentsRecord != null ?
+                            AppointmentsRecord != null && AppointmentsRecord.length != 0 ?
                                 <>
                                     <Image source={require('../../../../assets/graphic-icons/history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 16,}}></Image>
                                     <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment', {

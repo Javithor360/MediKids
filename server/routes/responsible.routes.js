@@ -1,5 +1,5 @@
 import express from 'express';
-import { create_immunization_record, get_all_immunization_record, get_email_to_verify, get_immunization_record, get_medical_prescriptions, get_patient, get_patients, get_responsible, upload_pf_responsible } from '../controllers/responsible.js';
+import { create_immunization_record, get_all_immunization_record, get_email_to_verify, get_immunization_record, get_medical_prescriptions, get_patient, get_patients, get_responsible, upload_pf_patient, upload_pf_responsible } from '../controllers/responsible.js';
 import { upload } from '../utils/multer.config.js';
 import { auth_midd } from '../middlewares/auth_middleware.js';
 
@@ -21,6 +21,9 @@ router_responsible.route('/get_patient').post(get_patient);
 
 //! Upload Perfil Photo
 router_responsible.route('/upload_pf_responsible').post(upload.single('image'), upload_pf_responsible);
+
+//! Upload Perfil Photo of the patient
+router_responsible.route('/upload_pf_patient').post([auth_midd], upload.single('image'), upload_pf_patient);
 
 //! Get the Immunization Record of the Patient of the Responsible
 router_responsible.route('/get_immunization_record').post(get_immunization_record);
