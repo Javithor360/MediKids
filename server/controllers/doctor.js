@@ -125,9 +125,9 @@ const get_appointments = async (req, res, next) => {
 
 const new_medical_record_entry = async (req, res, next) => {
   try {
-    const { height, weight, temperature, notes, Patient_id } = req.body;
+    const { height, weight, temperature, notes, Patient_id, Doctor_id } = req.body;
 
-    if (!height || !weight || !temperature || !notes || !Patient_id) {
+    if (!height || !weight || !temperature || !notes || !Patient_id || !Doctor_id) {
       return res
         .status(500)
         .json({ message: "You must provide every field with a value" });
@@ -156,12 +156,13 @@ const new_medical_record_entry = async (req, res, next) => {
 
     await pool.query("INSERT INTO medical_records SET ?", {
       Medical_History_Code: patientCode(),
+      Patient_id,
+      Doctor_id,
       Date_Time: new Date(),
       Diagnosis: notes,
       Weight: weight,
       Height: height,
       Temperature: temperature,
-      Patient_id,
     });
 
     return res.status(200).json({

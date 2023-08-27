@@ -140,7 +140,7 @@ export const MedicalAppoinment = () => {
     e.preventDefault();
     try {
       await EndMedicalAppointment(
-        { height, weight, temperature, notes, Patient_id: patient.id },
+        { height, weight, temperature, notes, Patient_id: patient.id, Doctor_id: JSON.parse(localStorage.getItem('userSession')).id, },
         { medicalPrescript },
         {}
       );

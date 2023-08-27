@@ -1,11 +1,12 @@
 
 //>> IMPORT LIBRERIES
-import { ScrollView, StyleSheet, Text, View, ImageBackground, Dimensions} from 'react-native'
+import { ScrollView, StyleSheet, Text, View, ImageBackground, Dimensions, TouchableOpacity} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { MaterialIcons, MaterialCommunityIcons, AntDesign, Feather } from '@expo/vector-icons'; 
+import { MaterialIcons, MaterialCommunityIcons, AntDesign, Feather, FontAwesome5, Octicons } from '@expo/vector-icons'; 
 import Constants from 'expo-constants';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 //>> IMPORT COMPONENTS
 import { ScreenTitle } from '../../../components/ScreenTitleHook';
@@ -15,6 +16,7 @@ import { getImmunizationRecord } from '../../../index'
 const { height } = Dimensions.get('window');
 
 export const PatientPerfilScreen = () => {
+    const navigation = useNavigation();
     const PatientData = useSelector(state => state.patient);
 
     //! State tp Vaccines Array.
@@ -26,7 +28,7 @@ export const PatientPerfilScreen = () => {
     //! function to get the Immunization Record.
     const getVaccinesRecord = async () => {
         try {
-            const {data} = await getImmunizationRecord(PatientData.Patient_id);
+            const {data} = await getImmunizationRecord(PatientData.id);
             setShowVaccines([
                 {Name: 'Hepatitis A', State: data.immunization_record[0].Vaccine_Hepatitis_A},
                 {Name: 'Vacuna BCG', State: data.immunization_record[0].Vaccine_BGC},
@@ -45,7 +47,7 @@ export const PatientPerfilScreen = () => {
     }
     
     //! Get the Vaccines Component
-    const getVaccinesCompt = (VaccineName, VaccineState, i) => {
+    const GetVaccinesCompt = ({VaccineName, VaccineState, i}) => {
         return (
             <>
                 <View style={[styles.vaccineCard, {borderColor: VaccineState ? '#09998c' : '#FF5252', marginBottom: i == 9 && 40}]} key={i}>
@@ -96,6 +98,15 @@ export const PatientPerfilScreen = () => {
 
                             <View style={styles.ContainCardText}>
                                 <View style={{flexDirection: 'row',}}>
+                                    <Octicons name="id-badge" size={24} color="#7225f9" marginLeft='5%' marginTop='1%' />
+                                    <Text style={styles.TextForImput}>Código:</Text>
+                                </View>
+                                <Text style={styles.TextWritted}>{PatientData.Patient_Code}</Text>
+                            </View>
+                            <View style={styles.line}></View>
+
+                            <View style={styles.ContainCardText}>
+                                <View style={{flexDirection: 'row',}}>
                                     <MaterialCommunityIcons name="calendar-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%'/>
                                     <Text style={styles.TextForImput}>Fecha de nacimiento:</Text>
                                 </View>
@@ -117,7 +128,7 @@ export const PatientPerfilScreen = () => {
                                     <MaterialCommunityIcons name="timeline-plus-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%'/>
                                     <Text style={styles.TextForImput}>Edad:</Text>
                                 </View>
-                                <Text style={styles.TextWritted}>{PatientData.Age} año/s</Text>
+                                <Text style={styles.TextWritted}>{PatientData.Age} {PatientData.Age > 1 ? 'años' : 'año'}</Text>
                             </View>
                         </View>
                         <View style={styles.lineBig}></View>
@@ -127,10 +138,19 @@ export const PatientPerfilScreen = () => {
                             {
                                 ShowVaccines != null &&
                                     ShowVaccines.map((Vaccine, i) => {
-                                        return getVaccinesCompt(Vaccine.Name, Vaccine.State, i)
+                                        return <GetVaccinesCompt VaccineName={Vaccine.Name} VaccineState={Vaccine.State} i={i} key={i}/>
                                     })
                             }
                         </ScrollView>
+
+                        <View style={styles.lineBig}></View>
+                        <Text style={[styles.DatosText, {marginTop: '7%'}]}>Acciones</Text>
+                        <View style={{width: '100%', height: 70, marginTop: '2%', justifyContent: 'center', alignItems: 'center'}}>
+                            <TouchableOpacity onPress={() => {navigation.navigate('SelectPatientPPScreen')}} style={[{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#FFDEB4',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}, styles.ButtomShadow]}>
+                                <FontAwesome5 name="user-circle" size={24} color="#434343" />
+                                <Text style={{color: '#434343', fontSize: 16}}>Cambiar Foto de Perfil</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </ScrollView>
@@ -189,7 +209,7 @@ ContainerView: {
     borderTopRightRadius: 30,
     paddingBottom: 30,
     paddingHorizontal: 20,
-    height: height + 400,
+    height: height + 700,
 },
 InfoContainer: {
     backgroundColor: '#F4F4F4',
