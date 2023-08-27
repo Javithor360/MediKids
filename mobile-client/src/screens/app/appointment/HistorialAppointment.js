@@ -14,8 +14,9 @@ export const HistorialAppointment = ({ route }) => {
     const Patient = useSelector(state => state.patient)
     const { AppointmentsRecord } = route.params;
     
-    //! MODAL STATE
+    //! MODAL STATES
     const [view, setView] = useState(false);
+    const [SelectedRecord, setSelectedRecord] = useState(null);
 
     //! Get Specialty Name:
     const getSpecialtyName = (Doctor_id) => {
@@ -45,59 +46,78 @@ export const HistorialAppointment = ({ route }) => {
         return new Date(Fechant).toLocaleDateString();
     }
 
-    const GetModal = () => {
+    const getPrescriptionsNames = (o) => {
+        let obj = JSON.parse(o);
+        let string = '';
+        for (let i = 0; i < Object.keys(obj).length; i++) {
+            string += `${obj[i]}${i > 0 && i < Object.keys(obj).length ? ',' : ''} `;
+        }
+        return string;
+    }
+
+    const GetModal = ({SelectedRecord}) => {
         return (
-            <Modal animationType='fade' onDismiss={()=> console.log('close')} onShow={()=>console.log('show')} transparent visible={view}>
-                <View style={{ flex:1, backgroundColor:'rgba(1,1,1, 0.5)', justifyContent:'center',}}>
-                    <View style={{height:'60%',width:'90%',backgroundColor:'#ffff',left:22,borderRadius:30, overflow: 'hidden'}}>
-                        <View style={{width: '100%', height: '12%', alignItems: 'center', paddingVertical: 15, backgroundColor: '#e4e2ff', }}>
-                            <Text style={[styles.spcTitle, {fontSize:20,color:'#707070', textShadowColor: 'rgba(0, 0, 0, 0)', fontSize: 24}]}>Detalles de la cita</Text>
-                        </View>
+            SelectedRecord != null ?
+                <Modal animationType='fade' onDismiss={()=> console.log('close')} onShow={()=>console.log('show')} transparent visible={view}>
+                    <View style={{ flex:1, backgroundColor:'rgba(1,1,1, 0.5)', justifyContent:'center',}}>
+                        <View style={{height:'70%',width:'90%',backgroundColor:'#ffff',left:22,borderRadius:30, overflow: 'hidden'}}>
+                            <View style={{width: '100%', height: '12%', alignItems: 'center', paddingVertical: 20, backgroundColor: '#e4e2ff', }}>
+                                <Text style={[styles.spcTitle, {fontSize:20,color:'#707070', textShadowColor: 'rgba(0, 0, 0, 0)', fontSize: 24}]}>Detalles de la cita</Text>
+                            </View>
 
-                        <View style={{ height:'70%',width:'90%',top:20, alignSelf:'center',}}>
-                            <View style={styles.InfoText} >
-                                <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16, }}>Especialidad:</Text>
-                                <Text style={{ color: '#707070',fontSize:16, }}>Otorrinolaringología</Text>
-                            </View>
-                            <View style={styles.InfoText} >
-                                <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Paciente: </Text>
-                                <Text style={{ color: '#707070',fontSize:16,top:10, }}>Alvin Josue Melendez Serrano</Text>
-                            </View>
-                            <View style={styles.InfoText} >
-                                <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Fecha: </Text>
-                                <Text style={{ color: '#707070',fontSize:16,top:10, }}>02/08/2023</Text>
-                            </View>
-                            <View style={styles.InfoText} >
-                                <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Hora de Inicio: </Text>
-                                <Text style={{ color: '#707070',fontSize:16,top:10, }}>11:19 AM</Text>
-                            </View>
-                            <View style={[styles.InfoText, {flexDirection: 'column'}]} >
-                                <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Diagnostico General:</Text>
-                                <Text style={{ color: '#707070',fontSize:16 }}>Sinusitis Alergica</Text>
-                            </View>
-                            <View style={[styles.InfoText, {flexDirection: 'column'}]} >
-                                <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Medicamentos Recetados:</Text>
-                                <Text style={{ color: '#707070',fontSize:16 }}>Sinusitis Alergica</Text>
-                            </View>
-                            <View style={{flexDirection: 'row', width: '100%'}}>
+                            <View style={{ height:'70%',width:'90%',top:20, alignSelf:'center',}}>
+                                <View style={styles.InfoText} >
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16, }}>Código de Regstro: </Text>
+                                    <Text style={{ color: '#707070',fontSize:16, }}>{SelectedRecord.Medical_History_Code}</Text>
+                                </View>
+                                <View style={styles.InfoText} >
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Paciente: </Text>
+                                    <Text style={{ color: '#707070',fontSize:16,top:10, }}>{Patient.FirstNames} {Patient.LastNames}</Text>
+                                </View>
+                                <View style={styles.InfoText} >
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Fecha: </Text>
+                                    <Text style={{ color: '#707070',fontSize:16,top:10, }}>{getLocaleDateString(SelectedRecord.Date_Time)}</Text>
+                                </View>
+                                <View style={styles.InfoText} >
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Medico: </Text>
+                                    <Text style={{ color: '#707070',fontSize:16,top:10, }}>{getDoctorsName(SelectedRecord.Doctor_id)}</Text>
+                                </View>
+                                <View style={styles.InfoText} >
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Hora de Inicio: </Text>
+                                    <Text style={{ color: '#707070',fontSize:16,top:10, }}>{new Date(SelectedRecord.Date_Time).toLocaleTimeString()}</Text>
+                                </View>
                                 <View style={[styles.InfoText, {flexDirection: 'column'}]} >
-                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Altura:</Text>
-                                    <Text style={{ color: '#707070',fontSize:16 }}>1.35 Mtrs</Text>
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Diagnostico General:</Text>
+                                    <Text style={{ color: '#707070',fontSize:16 }}>{SelectedRecord.Diagnosis_Mobile}</Text>
                                 </View>
-                                <View style={[styles.InfoText, {flexDirection: 'column', marginLeft: 50}]} >
-                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Peso:</Text>
-                                    <Text style={{ color: '#707070',fontSize:16 }}>145.55 lbs</Text>
+                                <View style={[styles.InfoText, {flexDirection: 'column'}]} >
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Medicamentos Recetados:</Text>
+                                    <Text style={{ color: '#707070',fontSize:16 }}>{getPrescriptionsNames(SelectedRecord.Prescriptions_Names)}</Text>
+                                </View>
+                                <View style={{flexDirection: 'row', width: '100%'}}>
+                                    <View style={[styles.InfoText, {flexDirection: 'column'}]} >
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Altura:</Text>
+                                        <Text style={{ color: '#707070',fontSize:16 }}>{SelectedRecord.Height} Mtrs</Text>
+                                    </View>
+                                    <View style={[styles.InfoText, {flexDirection: 'column', marginLeft: 50}]} >
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Peso:</Text>
+                                        <Text style={{ color: '#707070',fontSize:16 }}>{SelectedRecord.Weight} lbs</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.InfoText} >
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Temperatura: </Text>
+                                    <Text style={{ color: '#707070',fontSize:16,top:10, }}>{SelectedRecord.Temperature} °C</Text>
                                 </View>
                             </View>
-
+                            
+                            <TouchableOpacity style={styles.apptBtn1} onPress={()=> setView(false)} >
+                                <Text style={{color: '#fff', fontSize: 13.5,}}>Cerrar</Text>
+                            </TouchableOpacity>
                         </View>
-                        
-                        <TouchableOpacity style={styles.apptBtn1} onPress={()=> setView(false)} >
-                            <Text style={{color: '#fff', fontSize: 13.5,}}>Cerrar</Text>
-                        </TouchableOpacity>
                     </View>
-                </View>
-            </Modal>
+                </Modal>
+                :
+                <></>
         )
     }
 
@@ -138,7 +158,10 @@ export const HistorialAppointment = ({ route }) => {
                     </View>
 
                     <View style={{width: '100%', alignItems: 'center', marginTop: 8}}>
-                        <TouchableOpacity style={styles.apptBtn} onPress={()=> setView(true)} >
+                        <TouchableOpacity style={styles.apptBtn} onPress={()=> {
+                            setView(true)
+                            setSelectedRecord(Record);
+                        }}>
                             <Text style={{color: '#fff', fontSize: 13.5, fontWeight: '600'}}>Más detalles</Text>
                         </TouchableOpacity>
                     </View>
@@ -150,7 +173,6 @@ export const HistorialAppointment = ({ route }) => {
     return (
         <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
             <ScrollView style={styles.fullScreenContainer}>
-                <GetModal />
                 <View style={{backgroundColor:'#fff'}}>
                     <ScreenTitle
                         Label={"Historial de Citas"}
@@ -178,6 +200,7 @@ export const HistorialAppointment = ({ route }) => {
                         }
                     </View>
                 </View>
+                <GetModal SelectedRecord={SelectedRecord} />
             </ScrollView>
         </LinearGradient>
   )

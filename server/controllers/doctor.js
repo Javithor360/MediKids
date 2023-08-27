@@ -125,9 +125,9 @@ const get_appointments = async (req, res, next) => {
 
 const new_medical_record_entry = async (req, res, next) => {
   try {
-    const { height, weight, temperature, notes, Patient_id, Doctor_id } = req.body;
+    const { height, weight, temperature, notes, HtmlNotes, Patient_id, Doctor_id, Array_Prescriptions } = req.body;
 
-    if (!height || !weight || !temperature || !notes || !Patient_id || !Doctor_id) {
+    if ( !height || !weight || !temperature || !notes || !HtmlNotes || !Patient_id || !Doctor_id || !Array_Prescriptions ) {
       return res
         .status(500)
         .json({ message: "You must provide every field with a value" });
@@ -154,15 +154,23 @@ const new_medical_record_entry = async (req, res, next) => {
 
     // if(notes === "") return next(new ErrorResponse("", 400, "error"));
 
+    let Prescriptions_Names = {};
+    Array_Prescriptions.forEach((element,i) => {
+      Prescriptions_Names[i] = element;
+    });
+    Prescriptions_Names = JSON.stringify(Prescriptions_Names);
+
     await pool.query("INSERT INTO medical_records SET ?", {
       Medical_History_Code: patientCode(),
       Patient_id,
       Doctor_id,
       Date_Time: new Date(),
-      Diagnosis: notes,
+      Diagnosis_Mobile: notes,
+      Diagnosis: HtmlNotes.HtmlNotes,
       Weight: weight,
       Height: height,
       Temperature: temperature,
+      Prescriptions_Names
     });
 
     return res.status(200).json({
@@ -295,8 +303,9 @@ const get_patient_medical_record = async (req, res, next) => {
 
 const set_medical_prescription = async (req, res, next) => {
   try {
-    const { Patient_id, Doctor_id, edited_prescriptions, new_prescriptions } =
-      req.body;
+    const { Patient_id, Doctor_id, edited_prescriptions, new_prescriptions } = req.body;
+    let Array_Prescriptions_Names = [];
+
     if (
       !Patient_id ||
       !Doctor_id ||
@@ -349,8 +358,10 @@ const set_medical_prescription = async (req, res, next) => {
     });
 
     new_prescriptions.map(async (np) => {
+      const patient_code = patientCode();
+      Array_Prescriptions_Names.push(np.data.Medicine_Name);
       await pool.query(`INSERT INTO medical_prescription SET ?`, {
-        Medical_Prescription_Code: patientCode(),
+        Medical_Prescription_Code: patient_code,
         Patient_id,
         Doctor_id,
         Medicine_Name: np.data.Medicine_Name,
@@ -369,6 +380,7 @@ const set_medical_prescription = async (req, res, next) => {
       .json({
         success: true,
         body: `Medical prescription for patient #${Patient_id} has been updated. ${new_prescriptions.length} new medicines were added, ${edited_prescriptions.length} had been updated.`,
+        Array_Prescriptions: Array_Prescriptions_Names
       });
   } catch (error) {
     console.log(error);

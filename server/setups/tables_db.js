@@ -101,7 +101,7 @@ db.connect(() => {
           Weight FLOAT NOT NULL,
           Height FLOAT NOT NULL,
           Temperature FLOAT NOT NULL,
-          Prescriptions_Codes VARCHAR(150) NOT NULL,
+          Prescriptions_Names VARCHAR(150),
           PRIMARY KEY (id),
           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
           FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)

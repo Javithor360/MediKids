@@ -40,6 +40,7 @@ export const MedicalAppoinment = () => {
   const [weight, setWeight] = useState(0);
   const [temperature, setTemperature] = useState(0);
   const [notes, setNotes] = useState("");
+  const [HtmlNotes, setHtmlNotes] = useState("");
 
   const [medicalPrescript, setMedicalPrescript] = useState([]);
   const [scheAppoint, setScheAppoint] = useState({});
@@ -73,6 +74,7 @@ export const MedicalAppoinment = () => {
     if (temperature !== medicalRecord.temperature)
       setTemperature(medicalRecord.temperature);
     if (notes !== medicalRecord.notes) setNotes(medicalRecord.notes);
+    if (HtmlNotes !== medicalRecord.HtmlNotes) setHtmlNotes(medicalRecord);
     // console.log(medicalRecord);
     setHeight(medicalRecord.height);
   }, [medicalRecord]);
@@ -141,7 +143,7 @@ export const MedicalAppoinment = () => {
     e.preventDefault();
     try {
       await EndMedicalAppointment(
-        { height, weight, temperature, notes, Patient_id: patient.id, Doctor_id },
+        { height, weight, temperature, notes, Patient_id: patient.id, Doctor_id, HtmlNotes },
         { medicalPrescript },
         {}
       );

@@ -90,9 +90,9 @@ export const DoctorProvider = ({ children }) => {
     }
   };
 
-  const CreateMedicalRecordEntry = async (data) => {
+  const CreateMedicalRecordEntry = async (data, arr_press) => {
     try {
-      return await newMedicalRecordEntry(
+      return await newMedicalRecordEntry (
         {
           Patient_id: data.Patient_id,
           Doctor_id: data.Doctor_id,
@@ -100,6 +100,8 @@ export const DoctorProvider = ({ children }) => {
           weight: data.weight,
           temperature: data.temperature,
           notes: data.notes,
+          HtmlNotes: data.HtmlNotes,
+          Array_Prescriptions: arr_press
         },
         PrivateConfig
       );
@@ -114,8 +116,8 @@ export const DoctorProvider = ({ children }) => {
     scheAppoint
   ) => {
     try {
-      CreateMedicalRecordEntry(medicalRecord);
-      AddMedicalPrescription(medicalPrescript);
+      const res = await AddMedicalPrescription(medicalPrescript);
+      CreateMedicalRecordEntry(medicalRecord, res.data.Array_Prescriptions);
     } catch (error) {
       console.log(error);
     }
@@ -172,7 +174,7 @@ export const DoctorProvider = ({ children }) => {
             return rest;
           }
         );
-        await setPatientMedicalPrescription(
+        return await setPatientMedicalPrescription(
           {
             Patient_id: body.medicalPrescript.Patient_id,
             Doctor_id: body.medicalPrescript.Doctor_id,
