@@ -113,13 +113,14 @@ export const AddMedicalPrescription = ({
           <label className=" mr-5 text-[#707070] text-[1.2rem]" for="add_yes">
             Sí
             <input
-              className="ml-2"
+              className="ml-2 "
               type="radio"
               id="add_yes"
               name="selection"
               value="add_yes"
               checked={selectedOption === true}
               onChange={handleChange}
+              
             />
           </label>
           <label className=" mr-5 text-[#707070] text-[1.2rem]" for="add_no">
@@ -155,13 +156,13 @@ export const AddMedicalPrescription = ({
         } mt-5   inline-flex items-center gap-2`}
       >
         
-        <button className="rounded-full mb-5 ml-7 h-10 shadow-xl px-4" onClick={handleAddComponent} disabled={!selectedOption}>
-        <GrAddCircle className="inline-flex items-center justify-center gap-3 text-[1.8rem]  "/>
+        <button className="rounded-full mb-5 ml-7 h-10 shadow-xl px-4 transition duration-300 ease-linear hover:bg-[#a375ff83]" onClick={handleAddComponent} disabled={!selectedOption}>
+        <GrAddCircle className="inline-flex items-center justify-center gap-3 text-[1.8rem]"/>
           Agregar nuevo medicamento
         </button>
         
         <button
-          className="rounded-full  mb-5 h-10 shadow-xl px-4"
+          className="rounded-full  mb-5 h-10 shadow-xl px-4 transition duration-300 ease-linear hover:bg-[#a375ff83]"
           onClick={handleRemoveLastMedicine}
           disabled={!selectedOption && medicines.length > 1}
         >
@@ -181,7 +182,7 @@ const MedicinesLayout = ({ isActive, m, onInputChange }) => {
 
   return (
     
-    <div className="bg-white rounded-3xl border-2 border-black ml-2 mr-2 mt-2">
+    <div className="bg-white rounded-3xl border-2 border-black ml-2 mr-2 mt-2 my-6">
      
       <form
         action=""
@@ -231,6 +232,7 @@ const MedicinesLayout = ({ isActive, m, onInputChange }) => {
         <label  >
           <p className=" ml-7 text-[#707070] text-[1.2rem]">Dosis:</p>
           <input
+            placeholder="mg"
             disabled={!isActive}
             type="text"
             name="add_dose"
@@ -238,7 +240,7 @@ const MedicinesLayout = ({ isActive, m, onInputChange }) => {
             value={m.formData.add_dose}
             onChange={handleInput}
             className="w-[20rem] h-[3rem] ml-1 rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
-          />   <p className="text-[#BBBBBB] text-[1.2rem] inline-flex items-center gap-3">mg</p>
+          />   
         </label>
         </div>
         <div className="inline-flex items-center gap-3">
@@ -251,7 +253,7 @@ const MedicinesLayout = ({ isActive, m, onInputChange }) => {
             id="add_time_dose"
             value={m.formData.add_time_dose}
             onChange={handleInput}
-            className="w-[20rem] h-[3rem] ml-1 rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
+            className="w-[10rem] h-[3rem] ml-7 rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
           />
         </label>
         
@@ -264,7 +266,7 @@ const MedicinesLayout = ({ isActive, m, onInputChange }) => {
             id="add_starting_dose_date"
             value={m.formData.add_starting_dose_date}
             onChange={handleInput}
-            className="w-[20rem] h-[3rem] ml-1 rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
+            className="w-[10rem] h-[3rem] ml-7 rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
           />
         </label>
       
@@ -277,7 +279,7 @@ const MedicinesLayout = ({ isActive, m, onInputChange }) => {
             id="add_finishing_dose_date"
             value={m.formData.add_finishing_dose_date}
             onChange={handleInput}
-            className="w-[20rem] h-[3rem] ml-1 rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
+            className="w-[10rem] h-[3rem] ml-7 rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
           />
         </label>
         </div>

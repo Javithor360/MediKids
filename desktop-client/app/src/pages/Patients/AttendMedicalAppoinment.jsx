@@ -8,6 +8,12 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import Modal from "../../components/Modal.jsx";
 
+import {CgDanger} from 'react-icons/cg'
+import {HiBackspace} from 'react-icons/hi'
+import {CiWarning} from 'react-icons/ci'
+import {MdCancelPresentation} from 'react-icons/md'
+import {AiFillBackward,AiFillCaretLeft,AiFillCaretRight,AiFillForward} from "react-icons/ai"
+
 import {
   EditMedicalPrescription,
   EditMedicalRecord,
@@ -238,69 +244,90 @@ export const MedicalAppoinment = () => {
       </div>
       {toggle && (
         <Modal active={active} toggle={toggle} onRequestClose={toggle}>
-          <div className="min-w-[20rem] max-w-[30rem] min-h-[20rem] m-5">
-            <h2>[!] ADVERTENCIA [!]</h2>
-            <p>
+          <div className="min-w-[20rem] max-w-[50rem] min-h-[20rem] m-5">
+            <h2>
+                <CiWarning className="inline-flex items-center justify-center gap-3 text-[1.8rem] text-[#e73131] mb-1.5" />
+               ADVERTENCIA 
+
+            </h2>
+            <p className="ml-2 text-[#707070] text-[1.2rem]">
               Esta acción de confirmación es irreversible. Por favor asegúrate
               que todos los datos estén en orden antes de proceder
             </p>
-            <div className="mt-5 info-container">{pages[currentPage]}</div>
-            <div className="flex mt-5">
+            <div className="mt-5 info-container ml-2 text-[#707070] text-[1.2rem] list-none">{pages[currentPage]}</div>
+            <div className="flex mt-5  items-center justify-center">
               <button
                 className={`${
                   currentPage !== pages.length - 1
-                    ? `bg-gray-500`
+                    ? `bg-[#A375FF]`
                     : `bg-[#A375FF]`
-                } flex items-center justify-center border-2 border-[#707070]  text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9`}
+                } flex items-center justify-center border-2 border-[#707070]   text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg  mb-9`}
                 onClick={handleClick}
                 disabled={currentPage !== pages.length - 1}
               >
-                <MdSaveAs />
-                Guardar y confirmar
+                <MdSaveAs className="h-10 w-5" />
+                Guardar 
               </button>
               <button
-                className="flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9"
+                className="flex items-center justify-center border-2 border-[#707070] bg-[#ff1515] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-2  mb-9"
                 onClick={() => toggle()}
               >
-                <MdSaveAs />
+                <MdCancelPresentation className="h-10 w-5" />
                 Cancelar
               </button>
             </div>
-            <button onClick={handlePreviousPage} disabled={currentPage === 0}>
-              Regresar
+            <div className="flex items-center justify-center">
+            <button onClick={handlePreviousPage} disabled={currentPage === 0} className="btn">
+            <AiFillCaretLeft/>
             </button>
             <button
+              className="btn ml-2 "
               onClick={handleNextPage}
               disabled={currentPage === pages.length - 1}
             >
-              Siguiente
+             
+             <AiFillCaretRight/>
             </button>
+            </div>
           </div>
         </Modal>
       )}
       {toggleError && (
         <Modal
+       
+        
           active={errorHandler}
           toggle={toggleError}
           onRequestClose={toggleError}
         >
-          <div className="min-w-[20rem] max-w-[45rem] min-h-[20rem] m-5">
-            <h2>[!] ERROR [!]</h2>
-            <p>
+          <div className="min-w-[20rem] max-w-[45rem] min-h-[30rem] m-5 rounded-lg ">
+           
+            <h2>
+           
+               ERROR 
+               
+               </h2>
+            <p className="ml-2 text-[#707070] text-[1.2rem]">
               Parece que hay algunos detalles que revisar antes de finalizar la
               consulta:
             </p>
-            <ul>
+         
+            <ul >
+          
               {errorMessage.map((i) => {
-                return <li key={i}>{placeholderChanger(i)}</li>;
+                
+               
+                return   <li  className="ml-2 text-[#707070] text-[1.2rem] list-none" key={i}>{placeholderChanger(i)} <CgDanger   className="inline-flex items-center justify-center gap-3 text-[1.8rem]   text-[#e73131]"/></li>;
+                
               })}
+              
             </ul>
             <button
-              className="flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-7 mb-9"
+              className=" flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[8rem] h-[3rem] rounded-lg ml-7 mb-9 mt-2 text-[1.2rem] "
               onClick={() => toggleError()}
             >
-              <MdSaveAs />
-              Entendido
+              <HiBackspace className="h-10 w-5" />
+              Regresar
             </button>
           </div>
         </Modal>
@@ -335,13 +362,15 @@ const MedicalRecordConfirmation = ({ medicalRecord }) => {
     <div className="medical-record">
       <h3>Información del expediente:</h3>
       <ul>
-        <li>Altura: {medicalRecord.height} lb </li>
-        <li>Peso: {medicalRecord.weight} mts </li>
-        <li>Temperatura: {medicalRecord.temperature} °C </li>
+        
+        <li className="list-none">Altura: {medicalRecord.height} lb </li>
+        <li className="list-none">Peso: {medicalRecord.weight} mts </li>
+        <li className="list-none">Temperatura: {medicalRecord.temperature} °C </li>
 
-        <li>
-          Anotaciones:
-          <div className="block mt-2 max-w-[25rem] border border-[#000000]">
+        <li className="list-none ">
+          <h3> Anotaciones:</h3>
+         
+          <div className="block mt-2 max-w-[25rem] border border-[#000000] ">
             {parser(medicalRecord.notes)}
           </div>
         </li>
@@ -358,8 +387,8 @@ const MedicalPrescriptionConfirmation = ({
     <div className="medical-prescription">
       <h3>Información de la receta médica</h3>
       <ul>
-        <li>Receta de medicamentos editada</li>
-        <li>Nuevos medicamentos agregados</li>
+        <li className="list-none">Receta de medicamentos editada</li>
+        <li className="list-none">Nuevos medicamentos agregados</li>
         {medicalPrescript.new_prescriptions.length === 1 &&
         medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (
           <div>No se han agregado medicamentos nuevos</div>
