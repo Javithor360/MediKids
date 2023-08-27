@@ -28,7 +28,7 @@ const responsibles = [
     DUI: "12345678-9",
     Birthdate: "1976-11-09",
     Age: 46,
-    Phone: "77777777",
+    Phone: "7650-7572",
     Profile_Photo_Url: await getDownloadURL(storageRef),
     Profile_Photo_Name: null,
     Reset_Pass_Token: null,
@@ -43,7 +43,7 @@ const responsibles = [
     DUI: "12345678-8",
     Birthdate: "1992-06-23",
     Age: 32,
-    Phone: "66666666",
+    Phone: "6321-6571",
     Profile_Photo_Url: await getDownloadURL(storageRef),
     Profile_Photo_Name: null,
     Reset_Pass_Token: null,
@@ -265,30 +265,35 @@ const patients = [
   },
 ];
 
+// Specialties id's:
+// 1 - Otorrinonaringolgia
+// 2 - Neumologia
+// 3 - Gastroenterologia
+
 const doctors = [
   {
-    First_Names: "Javier Enrique",
-    Last_Names: "Mejía Flores",
+    First_Names: "Esteban Enrique",
+    Last_Names: "Gúzman Flores",
     User: "doc001",
-    Email: "javier@medikids.com",
+    Email: "esteban@medikids.com",
     Password: await bcrypt.hash("12345", 12),
     Profile_Photo: await getDownloadURL(storageRef),
     Speciality_id: 1,
   },
   {
-    First_Names: "Daniel Ernesto",
-    Last_Names: "Vásquez Ventura",
+    First_Names: "Adrian Ernesto",
+    Last_Names: "Flores Romero",
     User: "doc002",
-    Email: "daniel@medikids.com",
+    Email: "adrian@medikids.com",
     Password: await bcrypt.hash("12345", 12),
     Profile_Photo: await getDownloadURL(storageRef),
     Speciality_id: 2,
   },
   {
-    First_Names: "Luis Ernesto",
-    Last_Names: "Márquez Rivas",
+    First_Names: "Fatima Lucia",
+    Last_Names: "Garza Méndez",
     User: "doc003",
-    Email: "ernesto@medikids.com",
+    Email: "fatima@medikids.com",
     Password: await bcrypt.hash("12345", 12),
     Profile_Photo: await getDownloadURL(storageRef),
     Speciality_id: 3,
@@ -342,78 +347,78 @@ const assigned_patients = [
   },
 ];
 
-const appointments = [
-  {
-    Doctor_id: 1,
-    Responsible_id: 1,
-    Patient_id: 1,
-    State: 2,
-    Weeks: "Segunda semana de agosto",
-    Description: "Chequeo mensual",
-    Date: "2023-09-23",
-    Hour: "13:00:00",
-  },
-  {
-    Doctor_id: 1,
-    Responsible_id: 1,
-    Patient_id: 2,
-    State: 2,
-    Weeks: "Segunda semana de agosto",
-    Description: "Chequeo mensual",
-    Date: "2023-08-26",
-    Hour: "15:00:00",
-  },
-  {
-    Doctor_id: 2,
-    Responsible_id: 2,
-    Patient_id: 4,
-    State: 2,
-    Weeks: "Segunda semana de agosto",
-    Description: "Chequeo mensual",
-    Date: "2023-08-01",
-    Hour: "08:00:00",
-  },
-  {
-    Doctor_id: 2,
-    Responsible_id: 2,
-    Patient_id: 5,
-    State: 2,
-    Weeks: "Segunda semana de agosto",
-    Description: "Chequeo mensual",
-    Date: "2023-10-23",
-    Hour: "09:00:00",
-  },
-  {
-    Doctor_id: 2,
-    Responsible_id: 2,
-    Patient_id: 6,
-    State: 2,
-    Weeks: "Segunda semana de agosto",
-    Description: "Chequeo mensual",
-    Date: "2023-08-16",
-    Hour: "10:00:00",
-  },
-  {
-    Doctor_id: 3,
-    Responsible_id: 3,
-    Patient_id: 8,
-    State: 2,
-    Weeks: "Segunda semana de agosto",
-    Description: "Chequeo mensual",
-    Date: "2013-11-11",
-    Hour: "15:00:00",
-  },
-  {
-    Doctor_id: 3,
-    Responsible_id: 4,
-    Patient_id: 9,
-    State: 2,
-    Weeks: "Segunda semana de agosto",
-    Description: "Chequeo mensual",
-    Date: "2023-10-11",
-    Hour: "12:00:00",
-  },
-];
+// const appointments = [
+//   {
+//     Doctor_id: 1,
+//     Responsible_id: 1,
+//     Patient_id: 1,
+//     State: 2,
+//     Weeks: "Segunda semana de agosto",
+//     Description: "Chequeo mensual",
+//     Date: "2023-09-23",
+//     Hour: "13:00:00",
+//   },
+//   {
+//     Doctor_id: 1,
+//     Responsible_id: 1,
+//     Patient_id: 2,
+//     State: 2,
+//     Weeks: "Segunda semana de agosto",
+//     Description: "Chequeo mensual",
+//     Date: "2023-08-26",
+//     Hour: "15:00:00",
+//   },
+//   {
+//     Doctor_id: 2,
+//     Responsible_id: 2,
+//     Patient_id: 4,
+//     State: 2,
+//     Weeks: "Segunda semana de agosto",
+//     Description: "Chequeo mensual",
+//     Date: "2023-08-01",
+//     Hour: "08:00:00",
+//   },
+//   {
+//     Doctor_id: 2,
+//     Responsible_id: 2,
+//     Patient_id: 5,
+//     State: 2,
+//     Weeks: "Segunda semana de agosto",
+//     Description: "Chequeo mensual",
+//     Date: "2023-10-23",
+//     Hour: "09:00:00",
+//   },
+//   {
+//     Doctor_id: 2,
+//     Responsible_id: 2,
+//     Patient_id: 6,
+//     State: 2,
+//     Weeks: "Segunda semana de agosto",
+//     Description: "Chequeo mensual",
+//     Date: "2023-08-16",
+//     Hour: "10:00:00",
+//   },
+//   {
+//     Doctor_id: 3,
+//     Responsible_id: 3,
+//     Patient_id: 8,
+//     State: 2,
+//     Weeks: "Segunda semana de agosto",
+//     Description: "Chequeo mensual",
+//     Date: "2013-11-11",
+//     Hour: "15:00:00",
+//   },
+//   {
+//     Doctor_id: 3,
+//     Responsible_id: 4,
+//     Patient_id: 9,
+//     State: 2,
+//     Weeks: "Segunda semana de agosto",
+//     Description: "Chequeo mensual",
+//     Date: "2023-10-11",
+//     Hour: "12:00:00",
+//   },
+// ];
 
 db.connect(() => {
   db.query(`USE ${config_env.DATABASE}`);
@@ -497,21 +502,21 @@ db.connect(() => {
     }
 
     // CREATING APPOINTMENTS
-    console.log(`[DB] - Inserting into "medical_appointment" -`);
-    for (let i = 0; i < appointments.length; i++) {
-      db.query(`INSERT INTO medical_appointment SET ? `, {
-        Doctor_id: appointments[i].Doctor_id,
-        Responsible_id: appointments[i].Responsible_id,
-        Patient_id: appointments[i].Patient_id,
-        State: appointments[i].State,
-        Weeks: appointments[i].Weeks,
-        Description: appointments[i].Description,
-        Date: appointments[i].Date,
-        Hour: appointments[i].Hour,
-      });
-      console.log(`[DB] Appointment #${i + 1} has been created...`);
+    // console.log(`[DB] - Inserting into "medical_appointment" -`);
+    // for (let i = 0; i < appointments.length; i++) {
+    //   db.query(`INSERT INTO medical_appointment SET ? `, {
+    //     Doctor_id: appointments[i].Doctor_id,
+    //     Responsible_id: appointments[i].Responsible_id,
+    //     Patient_id: appointments[i].Patient_id,
+    //     State: appointments[i].State,
+    //     Weeks: appointments[i].Weeks,
+    //     Description: appointments[i].Description,
+    //     Date: appointments[i].Date,
+    //     Hour: appointments[i].Hour,
+    //   });
+    //   console.log(`[DB] Appointment #${i + 1} has been created...`);
 
-    }
+    // }
     console.log(`[DB] ALL DATA HAS BEEN INSERTED INTO THEIR RESPECTIVE TABLES!`)
     db.end();
   } catch (error) {

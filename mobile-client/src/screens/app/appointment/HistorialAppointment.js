@@ -11,14 +11,39 @@ import { useSelector } from 'react-redux';
 
 export const HistorialAppointment = ({ route }) => {
     // const jwtToken = useSelector(state => state.responsible.jwtToken);
+    const Patient = useSelector(state => state.patient)
     const { AppointmentsRecord } = route.params;
     
     //! MODAL STATE
     const [view, setView] = useState(false);
 
-    useEffect(() => {
-        console.log(AppointmentsRecord)
-    }, []);
+    //! Get Specialty Name:
+    const getSpecialtyName = (Doctor_id) => {
+        switch (Doctor_id) {
+            case 1:
+                return 'Otorrinolaringologia';
+            case 2:
+                return 'Neumologia';
+            case 3:
+                return 'Gastroenterologia';
+        }
+    }
+    
+    //! Get Doctor's Name:
+    const getDoctorsName = (Doctor_id) => {
+        switch (Doctor_id) {
+            case 1:
+                return 'Esteban Gúzman';
+            case 2:
+                return 'Adrian Flores';
+            case 3:
+                return 'Fatima Garza';
+        }
+    }
+
+    const getLocaleDateString = (Fechant) => {
+        return new Date(Fechant).toLocaleDateString();
+    }
 
     const GetModal = () => {
         return (
@@ -85,7 +110,7 @@ export const HistorialAppointment = ({ route }) => {
                             <Image source={require('../../../../assets/graphic-icons/otorrino-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
                         </View>
                         <View style={styles.spcTitleC}>
-                            <Text style={styles.spcTitle}>Otorrinolaringología</Text>
+                            <Text style={styles.spcTitle}>{getSpecialtyName(Record.Doctor_id)}</Text>
                         </View>
                     </View>
 
@@ -95,16 +120,20 @@ export const HistorialAppointment = ({ route }) => {
 
                     <View style={{ paddingHorizontal: 0, alignItems: 'center'}}>
                         <View style={styles.InfoText} >
+                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Código de Registro: </Text>
+                            <Text style={{ color: '#707070',}}>{Record.Medical_History_Code}</Text>
+                        </View>
+                        <View style={styles.InfoText} >
                             <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Paciente: </Text>
-                            <Text style={{ color: '#707070',}}>Alvin Melendez</Text>
+                            <Text style={{ color: '#707070',}}>{Patient.FirstNames} {Patient.LastNames}</Text>
                         </View>
                         <View style={styles.InfoText} >
                             <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Fecha: </Text>
-                            <Text style={{ color: '#707070',}}>02/08/2023</Text>
+                            <Text style={{ color: '#707070',}}>{getLocaleDateString(Record.Date_Time)}</Text>
                         </View>
                         <View style={styles.InfoText} >
                             <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico: </Text>
-                            <Text style={{ color: '#707070',}}>Robert Opphenhaimer</Text>
+                            <Text style={{ color: '#707070',}}>{getDoctorsName(Record.Doctor_id)}</Text>
                         </View>
                     </View>
 
@@ -231,7 +260,7 @@ const styles = StyleSheet.create({
     },
     card: {
         width: '92%',
-        height: 210,
+        height: 250,
         alignSelf: 'center',
         borderRadius: 18,
         flexDirection: 'row',
