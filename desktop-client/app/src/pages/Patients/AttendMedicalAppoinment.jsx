@@ -21,7 +21,7 @@ export const MedicalAppoinment = () => {
   const { patient } = location.state || {};
 
   let navigate = useNavigate();
-  const { EndMedicalAppointment } = useDash();
+  const { EndMedicalAppointment, PatientMedicalPrescriptions, medicalPrescriptions } = useDash();
 
   // Variables utilized by modals
   const [active, setActive] = useState(false);
@@ -79,6 +79,10 @@ export const MedicalAppoinment = () => {
   useEffect(() => {
     console.log(medicalPrescript);
   }, [medicalPrescript]);
+
+  useEffect(() => {
+    PatientMedicalPrescriptions(patient.id);
+  }, []);
 
   const toggle = () => {
     setActive(!active);
@@ -222,7 +226,7 @@ export const MedicalAppoinment = () => {
         </div>
         <div className={tabSelector === 2 ? "block" : "hidden"}>
           <EditMedicalPrescription
-            setMedicalPrescript={setMedicalPrescript}
+            setMedicalPrescript={setMedicalPrescript} medicalPrescriptions={medicalPrescriptions}
             state={location.state}
           />
         </div>
