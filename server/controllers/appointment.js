@@ -20,7 +20,7 @@ const get_medical_records = async (req, res, next) => {
     const {Patient_id} = req.body;
 
     //? SELECT THE MEDICAL RECORDS FROM THE DATABASE.
-    const [Medical_Records] = await pool.query('SELECT id, Medical_History_Code, Date_Time, Weight, Height, Temperature, Patient_id, Doctor_id FROM medical_records WHERE Patient_id = ?', [Patient_id]);
+    const [Medical_Records] = await pool.query('SELECT id, Medical_History_Code, Date_Time, Weight, Height, Temperature, Patient_id, Doctor_id, Diagnosis_Mobile,Prescriptions_Names FROM medical_records WHERE Patient_id = ?', [Patient_id]);
 
     return res.status(200).json({success: true, medical_records: Medical_Records});
   } catch (error) {

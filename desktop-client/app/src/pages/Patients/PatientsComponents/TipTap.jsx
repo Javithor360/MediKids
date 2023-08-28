@@ -166,7 +166,7 @@ const MenuBar = ({ editor }) => {
   )
 }
 
-const TipTap = ({setNotes}) => {
+const TipTap = ({setNotes, setHtmlNotes}) => {
   const location = useLocation();
   const { patient } = location.state || {};
 
@@ -178,12 +178,13 @@ const TipTap = ({setNotes}) => {
       }),
     ],
     onUpdate: ({editor}) => {
-      const html = editor.getText();
-      const startIndex = html.indexOf('Anotaciones generales:') + 'Anotaciones generales:'.length;
-      const endIndex = html.length;
-      const generalAnnotation = html.substring(startIndex, endIndex).trim();
+      const html = editor.getHTML();
+      const htmlText = editor.getText();
+      const startIndex = htmlText.indexOf('Anotaciones generales:') + 'Anotaciones generales:'.length;
+      const endIndex = htmlText.length;
+      const generalAnnotation = htmlText.substring(startIndex, endIndex).trim();
       setNotes(generalAnnotation);
-      console.log(generalAnnotation);
+      setHtmlNotes(html);
     },
     content: `
       <h3 style="text-align: center;">MediKids</h3>

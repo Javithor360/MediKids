@@ -17,10 +17,11 @@ export const EditMedicalRecord = ({ setMedicalRecord }) => {
   const [weight, setWeight] = useState(0);
   const [temperature, setTemperature] = useState(0);
   const [notes, setNotes] = useState("");
+  const [HtmlNotes, setHtmlNotes] = useState("");
 
   useEffect(() => {
-    setMedicalRecord({ height, weight, temperature, notes });
-  }, [height, weight, temperature, notes]);
+    setMedicalRecord({ height, weight, temperature, notes, HtmlNotes });
+  }, [height, weight, temperature, notes, HtmlNotes]);
 
   const toggle = () => {
     setActive(!active);
@@ -123,7 +124,7 @@ export const EditMedicalRecord = ({ setMedicalRecord }) => {
         2. Ingrese las anotaciones para el expediente
       </p>
       <div className="w-[90%] ml-7 mt-7 mb-7">
-        <TipTap setNotes={setNotes} />
+        <TipTap setNotes={setNotes} setHtmlNotes={setHtmlNotes} />
       </div>
       {/* <p className="my-7 ml-7 font-semibold text-[#707070] text-[1.2rem]">
         3. Guarda todos los datos

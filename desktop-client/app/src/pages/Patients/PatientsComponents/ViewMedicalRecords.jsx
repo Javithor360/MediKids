@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import parser from "html-react-parser";
-
+import {AiFillBackward,AiFillCaretLeft,AiFillCaretRight,AiFillForward} from "react-icons/ai"
 
 import { useDash } from '../../../context/DoctorContext'
 
@@ -44,24 +44,28 @@ const handleNextPage = () => {
   return (
     <>
       <div>{pages[currentPage]}</div>
-      <button onClick={handleFirstPage} disabled={currentPage === 0}>
-        Primera
+      <div className=" flex items-center justify-center">
+      <button onClick={handleFirstPage} disabled={currentPage === 0}  className="btn mt-2 ml-2 border-1">
+        <AiFillBackward />
       </button>
-      <button onClick={handlePreviousPage} disabled={currentPage === 0}>
-        Regresar
+      <button onClick={handlePreviousPage} disabled={currentPage === 0}  className="btn mt-2 ml-2">
+      <AiFillCaretLeft/>
       </button>
       <button
         onClick={handleNextPage}
         disabled={currentPage === pages.length - 1}
+        className="btn mt-2  ml-2"
       >
-        Siguiente
+        <AiFillCaretRight/>
       </button>
       <button
         onClick={handleLastPage}
         disabled={currentPage === pages.length - 1}
+        className="btn mt-2 ml-2"
       >
-        Última
+        <AiFillForward/>
       </button>
+      </div>
     </>
   );
 };
@@ -76,8 +80,8 @@ const FirstPage = ({ responsibleInfo }) => {
         EXPEDIENTE DE {patient.First_Names.toUpperCase()}{" "}
         {patient.Last_Names.toUpperCase()}
       </h1>
-      <div className="data">
-        <div className="main-info">
+      <div className="data ml-2 text-[#707070] text-[1.2rem]">
+        <div className="main-info ">
           <h3>Información personal</h3>
           <p>
             Edad: {patient.Age} {patient.Age === 1 ? "año" : "años"}
@@ -108,9 +112,9 @@ const RecordsLayout = ({ record }) => {
       <div>
         <h2>Toma de datos</h2>
         <ul>
-          <li>Altura: {record.Height}</li>
-          <li>Peso: {record.Weight}</li>
-          <li>Temperatura: {record.Temperature}</li>
+          <li className="ml-2 text-[#707070] text-[1.2rem] list-none">Altura: {record.Height}</li>
+          <li className="ml-2 text-[#707070] text-[1.2rem] list-none">Peso: {record.Weight}</li>
+          <li className="ml-2 text-[#707070] text-[1.2rem] list-none"> Temperatura: {record.Temperature}</li>
         </ul>
       </div>
       <div>

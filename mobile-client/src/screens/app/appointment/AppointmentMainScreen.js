@@ -229,7 +229,7 @@ export const AppointmentMainScreen = () => {
                     <View style={[styles.requestAppointmentContainer, styles.btcYellow, styles.shadowC]}>
                         <Text style={[styles.requestMainTitle, styles.colorYellow]}>Historial de citas</Text>
                         {
-                            AppointmentsRecord != null ?
+                            AppointmentsRecord != null && AppointmentsRecord.length != 0 ?
                                 <>
                                     <Image source={require('../../../../assets/graphic-icons/history.png')} style={{width: 70, height: 70, alignSelf: 'center', marginBottom: 16,}}></Image>
                                     <TouchableOpacity style={styles.apptBtn1} onPress={()=>navigation.navigate('HistorialAppointment', {
