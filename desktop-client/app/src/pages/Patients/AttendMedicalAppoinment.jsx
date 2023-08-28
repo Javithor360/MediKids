@@ -79,13 +79,8 @@ export const MedicalAppoinment = () => {
       setTemperature(medicalRecord.temperature);
     if (notes !== medicalRecord.notes) setNotes(medicalRecord.notes);
     if (HtmlNotes !== medicalRecord.HtmlNotes) setHtmlNotes(medicalRecord);
-    // console.log(medicalRecord);
     setHeight(medicalRecord.height);
   }, [medicalRecord]);
-
-  useEffect(() => {
-    console.log(medicalPrescript);
-  }, [medicalPrescript]);
 
   const toggle = () => {
     setActive(!active);
