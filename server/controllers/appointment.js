@@ -99,9 +99,25 @@ const get_medical_appointments = async (req, res, next) => {
   }
 }
 
+// ! @route POST api/appointment/get_single_medical_appmt
+// ! @desc Get the list of medical appointments of the patient.
+// ! @access PRIVATE
+const get_single_medical_appmt = async (req, res, next) => {
+  try {
+    const {Appointment_id} = req.body;
+
+    const [Appointment] = await pool.query('SELECT * FROM medical_appointment WHERE id = ?', [Appointment_id])
+    
+    return res.status(200).json({success: true, Appointment});
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+}
+
 
 export {
   get_medical_records,
   request_medical_appointment,
-  get_medical_appointments
+  get_medical_appointments,
+  get_single_medical_appmt
 }

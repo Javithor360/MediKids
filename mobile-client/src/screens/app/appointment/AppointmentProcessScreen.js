@@ -10,10 +10,27 @@ import Constants from 'expo-constants';
 //>> components
 import { PendingAppointment, RequestAppointmentForm, ScreenTitle, NextAppointment, AttendingAppointment, AppointmentResults, AppointmentMedicines } from '../../../index';
 import WeekDate from '../../../components/WeekDate';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export const AppointmentProcessScreen = ({ route }) => {
   const { doctorDescription, doctor, speciality, doctorPhoto, Doctor_id, appointmentInfo } = route.params
+  const appointmentsState = useSelector(state => state.appointments);
+
+  //! Verify if the appointment is already finished.
+  const [Reload, setReload] = useState(false);
+  const [Appmt_State, setAppmt_State] = useState(null);
+
+  //! To be able to change the component proccess in real time
+  const getAppointmentState = () => {
+    if (Doctor_id == 1) { return appointmentsState.OtorrinoState }
+    else if (Doctor_id == 2) {return appointmentsState.NeumoState }
+    else if (Doctor_id == 3) { return appointmentsState.GastroState }
+  }
+
+  useEffect(() => {
+    setAppmt_State(getAppointmentState());
+  }, [Reload]);
 
   return (
     <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
@@ -32,13 +49,13 @@ export const AppointmentProcessScreen = ({ route }) => {
               <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcGreen, styles.wMb]}>
                 { appointmentInfo.State == 1 && <PendingAppointment /> }
                 { appointmentInfo.State == 2 && <NextAppointment appointmentInfo={appointmentInfo} doctor={doctor} /> }
-                { appointmentInfo.State == 3 && <AttendingAppointment appointmentInfo={appointmentInfo}/> }
-                { appointmentInfo.State == 4 && <AppointmentResults /> }
+                { (appointmentInfo.State == 3 &&  Appmt_State != 4) && <AttendingAppointment appointmentInfo={appointmentInfo} Doctor_id={Doctor_id} setReload={setReload}/> }
+                { (appointmentInfo.State == 4 || Appmt_State == 4) && <AppointmentResults /> }
               </View>
           }
           {/* Medicines Container */}
           {
-            (appointmentInfo?.State == 4) &&
+            (appointmentInfo?.State == 4 || Appmt_State == 4) &&
               <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcYellow, styles.wMb]}>
                 <AppointmentMedicines />
               </View>

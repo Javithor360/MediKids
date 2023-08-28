@@ -53,9 +53,11 @@ export const AppointmentMainScreen = () => {
             const {data} = await getMedicalAppointments(jwtToken, Patient_Code, Hour);
 
             data.medical_appointments.forEach(appointment => {
+
                 if(appointment.Doctor_id == 1){
                     dispatch(ChangeOtorrinoState(appointment.State));
                     dispatch(ChangeOtorrinoValues({
+                        Otorrino_Appmt_id: appointment.id,
                         Otorrino_Doctor_id: appointment.Doctor_id,
                         Otorrino_Week: appointment.Week,
                         Otorrino_Description: appointment.Description,
@@ -65,6 +67,7 @@ export const AppointmentMainScreen = () => {
                 } else if (appointment.Doctor_id == 2){
                     dispatch(ChangeNeumoState(appointment.State));
                     dispatch(ChangeNeumoValues({
+                        Neumo_Appmt_id: appointment.id,
                         Neumo_Doctor_id: appointment.Doctor_id,
                         Neumo_Week: appointment.Week,
                         Neumo_Description: appointment.Description,
@@ -74,6 +77,7 @@ export const AppointmentMainScreen = () => {
                 } else if (appointment.Doctor_id == 3){
                     dispatch(ChangeGastroState(appointment.State));
                     dispatch(ChangeGastroValues({
+                        Gastro_Appmt_id: appointment.id,
                         Gastro_Doctor_id: appointment.Doctor_id,
                         Gastro_Week: appointment.Week,
                         Gastro_Description: appointment.Description,
@@ -94,10 +98,6 @@ export const AppointmentMainScreen = () => {
         } catch (error) {
             console.log(error);
         }
-    }
-
-    const setInProssessAppointment = async () => {
-
     }
 
     useEffect(() => {
@@ -121,9 +121,9 @@ export const AppointmentMainScreen = () => {
                         (appointmentsState.OtorrinoState || appointmentsState.NeumoState || appointmentsState.GastroState) &&
                             <View style={[styles.requestAppointmentContainer, styles.btcGreen, styles.shadowC]}>
                                 <Text style={[styles.requestMainTitle, styles.colorGreen]}>Actividad de citas</Text>
-                                { appointmentsState.OtorrinoState && <AppointmentStatus Doctor_id={appointmentsState.Otorrino_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/otorrino-icon.png')} DoctorName={'Dr. Esteban Gúzman'} Specialty={'Otorrinolaringología'}/> }
-                                { appointmentsState.NeumoState && <AppointmentStatus Doctor_id={appointmentsState.Neumo_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/neumologia-icon.png')} DoctorName={'Dr. Adrián Flores'} Specialty={'Neumología'}/>}
-                                { appointmentsState.GastroState && <AppointmentStatus Doctor_id={appointmentsState.Gastro_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/gastro-icon.png')} DoctorName={'Dr. Fatima Garza'} Specialty={'Gastroenterología'}/>}
+                                { appointmentsState.OtorrinoState && appointmentsState.OtorrinoState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Otorrino_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/otorrino-icon.png')} DoctorName={'Dr. Esteban Gúzman'} Specialty={'Otorrinolaringología'}/> }
+                                { appointmentsState.NeumoState && appointmentsState.NeumoState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Neumo_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/neumologia-icon.png')} DoctorName={'Dr. Adrián Flores'} Specialty={'Neumología'}/>}
+                                { appointmentsState.GastroState && appointmentsState.GastroState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Gastro_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/gastro-icon.png')} DoctorName={'Dr. Fatima Garza'} Specialty={'Gastroenterología'}/>}
                             </View>
                     }
                     <View style={styles.chooseBanner}>
