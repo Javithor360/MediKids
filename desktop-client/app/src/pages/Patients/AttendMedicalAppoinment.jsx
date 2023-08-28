@@ -19,10 +19,14 @@ import { useDash } from "../../context/DoctorContext";
 export const MedicalAppoinment = () => {
   const location = useLocation();
   const { patient } = location.state || {};
-  const Doctor_id = JSON.parse(localStorage.getItem("userSession")).id
+  const Doctor_id = JSON.parse(localStorage.getItem("userSession")).id;
 
   let navigate = useNavigate();
-  const { EndMedicalAppointment, PatientMedicalPrescriptions, medicalPrescriptions } = useDash();
+  const {
+    EndMedicalAppointment,
+    PatientMedicalPrescriptions,
+    medicalPrescriptions,
+  } = useDash();
 
   // Variables utilized by modals
   const [active, setActive] = useState(false);
@@ -82,10 +86,6 @@ export const MedicalAppoinment = () => {
   useEffect(() => {
     console.log(medicalPrescript);
   }, [medicalPrescript]);
-
-  useEffect(() => {
-    PatientMedicalPrescriptions(patient.id);
-  }, []);
 
   const toggle = () => {
     setActive(!active);
@@ -147,7 +147,15 @@ export const MedicalAppoinment = () => {
     e.preventDefault();
     try {
       await EndMedicalAppointment(
-        { height, weight, temperature, notes, Patient_id: patient.id, Doctor_id, HtmlNotes },
+        {
+          height,
+          weight,
+          temperature,
+          notes,
+          Patient_id: patient.id,
+          Doctor_id,
+          HtmlNotes,
+        },
         { medicalPrescript },
         {}
       );
@@ -169,8 +177,11 @@ export const MedicalAppoinment = () => {
         <p className="text-[1.8rem] text-[#707070] mt-[.6rem] ml-7">
           Atendiendo Paciente:{" "}
         </p>
-        <button className="flex flex-row items-center justify-center px-3 py-2 border border-[#c6c6c6] bg-[#D8D7FE] rounded-lg self-center gap-2 hover:bg-[#c9c8e8d3] ease-in duration-200" onClick={toggleValidator}>
-          <AiOutlineCheckCircle  />
+        <button
+          className="flex flex-row items-center justify-center px-3 py-2 border border-[#c6c6c6] bg-[#D8D7FE] rounded-lg self-center gap-2 hover:bg-[#c9c8e8d3] ease-in duration-200"
+          onClick={toggleValidator}
+        >
+          <AiOutlineCheckCircle />
           Finalizar consulta
         </button>
       </div>
@@ -229,7 +240,8 @@ export const MedicalAppoinment = () => {
         </div>
         <div className={tabSelector === 2 ? "block" : "hidden"}>
           <EditMedicalPrescription
-            setMedicalPrescript={setMedicalPrescript} medicalPrescriptions={medicalPrescriptions}
+            setMedicalPrescript={setMedicalPrescript}
+            medicalPrescriptions={medicalPrescriptions}
             state={location.state}
           />
         </div>
@@ -366,6 +378,25 @@ const MedicalPrescriptionConfirmation = ({
       <h3>Información de la receta médica</h3>
       <ul>
         <li>Receta de medicamentos editada</li>
+        {medicalPrescript.edited_prescriptions.length > 0 ? (
+          medicalPrescript.edited_prescriptions.map((m, i) => {
+            return (
+              <div key={i}>
+                <p>Nombre del medicamento: {m.Medicine_Name}</p>
+                <p>Instrucciones: {m.Instructions}</p>
+                <p>Descripción: {m.Description}</p>
+                <p>Dosis: {m.Dose}</p>
+                <p>Dosis por día: {m.Time_Dose}</p>
+                <p>Fecha de inicio de dosis: {m.Starting_Dose_Date}</p>
+                <p>
+                  Fecha de finalización de dosis: {m.Finishing_Dose_Date}
+                </p>
+              </div>
+            );
+          })
+        ) : (
+          <div>No se editó ningún medicamento</div>
+        )}
         <li>Nuevos medicamentos agregados</li>
         {medicalPrescript.new_prescriptions.length === 1 &&
         medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (

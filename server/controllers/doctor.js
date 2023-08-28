@@ -125,9 +125,27 @@ const get_appointments = async (req, res, next) => {
 
 const new_medical_record_entry = async (req, res, next) => {
   try {
-    const { height, weight, temperature, notes, HtmlNotes, Patient_id, Doctor_id, Array_Prescriptions } = req.body;
+    const {
+      height,
+      weight,
+      temperature,
+      notes,
+      HtmlNotes,
+      Patient_id,
+      Doctor_id,
+      Array_Prescriptions,
+    } = req.body;
 
-    if ( !height || !weight || !temperature || !notes || !HtmlNotes || !Patient_id || !Doctor_id || !Array_Prescriptions ) {
+    if (
+      !height ||
+      !weight ||
+      !temperature ||
+      !notes ||
+      !HtmlNotes ||
+      !Patient_id ||
+      !Doctor_id ||
+      !Array_Prescriptions
+    ) {
       return res
         .status(500)
         .json({ message: "You must provide every field with a value" });
@@ -155,7 +173,7 @@ const new_medical_record_entry = async (req, res, next) => {
     // if(notes === "") return next(new ErrorResponse("", 400, "error"));
 
     let Prescriptions_Names = {};
-    Array_Prescriptions.forEach((element,i) => {
+    Array_Prescriptions.forEach((element, i) => {
       Prescriptions_Names[i] = element;
     });
     Prescriptions_Names = JSON.stringify(Prescriptions_Names);
@@ -170,7 +188,7 @@ const new_medical_record_entry = async (req, res, next) => {
       Weight: weight,
       Height: height,
       Temperature: temperature,
-      Prescriptions_Names
+      Prescriptions_Names,
     });
 
     return res.status(200).json({
@@ -303,15 +321,10 @@ const get_patient_medical_record = async (req, res, next) => {
 
 const set_medical_prescription = async (req, res, next) => {
   try {
-    const { Patient_id, Doctor_id, edited_prescriptions, new_prescriptions } = req.body;
+    const { Patient_id, Doctor_id, new_prescriptions } = req.body;
     let Array_Prescriptions_Names = [];
 
-    if (
-      !Patient_id ||
-      !Doctor_id ||
-      !edited_prescriptions ||
-      !new_prescriptions
-    ) {
+    if (!Patient_id || !Doctor_id || !new_prescriptions) {
       return res.status(500).json({
         success: false,
         message: "You must provide every field with a value",
@@ -375,13 +388,86 @@ const set_medical_prescription = async (req, res, next) => {
       });
     });
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        body: `Medical prescription for patient #${Patient_id} has been updated. ${new_prescriptions.length} new medicines were added, ${edited_prescriptions.length} had been updated.`,
-        Array_Prescriptions: Array_Prescriptions_Names
+    return res.status(200).json({
+      success: true,
+      body: `Medical prescription for patient #${Patient_id} has been updated. ${new_prescriptions.length} new medicines were added`,
+      Array_Prescriptions: Array_Prescriptions_Names,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
+// ! @route POST api/doctor/edit_medical_prescription
+// ! @desc Edits an existing medical prescription
+// ! @access private
+
+const edit_medical_prescription = async (req, res, next) => {
+  try {
+    const { Patient_id, Doctor_id, edited_prescriptions } = req.body;
+
+    if (!Patient_id || !Doctor_id || !edited_prescriptions) {
+      return res.status(500).json({
+        success: false,
+        message: "You must provide every field with a value",
       });
+    }
+
+    const [patient_check] = await pool.query(
+      "SELECT * FROM patient WHERE id = ?",
+      [Patient_id]
+    );
+
+    if (patient_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided patient does not exist",
+      });
+    }
+
+    const [doctor_check] = await pool.query(
+      "SELECT * FROM doctors WHERE id = ?",
+      [Doctor_id]
+    );
+
+    if (doctor_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided doctor does not exist",
+      });
+    }
+
+    // EDITED PRESCRIPTIONS VALIDATIONS
+    edited_prescriptions.map((ep, i) => {
+      if (
+        new Date() >
+        (new Date(ep.Finishing_Dose_Date) || new Date(ep.Starting_Dose_Date))
+      ) {
+        return res.status(500).json({
+          success: false,
+          message: `Dose dates on new medicine #${
+            i + 1
+          } can not be lower than the actual date.`,
+        });
+      }
+    });
+
+    edited_prescriptions.map(async (ep) => {
+      await pool.query(
+        `UPDATE medical_prescription SET Medicine_Name = ?, Instructions = ?, Description = ?, Starting_Dose_Date = ?, Finishing_Dose_Date = ?, Dose = ?, Time_Dose = ? WHERE Medical_Prescription_Code = ?`,
+        [
+          ep.Medicine_Name,
+          ep.Instructions,
+          ep.Description,
+          ep.Starting_Dose_Date,
+          ep.Finishing_Dose_Date,
+          ep.Dose,
+          ep.Time_Dose,
+          ep.Medical_Prescription_Code,
+        ]
+      );
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });
@@ -430,5 +516,6 @@ export {
   get_responsible_info,
   get_patient_medical_record,
   set_medical_prescription,
+  edit_medical_prescription,
   get_medical_prescriptions,
 };
