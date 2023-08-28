@@ -40,17 +40,17 @@ export const AppointmentResults = () => {
                 <View style={styles.singleItemC2}>
                     <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
                         <FontAwesome5 name="thermometer" size={16} color="#46929B" />
-                        <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Temperatura: </Text>36 °C</Text>
+                        <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Temp... : </Text>36 °C</Text>
                     </View>
                     <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
                         <MaterialCommunityIcons name="timeline-plus" size={20} color="#46929B" />
-                        <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Edad: </Text>8 a</Text>
+                        <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Edad: </Text>8 años</Text>
                     </View>
                 </View>
             </View>
         </View>
 
-        <View style={styles.cardContainer}>
+        <View style={[styles.cardContainer, {marginBottom: 30}]}>
             <View style={[styles.personalInfoContainer, styles.withMb]}>
                 <View style={styles.iconBackC}>
                     <View style={styles.iconBack}>
@@ -66,7 +66,7 @@ export const AppointmentResults = () => {
             </View>
         </View>
 
-        <View style={styles.cardContainer}>
+        {/* <View style={styles.cardContainer}>
             <View style={[styles.personalInfoContainer, styles.withMb]}>
                 <View style={styles.iconBackC}>
                     <View style={styles.iconBack}>
@@ -80,7 +80,7 @@ export const AppointmentResults = () => {
             <View style={styles.diagnosDescC}>
                 <Text style={{color: '#707070',}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non autem eligendi alias itaque nesciunt quas!</Text>
             </View>
-        </View>
+        </View> */}
     </>
   )
 }

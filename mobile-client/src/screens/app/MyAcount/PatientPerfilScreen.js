@@ -50,7 +50,7 @@ export const PatientPerfilScreen = () => {
     const GetVaccinesCompt = ({VaccineName, VaccineState, i}) => {
         return (
             <>
-                <View style={[styles.vaccineCard, {borderColor: VaccineState ? '#09998c' : '#FF5252', marginBottom: i == 9 && 40}]} key={i}>
+                <View style={[styles.vaccineCard, {borderColor: VaccineState ? '#09998c' : '#FF5252', marginBottom: i == 9 ? 45 : 10}]} key={i}>
                     <Text style={styles.vacTitle}>{VaccineName}</Text>
                     {
                         VaccineState ?
