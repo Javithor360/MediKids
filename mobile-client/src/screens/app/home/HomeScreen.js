@@ -220,7 +220,7 @@ export const HomeScreen = () => {
                   <Image source={require('../../../../assets/icons/medical-note.png')} style={{height: '60%', resizeMode: 'contain'}}></Image>
                 </View>
                 <View style={[styles.contentBtn, {width: '70%'}]}>
-                  <TouchableOpacity style={styles.touchableViewBtn}onPress={()=>navigation.navigate('MyVaccines') }>
+                  <TouchableOpacity style={styles.touchableViewBtn} onPress={()=>navigation.navigate('MyVaccines') }>
                     <Text style={{color: '#A375FF'}} >Ver Datos del Paciente</Text>
                   </TouchableOpacity>
                 </View>
@@ -236,13 +236,14 @@ export const HomeScreen = () => {
             <View style={styles.reminderContainer}>
               <View style={styles.reminderCard}>
                 <Text style={{marginTop: 25, fontSize: 22,fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>Citas</Text>
-                  <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%',}}>
-                    <Image source={require('../../../../assets/icons/note-time.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
-                    <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{NumberOfApptm}</Text>
-                  </View>
+                  
                   {
                     AppointmentWidget != null && AppointmentWidget.length != 0 ?
                       <>
+                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%', marginTop: 6,}}>
+                          <Image source={require('../../../../assets/icons/note-time.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
+                          <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{NumberOfApptm}</Text>
+                        </View>
                         <Text style={{marginTop: 10, fontWeight: "900", fontSize: 15, color: '#d17878', textAlign: 'center'}}>Próxima cita:</Text>
                         <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Fecha: </Text>{AppointmentWidget.Date == null ? 'Pendiente' : getLocaleDateString(AppointmentWidget.Date)}</Text>
                         {/* <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Hora: </Text>2:00 PM</Text> */}
@@ -252,8 +253,9 @@ export const HomeScreen = () => {
                         </TouchableOpacity>
                       </>
                       :
-                      <View>
-                        <Text>No hay citas DANI</Text>
+                      <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '65%', width: '100%'}}>
+                        <Image source={require('../../../../assets/icons/not-note-time.png')} style={{height: '40%', width:'60%', resizeMode: 'contain'}}/>
+                        <Text style={{color: '#707070', fontSize: 16, textAlign: 'center', marginTop: 18}}>No hay citas activos</Text>
                       </View>
                   }
               </View>
@@ -262,13 +264,13 @@ export const HomeScreen = () => {
             <View style={styles.reminderContainer}>
               <View style={styles.reminderCard}>
               <Text style={{marginTop: 25, fontSize: 22, fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>Medicinas</Text>
-                <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%',}}>
-                  <Image source={require('../../../../assets/icons/recipe.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
-                  <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{MedicinesWidget?.length}</Text>
-                </View>
                   {
                     MedicinesWidget != null && MedicinesWidget.length != 0 ?
                       <>
+                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%', marginTop: 6,}}>
+                          <Image source={require('../../../../assets/icons/recipe.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
+                          <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{MedicinesWidget?.length}</Text>
+                        </View>
                         <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Nombre: </Text>{MedicinesWidget[0].Medicine_Name}</Text>
                         <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Finalización: </Text>{getLocaleDateString(MedicinesWidget[0].Finishing_Dose_Date)}</Text>
                         <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Dosis: </Text>{MedicinesWidget[0].Dose}</Text>
@@ -277,8 +279,9 @@ export const HomeScreen = () => {
                         </TouchableOpacity>
                       </>
                       :
-                      <View>
-                        <Text>No hay medicinas</Text>
+                      <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '69%', width: '100%'}}>
+                        <Image source={require('../../../../assets/icons/not-recipe.png')} style={{height: '40%', width:'60%', resizeMode: 'contain'}}/>
+                        <Text style={{color: '#707070', fontSize: 16, textAlign: 'center', marginTop: 18}}>No hay medicamentos activos</Text>
                       </View>
                   }
 

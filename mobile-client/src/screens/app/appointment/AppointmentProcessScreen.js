@@ -22,9 +22,9 @@ export const AppointmentProcessScreen = ({ route }) => {
           <ScreenTitle
             Label={`Citas - ${speciality}`}
             IconName={"clipboard-text-multiple"}
-            fontSize={20}
+            fontSize={17}
             textColor={'#FFFFFF'}
-            paddingH={30}
+            paddingH={20}
           /> 
           {/* Appointment ComponentWrapper */}
           {
