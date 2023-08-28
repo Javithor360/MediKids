@@ -1,88 +1,108 @@
+
+//>> IMPORT LIBRERIES
 import { View, Text, StyleSheet } from 'react-native'
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { FontAwesome } from '@expo/vector-icons'; 
-import { FontAwesome5 } from '@expo/vector-icons';
-import { Octicons } from '@expo/vector-icons';
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { MaterialCommunityIcons, FontAwesome, FontAwesome5 } from '@expo/vector-icons'; 
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
-export const AppointmentResults = () => {
-  return (
-    <>
-        <Text style={[styles.requestMainTitle, styles.colorGreen]}>Resultados de la cita</Text>
-        <View style={styles.cardContainer}>
-            <View style={[styles.personalInfoContainer, styles.withMb]}>
-                <View style={styles.iconBackC}>
-                    <View style={styles.iconBack}>
-                        <MaterialCommunityIcons name="clipboard-account" size={24} color="#ffffff" />
-                    </View>
-                </View>
-                <View style={styles.someDetailsC}>
-                    <Text style={styles.patientTitle}>Registro de datos:</Text>
-                </View> 
-            </View>
-            <View style={styles.contentListContainer}>
-                <View style={styles.singleItemC}>
-                    <View style={{flexDirection: 'row', alignItems: 'center', width: '100%', gap: 6,}}>
-                        <FontAwesome name="child" size={20} color="#46929B" />
-                        <Text style={{color: '#707070'}} numberOfLines={1}><Text style={styles.eachTitle}>Paciente: </Text>Alvin Josue Melendez Serranoooo</Text>
-                    </View>
-                </View>
-                <View style={styles.singleItemC2}>
-                    <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
-                        <FontAwesome5 name="weight" size={16} color="#46929B" />
-                        <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Peso: </Text>54 lb</Text>
-                    </View>
-                    <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
-                        <MaterialCommunityIcons name="human-male-height" size={20} color="#46929B" />
-                        <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Altura: </Text>1.40 cm</Text>
-                    </View>
-                </View>
-                <View style={styles.singleItemC2}>
-                    <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
-                        <FontAwesome5 name="thermometer" size={16} color="#46929B" />
-                        <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Temp... : </Text>36 °C</Text>
-                    </View>
-                    <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
-                        <MaterialCommunityIcons name="timeline-plus" size={20} color="#46929B" />
-                        <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Edad: </Text>8 años</Text>
-                    </View>
-                </View>
-            </View>
-        </View>
+//>> IMPORT COMPONENTS
+import { getSingleMedicalAppmtRecord } from '../../index'
 
-        <View style={[styles.cardContainer, {marginBottom: 30}]}>
-            <View style={[styles.personalInfoContainer, styles.withMb]}>
-                <View style={styles.iconBackC}>
-                    <View style={styles.iconBack}>
-                        <MaterialCommunityIcons name="clipboard-list" size={24} color="#fff" />
-                    </View>
-                </View>
-                <View style={styles.someDetailsC}>
-                    <Text style={styles.patientTitle}>Diagnóstico general</Text>
-                </View> 
-            </View>
-            <View style={styles.diagnosDescC}>
-                <Text style={{color: '#707070',}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non autem eligendi alias itaque nesciunt quas!</Text>
-            </View>
-        </View>
+export const AppointmentResults = ({ RecordCode }) => {
+    const jwtToken = useSelector(state => state.responsible.jwtToken);
 
-        {/* <View style={styles.cardContainer}>
-            <View style={[styles.personalInfoContainer, styles.withMb]}>
-                <View style={styles.iconBackC}>
-                    <View style={styles.iconBack}>
-                        <MaterialCommunityIcons name="clipboard-plus" size={24} color="#fff" />
+    const getMedicalAppmtRecord = async () => {
+        try {
+            const {data} = await getSingleMedicalAppmtRecord(jwtToken, RecordCode);
+
+            console.log(data.appointment_record);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getMedicalAppmtRecord()
+    }, []);
+
+    return (
+        <>
+            <Text style={[styles.requestMainTitle, styles.colorGreen]}>Resultados de la cita</Text>
+            <View style={styles.cardContainer}>
+                <View style={[styles.personalInfoContainer, styles.withMb]}>
+                    <View style={styles.iconBackC}>
+                        <View style={styles.iconBack}>
+                            <MaterialCommunityIcons name="clipboard-account" size={24} color="#ffffff" />
+                        </View>
+                    </View>
+                    <View style={styles.someDetailsC}>
+                        <Text style={styles.patientTitle}>Registro de datos:</Text>
+                    </View> 
+                </View>
+                <View style={styles.contentListContainer}>
+                    <View style={styles.singleItemC}>
+                        <View style={{flexDirection: 'row', alignItems: 'center', width: '100%', gap: 6,}}>
+                            <FontAwesome name="child" size={20} color="#46929B" />
+                            <Text style={{color: '#707070'}} numberOfLines={1}><Text style={styles.eachTitle}>Paciente: </Text>Alvin Josue Melendez Serranoooo</Text>
+                        </View>
+                    </View>
+                    <View style={styles.singleItemC2}>
+                        <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
+                            <FontAwesome5 name="weight" size={16} color="#46929B" />
+                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Peso: </Text>54 lb</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
+                            <MaterialCommunityIcons name="human-male-height" size={20} color="#46929B" />
+                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Altura: </Text>1.40 cm</Text>
+                        </View>
+                    </View>
+                    <View style={styles.singleItemC2}>
+                        <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
+                            <FontAwesome5 name="thermometer" size={16} color="#46929B" />
+                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Temp... : </Text>36 °C</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
+                            <MaterialCommunityIcons name="timeline-plus" size={20} color="#46929B" />
+                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Edad: </Text>8 años</Text>
+                        </View>
                     </View>
                 </View>
-                <View style={styles.someDetailsC}>
-                    <Text style={styles.patientTitle}>Notas Adicionales</Text>
-                </View> 
             </View>
-            <View style={styles.diagnosDescC}>
-                <Text style={{color: '#707070',}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non autem eligendi alias itaque nesciunt quas!</Text>
+
+            <View style={[styles.cardContainer, {marginBottom: 30}]}>
+                <View style={[styles.personalInfoContainer, styles.withMb]}>
+                    <View style={styles.iconBackC}>
+                        <View style={styles.iconBack}>
+                            <MaterialCommunityIcons name="clipboard-list" size={24} color="#fff" />
+                        </View>
+                    </View>
+                    <View style={styles.someDetailsC}>
+                        <Text style={styles.patientTitle}>Diagnóstico general</Text>
+                    </View> 
+                </View>
+                <View style={styles.diagnosDescC}>
+                    <Text style={{color: '#707070',}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non autem eligendi alias itaque nesciunt quas!</Text>
+                </View>
             </View>
-        </View> */}
-    </>
-  )
+
+            {/* <View style={styles.cardContainer}>
+                <View style={[styles.personalInfoContainer, styles.withMb]}>
+                    <View style={styles.iconBackC}>
+                        <View style={styles.iconBack}>
+                            <MaterialCommunityIcons name="clipboard-plus" size={24} color="#fff" />
+                        </View>
+                    </View>
+                    <View style={styles.someDetailsC}>
+                        <Text style={styles.patientTitle}>Notas Adicionales</Text>
+                    </View> 
+                </View>
+                <View style={styles.diagnosDescC}>
+                    <Text style={{color: '#707070',}}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non autem eligendi alias itaque nesciunt quas!</Text>
+                </View>
+            </View> */}
+        </>
+    )
 }
 
 const styles = StyleSheet.create({

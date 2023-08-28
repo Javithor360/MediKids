@@ -126,7 +126,7 @@ export const HistorialAppointment = ({ route }) => {
             <View style={styles.card}>
                 <View style={{width: '100%', height: '80%', borderBottomColor: '#D6D6D6', marginTop: 8}}>
                     <View style={styles.IconTextSpc}>
-                        <View style={{width: '18%', height: '100%', backgroundColor: 'rgba(189, 189, 189, 0.24)', borderRadius: '50%'}}>
+                        <View style={{width: '18%', height: '100%', backgroundColor: 'rgba(189, 189, 189, 0.24)', borderRadius: 100}}>
                             <Image source={require('../../../../assets/graphic-icons/otorrino-icon.png')} style={{width: '100%', height: '100%', resizeMode: 'contain'}}></Image>
                         </View>
                         <View style={styles.spcTitleC}>

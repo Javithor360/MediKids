@@ -10,7 +10,7 @@ import { Fontisto, FontAwesome5, Ionicons, MaterialCommunityIcons, AntDesign } f
 import { SetLabel, ShowToast, getSingleMedicalAppmt } from '../../index';
 import { ChangeGastroState, ChangeNeumoState, ChangeOtorrinoState } from '../../store/slices/appointmentsSlice';
 
-export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setReload }) => {
+export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode }) => {
     const dispatch = useDispatch();
     const Info = useSelector(state => state.responsible);
     const Patient = useSelector(state => state.patient);
@@ -81,7 +81,7 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setReload }) 
                     setSuccess(true);
                     setTimeout(() => {
                         changeReduxAppmtState(4);
-                        setReload(true);
+                        setRecordCode(data.Record_Code);
                     }, 2000);
                 }, 5000);
             } else {
@@ -146,11 +146,6 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setReload }) 
                 setTimeElased({hours: 0, minutes: 0, seconds: 0});
             }
         }, 1000);
-        
-        
-
-
-
         return () => clearInterval(interval);
     }, [TimeElased]);
 
@@ -237,8 +232,6 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setReload }) 
                             <Text style={{color: '#fafafa'}} numberOfLines={1}>
                                 {StopRunning ? 'Terminado.' : `${Running != null ? `${Running ? `En progreso${Points}` : `Esperando${Points}`}` : `Cargando${Points}`}`}
                             </Text>
-
-
                         </Text>
                     </View>
                 </View>

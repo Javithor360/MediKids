@@ -18,7 +18,7 @@ export const AppointmentProcessScreen = ({ route }) => {
   const appointmentsState = useSelector(state => state.appointments);
 
   //! Verify if the appointment is already finished.
-  const [Reload, setReload] = useState(false);
+  const [RecordCode, setRecordCode] = useState(null);
   const [Appmt_State, setAppmt_State] = useState(null);
 
   //! To be able to change the component proccess in real time
@@ -30,7 +30,8 @@ export const AppointmentProcessScreen = ({ route }) => {
 
   useEffect(() => {
     setAppmt_State(getAppointmentState());
-  }, [Reload]);
+    console.log(RecordCode);
+  }, [RecordCode]);
 
   return (
     <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
@@ -49,8 +50,8 @@ export const AppointmentProcessScreen = ({ route }) => {
               <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcGreen, styles.wMb]}>
                 { appointmentInfo.State == 1 && <PendingAppointment /> }
                 { appointmentInfo.State == 2 && <NextAppointment appointmentInfo={appointmentInfo} doctor={doctor} /> }
-                { (appointmentInfo.State == 3 &&  Appmt_State != 4) && <AttendingAppointment appointmentInfo={appointmentInfo} Doctor_id={Doctor_id} setReload={setReload}/> }
-                { (appointmentInfo.State == 4 || Appmt_State == 4) && <AppointmentResults /> }
+                { (appointmentInfo.State == 3 &&  Appmt_State != 4) && <AttendingAppointment appointmentInfo={appointmentInfo} Doctor_id={Doctor_id} setRecordCode={setRecordCode}/> }
+                { (appointmentInfo.State == 4 || Appmt_State == 4) && <AppointmentResults RecordCode={RecordCode} /> }
               </View>
           }
           {/* Medicines Container */}
