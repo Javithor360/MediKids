@@ -1,6 +1,6 @@
 
 //>> IMPORT LIBRERIES
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View, TouchableOpacity } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -24,6 +24,9 @@ export const AttendingAppointment = ({ appointmentInfo }) => {
     //! State to points animation
     const [Points, setPoints] = useState('.');
 
+    //! State to see if it 
+    const [Running, setRunning] = useState(null);
+
     //! FUNCTION TO GET THE TIME OF THE APPOINTMENT
     const createAppmtDateTime = (date, hour) => {
         let HoursSQL = hour.split(':');
@@ -45,11 +48,12 @@ export const AttendingAppointment = ({ appointmentInfo }) => {
             if (msDif <= 0) {
                 clearInterval(interval);
                 setTimeLeft({hours: 0, minutes: 0, seconds: 0});
+                setRunning(true);
             } else {
                 const seconds = Math.floor(msDif / 1000) % 60;
                 const minutes = Math.floor(msDif / (1000 * 60)) % 60;
                 const hours = Math.floor(msDif / (1000 * 60 * 60));
-
+                setRunning(false);
                 setTimeLeft({hours: hours, minutes: minutes, seconds: seconds});
             }
         }, 1000);
@@ -69,6 +73,7 @@ export const AttendingAppointment = ({ appointmentInfo }) => {
               return '..';
             }
           });
+
         }, 550);
     
         return () => clearInterval(intervalo);
@@ -86,7 +91,7 @@ export const AttendingAppointment = ({ appointmentInfo }) => {
     
                 setTimeElased({ hours: hours, minutes: minutes, seconds: seconds })
             } else {
-                setTimeLeft({hours: 0, minutes: 0, seconds: 0});
+                setTimeElased({hours: 0, minutes: 0, seconds: 0});
             }
 
         }, 1000);
@@ -179,7 +184,7 @@ export const AttendingAppointment = ({ appointmentInfo }) => {
                     <View style={styles.someDetailsC}>
                         <Text>
                         <Text style={[styles.patientTitle, {color: 'white', fontWeight: 'bold'}]}>Estado: </Text>
-                            <Text style={{color: '#fafafa'}} numberOfLines={1}>Esperando{Points}</Text>
+                            <Text style={{color: '#fafafa'}} numberOfLines={1}>{Running != null ? `${Running ? `En progreso${Points}` : `Esperando${Points}`}` : `Cargando${Points}`} </Text>
                         </Text>
                     </View>
                 </View>
@@ -189,8 +194,15 @@ export const AttendingAppointment = ({ appointmentInfo }) => {
                 <View style={{width: '100%', marginTop: 10}}>
                     <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20, fontStyle: 'italic', textAlign: 'center'}}>Tiempo Transcurrido</Text>
                 </View>
-                <View>
-                    <Text style={{color: '#fafafa'}} numberOfLines={1}>{TimeElased != null ? `${TimeElased.hours < 10 ? `0${TimeElased.hours}` : TimeElased.hours}:${TimeElased.minutes < 10 ? `0${TimeElased.minutes}` : TimeElased.minutes}:${TimeElased.seconds < 10 ? `0${TimeElased.seconds}` : TimeElased.seconds}` : 'Cargando...'}</Text>
+                <View style={{width: '100%', alignItems: 'center', marginTop: 10}}>
+                    <View style={{backgroundColor: 'rgba(255, 255, 255, 0.8)', width: '64%', paddingHorizontal: 10, paddingVertical: 8, borderRadius: 4}}>
+                        <Text style={{color: '#666666', fontSize: 30, letterSpacing: 2, textAlign: 'center'}} numberOfLines={1}>{TimeElased != null ? `${TimeElased.hours < 10 ? `0${TimeElased.hours}` : TimeElased.hours}:${TimeElased.minutes < 10 ? `0${TimeElased.minutes}` : TimeElased.minutes}:${TimeElased.seconds < 10 ? `0${TimeElased.seconds}` : TimeElased.seconds}` : 'Cargando...'}</Text>
+                    </View>
+                    <TouchableOpacity style={{ backgroundColor: '#393939', width: 120, height: 35, alignItems: 'center', justifyContent: 'center', borderRadius: 10, marginTop:14,}}>
+                        <Text style={{ fontSize: 18,color: '#fff' }}>
+                            Actualizar
+                        </Text>
+                    </TouchableOpacity>
                 </View>
                 {/* <TimerComponent /> */}
             </View>
