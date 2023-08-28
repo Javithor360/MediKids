@@ -234,8 +234,17 @@ export const EditExistingMedicalPrescription = ({
                 no hay receta medica previa para modificar pe :v +100 lince
               </h3>
             </div>
+<<<<<<< HEAD
           )}
         </div>
+=======
+          </>
+        ) : (
+          <div className="overflow-x-auto w-[80%] ml-8">
+            <h3>no hay receta medica previamente asignada a este paciente</h3>
+          </div>
+        )}
+>>>>>>> affd79f996165d2d69d8d2691479ecd130dc8653
       </div>
       {toggle && modified && (
         <Modal active={active} toggle={toggle} onRequestClose={toggle}>
