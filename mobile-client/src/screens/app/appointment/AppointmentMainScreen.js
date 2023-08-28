@@ -120,7 +120,7 @@ export const AppointmentMainScreen = () => {
                     />
                     {/* APPOINTMENT STATUS CARD */}
                     {
-                        (appointmentsState.OtorrinoState || appointmentsState.NeumoState || appointmentsState.GastroState) &&
+                        ((appointmentsState.OtorrinoState != 4 && appointmentsState.OtorrinoState != null) || (appointmentsState.NeumoState != 4 && appointmentsState.NeumoState != null) || (appointmentsState.GastroState != 4 &&appointmentsState.GastroState != null )) &&
                             <View style={[styles.requestAppointmentContainer, styles.btcGreen, styles.shadowC]}>
                                 <Text style={[styles.requestMainTitle, styles.colorGreen]}>Actividad de citas</Text>
                                 { appointmentsState.OtorrinoState && appointmentsState.OtorrinoState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Otorrino_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/otorrino-icon.png')} DoctorName={'Dr. Esteban Gúzman'} Specialty={'Otorrinolaringología'}/> }
@@ -144,7 +144,7 @@ export const AppointmentMainScreen = () => {
                     <View style={styles.cardsContainer}>
                         <View style={styles.card}>
                             {
-                                appointmentsState.OtorrinoState != null ?
+                                (appointmentsState.OtorrinoState != null && appointmentsState.OtorrinoState != 4) ?
                                 <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
                                 :
                                 null
@@ -165,7 +165,7 @@ export const AppointmentMainScreen = () => {
                                 <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
                                 <View style={{height: '65%', padding: 6}}>
                                     <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de las enfermedades del oído, nariz, garganta y alergías</Text>
-                                    <TouchableOpacity disabled={appointmentsState.OtorrinoState != null ? true : false} style={styles.apptBtn} onPress={()=>navigation.navigate('AppointmentProcessScreen', {
+                                    <TouchableOpacity style={styles.apptBtn} onPress={()=>navigation.navigate('AppointmentProcessScreen', {
                                         doctorDescription: doctorDescription.otoDoctorInsights,
                                         doctor: 'Dr. Esteban Gúzman',
                                         speciality: 'Otorrinolaringología',
@@ -180,7 +180,7 @@ export const AppointmentMainScreen = () => {
 
                         <View style={styles.card}>
                             {
-                                appointmentsState.NeumoState != null ?
+                                (appointmentsState.NeumoState != null && appointmentsState.NeumoState != 4) ?
                                 <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
                                 :
                                 null
@@ -216,7 +216,7 @@ export const AppointmentMainScreen = () => {
 
                         <View style={styles.card}>
                             {
-                                appointmentsState.GastroState != null ?
+                                (appointmentsState.GastroState != null && appointmentsState.GastroState != 4``) ?
                                 <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
                                 :
                                 null

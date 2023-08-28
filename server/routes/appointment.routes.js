@@ -31,7 +31,7 @@ router_appointment.route('/change_appointment_state_test').post(async (req, res,
 
     const hora = Fecha.toLocaleTimeString().split(' ');
 
-    await pool.query('UPDATE medical_appointment SET Week = null, State = 2, Date = ?, Hour = ? WHERE id = 1', [Fecha, hora[0]])
+    await pool.query('UPDATE medical_appointment SET Week = null, State = 2, Date = ?, Hour = ? WHERE id = 8', [Fecha, hora[0]])
 
     return res.status(200).json({success: true});
   } catch (error) {

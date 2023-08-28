@@ -83,7 +83,7 @@ export const HistorialAppointment = ({ route }) => {
                                     <Text style={{ color: '#707070',fontSize:16,top:10, }}>{getDoctorsName(SelectedRecord.Doctor_id)}</Text>
                                 </View>
                                 <View style={styles.InfoText} >
-                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Hora de Inicio: </Text>
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Hora de Finalización: </Text>
                                     <Text style={{ color: '#707070',fontSize:16,top:10, }}>{new Date(SelectedRecord.Date_Time).toLocaleTimeString()}</Text>
                                 </View>
                                 <View style={[styles.InfoText, {flexDirection: 'column'}]} >

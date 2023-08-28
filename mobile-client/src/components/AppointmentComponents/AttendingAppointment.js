@@ -18,7 +18,7 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
     const getDate = () => { return new Date(appointmentInfo.Date).toLocaleDateString() };
 
     //! State to the counter
-    const [TimeElased, setTimeElased] = useState({ hours: 0, minutes: 0, seconds: 0 });
+    const [TimeElased, setTimeElased] = useState(null);
 
     //! State to time left.
     const [TimeLeft, setTimeLeft] = useState(null);
@@ -246,10 +246,10 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
                         <Text style={{color: '#666666', fontSize: 30, letterSpacing: 2, textAlign: 'center'}} numberOfLines={1}>
                             {
                                 StopTime == null ?
-                                    `${TimeElased != null ? 
+                                    `${TimeElased != null ?
                                         `${TimeElased.hours < 10 ? `0${TimeElased.hours}` : TimeElased.hours}:${TimeElased.minutes < 10 ? `0${TimeElased.minutes}` : TimeElased.minutes}:${TimeElased.seconds < 10 ? `0${TimeElased.seconds}` : TimeElased.seconds}`
                                         :
-                                        'Cargando...'
+                                        `...`
                                       }`
                                     :
                                     `${StopTime.hours < 10 ? `0${StopTime.hours}` : StopTime.hours}:${StopTime.minutes < 10 ? `0${StopTime.minutes}` : StopTime.minutes}:${StopTime.seconds < 10 ? `0${StopTime.seconds}` : StopTime.seconds}`}
