@@ -385,7 +385,7 @@ const MedicalRecordConfirmation = ({ medicalRecord }) => {
           <h3> Anotaciones:</h3>
          
           <div className="block mt-2 max-w-[25rem] border border-[#000000] ">
-            {parser(medicalRecord.notes)}
+            {parser(medicalRecord.HtmlNotes)}
           </div>
         </li>
       </ul>
