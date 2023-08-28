@@ -11,7 +11,6 @@ export const ViewMedicalPrescriptions = () => {
   useEffect(() => {
     PatientMedicalPrescriptions(patient.id);
   }, []);
-  console.log(medicalPrescriptions);
   return (
     <div>
       <h1>

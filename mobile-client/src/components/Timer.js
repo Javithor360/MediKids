@@ -19,7 +19,7 @@ const TimerComponent = () => {
 
     const options = {
         container: {
-            backgroundColor: '#C2C2DF',
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
             padding: 5,
             borderRadius: 5,
             paddingHorizontal: 20,
@@ -27,7 +27,7 @@ const TimerComponent = () => {
         },
         text: {
             fontSize: 30,
-            color: '#FFF',
+            color: '#666666',
         }
     };
 
@@ -44,10 +44,10 @@ const TimerComponent = () => {
                             onPress={() => {
                                 setIsStopwatchStart(false);
                             }}
-                            style={{ backgroundColor: '#A375FF',  width: 120, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 10, marginVertical: 20,}}
+                            style={{ backgroundColor: '#393939', width: 120, height: 35, alignItems: 'center', justifyContent: 'center', borderRadius: 10, marginTop:14,}}
                         >
                             <Text style={styles.buttonText}>
-                                Finalizar
+                                Actualizar
                             </Text>
                         </TouchableOpacity>
                     </View>

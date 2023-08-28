@@ -50,7 +50,8 @@ export const AppointmentMainScreen = () => {
     //! function to get the values of the appointments
     const getAppointments = async () => {
         try {
-            const {data} = await getMedicalAppointments(jwtToken, Patient_Code);
+            let Hour = new Date();
+            const {data} = await getMedicalAppointments(jwtToken, Patient_Code, Hour);
 
             data.medical_appointments.forEach(appointment => {
                 if(appointment.Doctor_id == 1){
@@ -96,11 +97,14 @@ export const AppointmentMainScreen = () => {
         }
     }
 
+    const setInProssessAppointment = async () => {
+
+    }
+
     useEffect(() => {
         getAppointments();
         getHistoryAppointment();
     }, [appointmentsState, isFocused]);
-
 
     return (
         <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
@@ -424,7 +428,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         alignSelf: 'center',
         borderRadius: 20,
-        marginTop: 30,
         marginBottom: 30,
         borderTopWidth: 9,
         borderWidth: 1,

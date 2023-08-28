@@ -139,7 +139,7 @@ export const MyAcountScreen = () => {
                             <Text style={{color: '#434343', fontSize: 16}}>Cambiar de Paciente</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={{width: '100%', height: 70, justifyContent: 'center', alignItems: 'center', marginTop: 20}}>
+                    <View style={{width: '100%', height: 70, justifyContent: 'center', alignItems: 'center', marginTop: 20, marginBottom: 35}}>
                         <TouchableOpacity onPress={() => {LogoutButton()}} style={[{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#fff', alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10, borderColor: '#ff7171', borderWidth: 2}, styles.ButtomShadow]}>
                             <AntDesign name="logout" size={24} color="#fd4040" />
                             <Text style={{color: '#fd4040', fontSize: 16}}>Cerrar Sesión</Text>
@@ -169,7 +169,7 @@ ContainerView: {
     borderTopRightRadius: 30,
     paddingBottom: 30,
     paddingHorizontal: 20,
-    height: height + 150,
+    // height: height + 150,
 },
 InfoContainer: {
     backgroundColor: '#CECEF6',

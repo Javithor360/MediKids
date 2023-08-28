@@ -25,10 +25,14 @@ import { useDash } from "../../context/DoctorContext";
 export const MedicalAppoinment = () => {
   const location = useLocation();
   const { patient } = location.state || {};
-  const Doctor_id = JSON.parse(localStorage.getItem("userSession")).id
+  const Doctor_id = JSON.parse(localStorage.getItem("userSession")).id;
 
   let navigate = useNavigate();
-  const { EndMedicalAppointment, PatientMedicalPrescriptions, medicalPrescriptions } = useDash();
+  const {
+    EndMedicalAppointment,
+    PatientMedicalPrescriptions,
+    medicalPrescriptions,
+  } = useDash();
 
   // Variables utilized by modals
   const [active, setActive] = useState(false);
@@ -81,17 +85,8 @@ export const MedicalAppoinment = () => {
       setTemperature(medicalRecord.temperature);
     if (notes !== medicalRecord.notes) setNotes(medicalRecord.notes);
     if (HtmlNotes !== medicalRecord.HtmlNotes) setHtmlNotes(medicalRecord);
-    // console.log(medicalRecord);
     setHeight(medicalRecord.height);
   }, [medicalRecord]);
-
-  useEffect(() => {
-    console.log(medicalPrescript);
-  }, [medicalPrescript]);
-
-  useEffect(() => {
-    PatientMedicalPrescriptions(patient.id);
-  }, []);
 
   const toggle = () => {
     setActive(!active);
@@ -153,7 +148,15 @@ export const MedicalAppoinment = () => {
     e.preventDefault();
     try {
       await EndMedicalAppointment(
-        { height, weight, temperature, notes, Patient_id: patient.id, Doctor_id, HtmlNotes },
+        {
+          height,
+          weight,
+          temperature,
+          notes,
+          Patient_id: patient.id,
+          Doctor_id,
+          HtmlNotes,
+        },
         { medicalPrescript },
         {}
       );
@@ -175,8 +178,11 @@ export const MedicalAppoinment = () => {
         <p className="text-[1.8rem] text-[#707070] mt-[.6rem] ml-7">
           Atendiendo Paciente:{" "}
         </p>
-        <button className="flex flex-row items-center justify-center px-3 py-2 border border-[#c6c6c6] bg-[#D8D7FE] rounded-lg self-center gap-2 hover:bg-[#c9c8e8d3] ease-in duration-200" onClick={toggleValidator}>
-          <AiOutlineCheckCircle  />
+        <button
+          className="flex flex-row items-center justify-center px-3 py-2 border border-[#c6c6c6] bg-[#D8D7FE] rounded-lg self-center gap-2 hover:bg-[#c9c8e8d3] ease-in duration-200"
+          onClick={toggleValidator}
+        >
+          <AiOutlineCheckCircle />
           Finalizar consulta
         </button>
       </div>
@@ -235,7 +241,8 @@ export const MedicalAppoinment = () => {
         </div>
         <div className={tabSelector === 2 ? "block" : "hidden"}>
           <EditMedicalPrescription
-            setMedicalPrescript={setMedicalPrescript} medicalPrescriptions={medicalPrescriptions}
+            setMedicalPrescript={setMedicalPrescript}
+            medicalPrescriptions={medicalPrescriptions}
             state={location.state}
           />
         </div>
@@ -262,7 +269,7 @@ export const MedicalAppoinment = () => {
               que todos los datos estén en orden antes de proceder
             </p>
             <div className="mt-5 info-container ml-2 text-[#707070] text-[1.2rem] list-none">{pages[currentPage]}</div>
-            <div className="flex mt-5  items-center justify-center">
+            <div className="flex items-center justify-center mt-5">
               <button
                 className={`${
                   currentPage !== pages.length - 1
@@ -272,14 +279,14 @@ export const MedicalAppoinment = () => {
                 onClick={handleClick}
                 disabled={currentPage !== pages.length - 1}
               >
-                <MdSaveAs className="h-10 w-5" />
+                <MdSaveAs className="w-5 h-10" />
                 Guardar 
               </button>
               <button
                 className="flex items-center justify-center border-2 border-[#707070] bg-[#ff1515] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-2  mb-9"
                 onClick={() => toggle()}
               >
-                <MdCancelPresentation className="h-10 w-5" />
+                <MdCancelPresentation className="w-5 h-10" />
                 Cancelar
               </button>
             </div>
@@ -288,7 +295,7 @@ export const MedicalAppoinment = () => {
             <AiFillCaretLeft/>
             </button>
             <button
-              className="btn ml-2 "
+              className="ml-2 btn "
               onClick={handleNextPage}
               disabled={currentPage === pages.length - 1}
             >
@@ -333,7 +340,7 @@ export const MedicalAppoinment = () => {
               className=" flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[8rem] h-[3rem] rounded-lg ml-7 mb-9 mt-2 text-[1.2rem] "
               onClick={() => toggleError()}
             >
-              <HiBackspace className="h-10 w-5" />
+              <HiBackspace className="w-5 h-10" />
               Regresar
             </button>
           </div>
@@ -394,8 +401,27 @@ const MedicalPrescriptionConfirmation = ({
     <div className="medical-prescription">
       <h3>Información de la receta médica</h3>
       <ul>
-        <li className="list-none">Receta de medicamentos editada</li>
-        <li className="list-none">Nuevos medicamentos agregados</li>
+        <li>Receta de medicamentos editada</li>
+        {medicalPrescript.edited_prescriptions.length > 0 ? (
+          medicalPrescript.edited_prescriptions.map((m, i) => {
+            return (
+              <div key={i}>
+                <p>Nombre del medicamento: {m.Medicine_Name}</p>
+                <p>Instrucciones: {m.Instructions}</p>
+                <p>Descripción: {m.Description}</p>
+                <p>Dosis: {m.Dose}</p>
+                <p>Dosis por día: {m.Time_Dose}</p>
+                <p>Fecha de inicio de dosis: {m.Starting_Dose_Date}</p>
+                <p>
+                  Fecha de finalización de dosis: {m.Finishing_Dose_Date}
+                </p>
+              </div>
+            );
+          })
+        ) : (
+          <div>No se editó ningún medicamento</div>
+        )}
+        <li>Nuevos medicamentos agregados</li>
         {medicalPrescript.new_prescriptions.length === 1 &&
         medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (
           <div>No se han agregado medicamentos nuevos</div>

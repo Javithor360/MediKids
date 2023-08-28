@@ -104,7 +104,6 @@ const FirstPage = ({ responsibleInfo }) => {
 
 // COMPONENTE LAYOUT PARA CADA REGISTRO DEL EXPEDIENTE
 const RecordsLayout = ({ record }) => {
-  console.log(record)
   const appDate = new Date(record.Date_Time);
   return(
     <>
