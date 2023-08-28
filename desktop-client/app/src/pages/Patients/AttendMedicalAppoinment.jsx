@@ -32,6 +32,7 @@ export const MedicalAppoinment = () => {
     EndMedicalAppointment,
     PatientMedicalPrescriptions,
     medicalPrescriptions,
+    nextAppointment
   } = useDash();
 
   // Variables utilized by modals
@@ -58,10 +59,6 @@ export const MedicalAppoinment = () => {
   const pages = [
     <MedicalRecordConfirmation
       medicalRecord={medicalRecord}
-      height={height}
-      weight={weight}
-      temperature={temperature}
-      notes={notes}
     />,
     <MedicalPrescriptionConfirmation medicalPrescript={medicalPrescript} />,
   ];
@@ -155,6 +152,7 @@ export const MedicalAppoinment = () => {
           notes,
           Patient_id: patient.id,
           Doctor_id,
+          Medical_Appointment_id: nextAppointment.id,
           HtmlNotes,
         },
         { medicalPrescript },
@@ -376,7 +374,6 @@ const MedicalRecordConfirmation = ({ medicalRecord }) => {
     <div className="medical-record">
       <h3>Información del expediente:</h3>
       <ul>
-        
         <li className="list-none">Altura: {medicalRecord.height} lb </li>
         <li className="list-none">Peso: {medicalRecord.weight} mts </li>
         <li className="list-none">Temperatura: {medicalRecord.temperature} °C </li>

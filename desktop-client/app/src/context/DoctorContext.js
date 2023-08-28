@@ -97,7 +97,7 @@ export const DoctorProvider = ({ children }) => {
         {
           Patient_id: data.Patient_id,
           Doctor_id: data.Doctor_id,
-          // AÑADIR EL ID DEL "APPOINTMENT" QUE SE ESTÁ ATENDIENDO -> URGENTEE
+          Medical_Appointment_id: data.Medical_Appointment_id,
           height: data.height,
           weight: data.weight,
           temperature: data.temperature,
