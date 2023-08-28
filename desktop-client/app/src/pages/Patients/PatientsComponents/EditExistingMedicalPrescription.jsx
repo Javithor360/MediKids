@@ -157,24 +157,6 @@ export const EditExistingMedicalPrescription = ({
                       <th className="border-r border-b border-[#BBBBBB]">
                         Acción
                       </th>
-                      {/* <th className="border-r border-b border-[#BBBBBB]">
-                        Intrucciones
-                      </th>
-                      <th className="border-r border-b border-[#BBBBBB]">
-                        Descripción
-                      </th>
-                      <th className="border-r border-b border-[#BBBBBB]">
-                        Dosis
-                      </th>
-                      <th className="border-r border-b border-[#BBBBBB]">
-                        Cantidad por día
-                      </th>
-                      <th className="border-r border-b border-[#BBBBBB]">
-                        Fecha de inicio
-                      </th>
-                      <th className="border-b border-[#BBBBBB] ">
-                        Fecha de finalización
-                      </th> */}
                     </tr>
                   </thead>
                   <tbody>
@@ -201,26 +183,6 @@ export const EditExistingMedicalPrescription = ({
                               Eliminar
                             </button>
                           </td>
-                          {/* <td class="border-r border-[#BBBBBB]">
-                            {m.Instructions}
-                          </td>
-                          <td class="border-r border-[#BBBBBB]">
-                            {m.Description}
-                          </td>
-                          <td class="border-r border-[#BBBBBB]">{m.Dose}</td>
-                          <td class="border-r border-[#BBBBBB]">
-                            {m.Time_Dose}
-                          </td>
-                          <td class="border-r border-[#BBBBBB]">
-                            {new Date(m.Starting_Dose_Date)
-                              .toISOString()
-                              .substring(0, 10)}
-                          </td>
-                          <td class="border-r border-[#BBBBBB]">
-                            {new Date(m.Finishing_Dose_Date)
-                              .toISOString()
-                              .substring(0, 10)}
-                          </td> */}
                         </tr>
                       );
                     })}
@@ -234,18 +196,8 @@ export const EditExistingMedicalPrescription = ({
                 no hay receta medica previa para modificar pe :v +100 lince
               </h3>
             </div>
-<<<<<<< HEAD
-          )}
-        </div>
-=======
-          </>
-        ) : (
-          <div className="overflow-x-auto w-[80%] ml-8">
-            <h3>no hay receta medica previamente asignada a este paciente</h3>
-          </div>
         )}
->>>>>>> affd79f996165d2d69d8d2691479ecd130dc8653
-      </div>
+        </div>
       {toggle && modified && (
         <Modal active={active} toggle={toggle} onRequestClose={toggle}>
           <div className="min-w-[20rem] max-w-[40rem] min-h-[20rem] m-5">
@@ -353,6 +305,7 @@ export const EditExistingMedicalPrescription = ({
           </div>
         </Modal>
       )}
+      </div>
     </>
   );
 };

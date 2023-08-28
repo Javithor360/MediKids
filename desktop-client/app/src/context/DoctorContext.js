@@ -122,6 +122,7 @@ export const DoctorProvider = ({ children }) => {
         "res.data.Array_Prescriptions",
       ]);
       AddMedicalPrescription(medicalPrescript);
+      EditMedicalPrescription(medicalPrescript);
       // No entendí para que sirven o como se obtienen los datos del Array_Prescriptions
       // const res = await AddMedicalPrescription(medicalPrescript);
       // CreateMedicalRecordEntry(medicalRecord, res.data.Array_Prescriptions);
@@ -174,15 +175,6 @@ export const DoctorProvider = ({ children }) => {
 
   const AddMedicalPrescription = async (body) => {
     try {
-      if (body.medicalPrescript.edited_prescriptions.length > 0) {
-        console.log(body.medicalPrescript.edited_prescriptions);
-        await editPatientMedicalPrescription({
-          Patient_id: body.medicalPrescript.Patient_id,
-          Doctor_id: body.medicalPrescript.Doctor_id,
-          edited_prescriptions: body.medicalPrescript.edited_prescriptions,
-        });
-      }
-
       if (
         body.medicalPrescript.new_prescriptions.length > 0 &&
         body.medicalPrescript.new_prescriptions[0].hasSelectedYes === true
@@ -193,7 +185,7 @@ export const DoctorProvider = ({ children }) => {
             return rest;
           }
         );
-        await setPatientMedicalPrescription(
+        return await setPatientMedicalPrescription(
           {
             Patient_id: body.medicalPrescript.Patient_id,
             Doctor_id: body.medicalPrescript.Doctor_id,
@@ -207,6 +199,20 @@ export const DoctorProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  const EditMedicalPrescription = async (body) => {
+    try {
+      if (body.medicalPrescript.edited_prescriptions.length > 0) {
+        await editPatientMedicalPrescription({
+          Patient_id: body.medicalPrescript.Patient_id,
+          Doctor_id: body.medicalPrescript.Doctor_id,
+          edited_prescriptions: body.medicalPrescript.edited_prescriptions,
+        });
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <dashContext.Provider
@@ -238,6 +244,7 @@ export const DoctorProvider = ({ children }) => {
         PatientMedicalRecords,
         PatientMedicalPrescriptions,
         AddMedicalPrescription,
+        EditMedicalPrescription
       }}
     >
       {children}
