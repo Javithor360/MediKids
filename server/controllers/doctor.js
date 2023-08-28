@@ -133,7 +133,7 @@ const new_medical_record_entry = async (req, res, next) => {
       HtmlNotes,
       Patient_id,
       Doctor_id,
-
+      Medical_Appointment_id,
       Array_Prescriptions,
     } = req.body;
 
@@ -145,6 +145,7 @@ const new_medical_record_entry = async (req, res, next) => {
       !HtmlNotes ||
       !Patient_id ||
       !Doctor_id ||
+      !Medical_Appointment_id ||
       !Array_Prescriptions
     ) {
       return res
@@ -183,7 +184,7 @@ const new_medical_record_entry = async (req, res, next) => {
       Medical_History_Code: patientCode(),
       Patient_id,
       Doctor_id,
-      Medical_Appointment_id: 8,
+      Medical_Appointment_id,
       Date_Time: new Date(),
       Diagnosis_Mobile: notes,
       Diagnosis: HtmlNotes.HtmlNotes,
