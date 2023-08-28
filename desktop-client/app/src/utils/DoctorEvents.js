@@ -1,27 +1,19 @@
 let eventGuid = 0
-// let todayStr = new Date().toISOString().replace(/T.*$/, '') 
-const todayStr = '2023-10-31' // YYYY-MM-DD
+// const todayStr = new Date().toISOString().replace(/T.*$/, '') 
+const todayStr = '2023-09-12' // YYYY-MM-DD
+const appointmentTimeStart = "15:30:00";
+const appointmentTimeEnd = "16:30:00";
+const formattedTimeStart = "T" + appointmentTimeStart;
+const formattedTimeEnd= "T" + appointmentTimeEnd;
 
-const appointmentTime = "15:30:00";
-const formattedTime = "T" + appointmentTime;
-
-console.log(formattedTime);
 
 export const DoctorEvents = [
   {
     id: createEventId(),
-    title: `Cita con Josef Mengele`,
-    start: todayStr + formattedTime
-  },
-  {
-    id: createEventId(),
-    title: `Cita con Josef Mengele`,
-    start: todayStr + formattedTime
-  },
-  {
-    id: createEventId(),
-    title: `Cita con Josef Mengele`,
-    start: todayStr + formattedTime
+    title: `Cita de control`,
+    start: todayStr + formattedTimeStart,
+    end: formattedTimeEnd,
+    description: 'Cita de control con el paciente Javier Mejía'
   }
 ]
 
