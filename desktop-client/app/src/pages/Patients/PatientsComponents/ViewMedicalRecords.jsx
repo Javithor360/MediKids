@@ -76,14 +76,18 @@ const FirstPage = ({ responsibleInfo }) => {
   const { patient } = location.state || {};
   return (
     <>
-      <h1>
-        EXPEDIENTE DE {patient.First_Names.toUpperCase()}{" "}
-        {patient.Last_Names.toUpperCase()}
+      <h1 className="flex items-center justify-center ">
+        EXPEDIENTE 
+        
       </h1>
       <div className="data ml-2 text-[#707070] text-[1.2rem]">
         <div className="main-info ">
           <h3>Información personal</h3>
-          <p>
+          <p >
+            Nombre:{patient.First_Names.toUpperCase()}{" "}
+                    {patient.Last_Names.toUpperCase()}
+          </p>
+          <p >
             Edad: {patient.Age} {patient.Age === 1 ? "año" : "años"}
           </p>
           <p>Tipo de sangre: {patient.Blood_Type}</p>
