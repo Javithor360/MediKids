@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { StyleSheet, Text, View,Image,TouchableOpacity, ScrollView} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScreenTitle } from '../../../index';
 
 export const Calendario = () => {
+  const [isMainScreen, setIsMainScreen] = useState(true);
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView style={styles.fullScreenContainer}>
@@ -12,6 +15,7 @@ export const Calendario = () => {
           fontSize={20}
           textColor={'#FFFFFF'}
           paddingH={30}
+          isMainScreen={isMainScreen}
         /> 
         <View View style={styles.reminderSectionContent}>
           <View style={styles.contentTitle}>

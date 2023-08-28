@@ -1,7 +1,7 @@
 
 //>> IMPORT LIBRERIES
 import { StyleSheet, Text, View,Image,ScrollView } from 'react-native';
-import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useEffect, useState } from 'react'
 import { LinearGradient } from 'expo-linear-gradient';
 import Constants from 'expo-constants';
@@ -13,8 +13,10 @@ import { ScreenTitle } from '../../../index';
 import { isIOS } from '../../../constants';
 import { getMedicalPrescriptions } from '../../../index'
 
+
 export const Medicinas = () => {
     const isFocused = useIsFocused()
+    const [isMainScreen, setIsMainScreen] = useState(true);
     const jwtToken = useSelector(state => state.responsible.jwtToken);
     const Patient_id = useSelector(state => state.patient.id);
 
@@ -100,6 +102,7 @@ export const Medicinas = () => {
                         fontSize={20}
                         textColor={'#FFFFFF'}
                         paddingH={30}
+                        isMainScreen={isMainScreen}
                     /> 
                     <View style={styles.chooseBanner}>
                         <View style={styles.chooseContent}>
@@ -119,8 +122,12 @@ export const Medicinas = () => {
                                     )
                                 })
                                 :
-                                <View>
-                                    <Text>DaniLOL</Text>
+                                <View style={{width: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                                    <View style={{width: '100%', alignItems: 'center', justifyContent: 'center', paddingVertical: hp('15%')}}>
+                                        <Image source={require('../../../../assets/icons/not-recipe-2.png')} style={{height: hp('15%'), width: wp('40%'), resizeMode: 'contain', marginLeft: -15}}></Image>
+                                        <Text style={{fontSize: 22, color: '#707070', textAlign: 'center', marginTop: 20,}}>No hay medicamentos activos actualmente</Text>
+                                    </View>
+                                    
                                 </View>
                         }
                     </View>

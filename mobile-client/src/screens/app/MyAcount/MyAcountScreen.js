@@ -1,5 +1,6 @@
 
 //>> IMPORT LIBRERIES
+import { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View,TouchableOpacity, ImageBackground, Dimensions} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -21,6 +22,7 @@ export const MyAcountScreen = () => {
   const responsible = useSelector(state => state.responsible)
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const [isMainScreen, setIsMainScreen] = useState(true);
 
   const LogoutButton = () => {
     AsyncStorage.removeItem('userSession');
@@ -71,6 +73,7 @@ export const MyAcountScreen = () => {
                     fontSize={20}
                     textColor={'#FFFFFF'}
                     paddingH={40}
+                    isMainScreen={isMainScreen}
                 />
                 <View style={styles.containPhoto}>
                     <View style={styles.profilePhotoWrapper}>

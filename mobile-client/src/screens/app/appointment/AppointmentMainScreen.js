@@ -37,6 +37,7 @@ export const AppointmentMainScreen = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const isFocused = useIsFocused()
+    const [isMainScreen, setIsMainScreen] = useState(true);
 
     //! Get elements from the redux state.
     const Patient_Code = useSelector(state => state.patient.Patient_Code);
@@ -115,6 +116,7 @@ export const AppointmentMainScreen = () => {
                         fontSize={20}
                         textColor={'#FFFFFF'}
                         paddingH={30}
+                        isMainScreen={isMainScreen}
                     />
                     {/* APPOINTMENT STATUS CARD */}
                     {
@@ -141,6 +143,12 @@ export const AppointmentMainScreen = () => {
                     </View>
                     <View style={styles.cardsContainer}>
                         <View style={styles.card}>
+                            {
+                                appointmentsState.OtorrinoState != null ?
+                                <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
+                                :
+                                null
+                            }
                             <View style={{width: '35%', height: '100%'}}>
                                 <Image source={require('../../../../assets/bg/spc_oto.png')} style={{width: '100%', height: '100%', resizeMode: 'cover',}} />
                             </View>
@@ -171,6 +179,12 @@ export const AppointmentMainScreen = () => {
                         </View>
 
                         <View style={styles.card}>
+                            {
+                                appointmentsState.NeumoState != null ?
+                                <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
+                                :
+                                null
+                            }
                             <View style={{width: '35%', height: '100%'}}>
                                 <Image source={require('../../../../assets/bg/spc_neu.png')} style={{width: '100%', height: '100%', resizeMode: 'cover',}} />
                             </View>
@@ -201,6 +215,12 @@ export const AppointmentMainScreen = () => {
                         </View>
 
                         <View style={styles.card}>
+                            {
+                                appointmentsState.GastroState != null ?
+                                <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
+                                :
+                                null
+                            }
                             <View style={{width: '35%', height: '100%'}}>
                                 <Image source={require('../../../../assets/bg/spc_gas.png')} style={{width: '100%', height: '100%', resizeMode: 'cover',}} />
                             </View>
@@ -248,8 +268,6 @@ export const AppointmentMainScreen = () => {
                                     <Text style={{alignSelf: 'center', marginBottom: 20, color: '#707070'}}>Todavía no hay registros en el historial</Text>
                                 </>
                         }
-
-
                     </View>
                 </View>
             </ScrollView>
@@ -346,6 +364,7 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
     },
     card: {
+        position: 'relative',
         width: '95%',
         height: 165,
         alignSelf: 'center',
