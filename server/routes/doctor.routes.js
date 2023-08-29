@@ -1,5 +1,5 @@
 import express from "express";
-import { active_patients, get_info, get_appointments, new_medical_record_entry, get_patient_appointment_with_specific_doctor, get_responsible_info, get_patient_medical_record, set_medical_prescription, edit_medical_prescription, get_medical_prescriptions } from "../controllers/doctor.js";
+import { active_patients, get_info, get_appointments, new_medical_record_entry, get_patient_appointment_with_specific_doctor, get_responsible_info, get_patient_medical_record, set_medical_prescription, edit_medical_prescription, get_medical_prescriptions, schedule_appointment, update_appointment_state } from "../controllers/doctor.js";
 // import { auth_midd } from "../middlewares/auth_middleware.js";
 
 const router_doctor = express.Router();
@@ -15,5 +15,7 @@ router_doctor.route("/get_patient_medical_record").post(get_patient_medical_reco
 router_doctor.route("/set_medical_prescription").post(set_medical_prescription);
 router_doctor.route("/get_medical_prescriptions").post(get_medical_prescriptions);
 router_doctor.route("/edit_medical_prescription").post(edit_medical_prescription);
+router_doctor.route("/schedule_appointment").post(schedule_appointment);
+router_doctor.route("/update_appointment_state").post(update_appointment_state);
 
 export default router_doctor;
