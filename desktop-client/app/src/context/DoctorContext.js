@@ -10,6 +10,8 @@ import {
   getPatientMedicalPrescription,
   setPatientMedicalPrescription,
   editPatientMedicalPrescription,
+  createNewAppointment,
+  editAppointment,
 } from "../api/queries";
 
 const dashContext = createContext();
@@ -72,7 +74,10 @@ export const DoctorProvider = ({ children }) => {
       setActivePatients(
         actPats.data.body.filter((patient) =>
           allApo.data.body.some(
-            (appointment) => appointment.Patient_id === patient.id && (appointment.State !== 1 && appointment.State !== 4)
+            (appointment) =>
+              appointment.Patient_id === patient.id &&
+              appointment.State !== 1 &&
+              appointment.State !== 4
           )
         )
       );
@@ -81,7 +86,10 @@ export const DoctorProvider = ({ children }) => {
         actPats.data.body.filter(
           (patient) =>
             !allApo.data.body.some(
-              (appointment) => appointment.Patient_id === patient.id && (appointment.State !== 1 && appointment.State !== 4)
+              (appointment) =>
+                appointment.Patient_id === patient.id &&
+                appointment.State !== 1 &&
+                appointment.State !== 4
             )
         )
       );
@@ -121,6 +129,8 @@ export const DoctorProvider = ({ children }) => {
       let Arr = res != null ? res.data.Array_Prescriptions : [];
       CreateMedicalRecordEntry(medicalRecord, Arr);
       EditMedicalPrescription(medicalPrescript);
+      FinishAppointment(scheAppoint.originalAppointment);
+      ScheduleAppointment(scheAppoint);
     } catch (error) {
       console.log(error);
     }
@@ -205,9 +215,37 @@ export const DoctorProvider = ({ children }) => {
         });
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+
+  const ScheduleAppointment = async (body) => {
+    try {
+      if (body.hasSelectedYes) {
+        await createNewAppointment(
+          {
+            Doctor_id: body.Doctor_id,
+            Responsible_id: body.Responsible_id,
+            Patient_id: body.Patient_id,
+            Description: body.Description,
+            Date: body.Date,
+            Hour: body.Hour,
+          },
+          PrivateConfig
+        );
+      } else return;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const FinishAppointment = async (id) => {
+    try {
+      await editAppointment({ id: id, State: 4 }, PrivateConfig);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <dashContext.Provider
@@ -239,7 +277,9 @@ export const DoctorProvider = ({ children }) => {
         PatientMedicalRecords,
         PatientMedicalPrescriptions,
         AddMedicalPrescription,
-        EditMedicalPrescription
+        EditMedicalPrescription,
+        ScheduleAppointment,
+        FinishAppointment,
       }}
     >
       {children}
