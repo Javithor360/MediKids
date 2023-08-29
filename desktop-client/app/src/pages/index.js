@@ -1,6 +1,8 @@
 export { IndexPage } from "./IndexPage.jsx";
 export { Error404 } from "./Error404.jsx";
-export { MainAgenda } from "./MainAgenda.jsx";
+export { MainAgenda } from "./Agenda/MainAgenda.jsx";
+export { AppointmentRequests } from './Agenda/AppointmentRequests.jsx'
+export { AppointmentRequestsDetails } from './Agenda/AppointmentRequestsDetails.jsx'
 export { Inbox } from "./Inbox.jsx";
 export { ActivePatients } from "./Patients/ActivePatients.jsx";
 export { MedicalRecords } from "./Patients/MedicalRecords.jsx";

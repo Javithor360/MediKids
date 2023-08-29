@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react';
-
 import 'react-tippy/dist/tippy.css';
-import '../assets/scss/AgendaStyles.scss'
-
 import { Tooltip } from 'react-tippy';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
-
+import 'react-tippy/dist/tippy.css';
 import { BsDot } from 'react-icons/bs'
-
-import { DoctorEvents } from '../utils/DoctorEvents';
-import { useDash } from '../context/DoctorContext';
+//utils
+import { DoctorEvents } from '../../utils/DoctorEvents';
+import '../../assets/scss/AgendaStyles.scss'
+import { useDash } from '../../context/DoctorContext';
 
 export const MainAgenda = () => {
   const { PatientsClassificator, appointments, activePatients } = useDash();
@@ -24,11 +22,6 @@ export const MainAgenda = () => {
     PatientsClassificator(JSON.parse(localStorage.getItem("userSession")).id);
   }, [])
   
-  const handleEventClick = (clickInfo) => {
-    if (window.confirm(`¿Está seguro de eliminar el evento '${clickInfo.event.title}'?`)) {
-      clickInfo.event.remove();
-    }
-  }
   const renderEventContent = (eventInfo) => (
     <Tooltip
       position="top-start"
@@ -88,7 +81,6 @@ export const MainAgenda = () => {
           dayMaxEvents={true}
           initialEvents={DoctorEvents(appointments, activePatients)}
           eventContent={renderEventContent}
-          eventClick={handleEventClick}
           locale={esLocale}
           eventTimeFormat={{
             hour: 'numeric',

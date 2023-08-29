@@ -8,11 +8,16 @@ import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import Modal from "../../components/Modal.jsx";
 
-import {CgDanger} from 'react-icons/cg'
-import {HiBackspace} from 'react-icons/hi'
-import {CiWarning} from 'react-icons/ci'
-import {MdCancelPresentation} from 'react-icons/md'
-import {AiFillBackward,AiFillCaretLeft,AiFillCaretRight,AiFillForward} from "react-icons/ai"
+import { CgDanger } from "react-icons/cg";
+import { HiBackspace } from "react-icons/hi";
+import { CiWarning } from "react-icons/ci";
+import { MdCancelPresentation } from "react-icons/md";
+import {
+  AiFillBackward,
+  AiFillCaretLeft,
+  AiFillCaretRight,
+  AiFillForward,
+} from "react-icons/ai";
 
 import {
   EditMedicalPrescription,
@@ -32,7 +37,7 @@ export const MedicalAppoinment = () => {
     EndMedicalAppointment,
     PatientMedicalPrescriptions,
     medicalPrescriptions,
-    nextAppointment
+    nextAppointment,
   } = useDash();
 
   // Variables utilized by modals
@@ -57,10 +62,12 @@ export const MedicalAppoinment = () => {
   const [scheAppoint, setScheAppoint] = useState({});
 
   const pages = [
-    <MedicalRecordConfirmation
-      medicalRecord={medicalRecord}
-    />,
+    <MedicalRecordConfirmation medicalRecord={medicalRecord} />,
     <MedicalPrescriptionConfirmation medicalPrescript={medicalPrescript} />,
+    <MedicalAppointmentConfirmation
+      scheAppoint={scheAppoint}
+      patient={patient}
+    />,
   ];
 
   const handleNextPage = () => {
@@ -100,19 +107,20 @@ export const MedicalAppoinment = () => {
 
     // Validating medical record variables
     for (const key in medicalRecord) {
-      if (!medicalRecord[key]) {
+      if (key !== "HtmlNotes" && !medicalRecord[key]) {
         newErrorMessages.push(
-          `En el registro de expediente, el dato de '${key}' no está completo.`
+          `En el registro de expediente: El dato de '${key}' no está completo.`
         );
         isEmpty = true;
       }
     }
 
+    // Validating medical prescription variables
     medicalPrescript.new_prescriptions.forEach((item, index) => {
       for (const key in item.data) {
         if (!item.data[key]) {
           newErrorMessages.push(
-            `En la asignación de nueva receta médica, el dato de '${key} (${
+            `En la asignación de nueva receta médica: El dato de '${key} (${
               index + 1
             })' no está completo`
           );
@@ -130,6 +138,21 @@ export const MedicalAppoinment = () => {
 
     if (emptyCounter === 7) {
       newErrorMessages.splice(newErrorMessages.length - 7, 7);
+    }
+
+    if (scheAppoint && scheAppoint.hasSelectedYes) {
+      if (new Date(scheAppoint.Date).getFullYear() < new Date().getFullYear())
+        newErrorMessages.push(
+          `En la programación de citas: El dato de 'Fecha' está incompleto`
+        );
+      if (!scheAppoint.Hour)
+        newErrorMessages.push(
+          `En la programación de citas: El dato de 'Hora' no está completo`
+        );
+      if (!scheAppoint.Description)
+        newErrorMessages.push(
+          `En la programación de citas: El dato de 'Motivo de la cita' no está completo`
+        );
     }
 
     setErrorMessage(newErrorMessages);
@@ -156,7 +179,7 @@ export const MedicalAppoinment = () => {
           HtmlNotes,
         },
         { medicalPrescript },
-        {}
+        scheAppoint
       );
       setChargin(true);
       setTimeout(() => {
@@ -247,6 +270,7 @@ export const MedicalAppoinment = () => {
         <div className={tabSelector === 3 ? "block" : "hidden"}>
           <ScheduleAppointment
             setScheAppoint={setScheAppoint}
+            nextAppointment={nextAppointment}
             state={location.state}
           />
         </div>
@@ -258,15 +282,16 @@ export const MedicalAppoinment = () => {
         <Modal active={active} toggle={toggle} onRequestClose={toggle}>
           <div className="min-w-[20rem] max-w-[50rem] min-h-[20rem] m-5">
             <h2>
-                <CiWarning className="inline-flex items-center justify-center gap-3 text-[1.8rem] text-[#e73131] mb-1.5" />
-               ADVERTENCIA 
-
+              <CiWarning className="inline-flex items-center justify-center gap-3 text-[1.8rem] text-[#e73131] mb-1.5" />
+              ADVERTENCIA
             </h2>
             <p className="ml-2 text-[#707070] text-[1.2rem]">
               Esta acción de confirmación es irreversible. Por favor asegúrate
               que todos los datos estén en orden antes de proceder
             </p>
-            <div className="mt-5 info-container ml-2 text-[#707070] text-[1.2rem] list-none">{pages[currentPage]}</div>
+            <div className="mt-5 info-container ml-2 text-[#707070] text-[1.2rem] list-none">
+              {pages[currentPage]}
+            </div>
             <div className="flex items-center justify-center mt-5">
               <button
                 className={`${
@@ -278,7 +303,7 @@ export const MedicalAppoinment = () => {
                 disabled={currentPage !== pages.length - 1}
               >
                 <MdSaveAs className="w-5 h-10" />
-                Guardar 
+                Guardar
               </button>
               <button
                 className="flex items-center justify-center border-2 border-[#707070] bg-[#ff1515] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-2  mb-9"
@@ -289,64 +314,65 @@ export const MedicalAppoinment = () => {
               </button>
             </div>
             <div className="flex items-center justify-center">
-            <button onClick={handlePreviousPage} disabled={currentPage === 0} className="btn">
-            <AiFillCaretLeft/>
-            </button>
-            <button
-              className="ml-2 btn "
-              onClick={handleNextPage}
-              disabled={currentPage === pages.length - 1}
-            >
-             
-             <AiFillCaretRight/>
-            </button>
+              <button
+                onClick={handlePreviousPage}
+                disabled={currentPage === 0}
+                className="btn"
+              >
+                <AiFillCaretLeft />
+              </button>
+              <button
+                className="ml-2 btn "
+                onClick={handleNextPage}
+                disabled={currentPage === pages.length - 1}
+              >
+                <AiFillCaretRight />
+              </button>
             </div>
           </div>
         </Modal>
       )}
       {toggleError && (
         <Modal
-       
-        
           active={errorHandler}
           toggle={toggleError}
           onRequestClose={toggleError}
         >
           <div className="min-w-[30rem] max-w-[45rem] min-h-[30rem] m-5 rounded-lg ">
-           
             <h2>
-            <CiWarning className="inline-flex items-center justify-center gap-3 text-[1.8rem] text-[#e73131] mb-1.5" />
-               ERROR 
-               
-               </h2>
-               <div className=" w-100 h-100  ">
-            <p className="ml-2 text-[#707070] text-[1.2rem]">
-              Parece que hay algunos detalles que revisar antes de finalizar la
-              consulta:
-            </p>
-           
-         
-            <ul >
-          
-              {errorMessage.map((i) => {
-                
-               
-                return   <li  className="ml-2 text-[#707070] text-[1.2rem] list-none items-center justify-center " key={i}>{placeholderChanger(i)} <CgDanger   className="inline-flex items-center justify-center gap-3 text-[1.8rem]   text-[#e73131]"/></li>;
-                
-              })}
-              
-            </ul>
-            <div className=" flex items-center justify-center">
-            <button
-              className=" flex items-center justify-center  border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[8rem] h-[3rem] rounded-lg   mt-5 text-[1.2rem] "
-              onClick={() => toggleError()}
-            >
-              <HiBackspace className="w-5 h-10" />
-              Regresar
-            </button>
+              <CiWarning className="inline-flex items-center justify-center gap-3 text-[1.8rem] text-[#e73131] mb-1.5" />
+              ERROR
+            </h2>
+            <div className=" w-100 h-100">
+              <p className="ml-2 text-[#707070] text-[1.2rem]">
+                Parece que hay algunos detalles que revisar antes de finalizar
+                la consulta:
+              </p>
+
+              <ul>
+                {errorMessage.map((i) => {
+                  return (
+                    <li
+                      className="ml-2 text-[#707070] text-[1.2rem] list-none items-center justify-center "
+                      key={i}
+                    >
+                      {placeholderChanger(i)}{" "}
+                      <CgDanger className="inline-flex items-center justify-center gap-3 text-[1.8rem]   text-[#e73131]" />
+                    </li>
+                  );
+                })}
+              </ul>
+              <div className="flex items-center justify-center ">
+                <button
+                  className=" flex items-center justify-center  border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[8rem] h-[3rem] rounded-lg   mt-5 text-[1.2rem] "
+                  onClick={() => toggleError()}
+                >
+                  <HiBackspace className="w-5 h-10" />
+                  Regresar
+                </button>
+              </div>
             </div>
-            </div>
-            </div>
+          </div>
         </Modal>
       )}
     </>
@@ -379,9 +405,11 @@ const MedicalRecordConfirmation = ({ medicalRecord }) => {
     <div className="medical-record">
       <h3>Información del expediente:</h3>
       <ul>
-        <li className="list-none  ">Altura: {medicalRecord.height} lb </li>
+        <li className="list-none">Altura: {medicalRecord.height} lb </li>
         <li className="list-none">Peso: {medicalRecord.weight} mts </li>
-        <li className="list-none">Temperatura: {medicalRecord.temperature} °C </li>
+        <li className="list-none">
+          Temperatura: {medicalRecord.temperature} °C{" "}
+        </li>
 
         <li className="list-none ">
           <h3> Anotaciones:</h3>
@@ -389,7 +417,6 @@ const MedicalRecordConfirmation = ({ medicalRecord }) => {
           <div className="block mt-2 max-w-[25rem] rounded-lg  border border-[#000000]     ">
             
             {parser(medicalRecord.HtmlNotes)}
-            
           </div>
         </li>
       </ul>
@@ -416,23 +443,21 @@ const MedicalPrescriptionConfirmation = ({
                 <p>Dosis: {m.Dose}</p>
                 <p>Dosis por día: {m.Time_Dose}</p>
                 <p>Fecha de inicio de dosis: {m.Starting_Dose_Date}</p>
-                <p>
-                  Fecha de finalización de dosis: {m.Finishing_Dose_Date}
-                </p>
+                <p>Fecha de finalización de dosis: {m.Finishing_Dose_Date}</p>
               </div>
             );
           })
         ) : (
           <div>No se editó ningún medicamento</div>
         )}
-        <li className="list-none font-bold">Nuevos medicamentos agregados</li>
+        <li className="font-bold list-none">Nuevos medicamentos agregados</li>
         {medicalPrescript.new_prescriptions.length === 1 &&
         medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (
           <div>No se han agregado medicamentos nuevos</div>
         ) : (
           medicalPrescript.new_prescriptions.map((m, i) => {
             return (
-              <div key={i} className="border-2 rounded-lg border-black my-3  ">
+              <div key={i} className="my-3 border-2 border-black rounded-lg ">
                 <p>Nombre del medicamento: {m.data.Medicine_Name}</p>
                 <p>Instrucciones: {m.data.Instructions}</p>
                 <p>Descripción: {m.data.Description}</p>
@@ -447,6 +472,40 @@ const MedicalPrescriptionConfirmation = ({
           })
         )}
       </ul>
+    </div>
+  );
+};
+
+const MedicalAppointmentConfirmation = ({ scheAppoint, patient }) => {
+  const schDate = new Date(scheAppoint.Date);
+  return (
+    <div className="medical-appointment">
+      <h3>Información de cita programada</h3>
+      {scheAppoint.hasSelectedYes === true ? (
+        <div>
+          <ul>
+            <li>
+              <b>Paciente:</b> {`${patient.First_Names} ${patient.Last_Names}`}
+            </li>
+            <li>
+              <b>Fecha: </b>
+              {`${schDate.getDate()}/${
+                schDate.getMonth() + 1
+              }/${schDate.getFullYear()} (${new Date(
+                `2023-10-23T${scheAppoint.Hour}`
+              ).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })})`}
+            </li>
+            <li>
+              <b>Motivo:</b> {scheAppoint.Description}
+            </li>
+          </ul>
+        </div>
+      ) : (
+        <div>No se programó una cita durante esta sesión</div>
+      )}
     </div>
   );
 };

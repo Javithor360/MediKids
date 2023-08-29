@@ -129,7 +129,7 @@ export const Sidebar = () => {
               <ul className="relative m-0 list-none px-[0.2rem]">
                 <li>
                   <Link
-                    to="/agenda"
+                    to="/agenda/appointment_requests"
                     className="flex items-center h-12 w-[90%] ml-auto truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white"
                   >
                     <AiOutlineInbox className="w-6 h-6" />
@@ -138,20 +138,11 @@ export const Sidebar = () => {
                 </li>
                 <li>
                   <Link
-                    to="/agenda"
+                    to="/agenda/calendar"
                     className="flex items-center h-12 w-[90%] ml-auto truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white"
                   >
                     <AiOutlineClockCircle className="w-6 h-6" />
                     <p className="ml-4 text-lg">Citas programadas</p>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/agenda"
-                    className="flex items-center h-12 w-[90%] ml-auto truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white"
-                  >
-                    <MdOutlineAssignmentInd className="w-6 h-6" />
-                    <p className="ml-4 text-lg">Planificación de turnos</p>
                   </Link>
                 </li>
               </ul>

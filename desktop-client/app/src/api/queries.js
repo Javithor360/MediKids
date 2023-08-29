@@ -87,3 +87,19 @@ export const editPatientMedicalPrescription = async (data, PrivateConfig) => {
     PrivateConfig
   )
 }
+
+export const createNewAppointment = async (data, PrivateConfig) => {
+  return await axios.post(
+    `http://localhost:5005/api/doctor/schedule_appointment`,
+    data,
+    PrivateConfig
+  )
+}
+
+export const editAppointment = async (data, PrivateConfig) => {
+  return await axios.post(
+    `http://localhost:5005/api/doctor/update_appointment_state`,
+    data,
+    PrivateConfig
+  )
+}
