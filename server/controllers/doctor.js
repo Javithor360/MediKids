@@ -145,8 +145,7 @@ const new_medical_record_entry = async (req, res, next) => {
       !HtmlNotes ||
       !Patient_id ||
       !Doctor_id ||
-      !Medical_Appointment_id ||
-      !Array_Prescriptions
+      !Medical_Appointment_id
     ) {
       return res
         .status(500)
@@ -175,9 +174,11 @@ const new_medical_record_entry = async (req, res, next) => {
     // if(notes === "") return next(new ErrorResponse("", 400, "error"));
 
     let Prescriptions_Names = {};
-    Array_Prescriptions.forEach((element, i) => {
-      Prescriptions_Names[i] = element;
-    });
+    if (Array_Prescriptions != null) {
+      Array_Prescriptions.forEach((element, i) => {
+        Prescriptions_Names[i] = element;
+      });
+    } 
     Prescriptions_Names = JSON.stringify(Prescriptions_Names);
 
     await pool.query("INSERT INTO medical_records SET ?", {

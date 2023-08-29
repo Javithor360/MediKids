@@ -25,7 +25,7 @@ export const ThreePoints = ({setLngModal, setView, view}) => {
   ]
   const OptionsOPfuncts = {
     1: () => {navigation.navigate('SelectPatientDashboard'); setTimeout(() => { CloseModal() }, 700);},
-    2: () => {navigation.navigate('Calenddario'); setTimeout(() => { CloseModal() }, 700);},
+    2: () => {navigation.navigate('MyAccount'); setTimeout(() => { CloseModal() }, 700);},
     3: () => {navigation.navigate('MyVaccines'); setTimeout(() => { CloseModal() }, 700);},
     4: () => {setLngModal(true);},
   }

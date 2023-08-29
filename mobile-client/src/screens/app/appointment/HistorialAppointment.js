@@ -48,11 +48,15 @@ export const HistorialAppointment = ({ route }) => {
 
     const getPrescriptionsNames = (o) => {
         let obj = JSON.parse(o);
-        let string = '';
-        for (let i = 0; i < Object.keys(obj).length; i++) {
-            string += `${obj[i]}${i > 0 && i < Object.keys(obj).length ? ',' : ''} `;
+        if (Object.keys(obj).length != 0) {
+            let string = '';
+            for (let i = 0; i < Object.keys(obj).length; i++) {
+                string += `${obj[i]}${i > 0 && i < Object.keys(obj).length ? ',' : ''} `;
+            }
+            return string;
+        } else {
+            return 'Ninguna.'
         }
-        return string;
     }
 
     const GetModal = ({SelectedRecord}) => {

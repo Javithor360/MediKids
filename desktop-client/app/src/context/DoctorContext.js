@@ -119,7 +119,8 @@ export const DoctorProvider = ({ children }) => {
   ) => {
     try {
       const res = await AddMedicalPrescription(medicalPrescript);
-      CreateMedicalRecordEntry(medicalRecord, res.data.Array_Prescriptions);
+      let Arr = res != null ? res.data.Array_Prescriptions : [];
+      CreateMedicalRecordEntry(medicalRecord, Arr);
       EditMedicalPrescription(medicalPrescript);
     } catch (error) {
       console.log(error);
