@@ -13,7 +13,7 @@ export const DoctorEvents = (appointments, patient) => {
       
       patient.map(
         (item) => {
-          if(item.id === app.Pat   ient_id) {
+          if(item.id === app.Patient_id) {
             events.push({
               id: app.id,
               title: `Consulta con paciente`,
