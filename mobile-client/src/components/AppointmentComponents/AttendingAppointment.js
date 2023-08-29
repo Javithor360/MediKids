@@ -259,7 +259,6 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
                         <Text style={{color: '#ffffff', fontSize: 16,}}><SetLabel isLoading={isLoading} LabelText={'Recargar'} Success={Success}/></Text>
                     </TouchableOpacity>
                 </View>
-                {/* <TimerComponent /> */}
             </View>
         </>
     )
