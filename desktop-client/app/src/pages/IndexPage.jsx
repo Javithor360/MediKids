@@ -3,7 +3,7 @@ import Modal from "../components/Modal.jsx";
 import { Link } from "react-router-dom";
 import moment from 'moment';
 import { ModalTestComponent } from "../components/ModalTestComponent.jsx";
-import { MdNotifications, MdChat, MdDescription } from "react-icons/md"
+import { TbClockHour4, TbCalendarEvent } from "react-icons/tb"
 
 import { useDash } from "../context/DoctorContext";
 import{ CalendarPicker } from "./Patients/PatientsComponents/CalendarPicker.jsx";
@@ -39,8 +39,8 @@ export const IndexPage = () => {
           <span className="">CARGANDO</span>
         </div>
       )} */}
-      <div className="w-[90%] h-[15rem] m-auto rounded-3xl border border-[#707070a9] shadow-xl bg-white flex">
-        <div className="h-full w-[40%] flex flex-col justify-center gap-5">
+      <div className="w-[90%] h-[15rem] m-auto rounded-3xl border border-[#707070a9] shadow-xl bg-[white] flex">
+        <div className="h-full w-[50%] flex flex-col justify-center gap-5">
           {
             (time.toLocaleTimeString() < "12:00:00") ?
             <p className="font-semibold ml-7 text-[1.6rem]">¡Buenos Días!</p>
@@ -52,15 +52,16 @@ export const IndexPage = () => {
           }
           <p className="ml-7 text-[1.8rem] truncate">Dr. {`${Info.First_Names} ${Info.Last_Names}`}</p>
         </div>
-        <div className="h-full w-[60%] flex items-center">
-          <div className="border border-[#707070a9] bg-[white] w-[80%] h-[65%] rounded-2xl mx-auto">
-            <div className="flex gap-2 mx-auto mt-3 w-fit">
-              <p className="border-r border-[#707070] pr-2">{moment().format('LTS')}</p>
-              <p>{time.toLocaleDateString()}</p>
+        <div className="h-full w-[50%] flex items-center justify-center">
+          <div className="h-[70%] w-[1px] bg-[#bbbbbb] self-center"></div>
+          <div className="py-4 border shadow-md bg-[#ebebf8] w-[80%] h-fit rounded-2xl mx-auto">
+            <div className="flex gap-2 mx-auto w-fit">
+              <p className="text-[#707070] flex flex-row items-center gap-2 border-r border-[#707070] pr-2"><TbClockHour4 className="text-[#070707] text-[18px] font-bold"/>{moment().format('LTS')}</p>
+              <p className="text-[#707070] flex flex-row items-center gap-2"><TbCalendarEvent className="text-[#070707] text-[18px] font-bold" />{time.toLocaleDateString()}</p>
             </div>
-            <div className="h-[5rem] w-fit mt-4 mx-auto flex justify-center items-center">
+            {/* <div className="h-[5rem] w-fit mt-4 mx-auto flex justify-center items-center">
               <div className="w-[15%] h-full flex justify-center items-center">
-                  {/* <MdNotifications className="text-[#707070] text-[2rem]"/> */}
+                  <MdNotifications className="text-[#707070] text-[2rem]"/>
                   <div className="indicator w-[2rem] h-[2rem]">
                     <span className="indicator-item badge badge-xs badge-ghost bg-[red] border-[white] top-1 right-2"></span> 
                     <div className="grid place-items-center"><MdNotifications className="text-[#707070] text-[2rem]"/></div>
@@ -69,13 +70,9 @@ export const IndexPage = () => {
               <div className="w-[90%] h-full flex items-center">
                 <div className="h-fit w-fit ml-5 pb-[0.5rem] flex border-b border-b-[#707070a9]">
                   <p className="min-w-fit">2 notificaciones nuevas</p>
-                  <div className="flex gap-3 truncate ml-7">
-                    <MdDescription className="h-[1.5rem] w-[1.5rem]"/>
-                    <MdChat className="h-[1.5rem] w-[1.5rem]"/>
-                  </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

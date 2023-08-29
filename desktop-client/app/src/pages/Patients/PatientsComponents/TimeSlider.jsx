@@ -16,7 +16,7 @@ const TimeSlider = () => {
     prevArrow: <AiOutlineLeft/>,
     nextArrow: <AiOutlineRight/>
   };
-
+  //La hora de la base de datos viene en formato militar (24hr)
   const timeValues = ["10:00 pm", "09:00 am", "12:00 pm", "01:00 pm", "08:00 am", "09:00 pm"];
 
   const [selectedTime, setSelectedTime] = useState(null);

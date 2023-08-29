@@ -1,14 +1,16 @@
 import { useState } from 'react';
+//libraries
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { DoctorEvents } from '../utils/DoctorEvents';
 import esLocale from '@fullcalendar/core/locales/es';
 import { Tooltip } from 'react-tippy';
 import 'react-tippy/dist/tippy.css';
-import '../assets/scss/AgendaStyles.scss'
 import { BsDot } from 'react-icons/bs'
+//utils
+import { DoctorEvents } from '../../utils/DoctorEvents';
+import '../../assets/scss/AgendaStyles.scss'
 
 export const MainAgenda = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date());

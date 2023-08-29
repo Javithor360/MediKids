@@ -13,6 +13,8 @@ import {
   PatientsDetails,
   MedicalAppoinment,
   LoginPage,
+  AppointmentRequests,
+  AppointmentRequestsDetails
 } from "./pages";
 
 import { AuthProvider } from "./context/AuthContext";
@@ -49,8 +51,9 @@ function App() {
                 <Route path="/inbox" element={<Inbox />} />
 
                 {/* Páginas referentes a la agenda */}
-                <Route path="/agenda" element={<MainAgenda />} />
-
+                <Route path="/agenda/calendar" element={<MainAgenda />} />
+                <Route path="/agenda/appointment_requests" element={<AppointmentRequests/>}/>
+                <Route path="/agenda/appointment_requests/details" element={<AppointmentRequestsDetails />} />
                 {/* Páginas referentes al control de pacientes */}
                 <Route path="/patients/active" element={<ActivePatients />} />
                 <Route
