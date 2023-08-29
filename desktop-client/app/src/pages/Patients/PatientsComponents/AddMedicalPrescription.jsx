@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import {GrAddCircle} from 'react-icons/gr'
 import {MdOutlineDeleteForever} from 'react-icons/md'
 import { useLocation } from "react-router-dom";
+//toggle
 
+import Toggle from 'react-toggle';
+import 'react-toggle/style.css';
 export const AddMedicalPrescription = ({
   setNewMedicalPrescriptionEntry,
 }) => {
@@ -103,37 +106,33 @@ export const AddMedicalPrescription = ({
     setMedicines(toggleMedicines);
   };
 
+  
+    const [isChecked, setChecked] = useState(false);
+  
+    const handleToggle = () => {
+      setChecked(!isChecked);
+    };
   return (
-    <div className="bg-white">
+    <div className="bg-transparent">
       <div className="inline-flex items-center gap-2">
         <p className="mt-1 ml-7 font-semibold text-[#707070] text-[1.2rem]">¿Agregar medicamentos a la receta?</p>
         
         <form>
           
           <label className=" mr-5 text-[#707070] text-[1.2rem]" for="add_yes">
-            Sí
-            <input
-              className="ml-2 "
-              type="radio"
+             <Toggle
+             checked={selectedOption === true }
+             onChange={handleToggle}
               id="add_yes"
               name="selection"
               value="add_yes"
-              checked={selectedOption === true}
-              onChange={handleChange}
-              
-            />
+          
+        />
+            
           </label>
           <label className=" mr-5 text-[#707070] text-[1.2rem]" for="add_no">
             No
-            <input
-              className="ml-2"
-              type="radio"
-              id="add_no"
-              name="selection"
-              value="add_no"
-              checked={selectedOption === false}
-              onChange={handleChange}
-            />
+           
           </label>
         </form>
        
@@ -152,7 +151,7 @@ export const AddMedicalPrescription = ({
       ))}
       <div
         className={`${
-          selectedOption === false ? `bg-gray-50 rounded-xl ` : ``
+          selectedOption === false ? ` rounded-xl ` : ``
         } mt-5   inline-flex items-center gap-2`}
       >
         
