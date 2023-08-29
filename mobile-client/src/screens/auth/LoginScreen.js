@@ -79,6 +79,7 @@ export const LoginScreen = () => {
           setSuccess(true);
 
           setTimeout(() => {
+            setDisableBack(false)
             //\\ CHECK IF HE ALREADY SET AN PF.
             if(data.User.Profile_Photo_Url == 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'){
               navigation.navigate('SelectProfilePhotoScreen', {haveButton: false});

@@ -114,7 +114,7 @@ export const ThreePoints = ({setLngModal, setView, view}) => {
           }
         </View>
         <View style={{width: '100%', height: 70, justifyContent: 'flex-end', alignItems: 'center', marginBottom: 35, height: '40%'}}>
-            <TouchableOpacity onPress={() => {LogoutButton()}} style={[{ height: '25%',width: '90%',borderRadius: 15,backgroundColor: '#fe3838', alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}, styles.ButtomShadow]}>
+            <TouchableOpacity onPress={() => {LogoutButton()}} style={[{ height: '20%',width: '85%',borderRadius: 15,backgroundColor: '#fe3838', alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}, styles.ButtomShadow]}>
                 <AntDesign name="logout" size={26} color="#fff" />
                 <Text style={{color: '#fff', fontSize: 18}}>Cerrar Sesión</Text>
             </TouchableOpacity>

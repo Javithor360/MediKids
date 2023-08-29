@@ -71,14 +71,14 @@ export const Calendario = () => {
           <View View style={styles.CalendarSection}>
             <View style={styles.CalendarTop}>
               <TouchableOpacity onPress={() => substractMonth()}>
-                <View><AntDesign name="left" size={24} color="#fff" /></View>
+                <View><AntDesign name="left" size={30} color="#fff" /></View>
               </TouchableOpacity>
               <Text style={{color: '#fff', fontSize: 25, fontWeight: 'bold'}}>{getMothName(MonthState)} - {YearState}</Text>
               <TouchableOpacity onPress={() => addMonthState()}>
-                <View><AntDesign name="right" size={24} color="#fff" /></View>
+                <View><AntDesign name="right" size={30} color="#fff" /></View>
               </TouchableOpacity>
             </View>
-            <View style={{width: '100%', backgroundColor: '#fff', borderBottomEndRadius: 20, borderBottomStartRadius: 20, height: isIOS ? 465 : 505 }}>
+            <View style={{width: '100%', height: '100%',backgroundColor: '#fff', borderBottomEndRadius: 20, borderBottomStartRadius: 20, height: isIOS ? 465 : 505, justifyContent: 'center', alignItems: 'center' }}>
               {/* HERE'S GONNA BE THE COMPONENTS OF THE CALENDAR */}
               {/* first component: Month */}
               <Moths MonthState={MonthState} YearState={YearState}/>
