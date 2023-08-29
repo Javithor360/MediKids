@@ -12,7 +12,7 @@ import { ChangeSBColor } from '../../store/slices/starterSlice';
 
 export const SplashScreen = () => {
   const State = useSelector(state => state.starter.State);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const navigation = useNavigation();
 

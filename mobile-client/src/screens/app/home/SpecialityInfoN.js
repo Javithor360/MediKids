@@ -172,12 +172,12 @@ const SpecialtyInfoN = () => {
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 5}}>
                   <MaterialIcons name="phone" size={18} color="#A375FF" />
-                  <Text style={{color: '#707070'}}>2525-2525</Text>
+                  <Text style={{color: '#707070'}}>2525-2521</Text>
                 </View>
               </View>
             </View>
 
-              <TouchableOpacity onPress={()=>navigation.navigate("AppointmentStack")} style={styles.programAppointmentBtn}>
+              <TouchableOpacity onPress={()=>navigation.navigate("Appointment")} style={styles.programAppointmentBtn}>
               <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
                 Agendar cita
               </Text>

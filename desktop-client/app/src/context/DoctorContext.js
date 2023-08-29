@@ -69,11 +69,10 @@ export const DoctorProvider = ({ children }) => {
     try {
       const actPats = await getActivePatients(Doctor_id, PrivateConfig);
       const allApo = await getAllApointments(Doctor_id, PrivateConfig);
-
       setActivePatients(
         actPats.data.body.filter((patient) =>
           allApo.data.body.some(
-            (appointment) => appointment.Patient_id === patient.id
+            (appointment) => appointment.Patient_id === patient.id && (appointment.State !== 1 && appointment.State !== 4)
           )
         )
       );
@@ -82,7 +81,7 @@ export const DoctorProvider = ({ children }) => {
         actPats.data.body.filter(
           (patient) =>
             !allApo.data.body.some(
-              (appointment) => appointment.Patient_id === patient.id
+              (appointment) => appointment.Patient_id === patient.id && (appointment.State !== 1 && appointment.State !== 4)
             )
         )
       );
@@ -119,7 +118,8 @@ export const DoctorProvider = ({ children }) => {
   ) => {
     try {
       const res = await AddMedicalPrescription(medicalPrescript);
-      CreateMedicalRecordEntry(medicalRecord, res.data.Array_Prescriptions);
+      let Arr = res != null ? res.data.Array_Prescriptions : [];
+      CreateMedicalRecordEntry(medicalRecord, Arr);
       EditMedicalPrescription(medicalPrescript);
     } catch (error) {
       console.log(error);

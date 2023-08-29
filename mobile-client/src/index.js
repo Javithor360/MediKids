@@ -31,6 +31,7 @@ export { DropdownComponent } from './components/DropdownComponent';
 export { ShowToast } from './components/ShowToast'
 export { SetLabel } from './components/SetLabel';
 export { ScreenTitle } from './components/ScreenTitleHook'
+export { ThreePoints } from './components/ThreePoints'
 export { RequestAppointmentForm } from './components/AppointmentComponents/RequestAppointmentForm'
 export { PendingAppointment } from './components/AppointmentComponents/PendingAppointment'
 export { NextAppointment } from './components/AppointmentComponents/NextAppointment'
@@ -38,6 +39,7 @@ export { AttendingAppointment } from './components/AppointmentComponents/Attendi
 export { AppointmentResults } from './components/AppointmentComponents/AppointmentResults'
 export { AppointmentMedicines } from './components/AppointmentComponents/AppointmentMedicines'
 export { AppointmentStatus } from './components/AppointmentComponents/AppointmentStatus'
+export { Moths } from './components/CalendarComponents/Months'
 
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';
@@ -47,7 +49,7 @@ export { AppointmentStack } from './navigators/Dashboard/AppointmentStack';
 export { MedicinasStack } from './navigators/Dashboard/MedicinasStack'
 
 //* Queries
-export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord, getAllImmunizationRecords, getPatient, getMedicalRecords, requestMedicalAppointment, getMedicalAppointments, getMedicalPrescriptions, uploadPFPatient, getSingleMedicalAppmt, getSingleMedicalAppmtRecord } from './queries/Queries';
+export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord, getAllImmunizationRecords, getPatient, getMedicalRecords, requestMedicalAppointment, getMedicalAppointments, getMedicalPrescriptions, uploadPFPatient, getSingleMedicalAppmt, getSingleMedicalAppmtRecord, getMedicinesAppmtResult } from './queries/Queries';
 
 //\\ Configs
 export { toastConfig } from './components/toastConfigs';

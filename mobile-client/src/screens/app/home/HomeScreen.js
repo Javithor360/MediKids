@@ -7,11 +7,10 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient'
 import { useTranslation } from 'react-i18next';
-import Constants from 'expo-constants';
 
 //>> Import Components
 import LanguageSelector from '../../../components/LanguageSelector';
-import { getMedicalAppointments, getMedicalPrescriptions } from '../../../index'
+import { ThreePoints, getMedicalAppointments, getMedicalPrescriptions } from '../../../index'
 
 //! Deafult foto
 const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
@@ -113,59 +112,14 @@ export const HomeScreen = () => {
                     <Entypo name="dots-three-horizontal" size={34} color="#707070" />
                   </TouchableOpacity>
   
-                <Modal
-                  animationType='fade'
-                  onDismiss={() => console.log('close')}
-                  onShow={() => console.log('show')}
-                  transparent
-                  visible={lngModal}
-                >
+                {/* Configuration "Three Points" Modals */}
+                <Modal animationType='fade' visible={view}>
+                  <ThreePoints setLngModal={setLngModal} setView={setView} view={view} />
+                  <Modal animationType='fade' onDismiss={() => console.log('close')} onShow={() => console.log('show')} transparent visible={lngModal}>
                     <LanguageSelector closeModal={() => setLngModal(false)}/>
+                  </Modal>
                 </Modal>
-                <Modal
-                  animationType='fade'
-                  onDismiss={() => console.log('close')}
-                  onShow={() => console.log('show')}
-                  transparent
-                  visible={view}
-                >
-                  <View
-                    style={{
-                      flex: 1,
-                      backgroundColor: 'rgba(1,1,1, 0.5)',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    <View style={{ height: '100%', width: '90%', backgroundColor: '#ffff', left: 45,  paddingTop: Constants.statusBarHeight }}>
-                      <Text style={{ alignSelf: 'center', top: 10, fontSize: 20, color: '#707070', fontWeight: 'bold', }}>Opciones</Text>
-                      <View style={{ height: '70%', width: '90%', top: 20, alignSelf: 'center', }}>
-                        <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}>
-                        <Text style={{alignSelf: 'flex-start',left:20,fontSize:18,}}>Cambiar paciente</Text>
-                        </TouchableOpacity>
-                        <View style={styles.line}></View>
-                        <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}>
-                        <Text style={{alignSelf: 'flex-start',left:20,fontSize:18,}}>Editar Perfil</Text>
-                        </TouchableOpacity>
-                        <View style={styles.line}></View>
-                        <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}>
-                        <Text style={{alignSelf: 'flex-start',left:20,fontSize:18,}}>Cuenta</Text>
-                        </TouchableOpacity>
-                        <View style={styles.line}></View>
-                        <TouchableOpacity onPress={()=> setLngModal(true)} style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19}}>
-                          <Text style={{alignSelf: 'flex-start',left:20,fontSize:18,}}>Cambiar idioma</Text>
 
-                        </TouchableOpacity>
-                        <View style={styles.line}></View>
-                        <TouchableOpacity style={{ width:'115%',height: '10%',alignItems: 'center',justifyContent: 'center',right:19, }}> 
-                        <Text style={{color:'red',fontSize:18,alignSelf: 'flex-start',left:20,}}>Cerrar Sesión</Text>
-                        </TouchableOpacity>
-                      </View>
-                      <TouchableOpacity style={styles.apptBtn1} onPress={() => setView(false)} >
-                        <Text style={{ color: '#fff', fontSize: 13.5, }}>Cerrar</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </Modal>
                 </View>
               </View>
             </View>
@@ -988,22 +942,5 @@ const styles = StyleSheet.create({
     marginLeft:'55%',
     top:24,
   },
-  apptBtn1:{
-    width: '50%',
-    height: 30,
-    backgroundColor: '#B4B4D6',
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    bottom: 25,
-    left:'25%',
-    position: 'absolute',
-    alignSelf: 'flex-end',
-},
-line:{
-  backgroundColor:'#CECEF6',
-  height:'0.2%',
-  width:'90%',
-  alignSelf:'flex-start',
-},
+
 });

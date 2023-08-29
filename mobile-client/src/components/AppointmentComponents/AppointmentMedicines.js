@@ -1,27 +1,75 @@
-import { View, Text, StyleSheet } from 'react-native'
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Octicons } from '@expo/vector-icons';
 
-export const AppointmentMedicines = () => {
+//>> IMPORT LIBRARIES
+import { View, Text, StyleSheet } from 'react-native'
+import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import { Octicons } from '@expo/vector-icons';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
+//>> IMPORT COMPONENTS
+import { getMedicinesAppmtResult } from '../../index'
+
+export const AppointmentMedicines = ({RecordCode}) => {
+    const jwtToken = useSelector(state => state.responsible.jwtToken);
+
+    //! Medicines asigned state
+    const [Medicines, setMedicines] = useState(null);
+
+    //! Function to get the Medicines.
+    const getMedicinesResult = async () => {
+        try {
+            const {data} = await getMedicinesAppmtResult(jwtToken, RecordCode)
+            setMedicines(data.Medicines);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    //! Get the Date to String.
+    const getLocaleDateString = (Fechant) => {
+        return new Date(Fechant).toLocaleDateString();
+    }
+
+    //! Get Medicine Card.
+    const GetMedicineCard = ({Medicine}) => {
+        return (
+            <View style={styles.individualMedicineCard}>
+                <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 10, marginTop: 5,}}>
+                    <Octicons name="dot-fill" size={20} color="#F8991E" /> 
+                    <Text style={styles.medicineTitle}>{Medicine.Medicine_Name}</Text>
+                </View>
+
+                <View style={{width: '90%', alignSelf: 'center', gap: 10, paddingVertical: 16}}>
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>Descripcion de la Asignación: </Text>{Medicine.Description}</Text>
+
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>Dosis: </Text>{Medicine.Dose}, {Medicine.Time_Dose} al dia</Text>
+
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>Instrucciones: </Text>{Medicine.Instructions}</Text>
+
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E'}}>Duración: </Text>{getLocaleDateString(Medicine.Starting_Dose_Date)} - {getLocaleDateString(Medicine.Finishing_Dose_Date)}</Text>
+                </View>
+            </View>
+        );
+    }
+
+    useEffect(() => {
+        getMedicinesResult();
+    }, []);
+
   return (
     <>
         <Text style={[styles.requestMainTitle, styles.colorYellow]}>Medicinas</Text>
-        <View style={styles.individualMedicineCard}>
-            <View style={{alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 10, marginTop: 10,}}>
-                <Octicons name="dot-fill" size={20} color="#F8991E" /> 
-                <Text style={styles.medicineTitle}>Acetaminofén</Text>
-            </View>
-
-            <View style={{width: '90%', alignSelf: 'center', gap: 10, paddingVertical: 16}}>
-                <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>Descripcion/Laboratorio: </Text>Acetaminofen MK</Text>
-
-                <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>Dosis: </Text>15 ml cada 8 horas</Text>
-
-                <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>Instrucciones: </Text>Tomar despues de cada comida</Text>
-
-                <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E'}}>Duración: </Text>2 semanas</Text>
-            </View>
-        </View>
+        {
+            (Medicines != null && Medicines.length != 0) ?
+                Medicines.map((medicine) => {
+                    return <GetMedicineCard Medicine={medicine}/>
+                })
+                :
+                <View>
+                    <Text>No se asignaron Medicinas</Text>
+                </View>
+        }
+        <View style={{marginTop: 10, width: "100%"}}></View>
     </>
   )
 }
@@ -79,7 +127,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         alignSelf: 'center',
         paddingRight: 16,
-        marginBottom: 16,
+        marginBottom: 35,
         //iOS
         shadowColor: '#707070',
         shadowOffset: {width: -2, height: 4},

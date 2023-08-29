@@ -177,7 +177,7 @@ const Gastro = () => {
               </View>
             </View>
 
-            <TouchableOpacity onPress={()=>navigation.navigate('AppointmentStack') } style={styles.programAppointmentBtn}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Appointment') } style={styles.programAppointmentBtn}>
               <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
                 Agendar cita
               </Text>

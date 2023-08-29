@@ -136,3 +136,9 @@ export const getSingleMedicalAppmt = async (jwtToken, Appointment_id) => {
 export const getSingleMedicalAppmtRecord = async (jwtToken, Record_Code) => {
   return await axios.post(`http://${localhost}:5005/api/appointment/get_single_medical_appmt_record`, {Record_Code}, get_private_headers(jwtToken));
 }
+
+//! Get the medicines asigned in a single appointment for the Patient.
+//@access Private
+export const getMedicinesAppmtResult = async (jwtToken, Record_Code) => {
+  return await axios.post(`http://${localhost}:5005/api/appointment/get_medicines_appmt_result`, {Record_Code}, get_private_headers(jwtToken));
+}

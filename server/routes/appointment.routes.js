@@ -1,5 +1,5 @@
 import express from "express";
-import {get_medical_appointments, get_medical_records, get_single_medical_appmt, get_single_medical_appmt_record, request_medical_appointment} from '../controllers/appointment.js'
+import {get_medical_appointments, get_medical_records, get_medicines_appmt_result, get_single_medical_appmt, get_single_medical_appmt_record, request_medical_appointment} from '../controllers/appointment.js'
 import { auth_midd } from '../middlewares/auth_middleware.js';
 import { pool } from "../utils/db.js";
 
@@ -22,6 +22,9 @@ router_appointment.route('/get_single_medical_appmt').post([auth_midd], get_sing
 
 //! Get a single medical appointment.
 router_appointment.route('/get_single_medical_appmt_record').post([auth_midd], get_single_medical_appmt_record);
+
+//! Get the medicines asigned in a single medical appointment to the patient.
+router_appointment.route('/get_medicines_appmt_result').post([auth_midd], get_medicines_appmt_result);
 
 //\\ TEST
 router_appointment.route('/change_appointment_state_test').post(async (req, res, next) => {
