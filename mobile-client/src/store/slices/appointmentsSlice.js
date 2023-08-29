@@ -4,6 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   //? Otorrino values
   OtorrinoState: null,
+  Otorrino_Appmt_id: null,
   Otorrino_Doctor_id: null,
   Otorrino_Week: null,
   Otorrino_Description: null,
@@ -12,6 +13,7 @@ const initialState = {
 
   //? Neumo Values
   NeumoState: null,
+  Neumo_Appmt_id: null,
   Neumo_Doctor_id: null,
   Neumo_Week: null,
   Neumo_Description: null,
@@ -20,6 +22,7 @@ const initialState = {
 
   //? Gastro Values
   GastroState: null,
+  Gastro_Appmt_id: null,
   Gastro_Doctor_id: null,
   Gastro_Week: null,
   Gastro_Description: null,
@@ -36,7 +39,8 @@ const appointmentsSlice = createSlice({
       state.OtorrinoState = action.payload;
     },
     ChangeOtorrinoValues: (state, action) => {
-      const {Otorrino_Doctor_id, Otorrino_Week, Otorrino_Description, Otorrino_Date, Otorrino_Hour} = action.payload;
+      const {Otorrino_Appmt_id, Otorrino_Doctor_id, Otorrino_Week, Otorrino_Description, Otorrino_Date, Otorrino_Hour} = action.payload;
+      state.Otorrino_Appmt_id = Otorrino_Appmt_id;
       state.Otorrino_Doctor_id = Otorrino_Doctor_id;
       state.Otorrino_Week = Otorrino_Week;
       state.Otorrino_Description = Otorrino_Description;
@@ -47,7 +51,8 @@ const appointmentsSlice = createSlice({
       state.NeumoState = action.payload;
     },
     ChangeNeumoValues: (state, action) => {
-      const {Neumo_Doctor_id, Neumo_Week, Neumo_Description, Neumo_Date, Neumo_Hour} = action.payload;
+      const {Neumo_Appmt_id, Neumo_Doctor_id, Neumo_Week, Neumo_Description, Neumo_Date, Neumo_Hour} = action.payload;
+      state.Neumo_Appmt_id = Neumo_Appmt_id;
       state.Neumo_Doctor_id = Neumo_Doctor_id;
       state.Neumo_Week = Neumo_Week;
       state.Neumo_Description = Neumo_Description;
@@ -58,7 +63,8 @@ const appointmentsSlice = createSlice({
       state.GastroState = action.payload;
     },
     ChangeGastroValues: (state, action) => {
-      const {Gastro_Doctor_id, Gastro_Week, Gastro_Description, Gastro_Date, Gastro_Hour} = action.payload;
+      const {Gastro_Appmt_id, Gastro_Doctor_id, Gastro_Week, Gastro_Description, Gastro_Date, Gastro_Hour} = action.payload;
+      state.Gastro_Appmt_id = Gastro_Appmt_id;
       state.Gastro_Doctor_id = Gastro_Doctor_id;
       state.Gastro_Week = Gastro_Week;
       state.Gastro_Description = Gastro_Description;

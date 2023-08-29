@@ -25,6 +25,7 @@ export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id})
     
     const getAppointmentInfo = () => {
         let appointmentInfo = {
+            id: null,
             State: null,
             Doctor_id: null,
             Week: null,
@@ -34,6 +35,7 @@ export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id})
         }
 
         if (Doctor_id == 1) {
+            appointmentInfo.id = appointmentsState.Otorrino_Appmt_id;
             appointmentInfo.State = appointmentsState.OtorrinoState;
             appointmentInfo.Doctor_id = appointmentsState.Otorrino_Doctor_id;
             appointmentInfo.Week = appointmentsState.Otorrino_Week;
@@ -41,6 +43,7 @@ export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id})
             appointmentInfo.Date = appointmentsState.Otorrino_Date;
             appointmentInfo.Hour = appointmentsState.Otorrino_Hour;
         } else if (Doctor_id == 2) {
+            appointmentInfo.id = appointmentsState.Neumo_Appmt_id;
             appointmentInfo.State = appointmentsState.NeumoState;
             appointmentInfo.Doctor_id = appointmentsState.Neumo_Doctor_id;
             appointmentInfo.Week = appointmentsState.Neumo_Week;
@@ -48,6 +51,7 @@ export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id})
             appointmentInfo.Date = appointmentsState.Neumo_Date;
             appointmentInfo.Hour = appointmentsState.Neumo_Hour;
         } else if (Doctor_id == 3){
+            appointmentInfo.id = appointmentsState.Gastro_Appmt_id;
             appointmentInfo.State = appointmentsState.GastroState;
             appointmentInfo.Doctor_id = appointmentsState.Gastro_Doctor_id;
             appointmentInfo.Week = appointmentsState.Gastro_Week;

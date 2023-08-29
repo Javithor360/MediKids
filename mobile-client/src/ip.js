@@ -2,4 +2,4 @@
 //>> IP ADDRESS FROM THE SERVER
 //>> ===========================
 
-export default ip = () => '192.168.1.6';
+export default ip = () => '192.168.137.1';

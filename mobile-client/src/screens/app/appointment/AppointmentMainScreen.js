@@ -54,9 +54,11 @@ export const AppointmentMainScreen = () => {
             const {data} = await getMedicalAppointments(jwtToken, Patient_Code, Hour);
 
             data.medical_appointments.forEach(appointment => {
+
                 if(appointment.Doctor_id == 1){
                     dispatch(ChangeOtorrinoState(appointment.State));
                     dispatch(ChangeOtorrinoValues({
+                        Otorrino_Appmt_id: appointment.id,
                         Otorrino_Doctor_id: appointment.Doctor_id,
                         Otorrino_Week: appointment.Week,
                         Otorrino_Description: appointment.Description,
@@ -66,6 +68,7 @@ export const AppointmentMainScreen = () => {
                 } else if (appointment.Doctor_id == 2){
                     dispatch(ChangeNeumoState(appointment.State));
                     dispatch(ChangeNeumoValues({
+                        Neumo_Appmt_id: appointment.id,
                         Neumo_Doctor_id: appointment.Doctor_id,
                         Neumo_Week: appointment.Week,
                         Neumo_Description: appointment.Description,
@@ -75,6 +78,7 @@ export const AppointmentMainScreen = () => {
                 } else if (appointment.Doctor_id == 3){
                     dispatch(ChangeGastroState(appointment.State));
                     dispatch(ChangeGastroValues({
+                        Gastro_Appmt_id: appointment.id,
                         Gastro_Doctor_id: appointment.Doctor_id,
                         Gastro_Week: appointment.Week,
                         Gastro_Description: appointment.Description,
@@ -97,10 +101,6 @@ export const AppointmentMainScreen = () => {
         }
     }
 
-    const setInProssessAppointment = async () => {
-
-    }
-
     useEffect(() => {
         getAppointments();
         getHistoryAppointment();
@@ -120,12 +120,12 @@ export const AppointmentMainScreen = () => {
                     />
                     {/* APPOINTMENT STATUS CARD */}
                     {
-                        (appointmentsState.OtorrinoState || appointmentsState.NeumoState || appointmentsState.GastroState) &&
+                        ((appointmentsState.OtorrinoState != 4 && appointmentsState.OtorrinoState != null) || (appointmentsState.NeumoState != 4 && appointmentsState.NeumoState != null) || (appointmentsState.GastroState != 4 &&appointmentsState.GastroState != null )) &&
                             <View style={[styles.requestAppointmentContainer, styles.btcGreen, styles.shadowC]}>
                                 <Text style={[styles.requestMainTitle, styles.colorGreen]}>Actividad de citas</Text>
-                                { appointmentsState.OtorrinoState && <AppointmentStatus Doctor_id={appointmentsState.Otorrino_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/otorrino-icon.png')} DoctorName={'Dr. Esteban Gúzman'} Specialty={'Otorrinolaringología'}/> }
-                                { appointmentsState.NeumoState && <AppointmentStatus Doctor_id={appointmentsState.Neumo_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/neumologia-icon.png')} DoctorName={'Dr. Adrián Flores'} Specialty={'Neumología'}/>}
-                                { appointmentsState.GastroState && <AppointmentStatus Doctor_id={appointmentsState.Gastro_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/gastro-icon.png')} DoctorName={'Dr. Fatima Garza'} Specialty={'Gastroenterología'}/>}
+                                { appointmentsState.OtorrinoState && appointmentsState.OtorrinoState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Otorrino_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/otorrino-icon.png')} DoctorName={'Dr. Esteban Gúzman'} Specialty={'Otorrinolaringología'}/> }
+                                { appointmentsState.NeumoState && appointmentsState.NeumoState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Neumo_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/neumologia-icon.png')} DoctorName={'Dr. Adrián Flores'} Specialty={'Neumología'}/>}
+                                { appointmentsState.GastroState && appointmentsState.GastroState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Gastro_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/gastro-icon.png')} DoctorName={'Dr. Fatima Garza'} Specialty={'Gastroenterología'}/>}
                             </View>
                     }
                     <View style={styles.chooseBanner}>
@@ -144,7 +144,7 @@ export const AppointmentMainScreen = () => {
                     <View style={styles.cardsContainer}>
                         <View style={styles.card}>
                             {
-                                appointmentsState.OtorrinoState != null ?
+                                (appointmentsState.OtorrinoState != null && appointmentsState.OtorrinoState != 4) ?
                                 <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
                                 :
                                 null
@@ -165,7 +165,7 @@ export const AppointmentMainScreen = () => {
                                 <View style={{height: 1, width: '90%', backgroundColor: '#E6E6E6', alignSelf: 'center',}}></View>
                                 <View style={{height: '65%', padding: 6}}>
                                     <Text style={{fontSize: 12, color: '#707070',}}>Diagnóstico y tratamiento de las enfermedades del oído, nariz, garganta y alergías</Text>
-                                    <TouchableOpacity disabled={appointmentsState.OtorrinoState != null ? true : false} style={styles.apptBtn} onPress={()=>navigation.navigate('AppointmentProcessScreen', {
+                                    <TouchableOpacity style={styles.apptBtn} onPress={()=>navigation.navigate('AppointmentProcessScreen', {
                                         doctorDescription: doctorDescription.otoDoctorInsights,
                                         doctor: 'Dr. Esteban Gúzman',
                                         speciality: 'Otorrinolaringología',
@@ -180,7 +180,7 @@ export const AppointmentMainScreen = () => {
 
                         <View style={styles.card}>
                             {
-                                appointmentsState.NeumoState != null ?
+                                (appointmentsState.NeumoState != null && appointmentsState.NeumoState != 4) ?
                                 <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
                                 :
                                 null
@@ -216,7 +216,7 @@ export const AppointmentMainScreen = () => {
 
                         <View style={styles.card}>
                             {
-                                appointmentsState.GastroState != null ?
+                                (appointmentsState.GastroState != null && appointmentsState.GastroState != 4``) ?
                                 <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
                                 :
                                 null

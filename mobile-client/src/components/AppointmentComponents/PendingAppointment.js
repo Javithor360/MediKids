@@ -7,7 +7,7 @@ export const PendingAppointment = () => {
     <>
         <Text style={styles.requestMainTitle}>Confirmación de cita</Text>
         <Image source={require('../../../assets/graphic-icons/review.png')} style={styles.imageIconLol}/>
-        <Text style={styles.description}>Cuando la cita haya sido confirmanda, en este apartado aparecerá la fecha exacta de la cita y la hora, además de haberse agendado un recordatorio en el calendario</Text>
+        <Text style={styles.description}>Cuando la cita haya sido confirmanda, en este apartado aparecerá la fecha exacta de la cita y la hora.</Text>
     </>
   )
 }

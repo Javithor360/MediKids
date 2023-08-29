@@ -32,6 +32,7 @@ export const MedicalAppoinment = () => {
     EndMedicalAppointment,
     PatientMedicalPrescriptions,
     medicalPrescriptions,
+    nextAppointment
   } = useDash();
 
   // Variables utilized by modals
@@ -58,10 +59,6 @@ export const MedicalAppoinment = () => {
   const pages = [
     <MedicalRecordConfirmation
       medicalRecord={medicalRecord}
-      height={height}
-      weight={weight}
-      temperature={temperature}
-      notes={notes}
     />,
     <MedicalPrescriptionConfirmation medicalPrescript={medicalPrescript} />,
   ];
@@ -155,6 +152,7 @@ export const MedicalAppoinment = () => {
           notes,
           Patient_id: patient.id,
           Doctor_id,
+          Medical_Appointment_id: nextAppointment.id,
           HtmlNotes,
         },
         { medicalPrescript },
@@ -314,36 +312,41 @@ export const MedicalAppoinment = () => {
           toggle={toggleError}
           onRequestClose={toggleError}
         >
-          <div className="min-w-[20rem] max-w-[45rem] min-h-[30rem] m-5 rounded-lg ">
+          <div className="min-w-[30rem] max-w-[45rem] min-h-[30rem] m-5 rounded-lg ">
            
             <h2>
-           
+            <CiWarning className="inline-flex items-center justify-center gap-3 text-[1.8rem] text-[#e73131] mb-1.5" />
                ERROR 
                
                </h2>
+               <div className=" w-100 h-100  ">
             <p className="ml-2 text-[#707070] text-[1.2rem]">
               Parece que hay algunos detalles que revisar antes de finalizar la
               consulta:
             </p>
+           
          
             <ul >
           
               {errorMessage.map((i) => {
                 
                
-                return   <li  className="ml-2 text-[#707070] text-[1.2rem] list-none" key={i}>{placeholderChanger(i)} <CgDanger   className="inline-flex items-center justify-center gap-3 text-[1.8rem]   text-[#e73131]"/></li>;
+                return   <li  className="ml-2 text-[#707070] text-[1.2rem] list-none items-center justify-center " key={i}>{placeholderChanger(i)} <CgDanger   className="inline-flex items-center justify-center gap-3 text-[1.8rem]   text-[#e73131]"/></li>;
                 
               })}
               
             </ul>
+            <div className=" flex items-center justify-center">
             <button
-              className=" flex items-center justify-center border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[8rem] h-[3rem] rounded-lg ml-7 mb-9 mt-2 text-[1.2rem] "
+              className=" flex items-center justify-center  border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[8rem] h-[3rem] rounded-lg   mt-5 text-[1.2rem] "
               onClick={() => toggleError()}
             >
               <HiBackspace className="w-5 h-10" />
               Regresar
             </button>
-          </div>
+            </div>
+            </div>
+            </div>
         </Modal>
       )}
     </>
@@ -376,16 +379,17 @@ const MedicalRecordConfirmation = ({ medicalRecord }) => {
     <div className="medical-record">
       <h3>Información del expediente:</h3>
       <ul>
-        
-        <li className="list-none">Altura: {medicalRecord.height} lb </li>
+        <li className="list-none  ">Altura: {medicalRecord.height} lb </li>
         <li className="list-none">Peso: {medicalRecord.weight} mts </li>
         <li className="list-none">Temperatura: {medicalRecord.temperature} °C </li>
 
         <li className="list-none ">
           <h3> Anotaciones:</h3>
          
-          <div className="block mt-2 max-w-[25rem] border border-[#000000] ">
-            {parser(medicalRecord.notes)}
+          <div className="block mt-2 max-w-[25rem] rounded-lg border border-[#000000]     ">
+            
+            {parser(medicalRecord.HtmlNotes)}
+            
           </div>
         </li>
       </ul>
@@ -401,7 +405,7 @@ const MedicalPrescriptionConfirmation = ({
     <div className="medical-prescription">
       <h3>Información de la receta médica</h3>
       <ul>
-        <li>Receta de medicamentos editada</li>
+        <li className="list-none">Receta de medicamentos editada</li>
         {medicalPrescript.edited_prescriptions.length > 0 ? (
           medicalPrescript.edited_prescriptions.map((m, i) => {
             return (
@@ -421,14 +425,14 @@ const MedicalPrescriptionConfirmation = ({
         ) : (
           <div>No se editó ningún medicamento</div>
         )}
-        <li>Nuevos medicamentos agregados</li>
+        <li className="list-none font-bold">Nuevos medicamentos agregados</li>
         {medicalPrescript.new_prescriptions.length === 1 &&
         medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (
           <div>No se han agregado medicamentos nuevos</div>
         ) : (
           medicalPrescript.new_prescriptions.map((m, i) => {
             return (
-              <div key={i}>
+              <div key={i} className="border-2 rounded-lg border-black my-3  ">
                 <p>Nombre del medicamento: {m.data.Medicine_Name}</p>
                 <p>Instrucciones: {m.data.Instructions}</p>
                 <p>Descripción: {m.data.Description}</p>

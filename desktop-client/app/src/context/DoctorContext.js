@@ -97,6 +97,7 @@ export const DoctorProvider = ({ children }) => {
         {
           Patient_id: data.Patient_id,
           Doctor_id: data.Doctor_id,
+          Medical_Appointment_id: data.Medical_Appointment_id,
           height: data.height,
           weight: data.weight,
           temperature: data.temperature,
@@ -117,15 +118,9 @@ export const DoctorProvider = ({ children }) => {
     scheAppoint
   ) => {
     try {
-      CreateMedicalRecordEntry(medicalRecord, [
-        "res.data.Array_Prescriptions",
-        "res.data.Array_Prescriptions",
-      ]);
-      AddMedicalPrescription(medicalPrescript);
+      const res = await AddMedicalPrescription(medicalPrescript);
+      CreateMedicalRecordEntry(medicalRecord, res.data.Array_Prescriptions);
       EditMedicalPrescription(medicalPrescript);
-      // No entendí para que sirven o como se obtienen los datos del Array_Prescriptions
-      // const res = await AddMedicalPrescription(medicalPrescript);
-      // CreateMedicalRecordEntry(medicalRecord, res.data.Array_Prescriptions);
     } catch (error) {
       console.log(error);
     }

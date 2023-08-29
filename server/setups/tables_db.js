@@ -94,6 +94,7 @@ db.connect(() => {
           id INT NOT NULL AUTO_INCREMENT,
           Patient_id INT NOT NULL,
           Doctor_id INT NOT NULL,
+          Medical_Appointment_id INT NOT NULL,
           Medical_History_Code VARCHAR(45) NOT NULL,
           Date_Time DATETIME NOT NULL,
           Diagnosis LONGTEXT NOT NULL,

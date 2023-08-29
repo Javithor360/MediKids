@@ -192,8 +192,8 @@ export const EditExistingMedicalPrescription = ({
             </>
           ) : (
             <div className="overflow-x-auto w-[80%] ml-7">
-              <h3>
-                no hay receta medica previa para modificar pe :v +100 lince
+              <h3 className="ml-2">
+                no hay receta medica prescripta 
               </h3>
             </div>
         )}

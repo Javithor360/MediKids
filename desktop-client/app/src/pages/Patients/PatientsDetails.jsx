@@ -97,7 +97,7 @@ export const PatientsDetails = () => {
             <p className="flex items-center justify-center gap-3 font-semibold">
               <MdNotifications className="text-[#a375ff] text-[1.8rem]" />
               Proxima cita el:{" "}
-              {`${appDate.getDate()}/${appDate.getMonth() + 1}/${appDate.getFullYear()} (${appDate.toLocaleTimeString(
+              {`${appDate.getDate()}/${appDate.getMonth() + 1}/${appDate.getFullYear()} (${new Date(`1970-01-01T${nextAppointment.Hour}`).toLocaleTimeString(
                 [],
                 { hour: "2-digit", minute: "2-digit" }
               )})`}
@@ -110,7 +110,7 @@ export const PatientsDetails = () => {
               {/* head */}
               <div className="bg-[#d8d7fe] flex flex-row w-[100%] h-[2.4rem] items-center">
                   <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
-                    <span className="h-fit font-semibold text-[1rem]">Edad</span></div>
+                    <span className="h-fit font-semibold text-[1rem] ">Edad</span></div>
                   <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
                     <span className="font-semibold text-[1rem]">Tipo Sanguíneo</span>
                   </div>
