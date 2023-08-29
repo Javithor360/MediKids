@@ -39,6 +39,7 @@ export { AttendingAppointment } from './components/AppointmentComponents/Attendi
 export { AppointmentResults } from './components/AppointmentComponents/AppointmentResults'
 export { AppointmentMedicines } from './components/AppointmentComponents/AppointmentMedicines'
 export { AppointmentStatus } from './components/AppointmentComponents/AppointmentStatus'
+export { Moths } from './components/CalendarComponents/Months'
 
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';

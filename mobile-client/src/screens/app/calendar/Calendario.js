@@ -1,156 +1,133 @@
-import { useState } from 'react';
-import { StyleSheet, Text, View,Image,TouchableOpacity, ScrollView} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScreenTitle } from '../../../index';
+
+//>> IMPORT LIBRERIES
+import { StyleSheet, Text, View,TouchableOpacity, ScrollView, Dimensions} from 'react-native';
+import { useEffect, useState } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
+import Constants from 'expo-constants';
+import { AntDesign } from '@expo/vector-icons'
+
+//>> IMPORT COMPONENTS
+import { Moths, ScreenTitle } from '../../../index';
+import { isIOS } from '../../../constants';
 
 export const Calendario = () => {
-  const [isMainScreen, setIsMainScreen] = useState(true);
+  const CurrentYear = new Date().getFullYear();
+  const CurrentMonth = new Date().getMonth();
+
+  //! STATES FOR THE CALENDAR
+  const [YearState, setYearState] = useState(null);
+  const [MonthState, setMonthState] = useState(null);
+  const Months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto','Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+  //! SET THE INITIAL VALUES
+  const setStates = (Year, Month) => {
+    setYearState(Year);
+    setMonthState(Month);
+  }
+
+  //! GET THE STRING OF THE MONTH
+  const getMothName = (Month) => Months[Month];
+
+  //! SUBSTRACT MONTH STATE
+  const substractMonth = () => {
+    setMonthState(prev => --prev);
+    if (MonthState < 1) {
+      setMonthState(11);
+      setYearState(prev => --prev);
+    }
+  }
+
+  //! ADD MONTH STATE
+  const addMonthState = () => {
+    setMonthState(prev => ++prev);
+    if (MonthState > 10) {
+      setMonthState(0);
+      setYearState(prev => ++prev);
+    }
+  }
+
+  //! STARTER FUNCTION
+  useEffect(() => {
+    setStates(CurrentYear, CurrentMonth);
+  }, []);
+
+  // useEffect(() => {
+  //   console.log(MonthState);
+  // }, [MonthState]);
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}} >
       <ScrollView style={styles.fullScreenContainer}>
-        <ScreenTitle 
-          Label={"Calendario y recordatorios"}
-          IconName={"calendar-blank"}
-          fontSize={20}
-          textColor={'#FFFFFF'}
-          paddingH={30}
-          isMainScreen={isMainScreen}
-        /> 
-        <View View style={styles.reminderSectionContent}>
-          <View style={styles.contentTitle}>
-              <View style={styles.eventIconContainer}>
-                <Image style={styles.eventIcon} source={require("../../../../assets/calendarIcons/event.png")}/> 
-              </View>
-              <View style={styles.Text1Container}>
-                <Text style={styles.Text1}>Tiene 1 eventos programados para hoy</Text>
-              </View>
-          </View>
-          <TouchableOpacity style={styles.markButton}>
-            <View style={styles.markButtonContent}>
-                <Image style={styles.markIcon} source={require("../../../../assets/calendarIcons/task_comp.png")}/>
-                <Text style={styles.markText}>Marcar todo como completado</Text>
+        <View style={{backgroundColor:'#fff',}}>
+        <ScreenTitle
+            Label={"Calendario y recordatorios"}
+            IconName={"calendar-blank"}
+            fontSize={20}
+            textColor={'#FFFFFF'}
+            paddingH={30}
+            isMainScreen={true}
+          />
+
+          <View View style={styles.CalendarSection}>
+            <View style={styles.CalendarTop}>
+              <TouchableOpacity onPress={() => substractMonth()}>
+                <View><AntDesign name="left" size={24} color="#fff" /></View>
+              </TouchableOpacity>
+              <Text style={{color: '#fff', fontSize: 25, fontWeight: 'bold'}}>{getMothName(MonthState)} - {YearState}</Text>
+              <TouchableOpacity onPress={() => addMonthState()}>
+                <View><AntDesign name="right" size={24} color="#fff" /></View>
+              </TouchableOpacity>
             </View>
-          </TouchableOpacity>
-        </View>
-        <View>
+            <View style={{width: '100%', backgroundColor: '#fff', borderBottomEndRadius: 20, borderBottomStartRadius: 20, height: isIOS ? 465 : 505 }}>
+              {/* HERE'S GONNA BE THE COMPONENTS OF THE CALENDAR */}
+              {/* first component: Month */}
+              <Moths MonthState={MonthState} YearState={YearState}/>
+
+            </View>
+          </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   fullScreenContainer:{
-    backgroundColor: '#FFFFFF',
+    height: '100%',
+    marginTop: Constants.statusBarHeight
   },
-  sectionTitleContainer: {
-    marginTop: 20,
-    marginLeft: 10,
-    flexDirection: 'row',
-    gap: 10,
-  },
-  lineBefore: {
-    backgroundColor: '#707070', 
-    height: 3, 
-    width: 40,
-    alignSelf: 'center',
-  },
-  sectionTitle: {
-    fontSize: 20,
-    color: '#707070',
-    fontWeight: 600,
-  },
-  reminderSectionContent:{
-    backgroundColor: '#FFFFFF',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 10,
-    paddingTop: 10,
-    paddingBottom: 10,
+  CalendarSection:{
+    // overflow: 'hidden',
+    backgroundColor: '#D2D2F9',
     marginLeft: 'auto',
     marginRight: 'auto',
-    // marginTop: 30,
+    marginTop: -25,
     marginBottom: 5,
     width: '90%',
-    height: 'auto',
     borderWidth: 1,
-    borderColor: '#BBBBBB',
+    borderColor: '#D2D2F9',
+    borderWidth: 2,
     borderRadius: 20,
     borderTopWidth: 8,
-    borderTopColor: '#D58C8C',
+    borderBottomWidth:3,
+    borderTopColor: '#D2D2F9',
     //iOS
-    shadowColor: '#BBBBBB',
-    shadowOffset: {width: -2, height: 4},
-    shadowOpacity: 0.2,
+    shadowOffset: {width: -1, height: 4},
+    shadowOpacity: 0.5,
     shadowRadius: 3,
     //Android
     elevation: 5,
-    shadowColor: '#52006A',
+    shadowColor: '#BBBBBB',
   },
-  contentTitle: {
-    flex: 1,
+  CalendarTop: {
+    backgroundColor: '#A375FF',
+    borderTopEndRadius: 20,
+    borderTopStartRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     flexDirection: 'row',
-    gap: 2,
-    width: '90%',
-    height: '40%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-  eventIconContainer: {
-    width: '10%',
-  },
-  eventIcon: {
-    width: '100%',
-    resizeMode: 'contain',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-  Text1Container: {
-    height: 'auto',
-    width: '90%',
-    justifyContent: 'center',
-  },
-  Text1: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#707070',
-    textAlign: 'center',
-    width: '100%',
-  },
-  markButton:{
-    borderRadius: 10,
-    backgroundColor: '#F9F9F9',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    width: '70%',
-    height: 'auto',
-    paddingTop: 4,
-    paddingBottom: 4,
-    paddingLeft: 4,
-    paddingRight: 4,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-  markButtonContent: {
-    alignSelf: 'auto',
-    width: '95%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  markIcon :{
-    resizeMode: 'contain',
-    height: '90%',
-    width: '10%',
-  },
-  markText :{
-    color: '#D48888',
-    width: '90%',
-    textAlign: 'center',
-  }, 
-  safeArea:{
-    backgroundColor: '#e4e2ff',
+    justifyContent: 'space-between',
+    paddingVertical: 20,
+    alignItems: 'center'
   }
 });
