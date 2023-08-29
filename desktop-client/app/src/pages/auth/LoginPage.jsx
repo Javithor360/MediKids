@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { HiOutlineUser, HiOutlineLockClosed } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { VscLoading } from "react-icons/vsc";
-
+import BeatLoader  from "react-spinners/BeatLoader";
 import { useAuth } from "../../context/AuthContext";
+import '../../assets/scss/Globals.scss'
 
 export const LoginPage = () => {
   let navigate = useNavigate();
@@ -17,16 +18,20 @@ export const LoginPage = () => {
     setChargin,
   } = useAuth();
 
+  const [ShowLoading, setShowLoading] = useState(false);
+  const [Label, setLabel] = useState("Acceder");
   const [User, setUser] = useState("");
   const [Password, setPassword] = useState("");
 
   useEffect(() => {
-    setTimeout(() => {
-      setError("");
-      setSuccess("");
-      setChargin(false);
-    }, 4000);
-  }, [Chargin === true]);
+    if (Chargin) {
+      setTimeout(() => {
+        setError("");
+        setSuccess("");
+        setChargin(false);
+      }, 4000);
+    }
+  }, [Chargin]);
 
   const handleForm = async (e) => {
     e.preventDefault();
@@ -46,9 +51,13 @@ export const LoginPage = () => {
         setError("");
         setTimeout(() => {
           setSuccess("Sesión iniciada correctamente");
+          setLabel("✓ Completado");
           setTimeout(() => {
-            navigate("/index");
-          }, 3000);
+            setShowLoading(true);
+            setTimeout(() => {
+              navigate("/index");
+            }, 3000);
+          }, 2000);
         }, 3000);
       }
     } catch (error) {
@@ -111,7 +120,7 @@ export const LoginPage = () => {
                 </span>
               )}
             </div>
-            <div className="bg-[#D8D7FE] h-[3rem] w-[70%] rounded-xl flex border-[3px] border-transparent focus-within:shadow-md focus-within:bg-white focus-within:border-[#a375ff] focus-within:border-[2px] hover:border-[2px] hover:border-[#a375ff] ease-in duration-100">
+            <div className="bg-[#D8D7FE] h-[3rem] w-[70%] rounded-xl flex border-[3px] border-transparent focus-within:shadow-md focus-within:bg-white focus-within:border-[#a375ff] focus-within:border-[2px] hover:border-[2px] hover:border-[#a375ff] ease-in duration-100 overflow-hidden">
               <div className="h-full w-[80%]">
                 <input
                   type="text"
@@ -126,7 +135,7 @@ export const LoginPage = () => {
                 <HiOutlineUser className="text-[1.3rem] text-[#707070]" />
               </div>
             </div>
-            <div className="bg-[#D8D7FE] h-[3rem] w-[70%] rounded-xl flex border-[3px] border-transparent focus-within:shadow-md focus-within:bg-white focus-within:border-[#a375ff] focus-within:border-[2px] hover:border-[2px] hover:border-[#a375ff] ease-in duration-100">
+            <div className="bg-[#D8D7FE] h-[3rem] w-[70%] rounded-xl flex border-[3px] border-transparent focus-within:shadow-md focus-within:bg-white focus-within:border-[#a375ff] focus-within:border-[2px] hover:border-[2px] hover:border-[#a375ff] ease-in duration-100 overflow-hidden">
               <div className="h-full w-[80%]">
                 <input
                   type="password"
@@ -152,13 +161,23 @@ export const LoginPage = () => {
                 </>
               ) : (
                 <>
-                  <p>Acceder</p>
+                  <p>{Label}</p>
                 </>
               )}
             </button>
           </form>
         </div>
       </div>
+      {ShowLoading && (
+        <div className="fixed inset-0 items-center justify-center bg-white z-[100] flex flex-col gap-[2rem]">
+          <img src={require('../../assets/logos/MediKids_Colored-Logotype.png')} alt="" className="w-[30%] h-auto fade-in"/>
+          <BeatLoader 
+              color="#a375ff"
+              aria-label="Loading Spinner"
+              data-testid="loader"
+          />
+        </div>
+      )}
     </>
   );
 };

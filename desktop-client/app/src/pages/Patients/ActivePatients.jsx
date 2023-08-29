@@ -22,7 +22,7 @@ export const ActivePatients = (props) => {
           <table className="table w-full">
             <thead className="bg-[#a375ff] text-white">
               <tr className="text-center">
-                <th className="border-b border-r border-[#BBBBBB]">Paciente</th>
+                <th className="border-b border-r border-[rgb(187,187,187)]">Paciente</th>
                 <th className="border-b border-r border-[#BBBBBB]">
                   Número de código
                 </th>
