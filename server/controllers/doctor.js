@@ -178,7 +178,7 @@ const new_medical_record_entry = async (req, res, next) => {
       Array_Prescriptions.forEach((element, i) => {
         Prescriptions_Names[i] = element;
       });
-    } 
+    }
     Prescriptions_Names = JSON.stringify(Prescriptions_Names);
 
     await pool.query("INSERT INTO medical_records SET ?", {
@@ -472,6 +472,13 @@ const edit_medical_prescription = async (req, res, next) => {
         ]
       );
     });
+
+    return res
+      .status(200)
+      .json({
+        success: true,
+        message: `${edited_prescriptions.length} prescriptions were edited`,
+      });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });
@@ -511,6 +518,141 @@ const get_medical_prescriptions = async (req, res, next) => {
   }
 };
 
+// ! @route POST api/doctor/schedule_appointment
+// ! @desc Creates a new appointment forced by the doctor
+// ! @access private
+
+const schedule_appointment = async (req, res, next) => {
+  try {
+    const {
+      Doctor_id,
+      Responsible_id,
+      Patient_id,
+      Description,
+      Date,
+      Hour,
+    } = req.body;
+
+    if (
+      !Doctor_id ||
+      !Responsible_id ||
+      !Patient_id ||
+      !Description ||
+      !Date ||
+      !Hour
+    ) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    const [patient_check] = await pool.query(
+      "SELECT * FROM patient WHERE id = ?",
+      [Patient_id]
+    );
+
+    if (patient_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided patient does not exist",
+      });
+    }
+
+    const [responsible_check] = await pool.query(
+      "SELECT * FROM responsible WHERE id = ?",
+      [Patient_id]
+    );
+
+    if (responsible_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided responsible does not exist",
+      });
+    }
+
+    const [doctor_check] = await pool.query(
+      "SELECT * FROM doctors WHERE id = ?",
+      [Doctor_id]
+    );
+
+    if (doctor_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided doctor does not exist",
+      });
+    }
+
+    // Checking if appointment already exists
+    // const [query_check] = await pool.query(
+    //   "SELECT * FROM medical_appointment WHERE Doctor_id = ? AND Responsible_id = ? AND Patient_id = ? AND State = ?",
+    //   [Doctor_id, Responsible_id, Patient_id]
+    // );
+
+    // if (query_check.length != 0) {
+    //   return res.status(500).json({
+    //     success: false,
+    //     message: `It seems like there is an already scheduled appointment with the doctor #${Doctor_id} and patient #${Patient_id}`,
+    //   });
+    // }
+
+    const new_appointment = await pool.query(
+      "INSERT INTO medical_appointment SET ?",
+      {
+        Doctor_id,
+        Responsible_id,
+        Patient_id,
+        State: 0,
+        Description,
+        Date,
+        Hour,
+      }
+    );
+
+    return res.status(200).json({ success: true, body: new_appointment });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
+// ! @route POST api/doctor/update_appointment_state
+// ! @desc Edits an existing appointment's state
+// ! @access private
+
+const update_appointment_state = async (req, res, next) => {
+  try {
+    const { id, State } = req.body;
+
+    if (!id || !State) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    const [query_check] = await pool.query(
+      "SELECT * FROM medical_appointment WHERE id = ?",
+      [id]
+    );
+
+    if (query_check.length === 0) {
+      return res.status(500).json({
+        success: false,
+        message: `Selected appointment does not exist`,
+      });
+    }
+
+    const edited_appointment = await pool.query(
+      "UPDATE medical_appointment SET State = ? WHERE id = ?",
+      [State, id]
+    );
+
+    return res.status(200).json({ success: true, body: edited_appointment });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
 export {
   get_info,
   active_patients,
@@ -522,4 +664,6 @@ export {
   set_medical_prescription,
   edit_medical_prescription,
   get_medical_prescriptions,
+  schedule_appointment,
+  update_appointment_state,
 };
