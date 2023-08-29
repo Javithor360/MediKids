@@ -62,7 +62,7 @@ export const ImmunizationRecord = () => {
         setIsLoading(false);
         setSuccess(true);
           setTimeout(() => {
-            navigation.navigate('SelectPatientScreen', {ReloadSelect: true});
+            navigation.navigate('SelectPatientDashboard', {ReloadSelect: true});
           }, 3000);
         }, 4000);
       }

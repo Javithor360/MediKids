@@ -87,7 +87,7 @@ export const SelectPatientScreen = () => {
         }))
       }
     });
-    navigation.navigate('ApplicationTab');
+    navigation.replace('ApplicationTab');
   }
 
   const ValidatePatient = (Patient_id) => {
@@ -199,7 +199,7 @@ export const SelectPatientScreen = () => {
       Profile_Photo_Url: null,
     }))
 
-    navigation.navigate('WelcomeScreen')
+    navigation.replace('WelcomeScreen')
   }
 
   //\\ stater function.

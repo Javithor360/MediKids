@@ -51,10 +51,6 @@ export const Calendario = () => {
     setStates(CurrentYear, CurrentMonth);
   }, []);
 
-  // useEffect(() => {
-  //   console.log(MonthState);
-  // }, [MonthState]);
-
   return (
     <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}} >
       <ScrollView style={styles.fullScreenContainer}>
