@@ -1,5 +1,5 @@
 import React from 'react'
-import { RiDoubleQuotesL } from 'react-icons/ri'
+import { RiCalendar2Fill } from 'react-icons/ri'
 import { CalendarPicker } from '../Patients/PatientsComponents/CalendarPicker'
 import TimeSlider from '../Patients/PatientsComponents/TimeSlider'
 export const AppointmentRequestsDetails = () => {
@@ -15,7 +15,7 @@ export const AppointmentRequestsDetails = () => {
                 1. Datos personales
             </h2>
         </div>
-        <div className='mx-auto w-[85%] h-fit p-7 px-14 rounded-2xl shadow-md border border-[#bbbbbb] border-t-8 border-t-[#5AB1BB]'>
+        <div className='mx-auto w-[85%] h-fit p-7 px-14 rounded-2xl shadow-md border border-[#bbbbbb] border-t-8 border-t-[#bbbadc]'>
             <div>
                 <div className='flex flex-row gap-7'>
                     <div className='w-[50%] flex flex-row gap-7 justify-center'>
@@ -33,19 +33,19 @@ export const AppointmentRequestsDetails = () => {
                             </div>
                         </div>
                         <div>
-                            <h3 className='text-[#5AB1BB]'>Paciente: </h3>
-                            <p>Javier Enrique Mejía Flores</p>
+                            <p className='text-[#000000] font-semibold'>Paciente: </p>
+                            <p className='text-[#707070]'>Javier Enrique Mejía Flores</p>
                         </div>
                     </div>
                     <div className='w-[1px] h-[2rem] bg-[#bbbbbb] self-center'></div>
                     <div className='flex flex-col w-[25%] justify-center items-center'>
-                        <h3 className='text-[#5AB1BB]'>Edad: </h3>
-                        <p>13 años</p>
+                        <p className='text-[#000000] font-semibold'>Edad: </p>
+                        <p className='text-[#707070]'>13 años</p>
                     </div>
                     <div className='w-[1px] h-[2rem] bg-[#bbbbbb] self-center'></div>
                     <div className='w-[25%] flex flex-col justify-center items-center'>
-                        <h3 className='text-[#5AB1BB]'>Género: </h3>
-                        <p>Masculino</p>
+                        <p className='text-[#000000] font-semibold'>Género: </p>
+                        <p className='text-[#707070]'>Masculino</p>
                     </div>
                 </div>
                 <div className='w-[90%] h-[1px] bg-[#bbbbbb] self-center mx-auto my-[2rem]'></div>
@@ -65,19 +65,19 @@ export const AppointmentRequestsDetails = () => {
                             </div>
                         </div>
                         <div>
-                            <h3 className='text-[#5AB1BB]'>Encargado: </h3>
-                            <p>Alvin Josue Melendez Serrano</p>
+                            <p className='text-[#000000] font-semibold'>Encargado: </p>
+                            <p className='text-[#707070]'>Alvin Josue Melendez Serrano</p>
                         </div>
                     </div>
                     <div className='w-[1px] h-[2rem] bg-[#bbbbbb] self-center'></div>
                     <div className='w-[25%] flex flex-col justify-center items-center'>
-                        <h3 className='text-[#5AB1BB]'>Email: </h3>
-                        <p>kldfjadskñf@gmail.com</p>
+                        <p className='text-[#000000] font-semibold'>Email: </p>
+                        <p className='text-[#707070]'>kldfjadskñf@gmail.com</p>
                     </div>
                     <div className='w-[1px] h-[2rem] bg-[#bbbbbb] self-center'></div>
                     <div className='w-[25%] flex flex-col justify-center items-center'>
-                        <h3 className='text-[#5AB1BB]'>Telefono: </h3>
-                        <p>7070-7070</p>
+                        <p className='text-[#000000] font-semibold'>Telefono: </p>
+                        <p className='text-[#707070]'>7070-7070</p>
                     </div>       
                 </div>            
             </div>
@@ -87,8 +87,8 @@ export const AppointmentRequestsDetails = () => {
                 2. Motivo de la cita
             </h2>
         </div>
-        <div className='mx-auto w-[85%] h-fit p-7 px-14 rounded-2xl shadow-md border border-[#bbbbbb] border-t-8 border-t-[#5AB1BB]'>
-            <p className='flex flex-row'><RiDoubleQuotesL className='text-[#5AB1BB] text-[1.2rem]'/> Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates vero voluptatibus natus doloribus quasi laborum quidem sequi ea ad voluptatum. Perspiciatis nostrum molestias delectus cumque amet esse minima, aut eos!</p>
+        <div className='mx-auto w-[85%] h-fit p-7 px-14 rounded-2xl shadow-md border border-[#bbbbbb] border-t-8 border-t-[#bbbadc]'>
+            <p className='flex flex-row'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates vero voluptatibus natus doloribus quasi laborum quidem sequi ea ad voluptatum. Perspiciatis nostrum molestias delectus cumque amet esse minima, aut eos!</p>
         </div>
         <div className="w-fit mt-12 mb-2 block">
             <h2 className="text-[#5AB1BB] font-bold text-center">
@@ -97,9 +97,9 @@ export const AppointmentRequestsDetails = () => {
         </div>
         <p>Si va a aceptar la cita y confirmar la solicitud, complete lo siguiente:</p>
 
-        <div className='mt-9 mx-auto w-[85%] h-fit p-7 px-14 rounded-2xl shadow-md border border-[#bbbbbb] border-t-8 border-t-[#5AB1BB] pb-7'>
+        <div className='mt-9 mx-auto w-[85%] h-fit p-7 px-14 rounded-2xl shadow-md border border-[#bbbbbb] border-t-8 border-t-[#bbbadc] pb-7'>
 
-            <h3 className='text-[#5AB1BB] mt-5'>Por favor elija una fecha entre el rango solicitado por el encargado del paciente: </h3>
+            <h3 className='text-[#5AB1BB] mt-5 flex flex-row items-start gap-3'><RiCalendar2Fill className='mt-[.4rem] text-[1.2rem]' /><p>Por favor elija una fecha entre el rango solicitado por el encargado del paciente:</p> </h3>
             <div className='bg-[#5AB1BB] border border-[#bbbbbb] rounded-2xl p-2 w-fit font-bold text-[white] mt-5'>Semana del 31 al 07 de agosto</div>
 
                 <CalendarPicker />
