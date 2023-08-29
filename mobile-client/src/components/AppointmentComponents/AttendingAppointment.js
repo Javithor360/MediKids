@@ -10,7 +10,7 @@ import { Fontisto, FontAwesome5, Ionicons, MaterialCommunityIcons, AntDesign } f
 import { SetLabel, ShowToast, getSingleMedicalAppmt } from '../../index';
 import { ChangeGastroState, ChangeNeumoState, ChangeOtorrinoState } from '../../store/slices/appointmentsSlice';
 
-export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode }) => {
+export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode, setShowMedicines }) => {
     const dispatch = useDispatch();
     const Info = useSelector(state => state.responsible);
     const Patient = useSelector(state => state.patient);
@@ -81,6 +81,7 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
                     setSuccess(true);
                     setTimeout(() => {
                         changeReduxAppmtState(4);
+                        setShowMedicines(true);
                         setRecordCode(data.Record_Code);
                     }, 2000);
                 }, 5000);

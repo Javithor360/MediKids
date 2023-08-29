@@ -145,7 +145,7 @@ export const AppointmentMainScreen = () => {
                         <View style={styles.card}>
                             {
                                 (appointmentsState.OtorrinoState != null && appointmentsState.OtorrinoState != 4) ?
-                                <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
+                                <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '105%', zIndex: 999}}></View>
                                 :
                                 null
                             }

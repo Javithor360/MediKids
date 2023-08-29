@@ -147,7 +147,7 @@ export const SelectProfilePhotoScreen = () => {
             </View>
             <View style={[AuthStylesGlobal.contentContainer, {backgroundColor: '#fff'}]} >
                 <View style={AuthStylesGlobal.formContent} >
-                    <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')}  />
+                    <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')} />
                     <Text style={AuthStylesRegisterU.Tex_md}>{t('selectPhoto.title')}</Text>
                     <View style={AuthStylesGlobal.cont2} >
                         <Text style={AuthStylesGlobal.TextCount}>{t('selectPhoto.text2')}</Text>

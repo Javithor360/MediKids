@@ -20,7 +20,7 @@ const get_medical_records = async (req, res, next) => {
     const {Patient_id} = req.body;
 
     //? SELECT THE MEDICAL RECORDS FROM THE DATABASE.
-    const [Medical_Records] = await pool.query('SELECT id, Medical_History_Code, Date_Time, Weight, Height, Temperature, Patient_id, Doctor_id, Diagnosis_Mobile,Prescriptions_Names FROM medical_records WHERE Patient_id = ?', [Patient_id]);
+    const [Medical_Records] = await pool.query('SELECT id, Medical_History_Code, Date_Time, Weight, Height, Temperature, Patient_id, Doctor_id, Diagnosis_Mobile, Prescriptions_Names FROM medical_records WHERE Patient_id = ?', [Patient_id]);
 
     return res.status(200).json({success: true, medical_records: Medical_Records});
   } catch (error) {
@@ -84,7 +84,7 @@ const get_medical_appointments = async (req, res, next) => {
         const msDif = appointment_hour - CurrentTime;
         const minDif = msDif / (1000 * 60);
 
-        if(minDif < 60){
+        if(minDif < 90){
           await pool.query('UPDATE medical_appointment SET State = 3 WHERE id = ?',[el.id]);
         }
       }
@@ -138,10 +138,34 @@ const get_single_medical_appmt_record = async (req, res, next) => {
   }
 }
 
+// ! @route POST api/appointment/get_medicines_appmt_result
+// ! @desc Get the medicines asigned to the patient
+// ! @access PRIVATE
+const get_medicines_appmt_result = async (req, res, next) => {
+  try {
+    const {Record_Code} = req.body;
+
+    const [Single_Appmt_rcd] = await pool.query('SELECT * FROM medical_records WHERE Medical_History_Code = ?', [Record_Code])
+
+    let Medicines = [];
+    const Obj_Medicines_Names = JSON.parse(Single_Appmt_rcd[0].Prescriptions_Names);
+    for (let i = 0; i < Object.keys(Obj_Medicines_Names).length; i++) {
+      let [result] = await pool.query('SELECT * FROM medical_prescription WHERE Medicine_Name = ?', [Obj_Medicines_Names[i]])
+      Medicines.push(result[0]);
+    }
+    
+    return res.status(200).json({success: true, Medicines});
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+}
+
 export {
   get_medical_records,
   request_medical_appointment,
   get_medical_appointments,
   get_single_medical_appmt,
-  get_single_medical_appmt_record
+  get_single_medical_appmt_record,
+  get_medicines_appmt_result
 }

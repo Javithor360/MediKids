@@ -75,8 +75,8 @@ export const Medicinas = () => {
                             <Text style={{ color: '#707070',}}>{getLocaleDateString(Prescription.Starting_Dose_Date)} - {getLocaleDateString(Prescription.Finishing_Dose_Date)}</Text>
                         </View>
                         <View style={styles.InfoText} >
-                            <Text style={{ color: '#A375FF', fontWeight: 'bold'}}>Numero de dosis por día:</Text>
-                            <Text style={{ color: '#707070',}}>{Prescription.Time_Dose} al dia</Text>
+                            <Text style={{ color: '#A375FF', fontWeight: 'bold'}}>Dosis:</Text>
+                            <Text style={{ color: '#707070',}}>{Prescription.Dose}, {Prescription.Time_Dose} al dia</Text>
                         </View>
                         <View style={styles.InfoText} >
                             <Text style={{ color: '#A375FF', fontWeight: 'bold'}}>Asignado por:</Text>
@@ -127,7 +127,6 @@ export const Medicinas = () => {
                                         <Image source={require('../../../../assets/icons/not-recipe-2.png')} style={{height: hp('15%'), width: wp('40%'), resizeMode: 'contain', marginLeft: -15}}></Image>
                                         <Text style={{fontSize: 22, color: '#707070', textAlign: 'center', marginTop: 20,}}>No hay medicamentos activos actualmente</Text>
                                     </View>
-                                    
                                 </View>
                         }
                     </View>
