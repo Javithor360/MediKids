@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { Fontisto, FontAwesome5, Ionicons, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
 
 //>> IMPORT COMPONENTS
-import TimerComponent from '../Timer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AttendingAppointment = ({ appointmentInfo }) => {
@@ -204,7 +203,6 @@ export const AttendingAppointment = ({ appointmentInfo }) => {
                         </Text>
                     </TouchableOpacity>
                 </View>
-                {/* <TimerComponent /> */}
             </View>
         </>
     )
