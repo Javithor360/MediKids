@@ -9,7 +9,7 @@ import { useDash } from "../context/DoctorContext";
 import{ CalendarPicker } from "./Patients/PatientsComponents/CalendarPicker.jsx";
 
 export const IndexPage = () => {
-  const { DoctorInfoQuery, Info } = useDash();
+  const { DoctorInfoQuery, Info, AppointmentsQuery, PatientsClassificator } = useDash();
   
   const [Chargin, setChargin] = useState(true);
   const [active, setActive] = useState(false);
@@ -22,11 +22,12 @@ export const IndexPage = () => {
   
   useEffect(() => {
     DoctorInfoQuery(JSON.parse(localStorage.getItem('userSession')).id);
+    AppointmentsQuery(JSON.parse(localStorage.getItem("userSession")).id);
+    PatientsClassificator(JSON.parse(localStorage.getItem("userSession")).id);
     setTimeout(() => {
       setChargin(false);
     }, 1500);
-  }, []);
-  
+  }, []);  
 
   useEffect(()=>{
     setInterval(()=>setTime(new Date()), 1000)
