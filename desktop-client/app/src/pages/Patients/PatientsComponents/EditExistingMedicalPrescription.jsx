@@ -179,9 +179,6 @@ export const EditExistingMedicalPrescription = ({
                             >
                               Editar
                             </button>
-                            <button disabled={!editPrescription}>
-                              Eliminar
-                            </button>
                           </td>
                         </tr>
                       );
