@@ -1,13 +1,24 @@
+
+//>> IMPORT LIBRARIES
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect } from 'react'
-import { isIOS } from '../../constants';
 import { useState } from 'react';
 
-export const Moths = ({YearState, MonthState}) => {
+//>> IMPORT COMPONENTS
+import { isIOS } from '../../constants';
+
+export const Moths = ({YearState, MonthState, EventsAppmt, EventsMedic, setSelectedRow, setSelectDay}) => {
   const [MonthArray, setMonthArray] = useState([]);
 
   const getAmountOfDays = (year, month) => {
     return new Date(year, month + 1, 0).getDate();
+  }
+
+  const compareDates = (date1, date2) => {
+    const date1WT = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate());
+    const date2WT = new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+
+    return date1WT.getTime() === date2WT.getTime();
   }
 
   const getDaysOfMonth = (Year, Month) => {
@@ -15,7 +26,11 @@ export const Moths = ({YearState, MonthState}) => {
     const daysInMoth = getAmountOfDays(Year, Month);
     for (let day = 1; day <= daysInMoth; day++) {
       const m_d = new Date(Year, Month, day);
-      moth.push({date: m_d, DayNumber: m_d.getDay(), active: true});
+      
+      let TodayDay = false;
+      if (compareDates(m_d, new Date())) {TodayDay = true};
+      
+      moth.push({date: m_d, DayNumber: m_d.getDay(), active: true, TodayDay});
     }
     return moth
   }
@@ -88,58 +103,133 @@ export const Moths = ({YearState, MonthState}) => {
     }
     return splittedArr;
   }
+  
+  //! SET THE APPOINTMENT EVENTS IN THE MONTH ARRAY.
+  const setAppmtEvents = (BigArr, EventsAppmt) => {
+    const MonthEvents = [];
+
+    BigArr.forEach(el => {
+      EventsAppmt.forEach((ev, i) => {
+        let EventDate = new Date(ev.Starting_Event_Date);
+        let EvntObj = {};
+
+        EvntObj.date = el.date;
+        EvntObj.DayNumber = el.DayNumber;
+        EvntObj.active = el.active;
+        EvntObj.TodayDay = el.TodayDay;
+
+        if (compareDates(EventDate, el.date)) {
+          EvntObj.AppmtEventIndex = i;
+        } else {
+          EvntObj.AppmtEventIndex = null;
+        }
+
+        MonthEvents.push(EvntObj);
+      });
+    });
+
+    return MonthEvents;
+  }
+
+  //>> CREATE THE ARRAY TO SHOW.
+  const ArrayBuilder = (YearState, MonthState, EventsAppmt) => {
+    const currentMonthArr = getDaysOfMonth(YearState, MonthState);
+    const BigArray = addMissingDays(currentMonthArr);
+    const MonthEvents = setAppmtEvents(BigArray, EventsAppmt);
+    const array_splitted = getSplittedArray(MonthEvents);
+    setMonthArray(array_splitted);
+  }
 
   //! Get Table Row function
   const GetTableRow = ({row, isLast}) => {
+
+    const onPressDay = (DaySelected) => {
+      setSelectedRow(row);
+      setSelectDay(DaySelected);
+    }
+
     return (
       <View style={[styles.tableDaysRow, {backgroundColor: '#fff', flex: 1}, isLast ? styles.LastRow : null]}>
         {/* Day 0 = Sunday */}
-        <TouchableOpacity disabled={!row[0].active} style={[styles.tableBigBox, {borderLeftWidth: 0, borderBottomWidth: isLast ? 0 : 1 }]}>
-          <Text style={{color: row[0].active ? '#000' : '#707070'}}>{new Date(row[0].date).getDate()}</Text>
-          <View style={styles.EventPoint}/>
+        <TouchableOpacity onPress={() => onPressDay(row[0])} disabled={!row[0].active} style={[styles.tableBigBox, {borderLeftWidth: 0, borderBottomWidth: isLast ? 0 : 1, backgroundColor: row[0].TodayDay ? '#335B96' : '#fff', borderBottomLeftRadius: isLast ? 20 : 0 }]}>
+          <Text style={{color: row[0].active ? `${row[0].TodayDay ? '#fff' : '#000'}` : '#707070', fontWeight: row[0].TodayDay ? '800' : '400'}}>
+            {new Date(row[0].date).getDate()}
+          </Text>
+          {
+            row[0].AppmtEventIndex != null &&
+              <View style={styles.EventPoint}/>
+          }
         </TouchableOpacity>
         {/* Day 1 = Monday */}
-        <TouchableOpacity disabled={!row[1].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1 }]}>
-          <Text style={{color: row[1].active ? '#000' : '#707070'}}>{new Date(row[1].date).getDate()}</Text>
-          <View style={styles.EventPoint}/>
+        <TouchableOpacity onPress={() => onPressDay(row[1])} disabled={!row[1].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1, backgroundColor: row[1].TodayDay ? '#335B96' : '#fff' }]}>
+          <Text style={{color: row[1].active ? `${row[1].TodayDay ? '#fff' : '#000'}` : '#707070', fontWeight: row[1].TodayDay ? '800' : '400'}}>
+            {new Date(row[1].date).getDate()}
+          </Text>
+          {
+            row[1].AppmtEventIndex != null &&
+              <View style={styles.EventPoint}/>
+          }
         </TouchableOpacity>
         {/* Day 2 = Tuesday */}
-        <TouchableOpacity disabled={!row[2].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1 }]}>
-          <Text style={{color: row[2].active ? '#000' : '#707070'}}>{new Date(row[2].date).getDate()}</Text>
-          <View style={styles.EventPoint}/>
+        <TouchableOpacity onPress={() => onPressDay(row[2])} disabled={!row[2].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1, backgroundColor: row[2].TodayDay ? '#335B96' : '#fff'}]}>
+          <Text style={{color: row[2].active ? `${row[2].TodayDay ? '#fff' : '#000'}` : '#707070', fontWeight: row[2].TodayDay ? '800' : '400'}}>
+            {new Date(row[2].date).getDate()}
+          </Text>
+          {
+            row[2].AppmtEventIndex != null &&
+              <View style={styles.EventPoint}/>
+          }
         </TouchableOpacity>
         {/* Day 3 = Wenesday */}
-        <TouchableOpacity disabled={!row[3].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1 }]}>
-          <Text style={{color: row[3].active ? '#000' : '#707070'}}>{new Date(row[3].date).getDate()}</Text>
-          <View style={styles.EventPoint}/>
+        <TouchableOpacity onPress={() => onPressDay(row[3])} disabled={!row[3].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1, backgroundColor: row[3].TodayDay ? '#335B96' : '#fff' }]}>
+          <Text style={{color: row[3].active ? `${row[3].TodayDay ? '#fff' : '#000'}` : '#707070', fontWeight: row[3].TodayDay ? '800' : '400'}}>
+            {new Date(row[3].date).getDate()}
+          </Text>
+          {
+            row[3].AppmtEventIndex != null &&
+              <View style={styles.EventPoint}/>
+          }
         </TouchableOpacity>
         {/* Day 4 = Thursday */}
-        <TouchableOpacity disabled={!row[4].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1 }]}>
-          <Text style={{color: row[4].active ? '#000' : '#707070'}}>{new Date(row[4].date).getDate()}</Text>
-          <View style={styles.EventPoint}/>
+        <TouchableOpacity onPress={() => onPressDay(row[4])} disabled={!row[4].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1, backgroundColor: row[4].TodayDay ? '#335B96' : '#fff' }]}>
+          <Text style={{color: row[4].active ? `${row[4].TodayDay ? '#fff' : '#000'}` : '#707070', fontWeight: row[4].TodayDay ? '800' : '400'}}>
+            {new Date(row[4].date).getDate()}
+          </Text>
+          {
+            row[4].AppmtEventIndex != null &&
+              <View style={styles.EventPoint}/>
+          }
         </TouchableOpacity>
         {/* Day 5 = Friday */}
-        <TouchableOpacity disabled={!row[5].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1 }]}>
-          <Text style={{color: row[5].active ? '#000' : '#707070'}}>{new Date(row[5].date).getDate()}</Text>
-          <View style={styles.EventPoint}/>
+        <TouchableOpacity onPress={() => onPressDay(row[5])} disabled={!row[5].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1, backgroundColor: row[5].TodayDay ? '#335B96' : '#fff' }]}>
+          <Text style={{color: row[5].active ? `${row[5].TodayDay ? '#fff' : '#000'}` : '#707070', fontWeight: row[5].TodayDay ? '800' : '400'}}>
+            {new Date(row[5].date).getDate()}
+          </Text>
+          {
+            row[5].AppmtEventIndex != null &&
+              <View style={styles.EventPoint}/>
+          }
         </TouchableOpacity>
         {/* Day 6 = Saturday */}
-        <TouchableOpacity disabled={!row[6].active} style={[styles.tableBigBox, {borderRightWidth: 0, borderLeftWidth: isIOS ? 1 : 0, borderBottomWidth: isLast ? 0 : 1 }]}>
-          <Text style={{color: row[6 ].active ? '#000' : '#707070'}}>{new Date(row[6].date).getDate()}</Text>
-          <View style={styles.EventPoint}/>
+        <TouchableOpacity onPress={() => onPressDay(row[6])} disabled={!row[6].active} style={[styles.tableBigBox, {borderRightWidth: 0, borderLeftWidth: isIOS ? 1 : 0, borderBottomWidth: isLast ? 0 : 1, backgroundColor: row[6].TodayDay ? '#335B96' : '#fff', borderBottomRightRadius: isLast ? 20 : 0 }]}>
+          <Text style={{color: row[6].active ? `${row[6].TodayDay ? '#fff' : '#000'}` : '#707070', fontWeight: row[6].TodayDay ? '800' : '400'}}>
+            {new Date(row[6].date).getDate()}
+          </Text>
+          {
+            row[6].AppmtAppmtEventIndex != null &&
+              <View style={styles.EventPoint}/>
+          }
         </TouchableOpacity>
       </View>
     );
   }
 
   useEffect(() => {
-    if (YearState != null && MonthState != null) {
-      const currentMonthArr = getDaysOfMonth(YearState, MonthState);
-      const BigArray = addMissingDays(currentMonthArr);
-      const mes = getSplittedArray(BigArray);
-      setMonthArray(mes);
+    if (YearState != null && MonthState != null && EventsAppmt != null ) {
+      ArrayBuilder(YearState, MonthState, EventsAppmt);
+      
     }
-  }, [YearState, MonthState]);
+  }, [YearState, MonthState, EventsAppmt]);
 
   return (
     <View style={{height: '100%', flexDirection: 'column', justifyContent: 'space-between'}}>
@@ -190,40 +280,20 @@ const styles = StyleSheet.create({
     paddingTop: 5
   },
   EventPoint: {
-    width: 10,
-    height: 10,
+    width: 11,
+    height: 11,
     borderRadius: 10,
-    backgroundColor:'#F9B55D',
-    marginTop: 5
+    backgroundColor:'#ff981c',
+    marginTop: 7
   },
   LastRow: {
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
     borderBottomWidth: 0
   },
-
-
-
-
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  dayNames: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 8,
-  },
-  calendar: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  dayCell: {
-    width: '14.28%', // 1/7 de la pantalla
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'lightgray',
-  },
+  ActiveBoxText: {
+    color: 'red',
+    fontWeight: 'bold',
+    fontSize: 14,
+  }
 })

@@ -142,3 +142,9 @@ export const getSingleMedicalAppmtRecord = async (jwtToken, Record_Code) => {
 export const getMedicinesAppmtResult = async (jwtToken, Record_Code) => {
   return await axios.post(`http://${localhost}:5005/api/appointment/get_medicines_appmt_result`, {Record_Code}, get_private_headers(jwtToken));
 }
+
+//! Get the Events in an array of the Patient.
+//@access Private
+export const getCalendarEvents = async (jwtToken, Patient_id) => {
+  return await axios.post(`http://${localhost}:5005/api/responsible/get_calendar_events`, {Patient_id}, get_private_headers(jwtToken));
+}

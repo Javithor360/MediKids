@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 //>> Importin Screens
-import { Calendario, LoginScreen } from '../../index'
+import { Calendar } from '../../index'
 import { Other } from '../../screens/app/home/Other'
 
 //>> Creating Stack Navigator
@@ -16,7 +16,7 @@ export const CalendarStack = () => {
         headerShown: false
       }}
     >
-      <Stack.Screen name="CalendarStack" component={Calendario} />
+      <Stack.Screen name="CalendarStack" component={Calendar} />
       <Stack.Screen name="Other" component={Other} />
     </Stack.Navigator>
   );

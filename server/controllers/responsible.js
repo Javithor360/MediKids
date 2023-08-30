@@ -232,6 +232,105 @@ const upload_pf_patient = async (req, res, next) => {
   }
 }
 
+//! @route POST api/responsible/get_calendar_events
+//! @desc Get the events of a patient from the database.
+//! @access Private
+const get_calendar_events = async (req, res, next) => {
+  try {
+    const {Patient_id} = req.body;
+
+    const EventsAppmt = [];
+    const EventsMedic = [];
+
+    //? HOW ARRAY'S WILL LOOKS
+    /*
+      -> General values: { Event_Name: '', Starting_Event_Date: 2023-08-29, Description: '' }
+      -> Appointment Values: { End_Event_Date: null, Start_Time: 21:00:00, Dose_int: null, Dose_String: null }
+      -> Medicine values: { End_Event_Date: 2023-08-30, Start_Time: null, Dose_int: 2, Dose_String: '2 veces al dia' }
+      const Events = [
+        {
+          Event_Name: '', Starting_Event_Date: 2023-08-29, End_Event_Date: 2023-08-30,
+          Start_Time: 21:00:00, Description: '',
+          Dose_int: 2, Dose_String: '2 veces al dia',
+        }
+      ]
+    */
+
+    const getAppmtSpecialty = (v) => {
+      switch (v) {
+        case 1:
+            return 'Otorrinolaringologia';
+        case 2:
+            return 'Neumologia';
+        case 3:
+            return 'Gastroenterologia';
+      }
+    }
+    
+    const getDateTime = (date, time) => {
+      let HoursSQL = time.split(':');
+      let appointment_hour = new Date(date);
+
+      appointment_hour.setHours(HoursSQL[0]);
+      appointment_hour.setMinutes(HoursSQL[1]);
+      appointment_hour.setSeconds(HoursSQL[2]);
+
+      return appointment_hour;
+    }
+
+    const getAppmtDescription = (State) => {
+      switch (State) {
+        case 0:
+          return 'Cita Medica programada';
+        case 2:
+          return 'Cita Medica Confirmada';
+        case 3:
+          return 'Cita medica En este momento';
+        case 4:
+          return 'Cita medica pasada';
+      }
+    }
+
+    //\\ Get and validate the appointments events
+    const [appointments] = await pool.query('SELECT * FROM medical_appointment WHERE Patient_id = ?', [Patient_id]);
+    if (appointments.length != 0) {
+      appointments.map((appmt) => {
+        let EventObj = {};
+        if (appmt.State != 1) {
+          EventObj.Event_Name = `Cita - ${getAppmtSpecialty(appmt.Doctor_id)}`;
+          EventObj.Starting_Event_Date = getDateTime(appmt.Date, appmt.Hour);
+          EventObj.End_Event_Date = null;
+          EventObj.Description = getAppmtDescription(appmt.State);
+          EventObj.Start_Time = getDateTime(appmt.Date, appmt.Hour);
+          EventObj.Dose_int = null
+          EventObj.Dose_String = null;
+          EventsAppmt.push(EventObj);
+        }
+      })
+    }
+
+    //\\ Get and validate the Medicines evers
+    const [Prescriptions] = await pool.query('SELECT * FROM medical_prescription WHERE Patient_id = ?',[Patient_id]);
+    if (Prescriptions.length != 0) {
+      Prescriptions.map((presc) => {
+        let EventObj = {};
+        EventObj.Event_Name = `Medicamento - ${presc.Medicine_Name}`;
+        EventObj.Starting_Event_Date = new Date(presc.Starting_Dose_Date);
+        EventObj.End_Event_Date = new Date(presc.Finishing_Dose_Date);
+        EventObj.Description = `Recordatorio de tomar: "${presc.Medicine_Name}"`;
+        EventObj.Start_Time = null;
+        EventObj.Dose_int = presc.Time_Dose;
+        EventObj.Dose_String = presc.Dose;
+        EventsMedic.push(EventObj);
+      })
+    }
+
+    return res.status(200).json({success: true, EventsAppmt, EventsMedic});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
 export {
   get_email_to_verify,
   get_responsible,
@@ -242,5 +341,6 @@ export {
   get_all_immunization_record,
   create_immunization_record,
   get_medical_prescriptions,
-  upload_pf_patient
+  upload_pf_patient,
+  get_calendar_events,
 }

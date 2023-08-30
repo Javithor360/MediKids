@@ -16,7 +16,7 @@ import { MedicinasStack } from './Dashboard/MedicinasStack';
 //>>Tab items props array
 const TabProps = [
   {route: 'HomeStack', label: 'Inicio', iconName: 'home-variant', component: HomeStack, color: 'red'},
-  {route: 'Calendario', label: 'Calendario', iconName: 'calendar-clock', component: CalendarStack, color: 'red'},
+  {route: 'Calendar', label: 'Calendario', iconName: 'calendar-clock', component: CalendarStack, color: 'red'},
   {route: 'Appointment', label: 'Citas', iconName: 'clipboard-text', component: AppointmentStack, color: 'red'},
   {route: 'Medicinas', label: 'Medicinas', iconName: 'pill', component: MedicinasStack, color: 'red'},
   {route: 'MyAccount', label: 'Mi cuenta', iconName: 'account-circle', component: MyAccountStack, color: 'red'},

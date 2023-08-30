@@ -10,7 +10,7 @@ export { ForgotPasswordScreen } from  './screens/auth/ForgotPasswordScreen';
 export { ResetPasswordScreen } from  './screens/auth/ResetPasswordScreen';
 export { SelectProfilePhotoScreen } from './screens/auth/SelectProfilePhotoScreen'
 export { VerifyCodeScreen } from './screens/auth/VerifyCodeScreen';
-export { Calendario } from './screens/app/calendar/Calendario'
+export { Calendar } from './screens/app/calendar/Calendar'
 export { ForgotPassCodeScreen } from './screens/auth/ForgotPassCodeScreen'
 export { NotificationScreen } from './screens/app/home/NotificationScreen'
 export { MyVaccines } from './screens/app/home/MyVaccines'
@@ -40,6 +40,8 @@ export { AppointmentResults } from './components/AppointmentComponents/Appointme
 export { AppointmentMedicines } from './components/AppointmentComponents/AppointmentMedicines'
 export { AppointmentStatus } from './components/AppointmentComponents/AppointmentStatus'
 export { Moths } from './components/CalendarComponents/Months'
+export { Day } from './components/CalendarComponents/Day'
+export { EventInfo } from './components/CalendarComponents/EventInfo'
 
 //! Navigations
 export { ApplicationTab } from './navigators/ApplicationTab';
@@ -49,7 +51,7 @@ export { AppointmentStack } from './navigators/Dashboard/AppointmentStack';
 export { MedicinasStack } from './navigators/Dashboard/MedicinasStack'
 
 //* Queries
-export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord, getAllImmunizationRecords, getPatient, getMedicalRecords, requestMedicalAppointment, getMedicalAppointments, getMedicalPrescriptions, uploadPFPatient, getSingleMedicalAppmt, getSingleMedicalAppmtRecord, getMedicinesAppmtResult } from './queries/Queries';
+export { getResponsible, uploadPFResponsible, registerResponsible, verifyCodeResponsible, loginResponsible, ForgotPassQuery, CheckresetPassCode, ResetPasswordQuery, RegisterPatientsQuery, getPatients, getImmunizationRecord, createImmunizationRecord, getAllImmunizationRecords, getPatient, getMedicalRecords, requestMedicalAppointment, getMedicalAppointments, getMedicalPrescriptions, uploadPFPatient, getSingleMedicalAppmt, getSingleMedicalAppmtRecord, getMedicinesAppmtResult, getCalendarEvents } from './queries/Queries';
 
 //\\ Configs
 export { toastConfig } from './components/toastConfigs';
