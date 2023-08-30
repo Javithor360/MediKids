@@ -13,7 +13,7 @@ export const AddMedicalPrescription = ({
   const location = useLocation();
   const { patient } = location.state || {};
 
-  const [selectedOption, setSelectedOption] = useState(false);
+  const [selectedOption, setSelectedOption] = useState();
   const [medicines, setMedicines] = useState([
     {
       id: 0,
@@ -119,10 +119,11 @@ export const AddMedicalPrescription = ({
         
         <form>
           
-          <label className=" mr-5 text-[#707070] text-[1.2rem]" for="add_yes">
+          <label className=" mr-5 text-[#707070] text-[1.2rem] " for="add_yes">
              <Toggle
-             checked={selectedOption === true }
-             onChange={handleToggle}
+             className="mt-3"
+             checked={selectedOption }
+             onChange={handleChange}
               id="add_yes"
               name="selection"
               value="add_yes"
@@ -130,10 +131,7 @@ export const AddMedicalPrescription = ({
         />
             
           </label>
-          <label className=" mr-5 text-[#707070] text-[1.2rem]" for="add_no">
-            No
-           
-          </label>
+        
         </form>
        
       </div>
