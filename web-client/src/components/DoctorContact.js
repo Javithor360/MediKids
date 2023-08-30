@@ -1,12 +1,14 @@
 import React from 'react'
+import { useTranslation } from "react-i18next";
 import { MdLocalPhone, MdMail } from "react-icons/md"
 
 export const DoctorContact = ({details}) => {
+    const { t } = useTranslation();
   return (
     <>
-        <p className="text-[2.563rem] ml-16 mt-9">Contacto<hr class="w-[10rem] h-[2px] bg-[#000000] border-0 rounded mt-[1rem]" /></p>
+        <p className="text-[2.563rem] ml-16 mt-9"> {t("DrGarza.tittle4")}<hr class="w-[10rem] h-[2px] bg-[#000000] border-0 rounded mt-[1rem]" /></p>
         <p className="ml-16 mt-5 w-[80%] text-[#707070]">
-            Medios de comunicación para estar en contacto con el doctor
+             {t("DrGarza.subtittle2")}
         </p>
         <div className="w-[60rem] h-[10rem] border border-[#B8B8B8] flex rounded-[25px] shadow-xl ml-16 mt-9">
             <div className="w-1/2 h-full border-[#707070] border-r-[1px] flex items-center">

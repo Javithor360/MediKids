@@ -67,6 +67,79 @@
         "tittle3":"account",
         "cont2":"When making an appointment at the MediKids pediatric clinic, it is essential to take into account a series of recommendations to ensure a smooth and efficient process. First of all, it is recommended to schedule the appointment in advance using the clinic's scheduling system, either by phone or through its online platform. Make sure you have the child's complete information handy, such as their name, date of birth, and health insurance number. Also, check if any additional documents are required, such as insurance cards, medical references or signed consents. Learn about any prior appointment preparations, such as fasting or dietary restrictions, and make sure you follow them accordingly. It is important to arrive on time on the day of the appointment to allow enough time to complete any required forms and to allow the child to become familiar with the clinic environment. If for any reason you need to cancel or change your appointment, please contact the clinic as far in advance as possible. By following these recommendations, you can enjoy a calm and efficient experience when scheduling an appointment at the MediKids pediatric clinic.",
         "tittle4":"Steps to schedule an",
-        "tittle5":"appointment"
+        "tittle5":"appointment",
+        "step1":"Download our mobile app",
+        "step2":"Register by filling in the information that is requested",
+        "step3":"Register the data of your infant.",
+        "step4":"Access our system and schedule an appointment on the date and time of your disposal"
+    },
+    "Doc1":{
+        "tittle":"Otorhinolaryngology",
+        "subtittle":"Care and well-being for the children of the home",
+        "tittle1":"in what we",
+        "tittle2":"we specialize",
+        "subtittle1":"Pediatric otolaryngology focuses on the diagnosis and treatment of disorders related to the ears, nose, throat, and related areas in children, from newborns to adolescents. Some of the most common conditions that pediatric otolaryngology addresses are ear infections, swollen tonsils and adenoids, hearing problems, balance problems, snoring, sleep apnea, birth defects of the head and neck, speech and speech disorders, language; and head and neck trauma.",
+        "s1":"related to the ear, nose and throat in children and adolescentss",
+        "s2":"Voice and hearing disorders",
+        "s3":"Congenital malformations of the ear, nose and throat",
+        "button":"download app"
+    },
+    "Doc2":{
+        "tittle":"gastroenterology",
+        "subtittle":"Care and well-being for the children of the home",
+        "tittle1":"in what we",
+        "tittle2":"we specialize",
+        "subtittle1":"Pulmonology focuses on the diagnosis, treatment, and prevention of respiratory diseases. Pulmonologists are specialists in conditions such as asthma, COPD, lung cancer, and sleep apnea. They also manage mechanical ventilation and intensive care for serious respiratory problems, promoting healthy habits and vaccination.",
+        "s1":"Disorders of digestion and absorption of food",
+        "s2":"Food allergies and sensitivities",
+        "s3":"Congenital malformations of the ear, nose and throat",
+        "button":"download app"
+    },
+    "Doc3":{
+        "tittle":"Neumology",
+        "subtittle":"Care and well-being for the children of the home",
+        "tittle1":"in what we",
+        "tittle2":"we specialize",
+        "subtittle1":"Pulmonology focuses on the diagnosis, treatment, and prevention of respiratory diseases. Pulmonologists are specialists in conditions such as asthma, COPD, lung cancer, and sleep apnea. They also manage mechanical ventilation and intensive care for serious respiratory problems, promoting healthy habits and vaccination.",
+        "s1":"Breathing difficulties caused by congenital abnormalities, such as vascular or tracheoesophageal malformations",
+        "s2":"Autoimmune diseases that affect the lungs, such as systemic lupus erythematosus",
+        "s3":"Sleep disorders, such as sleep apnea and obstructive sleep hypopnea.",
+        "button":"download app"
+    },
+    "DrGarza":{
+        "subtittle":"Dr. Fátima Garza is a gastroenterologist with extensive experience in the diagnosis and treatment of disorders of the gastrointestinal system in children and adolescents. She graduated with honors from the National Autonomous University of Mexico School of Medicine, and is known for her pediatric capacity for effective and alternative treatments.",
+        "subtitle":"Dr. Esteban Gúzman is an Otolaryngologist who treats conditions such as sinusitis, otitis, snoring, balance disorders, etc. He is recognized for his compassionate approach and his skill in performing specialized otolaryngology surgical procedures and treatments on pediatric patients.",
+        "subtitle2":"Dr. Adrián Flores is a pulmonologist with extensive experience in the management of respiratory diseases. He graduated with honors from the Autonomous University of Madrid School of Medicine, throughout his career he has been recognized for his compassionate and patient-centered approach to the pediatric patient.",
+        "tittle":"A doctor in whom you can",
+        "sub":"Know more...",
+        "tittle1":"rely",
+        "tittle2":"Comprehensive care and service",
+        "tittle3":"guaranteed",
+        "tittle4":"Contact",
+        "tittle5":"Download the App to schedule an appointment",
+        "subtittle1":"At our pediatric clinic, we guarantee a comprehensive care service. Our highly-skilled team is committed to providing exceptional, personalized care for each child we serve. From specialized medical exams to a nurturing environment, we're here to ensure your little one's well-being at every stage of their growth.",
+        "subtittle2":"Means of communication to be in contact with the doctor",
+        "subtittle3":"You can see the steps on how to schedule an appointment in our app",
+        "subtittle4":"here",
+        "t1":"Effective Treatment",
+        "t2":"attention and care",
+        "t3":"Control and checks",
+        "li":"Our pediatrician doctor has vast experience in child care, backed by years of practice and training dedicated exclusively to the health of children.",
+        "li1":"Our doctor understands the unique needs of children and their families, establishing empathic connections that foster trust and facilitate open communication."
+    },
+    "footer":{
+        "title":"Home page",
+        "title1":"Contact",
+        "title2":"Download app",
+        "title3":"Service",
+        "title4":"About us",
+        "title5":"Privacy policies"
+    },
+    "error404":{
+        "tittle":"¡Something went ",
+        "tittle1":"wrong",
+        "subtittle":"It seems that you have entered a path that is not valid",
+        "button":"return"
     }
+    
 }

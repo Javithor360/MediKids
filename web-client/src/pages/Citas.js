@@ -11,7 +11,7 @@ export const Citas = () => {
             <NavBar />
             <h1 className='tittle1'>{t("cite.tittle")}<span className='color1'> {t("cite.tittle1")}</span></h1>
             <div className='cont-espk'>
-      <div className='w-[40%] h-[100%] flex items-center'>
+      <div className='w-[60%] h-[100%] flex items-center'>
         <img className='first' src={Banner('./niños/docchild.png')} />
       </div>
       <div className='cont-esp'>
@@ -26,7 +26,7 @@ export const Citas = () => {
            <p className='sub2'>{t("cite.cont2")}
             </p>
            </div>
-            <div className='w-[30%] h-[100%] flex items-center'>
+            <div className='w-[30%] h-[80%] flex items-center'>
             <img className='kid2' src={Banner("./niños/child.png")} />
             </div>
             </div>
@@ -40,33 +40,24 @@ export const Citas = () => {
       <p className='sub'>
         <div className="list-item">
                             <p className="roundedStep">1</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, tempore?</p>
+                            <p>{t("cite.step1")}</p>
                         </div>
                         <br/><br/>
                         <div className="list-item">
                             <p className="roundedStep">2</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis magni expedita minus?</p>
+                            <p>{t("cite.step2")}</p>
                         </div>
                         <br/><br/>
                         <div className="list-item">
                             <p className="roundedStep">3</p>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi, fuga.</p>
+                            <p>{t("cite.step3")}</p>
                         </div>
                         <br /><br />
                         <div className="list-item">
                             <p className="roundedStep">4</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, tempore?</p>
+                            <p>{t("cite.step4")}</p>
                         </div>
                         <br/><br/>
-                        <div className="list-item">
-                            <p className="roundedStep">5</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis magni expedita minus?</p>
-                        </div>
-                        <br/><br/>
-                        <div className="list-item">
-                            <p className="roundedStep">6</p>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi, fuga.</p>
-                        </div>
                         <Link className="boton __moreView absolute bottom-30 right-11" to="/download-app">Descargar App</Link>
         </p>
       </div>

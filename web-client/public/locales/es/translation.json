@@ -68,6 +68,79 @@
         "tittle3":"cuenta",
         "cont2":"Al agendar una cita en la clínica pediátrica MediKids, es esencial tener en cuenta una serie de recomendaciones para asegurar un proceso fluido y eficiente. En primer lugar, se recomienda agendar la cita con anticipación utilizando el sistema de programación de la clínica, ya sea por teléfono o a través de su plataforma en línea. Asegúrate de tener a mano los datos completos del niño, como su nombre, fecha de nacimiento y número de seguro médico. Además, verifica si se requiere algún documento adicional, como tarjetas de seguro, referencias médicas o consentimientos firmados. Infórmate sobre cualquier preparación previa necesaria para la cita, como ayuno o restricciones alimentarias, y asegúrate de seguirlas adecuadamente. Es importante llegar a tiempo el día de la cita para tener suficiente tiempo para completar cualquier formulario requerido y permitir que el niño se familiarice con el entorno de la clínica. Si por alguna razón necesitas cancelar o cambiar la cita, comunícate con la clínica con la mayor antelación posible. Siguiendo estas recomendaciones , podrás disfrutar de una experiencia tranquila y eficiente al agendar una cita en la clínica pediátrica MediKids.",
         "tittle4":"Pasos para agendar una ",
-        "tittle5":"cita"
+        "tittle5":"cita",
+        "step1":"Descarga nuestra aplicación móvil",
+        "step2":"Regístrate llenando los datos que se te sean solicitados",
+        "step3":"Registra los datos de tu infante.",
+        "step4":"Accede a nuestros sistema y agenda una cita en la fecha y hora de tu disposición"
+    },
+    "Doc1":{
+        "tittle":"otorrinolaringología",
+        "subtittle":"Cuido y bienestar para los peques del hogar",
+        "tittle1":"¿En que nos",
+        "tittle2":"especializamos",
+        "subtittle1":"La otorrinolaringología pediátrica se enfoca en el diagnóstico y tratamiento de trastornos relacionados con lo oídos, nariz, garganta y áreas relacionadas en niños, desde recién nacidos hasta adolescentes. Algunas de las afecciones más comunes que aborda la otorrinolaringología pediátrica son las infecciones del oído, amígdalas y adenoides inflamadas, problemas de audición, problemas de equilibrio, ronquidos, apnea del sueño, malformaciones congénitas de la cabeza y el cuello, trastornos del habla y del lenguaje, y traumatismos en la cabeza y el cuello.",
+        "s1":"relacionadas con el oído, la nariz y la garganta en niños y adolescentes",
+        "s2":"Trastornos de la voz y la audición",
+        "s3":"Malformaciones congénitas del oído, la nariz y la garganta",
+        "button":"Descargar app"
+    },
+    "Doc2":{
+        "tittle":"gastroenterología",
+        "subtittle":"Cuido y bienestar para los peques del hogar",
+        "tittle1":"¿En que nos",
+        "tittle2":"especializamos",
+        "subtittle1":"La Gastroenterología pediátrica se enfoca en el diagnóstico y tratamiento de trastornos gastrointestinales que afectan a los niños, desde recién nacidos hasta adolescentes.Los gastroenterólogos pediátricos tratan una amplia variedad de enfermedades y afecciones, que incluyen, pero no se limitan a:",
+        "s1":"Trastornos de la digestión y la absorción de los alimentos",
+        "s2":"Alergias y sensibilidades alimentarias",
+        "s3":"Gastroesophageal reflux",
+        "s4":"Enfermedades inflamatoria del intestino, como la enfermedad de Crohn y la colitis ulcerosa",
+        "button":"Descargar app"
+    },
+    "Doc3":{
+        "tittle":"Neumología",
+        "subtittle":"Cuido y bienestar para los peques del hogar",
+        "tittle1":"¿En que nos",
+        "tittle2":"especializamos",
+        "subtittle1":"La neumología se centra en el diagnóstico, tratamiento y prevención de enfermedades respiratorias. Los neumólogos son especialistas en afecciones como el asma, EPOC, cáncer de pulmón y apnea del sueño. También manejan ventilación mecánica y cuidados intensivos para problemas respiratorios graves, promoviendo hábitos saludables y vacunación:",
+        "s1":"Dificultades respiratorias causadas por anomalías congénitas, como malformaciones vasculares o traqueoesofágicas",
+        "s2":"Enfermedades autoinmunitarias que afectan los pulmones, como lupus eritematoso sistémico",
+        "s3":"Trastornos del sueño, como la apnea del sueño y la hipopnea obstructiva del sueño.",
+        "button":"Descargar app"
+    },
+    "DrGarza":{
+        "subtittle":"La Dra. Fátima Garza es una médica gastroenteróloga con amplia experiencia en el diagnóstico y tratamiento de trastornos del sistema gastrointestinal en los niños y jóvenes. Se graduó con honores de la Facultad de Medicina de la Universidad Nacional Autónoma de México, y es conocida por su capacidad pedriática de tratamientos efectivos y alternativos.",
+        "subtitle":"El Dr. Adrián Flores es un médico neumólogo con una amplia experiencia en el manejo de enfermedades respiratorias. Se graduó con honores de la Facultad de Medicina de la Universidad Autónoma de Madrid, a lo largo de su carrera ha sido reconocido por su enfoque compasivo y centrado en el paciente pediátrico. ",
+        "subtitle2":"El Dr. Esteban Gúzman es un Otorrinolaringólogo que en afecciones como sinusitis, otitis, ronquidos, trastornos del equilibrio, etc. Es reconocido por su enfoque compasivo y su habilidad en la realización de procedimientos quirúrgicos especializados en otorrinolaringología y tratamientos a los pacientes pedriáticos.",
+        "tittle":"Un médico en quien puedes",
+        "sub":"Conoce Más...",
+        "tittle1":"confiar",
+        "tittle2":"Atención y servicio integral",
+        "tittle3":"garantizado",
+        "tittle4":"Contacto",
+        "tittle5":"Descarga la App para agendar una cita",
+        "subtittle1":"En nuestra clínica pediátrica, garantizamos un servicio integral de atención. Nuestro equipo altamente calificado se compromete a brindar cuidados excepcionales y personalizados a cada niño que atendemos. Desde exámenes médicos especializados hasta un ambiente acogedor, estamos aquí para asegurar el bienestar de tus pequeños en cada etapa de su crecimiento.",
+        "subtittle2":"Medios de comunicación para estar en contacto con el doctor",
+        "subtittle3":"Puedes ver los pasos de como agendar una cita en nuestra app",
+        "subtittle4":"aqui",
+        "t1":"Tratamiento Efectivo",
+        "t2":"Atención y cuidado",
+        "t3":"Control y chequeos",
+        "li":"Nuestro médico pediatra cuenta con una vasta experiencia en el cuidado infantil, respaldada por años de práctica y formación dedicada exclusivamente a la salud de los niños.",
+        "li1":"Nuestro doctor comprende las necesidades únicas de los niños y sus familias, estableciendo conexiones empáticas que fomentan la confianza y facilitan una comunicación abierta."
+    },
+    "footer":{
+        "title":"Inicio",
+        "title1":"Contacto",
+        "title2":"Descargar app",
+        "title3":"Servicios",
+        "title4":"Sobre Nosotros",
+        "title5":"Politicas de privacidad"
+    },
+    "error404":{
+        "tittle":"¡Algo salio ",
+        "tittle1":"mal",
+        "subtittle":"parece que has digitado una ruta que no es valida",
+        "button":"Volver"
     }
 }
