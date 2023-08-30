@@ -34,12 +34,12 @@ export const EventInfo = ({EventSelected}) => {
         <Text style={{fontSize: 19}}>{getLocaleDate(EventSelected.Starting_Event_Date)}</Text>
       </View>
 
-      <View style={{width: '100%', height: 70, justifyContent: 'center', alignItems: 'center', marginTop: 50, marginBottom: 35}}>
-          <TouchableOpacity onPress={() => {navigation.navigate('Appointment')}} style={{ height: '75%',width: '80%',borderRadius: 15,backgroundColor: '#4c9ca5', alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10, elevation: 3, shadowColor: '#000', shadowOffset: {height: 4}, shadowOpacity: 0.1, shadowRadius: 3,}}>
-              <AntDesign name="checkcircleo" size={24} color="#fff" />
-              <Text style={{color: '#fff', fontSize: 16}}>Mostrar Evento</Text>
-          </TouchableOpacity>
-      </View>
+        <View style={{width: '100%', height: 70, justifyContent: 'center', alignItems: 'center', marginTop: 50, marginBottom: 35}}>
+            <TouchableOpacity onPress={() => {navigation.navigate('Appointment')}} style={{ height: '75%',width: '80%',borderRadius: 15,backgroundColor: '#4c9ca5', alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10, elevation: 3, shadowColor: '#000', shadowOffset: {height: 4}, shadowOpacity: 0.1, shadowRadius: 3,}}>
+                <AntDesign name="checkcircleo" size={24} color="#fff" />
+                <Text style={{color: '#fff', fontSize: 16}}>Mostrar Evento</Text>
+            </TouchableOpacity>
+        </View>
     </View>
   )
 }
