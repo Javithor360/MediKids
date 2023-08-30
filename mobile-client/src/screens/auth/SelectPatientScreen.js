@@ -35,6 +35,11 @@ export const SelectPatientScreen = () => {
 
   const [DisableBtn, setDisableBtn] = useState(false);
 
+  const getTruncName = (Name) => {
+    let arrName = Name.split(' ');
+    return `${arrName[0]} ${arrName[2] != null ? arrName[2] : ''}`
+  }
+
   const renderItem = ({ item }) => {
     if (item.id === 'addPatient') {
       return (
@@ -51,7 +56,7 @@ export const SelectPatientScreen = () => {
           <View style={styles.itemContainer}>
             <Image source={{uri: item.image}} style={styles.image} />
           </View>
-          <Text style={styles.name}>{item.name}</Text>
+          <Text style={styles.name}>{getTruncName(item.name)}</Text>
       </TouchableOpacity>
       );
     }
@@ -194,7 +199,7 @@ export const SelectPatientScreen = () => {
       Profile_Photo_Url: null,
     }))
 
-    navigation.navigate('WelcomeScreen')
+    navigation.replace('WelcomeScreen')
   }
 
   //\\ stater function.

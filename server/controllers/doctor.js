@@ -319,6 +319,39 @@ const get_patient_medical_record = async (req, res, next) => {
   }
 };
 
+// ! @route POST api/doctor/get_patient_vaccines
+// ! @desc Gets the patient's vaccines
+// ! @access private
+
+const get_patient_vaccines = async (req, res, next) => {
+  try {
+    const { Patient_id } = req.body;
+
+    if(!Patient_id) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    const [query_check] = await pool.query(
+      "SELECT * FROM patient_vaccines WHERE Patient_id = ?",
+      [Patient_id]
+    );
+
+    if(query_check.length === 0) {
+      return res.status(500).json({
+        success: false,
+        message: "This patient does not exists"
+      })
+    }
+
+    return res.status(200).json({ success: true, body: query_check[0] })
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+}
+
 // ! @route POST api/doctor/set_medical_prescription
 // ! @desc Stablish a new prescription for a patient
 // ! @access private
@@ -661,6 +694,7 @@ export {
   get_patient_appointment_with_specific_doctor,
   get_responsible_info,
   get_patient_medical_record,
+  get_patient_vaccines,
   set_medical_prescription,
   edit_medical_prescription,
   get_medical_prescriptions,

@@ -306,6 +306,10 @@ const register_patients = async (req, res, next) => {
     }
     const Age = ActualDate.getFullYear() - BD.getFullYear();
 
+    if (Age < 0) {
+      return res.status(500).json({success: false, message: "La edad no es valida" });
+    }
+
     // GET THE USER TO LINK HIM TO THE PATIENT.
     const [responsible] = await pool.query('SELECT * FROM responsible WHERE Email = ?', [Email]);
 

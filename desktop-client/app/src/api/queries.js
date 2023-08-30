@@ -64,6 +64,14 @@ export const getPatientMedicalRecords = async (Patient_id, PrivateConfig) => {
   );
 }
 
+export const getPatientVaccines = async (Patient_id, PrivateConfig) => {
+  return await axios.post(
+    `http://localhost:5005/api/doctor/get_patient_vaccines`,
+    { Patient_id },
+    PrivateConfig
+  );
+}
+
 export const getPatientMedicalPrescription = async (Patient_id, PrivateConfig) => {
   return await axios.post(
     `http://localhost:5005/api/doctor/get_medical_prescriptions`,

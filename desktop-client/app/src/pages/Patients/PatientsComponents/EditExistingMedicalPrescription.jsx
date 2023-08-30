@@ -103,7 +103,7 @@ export const EditExistingMedicalPrescription = ({
 
   return (
     <>
-      <div className="bg-white">
+      <div >
         <div>
           {medicalPrescriptions.length > 0 ? (
             <>

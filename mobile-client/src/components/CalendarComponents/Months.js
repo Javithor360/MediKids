@@ -1,30 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useEffect } from 'react'
 import { isIOS } from '../../constants';
+import { useState } from 'react';
 
 export const Moths = ({YearState, MonthState}) => {
-  const rows = [0, 1, 2, 3, 4];
+  const [MonthArray, setMonthArray] = useState([]);
 
   const getAmountOfDays = (year, month) => {
     return new Date(year, month + 1, 0).getDate();
   }
-
-  // const getDayName = (dayOfWeek) => {
-  //   const dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-  //   return dayNames[dayOfWeek];
-  // };
-
-  // const createCalendar = () => {
-  //   const calendar = [];
-  //   for (let month = 0; month < 12; month++) {
-  //     const daysInMoth = getAmountOfDays(2022, month);
-  //     for (let day = 1; day <= daysInMoth; day++) {
-  //       const c_d = new Date(2022, month, day);
-  //       calendar.push({date: c_d, month});
-  //     }
-  //   }
-  //   return calendar;
-  // }
 
   const getDaysOfMonth = (Year, Month) => {
     const moth = [];
@@ -94,51 +78,54 @@ export const Moths = ({YearState, MonthState}) => {
     return newMonth;
   }
 
-  /*
-  >> OBTENER EL ARRAY DE ARRAYS LOL
-  const arrayOriginal = [...]; // Tu array de 35 objetos
+  //! Get Splitted array.
+  const getSplittedArray = (BigArr) => {
+    const splittedArr = [];
 
-  const arrayDeArrays = [];
-  const elementosPorSubarray = 7;
-
-  for (let i = 0; i < arrayOriginal.length; i += elementosPorSubarray) {
-    const subarray = arrayOriginal.slice(i, i + elementosPorSubarray);
-    arrayDeArrays.push(subarray);
+    for (let i = 0; i < BigArr.length; i += 7) {
+      const subArray = BigArr.slice(i, i + 7);
+      splittedArr.push(subArray);
+    }
+    return splittedArr;
   }
 
-  console.log(arrayDeArrays);
-  */
-
   //! Get Table Row function
-  const GetTableRow = () => {
+  const GetTableRow = ({row, isLast}) => {
     return (
-      <View style={[styles.tableDaysRow, {backgroundColor: '#fff', height: 60}]}>
-        <TouchableOpacity style={[styles.tableBigBox, {borderLeftWidth: 0 }]}>
-          <Text>28</Text>
+      <View style={[styles.tableDaysRow, {backgroundColor: '#fff', flex: 1}, isLast ? styles.LastRow : null]}>
+        {/* Day 0 = Sunday */}
+        <TouchableOpacity disabled={!row[0].active} style={[styles.tableBigBox, {borderLeftWidth: 0, borderBottomWidth: isLast ? 0 : 1 }]}>
+          <Text style={{color: row[0].active ? '#000' : '#707070'}}>{new Date(row[0].date).getDate()}</Text>
           <View style={styles.EventPoint}/>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tableBigBox}>
-          <Text>29</Text>
+        {/* Day 1 = Monday */}
+        <TouchableOpacity disabled={!row[1].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1 }]}>
+          <Text style={{color: row[1].active ? '#000' : '#707070'}}>{new Date(row[1].date).getDate()}</Text>
           <View style={styles.EventPoint}/>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tableBigBox}>
-          <Text>30</Text>
+        {/* Day 2 = Tuesday */}
+        <TouchableOpacity disabled={!row[2].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1 }]}>
+          <Text style={{color: row[2].active ? '#000' : '#707070'}}>{new Date(row[2].date).getDate()}</Text>
           <View style={styles.EventPoint}/>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tableBigBox}>
-          <Text>31</Text>
+        {/* Day 3 = Wenesday */}
+        <TouchableOpacity disabled={!row[3].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1 }]}>
+          <Text style={{color: row[3].active ? '#000' : '#707070'}}>{new Date(row[3].date).getDate()}</Text>
           <View style={styles.EventPoint}/>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tableBigBox}>
-          <Text>1</Text>
+        {/* Day 4 = Thursday */}
+        <TouchableOpacity disabled={!row[4].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1 }]}>
+          <Text style={{color: row[4].active ? '#000' : '#707070'}}>{new Date(row[4].date).getDate()}</Text>
           <View style={styles.EventPoint}/>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.tableBigBox}>
-          <Text>2</Text>
+        {/* Day 5 = Friday */}
+        <TouchableOpacity disabled={!row[5].active} style={[styles.tableBigBox, {borderBottomWidth: isLast ? 0 : 1 }]}>
+          <Text style={{color: row[5].active ? '#000' : '#707070'}}>{new Date(row[5].date).getDate()}</Text>
           <View style={styles.EventPoint}/>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.tableBigBox, {borderRightWidth: 0, borderLeftWidth: isIOS ? 1 : 0}]}>
-          <Text>3</Text>
+        {/* Day 6 = Saturday */}
+        <TouchableOpacity disabled={!row[6].active} style={[styles.tableBigBox, {borderRightWidth: 0, borderLeftWidth: isIOS ? 1 : 0, borderBottomWidth: isLast ? 0 : 1 }]}>
+          <Text style={{color: row[6 ].active ? '#000' : '#707070'}}>{new Date(row[6].date).getDate()}</Text>
           <View style={styles.EventPoint}/>
         </TouchableOpacity>
       </View>
@@ -148,13 +135,14 @@ export const Moths = ({YearState, MonthState}) => {
   useEffect(() => {
     if (YearState != null && MonthState != null) {
       const currentMonthArr = getDaysOfMonth(YearState, MonthState);
-      const mes = addMissingDays(currentMonthArr);
-      console.log(mes);
+      const BigArray = addMissingDays(currentMonthArr);
+      const mes = getSplittedArray(BigArray);
+      setMonthArray(mes);
     }
   }, [YearState, MonthState]);
 
   return (
-    <>
+    <View style={{height: '100%', flexDirection: 'column', justifyContent: 'space-between'}}>
       <View style={styles.tableDaysRow}>
         <View style={[styles.tableBox, {borderLeftWidth: 0}]}><Text>D</Text></View>
         <View style={styles.tableBox}><Text>L</Text></View>
@@ -165,18 +153,18 @@ export const Moths = ({YearState, MonthState}) => {
         <View style={[styles.tableBox, {borderRightWidth: 0, borderLeftWidth: isIOS ? 1 : 0}]}><Text>S</Text></View>
       </View>
       {
-        rows.map(row => {
-          return (<GetTableRow />)
+        MonthArray.map((row, i) => {
+          return <GetTableRow key={i} row={row} isLast={i == (MonthArray.length - 1)? true : false}/>
         })
       }
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   tableDaysRow: {
     width: '100%',
-    height: 40,
+    height: 45,
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#f2f2f2'
@@ -207,6 +195,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor:'#F9B55D',
     marginTop: 5
+  },
+  LastRow: {
+    borderBottomEndRadius: 20,
+    borderBottomStartRadius: 20,
+    borderBottomWidth: 0
   },
 
 
