@@ -17,6 +17,8 @@ import {
   getResponsibles,
   acceptAppointment,
   declineAppointment,
+  appointmentsHistory,
+  getDoctors,
 } from "../api/queries";
 
 const dashContext = createContext();
@@ -34,6 +36,7 @@ export const DoctorProvider = ({ children }) => {
   const [oldPatients, setOldPatients] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [appointmentRequest, setAppointmentRequest] = useState([]);
+  const [appointmentHistory, setAppointmentHistory] = useState([]);
 
   const [nextAppointment, setNextAppointment] = useState({});
   const [responsibleInfo, setResponsibleInfo] = useState({});
@@ -41,6 +44,8 @@ export const DoctorProvider = ({ children }) => {
   const [medicalRecords, setMedicalRecords] = useState([]);
   const [vaccines, setVaccines] = useState({});
   const [medicalPrescriptions, setMedicalPrescriptions] = useState([]);
+
+  const [doctors, setDoctors] = useState([]);
 
   const PrivateConfig = {
     header: {
@@ -284,7 +289,7 @@ export const DoctorProvider = ({ children }) => {
 
   const AcceptAppointmentRequest = async (data) => {
     try {
-      await acceptAppointment(data, PrivateConfig)
+      await acceptAppointment(data, PrivateConfig);
     } catch (error) {
       console.log(error);
     }
@@ -292,7 +297,25 @@ export const DoctorProvider = ({ children }) => {
 
   const DeclineAppointmentRequest = async (id) => {
     try {
-      await declineAppointment(id, PrivateConfig)
+      await declineAppointment(id, PrivateConfig);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const AppointmentsHistory = async (Patient_id) => {
+    try {
+      const res = await appointmentsHistory({ Patient_id }, PrivateConfig);
+      setAppointmentHistory(res.data.body);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const AllDoctors = async () => {
+    try {
+      const res = await getDoctors(PrivateConfig);
+      setDoctors(res.data.body);
     } catch (error) {
       console.log(error);
     }
@@ -315,6 +338,8 @@ export const DoctorProvider = ({ children }) => {
         setAppointmentRequest,
         nextAppointment,
         setNextAppointment,
+        appointmentHistory,
+        setAppointmentHistory,
         responsibleInfo,
         setResponsibleInfo,
         responsibles,
@@ -325,6 +350,8 @@ export const DoctorProvider = ({ children }) => {
         setVaccines,
         medicalPrescriptions,
         setMedicalPrescriptions,
+        doctors,
+        setDoctors,
         DoctorInfoQuery,
         ActivePatientsQuery,
         AppointmentsQuery,
@@ -343,7 +370,9 @@ export const DoctorProvider = ({ children }) => {
         DoctorAppointmentRequests,
         ResponsiblesInfo,
         AcceptAppointmentRequest,
-        DeclineAppointmentRequest
+        DeclineAppointmentRequest,
+        AppointmentsHistory,
+        AllDoctors,
       }}
     >
       {children}

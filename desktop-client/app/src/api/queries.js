@@ -143,3 +143,19 @@ export const declineAppointment = async (id, PrivateConfig) => {
     PrivateConfig
   )
 }
+
+export const appointmentsHistory = async (Patient_id, PrivateConfig) => {
+  return await axios.post(
+    `http://localhost:5005/api/doctor/get_appointments_history`,
+    Patient_id,
+    PrivateConfig
+  )
+}
+
+export const getDoctors = async (PrivateConfig) => {
+  return await axios.post(
+    `http://localhost:5005/api/doctor/get_doctors`,
+    {},
+    PrivateConfig
+  )
+}

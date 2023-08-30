@@ -7,9 +7,10 @@ import { TbClockHour4, TbCalendarEvent } from "react-icons/tb"
 
 import { useDash } from "../context/DoctorContext";
 import{ CalendarPicker } from "./Patients/PatientsComponents/CalendarPicker.jsx";
+import { DoctorEvents } from "../utils/DoctorEvents.js";
 
 export const IndexPage = () => {
-  const { DoctorInfoQuery, Info, AppointmentsQuery, PatientsClassificator } = useDash();
+  const { DoctorInfoQuery, Info, AppointmentsQuery, ActivePatientsQuery, PatientsClassificator, DoctorAppointmentRequests, assignedPatients, appointmentRequest, appointments, activePatients } = useDash();
   
   const [Chargin, setChargin] = useState(true);
   const [active, setActive] = useState(false);
@@ -22,8 +23,12 @@ export const IndexPage = () => {
   
   useEffect(() => {
     DoctorInfoQuery(JSON.parse(localStorage.getItem('userSession')).id);
-    AppointmentsQuery(JSON.parse(localStorage.getItem("userSession")).id);
+    ActivePatientsQuery(JSON.parse(localStorage.getItem('userSession')).id);
     PatientsClassificator(JSON.parse(localStorage.getItem("userSession")).id);
+    AppointmentsQuery(JSON.parse(localStorage.getItem("userSession")).id);
+    DoctorAppointmentRequests(
+      JSON.parse(localStorage.getItem("userSession")).id
+    );
     setTimeout(() => {
       setChargin(false);
     }, 1500);
@@ -80,22 +85,22 @@ export const IndexPage = () => {
       </div>
       <section className="h-[18rem] w-[95%] grid grid-cols-3 gap-7 mx-auto mt-9">
         <div className="rounded-[42px] border-2 border-[#A5C8CF] relative p-3">
-          <p className="relative before:content before:block before:w-[30px] before:h-[4px] before:top-[50%] before:absolute before:bg-black before:-left-[3rem] ml-[4.3rem] mt-5 font-semibold">Pacientes activos</p>
-          <p className="mx-5 mt-5 mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio dolores consequuntur.</p>
-          <p className="ml-7 font-semibold text-[3rem]">2</p>
-          <Link className="absolute right-7 bottom-5 bg-[#A5C8CF] h-[2.5rem] w-[6.5rem] rounded-xl text-center table hover:-translate-y-[2px] hover:rounded-md ease-in transition-all"><span className="table-cell font-semibold align-middle">Ver más</span></Link>
+          <p className="relative before:content before:block before:w-[30px] before:h-[4px] before:top-[50%] before:absolute before:bg-black before:-left-[3rem] ml-[4.3rem] mt-5 font-semibold">Pacientes atendidos</p>
+          <p className="mx-5 mt-5 mb-1">Los servicios prestados a la clínica MediKids han resultado en la atención de diversos pacientes que hasta la fecha suman: </p>
+          <p className="ml-7 font-semibold text-[3rem]">{assignedPatients.length}</p>
+          <Link to="/patients/active" className="absolute right-7 bottom-5 bg-[#A5C8CF] h-[2.5rem] w-[6.5rem] rounded-xl text-center table hover:-translate-y-[2px] hover:rounded-md ease-in transition-all"><span className="table-cell font-semibold align-middle">Ver más</span></Link>
         </div>
         <div className="rounded-[42px] border-2 border-[#E67B7B] relative p-3">
-          <p className="relative before:content before:block before:w-[30px] before:h-[4px] before:top-[50%] before:absolute before:bg-black before:-left-[3rem] ml-[4.3rem] mt-5 font-semibold">Solicitudes activas</p>
-          <p className="mx-5 mt-5 mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio dolores consequuntur.</p>
-          <p className="ml-7 font-semibold text-[3rem]">2</p>
-          <Link className="absolute right-7 bottom-5 bg-[#E67B7B] h-[2.5rem] w-[6.5rem] rounded-xl text-center table hover:-translate-y-[2px] hover:rounded-md ease-in transition-all"><span className="table-cell font-semibold align-middle">Ver más</span></Link>
+          <p className="relative before:content before:block before:w-[30px] before:h-[4px] before:top-[50%] before:absolute before:bg-black before:-left-[3rem] ml-[4.3rem] mt-5 font-semibold">Solicitudes pendientes</p>
+          <p className="mx-5 mt-5 mb-1">En el panel de solicitudes permite revisar los pacientes que desean agendar una cita. La cantidad de solicitudes pendientes es de:</p>
+          <p className="ml-7 font-semibold text-[3rem]">{appointmentRequest.length}</p>
+          <Link to="/agenda/appointment_requests" className="absolute right-7 bottom-5 bg-[#E67B7B] h-[2.5rem] w-[6.5rem] rounded-xl text-center table hover:-translate-y-[2px] hover:rounded-md ease-in transition-all"><span className="table-cell font-semibold align-middle">Ver más</span></Link>
         </div>
         <div className="rounded-[42px] border-2 border-[#BB85D5] relative p-3">
-          <p className="relative before:content before:block before:w-[30px] before:h-[4px] before:top-[50%] before:absolute before:bg-black before:-left-[3rem] ml-[4.3rem] mt-5 font-semibold">Solicitud de citas</p>
-          <p className="mx-5 mt-5 mb-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio dolores consequuntur.</p>
-          <p className="ml-7 font-semibold text-[3rem]">2</p>
-          <Link to={"/login"} className="absolute right-7 bottom-5 bg-[#BB85D5] h-[2.5rem] w-[6.5rem] rounded-xl text-center table hover:-translate-y-[2px] hover:rounded-md ease-in transition-all"><span className="table-cell font-semibold align-middle">Ver más</span></Link>
+          <p className="relative before:content before:block before:w-[30px] before:h-[4px] before:top-[50%] before:absolute before:bg-black before:-left-[3rem] ml-[4.3rem] mt-5 font-semibold">Consultas agendadas</p>
+          <p className="mx-5 mt-5 mb-1">El calendario permite organizar y llevar control de las consultas a atender, por el momento la cantidad de consultas a atender es de:</p>
+          <p className="ml-7 font-semibold text-[3rem]">{DoctorEvents(appointments, activePatients).length}</p>
+          <Link to="/agenda/calendar" className="absolute right-7 bottom-5 bg-[#BB85D5] h-[2.5rem] w-[6.5rem] rounded-xl text-center table hover:-translate-y-[2px] hover:rounded-md ease-in transition-all"><span className="table-cell font-semibold align-middle">Ver más</span></Link>
         </div>
       </section>
       {/* <button onClick={toggle} >Abrir modal</button>
