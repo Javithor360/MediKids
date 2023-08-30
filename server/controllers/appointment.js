@@ -40,6 +40,13 @@ const request_medical_appointment = async (req, res, next) => {
     //? Found the patient_id with the patient_code.
     const [Patient_id] = await pool.query('SELECT id FROM patient WHERE Patient_Code = ?', [Patient_Code]);
 
+    //? Check if the patient is already assigned to the doctor
+    const [query_check] = await pool.query('SELECT * FROM patients_monitoring WHERE Doctor_id = ? AND Patient_id = ?', [Patient_id[0].id, Doctor_id]);
+
+    if(query_check.length === 0) {
+      await pool.query('INSERT INTO patients_monitoring SET ?', { Doctor_id, Patient_id: Patient_id[0].id });
+    }
+
     //? GET THE WEEK FROM THE STRING.
     const dividedWeek = Week.split(' ');
     const startDay = dividedWeek[0];
@@ -53,6 +60,7 @@ const request_medical_appointment = async (req, res, next) => {
 
     return res.status(200).json({success: true});
   } catch (error) {
+    console.log(error)
     return res.status(500).json({ error });
   }
 }

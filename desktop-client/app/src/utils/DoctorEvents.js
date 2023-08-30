@@ -8,6 +8,7 @@ const formattedTimeEnd = "T" + appointmentTimeEnd;
 
 export const DoctorEvents = (appointments, patient) => {
   let events = [];
+  console.log(appointments)
   appointments.map((app) => {
     if (app.State === 0 || app.State === 2 || app.State === 3 || app.State === 4) {
       
