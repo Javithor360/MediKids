@@ -15,6 +15,7 @@ import { ViewMedicalRecords } from './PatientsComponents/index.jsx'
 import { Link, useLocation } from "react-router-dom";
 import { useDash } from "../../context/DoctorContext";
 import { ViewMedicalPrescriptions } from "./PatientsComponents/ViewMedicalPrescriptions";
+import { ViewAppointments } from "./PatientsComponents/ViewAppointments";
 
 export const PatientsDetails = () => {
   const location = useLocation();
@@ -60,17 +61,9 @@ export const PatientsDetails = () => {
         );
       case 3:
         return (
-          <p isModal={isModal}>
-            Contenido 3 del modal (Crear un componente individual para desplegar
-            mejor la informacion y luego retornarlo aquí)
-          </p>
-        );
-      case 4:
-        return (
-          <p isModal={isModal}>
-            Contenido 4 del modal (Crear un componente individual para desplegar
-            mejor la informacion y luego retornarlo aquí)
-          </p>
+          <div isModal={isModal} className="m-10">
+            <ViewAppointments />
+          </div>
         );
       default:
         return <p>A</p>;
@@ -176,7 +169,7 @@ export const PatientsDetails = () => {
             className="rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
             onClick={() => {
               toggle();
-              setNumbercomp(4);
+              setNumbercomp(3);
             }}
             state={location.state}
           >

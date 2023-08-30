@@ -14,7 +14,7 @@ export const ViewMedicalPrescriptions = () => {
   }, []);
   return (
     <div>
-      <div className="flex gap-2 items-center">
+      <div className="flex items-center gap-2">
         <BsPrescription2 className="text-[#A375FF]"/>
         <p className="text-[1.4rem] text-[#707070]">Recetas médicas de</p>
       </div>

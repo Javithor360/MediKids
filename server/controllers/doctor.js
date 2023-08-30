@@ -762,7 +762,9 @@ const accept_appointment_request = async (req, res, next) => {
       [Date, Hour, id, 2]
     );
 
-    return res.status(200).json({ success: true, message: `Appointment #${id} has been accepted` });
+    return res
+      .status(200)
+      .json({ success: true, message: `Appointment #${id} has been accepted` });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });
@@ -777,7 +779,7 @@ const decline_appointment_request = async (req, res, next) => {
   try {
     const { id } = req.body;
 
-    if(!id) {
+    if (!id) {
       return res
         .status(500)
         .json({ message: "You must provide every field with a value" });
@@ -795,9 +797,64 @@ const decline_appointment_request = async (req, res, next) => {
       });
     }
 
-    await pool.query("DELETE FROM medical_appointment WHERE id = ?", [id])
-    
-    return res.status(200).json({ success: true, message: `Appointment #${id} has been declined and deleted` });
+    await pool.query("DELETE FROM medical_appointment WHERE id = ?", [id]);
+
+    return res.status(200).json({
+      success: true,
+      message: `Appointment #${id} has been declined and deleted`,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
+// ! @route POST api/doctor/get_appointments_history
+// ! @desc Gets all patient's appointments
+// ! @access private
+
+const get_appointments_history = async (req, res, next) => {
+  try {
+    const { Patient_id } = req.body;
+
+    if (!Patient_id) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    const [query_check] = await pool.query(
+      "SELECT * FROM patient WHERE id = ?",
+      [Patient_id]
+    );
+
+    if (query_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided patient does not exist",
+      });
+    }
+
+    const [appointments_history] = await pool.query(
+      "SELECT * FROM medical_appointment WHERE Patient_id = ? AND State IN (?, ?, ?)",
+      [Patient_id, 0, 2, 4]
+    );
+    return res.status(200).json({ success: true, body: appointments_history });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
+// ! @route POST api/doctor/get_doctors
+// ! @desc Gets all doctors
+// ! @access private
+
+const get_doctors = async (req, res, next) => {
+  try {
+    const [doctors] = await pool.query("SELECT * FROM doctors");
+
+    return res.status(200).json({ success: true, body: doctors });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });
@@ -822,4 +879,6 @@ export {
   get_responsibles,
   accept_appointment_request,
   decline_appointment_request,
+  get_appointments_history,
+  get_doctors
 };
