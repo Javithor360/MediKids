@@ -7,6 +7,7 @@ import {
   getPatientAppointmentWithDoctor,
   getResponsibleInfo,
   getPatientMedicalRecords,
+  getPatientVaccines,
   getPatientMedicalPrescription,
   setPatientMedicalPrescription,
   editPatientMedicalPrescription,
@@ -32,6 +33,7 @@ export const DoctorProvider = ({ children }) => {
   const [nextAppointment, setNextAppointment] = useState({});
   const [responsibleInfo, setResponsibleInfo] = useState({});
   const [medicalRecords, setMedicalRecords] = useState([]);
+  const [vaccines, setVaccines] = useState({});
   const [medicalPrescriptions, setMedicalPrescriptions] = useState([]);
 
   const PrivateConfig = {
@@ -166,6 +168,15 @@ export const DoctorProvider = ({ children }) => {
     }
   };
 
+  const PatientVaccines = async (Patient_id) => {
+    try {
+      const res = await getPatientVaccines(Patient_id, PrivateConfig);
+      setVaccines(res.data.body);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const PatientMedicalPrescriptions = async (Patient_id) => {
     try {
       const res = await getPatientMedicalPrescription(
@@ -264,6 +275,8 @@ export const DoctorProvider = ({ children }) => {
         setResponsibleInfo,
         medicalRecords,
         setMedicalRecords,
+        vaccines,
+        setVaccines,
         medicalPrescriptions,
         setMedicalPrescriptions,
         DoctorInfoQuery,
@@ -275,6 +288,7 @@ export const DoctorProvider = ({ children }) => {
         PatientAppointmentWithDoctor,
         ResponsibleInformation,
         PatientMedicalRecords,
+        PatientVaccines,
         PatientMedicalPrescriptions,
         AddMedicalPrescription,
         EditMedicalPrescription,
