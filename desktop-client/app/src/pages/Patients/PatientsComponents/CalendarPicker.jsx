@@ -5,7 +5,7 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { BsChevronDoubleLeft, BsChevronDoubleRight } from "react-icons/bs";
 import { TiDeleteOutline } from "react-icons/ti";
 
-export function CalendarPicker({ setDate }) {
+export function CalendarPicker({ setDate, hasSelectedYes }) {
   const [value, setValue] = useState(null);
   const currentDate = new Date();
   const nextDay = new Date(currentDate);
@@ -32,6 +32,8 @@ export function CalendarPicker({ setDate }) {
         prevLabel={<AiOutlineLeft />}
         next2Label={<BsChevronDoubleRight />}
         nextLabel={<AiOutlineRight />}
+        tileDisabled={()=>hasSelectedYes}
+        className={hasSelectedYes ? 'custom-calendar' : ''}
       />
       {value ? (
         <>

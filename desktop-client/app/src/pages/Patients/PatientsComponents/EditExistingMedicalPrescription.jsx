@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { MdEditNote } from 'react-icons/md'
 import { useDash } from "../../../context/DoctorContext";
 import Modal from "../../../components/Modal.jsx";
+import  Toggle  from "react-toggle";
+import '../../../assets/scss/Globals.scss'
 
 export const EditExistingMedicalPrescription = ({
   setEditMedicalPrescription
@@ -112,6 +114,19 @@ export const EditExistingMedicalPrescription = ({
                   ¿Editar medicamentos de la receta actual?
                 </p>
                 <form>
+                  <label className=" mr-5 text-[#707070] text-[1.2rem] " for="add_yes">
+                    <Toggle
+                      className="mt-2 custom-toggle"
+                      checked={editPrescription}
+                      onChange={handleChange}
+                      id="add_yes"
+                      name="selection"
+                      value="add_yes"
+                      icons={true}
+                    />
+                  </label>
+                </form>
+                {/* <form>
                   <label
                     className="ml-5 mr-5 text-[#707070] text-[1.2rem] "
                     for="yes2"
@@ -142,7 +157,7 @@ export const EditExistingMedicalPrescription = ({
                       onChange={handleChange}
                     />
                   </label>
-                </form>
+                </form> */}
               </div>
               <div class="overflow-x-auto w-[80%] rounded-[1rem] border border-[#BBBBBB] ml-7 mb-7">
                 <table class="table w-[100%]">
