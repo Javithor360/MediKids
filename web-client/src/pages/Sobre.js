@@ -22,7 +22,7 @@ export const Sobre = () => {
             <hr />  
             <h1 className='next2'>{t("sobre.ti2")} <span> {t("sobre.tle2")}</span></h1>
             <div className='contmot'>
-            <div className='imgcont'><img className='w-[90%] h-auto block my-auto mx-auto' src={Banner('./doctores/docclow.png')} /></div>
+            <div className='imgcont'><img className='w-[100%] h-[100%] flex items-center' src={Banner('./doctores/docclow.png')} /></div>
             <div className='pcont'>
             <p className='sub3'>{t("sobre.sub2")}
             </p>
@@ -35,12 +35,12 @@ export const Sobre = () => {
             <p className='sub3'>{t("sobre.sub3")}
             </p>
             </div>
-            <div className='imgcont'><img className='w-[90%] h-auto block my-auto mx-auto' src={Banner('./doctores/doc2.png')} /></div>
+            <div className='imgcont'><img className='w-[100%] h-[100%] flex items-center' src={Banner('./doctores/doc2.png')} /></div>
             </div>
             <hr />
             <h1 className='next2'>Vis<span>ión</span></h1>
             <div className='contmot'>
-            <div className='imgcont'><img className='w-[90%] h-auto block my-auto mx-auto' src={Banner('./doctores/docclo.png')} />
+            <div className='imgcont'><img className='w-[100%] h-[100%] flex items-center' src={Banner('./doctores/docclo.png')} />
             </div>  
             <div className='pcont'>
             <p className='sub3'>{t("sobre.sub4")}

@@ -1,58 +1,49 @@
 import React from 'react'
+import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
 import { NavBar, Footer } from '../components';
 const Banner = require.context("./assets/img", true);
 export const Doc2 = () => {
+    const { t } = useTranslation();
     return (
         <>
             <NavBar />
             <section className="acc-hero2">
                 <div className="acc-hero-cont">
-                    <h1>Gastroenterología</h1>
-                    <p>Cuido y bienestar para los peques del hogar</p>
+                    <h1>{t("Doc2.tittle")}</h1>
+                    <p>{t("Doc2.subtittle")}</p>
                 </div>
             </section>
-            <h1 className='tittle'>¿En que nos <span>especializamos</span>?</h1>
+            <h1 className='tittle'>{t("Doc2.tittle1")}<span>{t("Doc2.tittle2")}</span>?</h1>
             <div className='cont-espk'>
-      <div className='w-[40%] h-[100%] flex items-center'>
+      <div className='w-[60%] h-[70%] flex items-center'>
         <img className='first' src={Banner('./niños/kid2.png')} />
       </div>
       <div className='cont-esp'>
-      <p className='sub'>La Gastroenterología pediátrica se enfoca en el diagnóstico y tratamiento de trastornos gastrointestinales
-                que afectan a los niños, desde recién nacidos hasta adolescentes.
-                Los gastroenterólogos pediátricos tratan una amplia variedad de enfermedades y afecciones, que incluyen, pero no se limitan a:
+      <p className='sub'>{t("Doc2.subtittle1")}
                         <br/><br/>
                         <div className="list-item">
                         <p className="roundedStep">1</p>
-                    <p>Trastornos de la digestión y la absorción de los alimentos</p>
+                    <p>{t("Doc2.s1")}</p>
                 </div>
                 <br /><br />
                 <div className="list-item">
                     <p className="roundedStep">2</p>
-                    <p>Alergias y sensibilidades alimentarias</p>
+                    <p>{t("Doc2.s2")}</p>
                 </div>
                 <br /><br />
                 <div className="list-item">
                     <p className="roundedStep">3</p>
-                    <p>Reflujo gastroesofágico</p>
+                    <p>{t("Doc2.s3")}</p>
                 </div>
                 <br /><br />
                 <div className="list-item">
                     <p className="roundedStep">4</p>
-                    <p>Enfermedades inflamatorias del intestino, como la enfermedad de Crohn y la colitis ulcerosa</p>
+                    <p>{t("Doc2.s4")}</p>
                 </div>
                 <br /><br />
-                <div className="list-item">
-                    <p className="roundedStep">5</p>
-                    <p>Enfermedades hepáticas, como la hepatitis y la cirrosis</p>
-                </div>
-                <br /><br />
-                <div className="list-item">
-                    <p className="roundedStep">6</p>
-                    <p>Trastornos del páncreas, como la pancreatitis</p>
-                        </div>
                         <br/><br/><br/><br/>
-                        <Link className="boton __moreView absolute bottom-30 right-11" to="/download-app">Descargar App</Link>
+                        <Link className="boton __moreView absolute bottom-30 right-11" to="/download-app">{t("Doc2.button")}</Link>
         </p>
       </div>
       </div>
