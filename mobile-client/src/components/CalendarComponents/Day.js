@@ -31,6 +31,12 @@ export const Day = ({ SelectDay, SelectedRow, EventsAppmt, setSelectedRow, setSe
       setSelectedRow(row);
       setSelectDay(DaySelected);
     }
+
+    // useEffect(() => {
+    //   console.log(SelectDay);
+    //   console.log(EventsAppmt)
+
+    // }, [SelectDay]);
   
     return (
       <View style={[styles.tableDaysRow, {backgroundColor: '#fff', flex: 1, elevation: 3, shadowColor: '#000', shadowOffset: {height: 4}, shadowOpacity: 0.1, shadowRadius: 3,}]}>
@@ -120,6 +126,7 @@ export const Day = ({ SelectDay, SelectedRow, EventsAppmt, setSelectedRow, setSe
 
   const HourCard = ({i, hour}) => {
     let haveEvent = getEvent(hour);
+    console.log(haveEvent)
     return (
       <View style={{width: '100%', height: 90, marginBottom: i == 23 ? (haveEvent != null ? 20 : -30) : 0}}>
         <View style={{width: '100%', flexDirection: 'row', alignItems: 'center'}}>

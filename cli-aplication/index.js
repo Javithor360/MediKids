@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-// import gradient from 'gradient-string';
-// import chalkAnimation from 'chalk-animation';
-// import figlet from 'figlet';
-// import { createSpinner } from 'nanospinner';
+import gradient from 'gradient-string';
+import chalkAnimation from 'chalk-animation';
+import figlet from 'figlet';
+import { createSpinner } from 'nanospinner';
 import clear from 'clear';
-import { pool } from './db';
+// import { pool } from './db';
 
 console.log('=======================================');
 console.log('= PANEL DE ADMINISTRACION DE MEDI' + chalk.magenta('KIDS') + ' =');
@@ -173,7 +173,7 @@ switch (index.question1) {
             type: 'label',
             message: 'Ingresa el mensaje que desea enviar'
           })
-          // pool.query('')
+          pool.query('INSERT INTO notices ')
           console.log(chalk.green('Mensaje enviado con exito'));
           await delay(2000);
           function delay(ms) {

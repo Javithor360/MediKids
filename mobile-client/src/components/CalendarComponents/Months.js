@@ -106,28 +106,35 @@ export const Moths = ({YearState, MonthState, EventsAppmt, EventsMedic, setSelec
   
   //! SET THE APPOINTMENT EVENTS IN THE MONTH ARRAY.
   const setAppmtEvents = (BigArr, EventsAppmt) => {
-    const MonthEvents = [];
+    let MonthEvents = BigArr;
 
-    BigArr.forEach(el => {
-      EventsAppmt.forEach((ev, i) => {
-        let EventDate = new Date(ev.Starting_Event_Date);
-        let EvntObj = {};
+    BigArr.forEach((el, i) => {
+      if (EventsAppmt.length != 0) {
+        EventsAppmt.forEach((ev, i) => {
+          let EventDate = new Date(ev.Starting_Event_Date);
+          let EvntObj = {};
+  
+          EvntObj.date = el.date;
+          EvntObj.DayNumber = el.DayNumber;
+          EvntObj.active = el.active;
+          EvntObj.TodayDay = el.TodayDay;
+  
+          if (compareDates(EventDate, el.date)) {
+            EvntObj.AppmtEventIndex = i;
+          } else {
+            EvntObj.AppmtEventIndex = null;
+          }
+          
+          if (compareDates(el.date,EventDate)) {
+            const ix = MonthEvents.indexOf(el);
+            // console.log(el,ix)
+            MonthEvents[ix] = EvntObj;
+          }
 
-        EvntObj.date = el.date;
-        EvntObj.DayNumber = el.DayNumber;
-        EvntObj.active = el.active;
-        EvntObj.TodayDay = el.TodayDay;
-
-        if (compareDates(EventDate, el.date)) {
-          EvntObj.AppmtEventIndex = i;
-        } else {
-          EvntObj.AppmtEventIndex = null;
-        }
-
-        MonthEvents.push(EvntObj);
-      });
+        });
+      }
     });
-
+    console.log(MonthEvents);
     return MonthEvents;
   }
 
@@ -227,7 +234,6 @@ export const Moths = ({YearState, MonthState, EventsAppmt, EventsMedic, setSelec
   useEffect(() => {
     if (YearState != null && MonthState != null && EventsAppmt != null ) {
       ArrayBuilder(YearState, MonthState, EventsAppmt);
-      
     }
   }, [YearState, MonthState, EventsAppmt]);
 
