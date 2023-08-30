@@ -58,7 +58,7 @@ export const EditMedicalRecord = ({ setMedicalRecord }) => {
             }}
             value={""}
             className={
-              "w-[20rem] h-[3rem] rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
+              "w-[17rem] h-[3rem] rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem] focus:ring focus:ring-violet-300 ease-linear duration-200"
             }
           />
           <p className="text-[#BBBBBB] text-[1.2rem]">mt</p>
@@ -86,7 +86,7 @@ export const EditMedicalRecord = ({ setMedicalRecord }) => {
             }}
             value={""}
             className={
-              "w-[20rem] h-[3rem] rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
+              "w-[17rem] h-[3rem] rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem] focus:ring focus:ring-violet-300 ease-linear duration-200"
             }
           />
           <p className="text-[#BBBBBB] text-[1.2rem]">lb</p>
@@ -114,7 +114,7 @@ export const EditMedicalRecord = ({ setMedicalRecord }) => {
             }}
             value={""}
             className={
-              "w-[20rem] h-[3rem] rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem]"
+              "w-[17rem] h-[3rem] rounded-xl border border-[#BBBBBB] outline-none px-[0.3125rem] focus:ring focus:ring-violet-300 ease-linear duration-200"
             }
           />
           <p className="text-[#BBBBBB] text-[1.2rem]">°C</p>

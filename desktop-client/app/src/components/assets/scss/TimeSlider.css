@@ -15,3 +15,12 @@
 .time-card:hover {
     border: 2px solid #A375FF;
 }
+.time-card.disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: .6;
+}
+.time-card.disabled:hover {
+  background-color: transparent;
+  border-color: transparent;
+}

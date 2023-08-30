@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { BsPrescription2 } from 'react-icons/bs'
 import { GiBodyHeight } from "react-icons/gi";
 import { EditExistingMedicalPrescription } from "./EditExistingMedicalPrescription";
 import { AddMedicalPrescription } from "./AddMedicalPrescription";
@@ -58,7 +58,10 @@ export const EditMedicalPrescription = ({
 
   return (
     <>
-      <p className="mt-7 ml-7">RECETA MÉDICA DEL PACIENTE</p>
+      <div className="flex gap-2 items-center ml-7 mt-8 text-[1.4rem] border-b-[2px] border-b-[#A375FF] w-fit mb-7">
+        <BsPrescription2 className="text-[#A375FF]"/>
+        <p className="text-[1.4rem] text-[#A375FF] font-semibold">Receta médica del paciente</p>
+      </div>
       <EditExistingMedicalPrescription
         setEditMedicalPrescription={setEditMedicalPrescription}
       />

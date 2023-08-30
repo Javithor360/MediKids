@@ -7,11 +7,16 @@ import {
   getPatientAppointmentWithDoctor,
   getResponsibleInfo,
   getPatientMedicalRecords,
+  getPatientVaccines,
   getPatientMedicalPrescription,
   setPatientMedicalPrescription,
   editPatientMedicalPrescription,
   createNewAppointment,
   editAppointment,
+  appointmentRequests,
+  getResponsibles,
+  acceptAppointment,
+  declineAppointment,
 } from "../api/queries";
 
 const dashContext = createContext();
@@ -28,10 +33,13 @@ export const DoctorProvider = ({ children }) => {
   const [activePatients, setActivePatients] = useState([]);
   const [oldPatients, setOldPatients] = useState([]);
   const [appointments, setAppointments] = useState([]);
+  const [appointmentRequest, setAppointmentRequest] = useState([]);
 
   const [nextAppointment, setNextAppointment] = useState({});
   const [responsibleInfo, setResponsibleInfo] = useState({});
+  const [responsibles, setResponsibles] = useState([]);
   const [medicalRecords, setMedicalRecords] = useState([]);
+  const [vaccines, setVaccines] = useState({});
   const [medicalPrescriptions, setMedicalPrescriptions] = useState([]);
 
   const PrivateConfig = {
@@ -129,7 +137,7 @@ export const DoctorProvider = ({ children }) => {
       let Arr = res != null ? res.data.Array_Prescriptions : [];
       CreateMedicalRecordEntry(medicalRecord, Arr);
       EditMedicalPrescription(medicalPrescript);
-      FinishAppointment(scheAppoint.originalAppointment);
+      EditAppointmentStatus(scheAppoint.originalAppointment, 4);
       ScheduleAppointment(scheAppoint);
     } catch (error) {
       console.log(error);
@@ -161,6 +169,15 @@ export const DoctorProvider = ({ children }) => {
     try {
       const res = await getPatientMedicalRecords(Patient_id, PrivateConfig);
       setMedicalRecords(res.data.body);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const PatientVaccines = async (Patient_id) => {
+    try {
+      const res = await getPatientVaccines(Patient_id, PrivateConfig);
+      setVaccines(res.data.body);
     } catch (error) {
       console.log(error);
     }
@@ -239,9 +256,43 @@ export const DoctorProvider = ({ children }) => {
     }
   };
 
-  const FinishAppointment = async (id) => {
+  const EditAppointmentStatus = async (id, State) => {
     try {
-      await editAppointment({ id: id, State: 4 }, PrivateConfig);
+      await editAppointment({ id, State }, PrivateConfig);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const DoctorAppointmentRequests = async (Doctor_id) => {
+    try {
+      const res = await appointmentRequests({ Doctor_id }, PrivateConfig);
+      setAppointmentRequest(res.data.body);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const ResponsiblesInfo = async () => {
+    try {
+      const res = await getResponsibles(PrivateConfig);
+      setResponsibles(res.data.body);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const AcceptAppointmentRequest = async (data) => {
+    try {
+      await acceptAppointment(data, PrivateConfig)
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const DeclineAppointmentRequest = async (id) => {
+    try {
+      await declineAppointment(id, PrivateConfig)
     } catch (error) {
       console.log(error);
     }
@@ -252,18 +303,26 @@ export const DoctorProvider = ({ children }) => {
       value={{
         Info,
         setInfo,
+        assignedPatients,
+        setAssignedPatients,
         activePatients,
         setActivePatients,
         oldPatients,
         setOldPatients,
         appointments,
         setAppointments,
+        appointmentRequest,
+        setAppointmentRequest,
         nextAppointment,
         setNextAppointment,
         responsibleInfo,
         setResponsibleInfo,
+        responsibles,
+        setResponsibles,
         medicalRecords,
         setMedicalRecords,
+        vaccines,
+        setVaccines,
         medicalPrescriptions,
         setMedicalPrescriptions,
         DoctorInfoQuery,
@@ -275,11 +334,16 @@ export const DoctorProvider = ({ children }) => {
         PatientAppointmentWithDoctor,
         ResponsibleInformation,
         PatientMedicalRecords,
+        PatientVaccines,
         PatientMedicalPrescriptions,
         AddMedicalPrescription,
         EditMedicalPrescription,
         ScheduleAppointment,
-        FinishAppointment,
+        EditAppointmentStatus,
+        DoctorAppointmentRequests,
+        ResponsiblesInfo,
+        AcceptAppointmentRequest,
+        DeclineAppointmentRequest
       }}
     >
       {children}

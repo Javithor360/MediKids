@@ -27,7 +27,8 @@ export const IndexPage = () => {
     setTimeout(() => {
       setChargin(false);
     }, 1500);
-  }, []);  
+  }, []);
+  
 
   useEffect(()=>{
     setInterval(()=>setTime(new Date()), 1000)

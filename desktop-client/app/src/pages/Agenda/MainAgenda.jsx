@@ -88,6 +88,7 @@ export const MainAgenda = () => {
             hour12: true
           }}
           eventLimit={2}
+          height={'75vh'}
         />
       </div>
     </div>

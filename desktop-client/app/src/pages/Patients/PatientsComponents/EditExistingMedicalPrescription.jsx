@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
+import { MdEditNote } from 'react-icons/md'
 import { useDash } from "../../../context/DoctorContext";
 import Modal from "../../../components/Modal.jsx";
+import  Toggle  from "react-toggle";
+import '../../../assets/scss/Globals.scss'
 
 export const EditExistingMedicalPrescription = ({
   setEditMedicalPrescription
@@ -107,11 +109,24 @@ export const EditExistingMedicalPrescription = ({
         <div>
           {medicalPrescriptions.length > 0 ? (
             <>
-              <div className="inline-flex items-center gap-2">
-                <p className="mt-1 ml-7 font-semibold text-[#707070] text-[1.2rem]">
+              <div className="ml-7 mb-5 inline-flex items-center gap-2">
+                <p className="font-semibold text-[#707070] text-[1.1rem]">
                   ¿Editar medicamentos de la receta actual?
                 </p>
                 <form>
+                  <label className=" mr-5 text-[#707070] text-[1.2rem] " for="add_yes">
+                    <Toggle
+                      className="mt-2 custom-toggle"
+                      checked={editPrescription}
+                      onChange={handleChange}
+                      id="add_yes"
+                      name="selection"
+                      value="add_yes"
+                      icons={true}
+                    />
+                  </label>
+                </form>
+                {/* <form>
                   <label
                     className="ml-5 mr-5 text-[#707070] text-[1.2rem] "
                     for="yes2"
@@ -142,11 +157,11 @@ export const EditExistingMedicalPrescription = ({
                       onChange={handleChange}
                     />
                   </label>
-                </form>
+                </form> */}
               </div>
-              <div class="overflow-x-auto w-[80%] rounded-[1rem] border border-[#BBBBBB] ml-7">
+              <div class="overflow-x-auto w-[80%] rounded-[1rem] border border-[#BBBBBB] ml-7 mb-7">
                 <table class="table w-[100%]">
-                  <thead>
+                  <thead className="bg-[#D8D7FE]">
                     <tr className="text-center">
                       <th className=" border-r border-b border-[#BBBBBB]">
                         Código
@@ -154,7 +169,7 @@ export const EditExistingMedicalPrescription = ({
                       <th className="border-r border-b border-[#BBBBBB]">
                         Nombre
                       </th>
-                      <th className="border-r border-b border-[#BBBBBB]">
+                      <th className="border-b border-[#BBBBBB]">
                         Acción
                       </th>
                     </tr>
@@ -163,19 +178,20 @@ export const EditExistingMedicalPrescription = ({
                     {medicalPrescriptions.map((m) => {
                       return (
                         <tr key={m.id} class="text-center">
-                          <td class="border-r border-[#BBBBBB]">
+                          <td class="border-r border-[#BBBBBB] text-[#A375FF] font-semibold">
                             {m.Medical_Prescription_Code}
                           </td>
                           <td class="border-r border-[#BBBBBB]">
                             {m.Medicine_Name}
                           </td>
-                          <td class="border-r border-[#BBBBBB] flex justify-center gap-4">
+                          <td class="border-[#BBBBBB] flex justify-center">
                             <button
                               disabled={!editPrescription}
                               onClick={() => {
                                 setModified(m);
                                 toggle();
                               }}
+                              className={`btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white ${editPrescription ? null : 'opacity-[.5] bg-[#f7f7f7]'}`}
                             >
                               Editar
                             </button>
@@ -196,81 +212,90 @@ export const EditExistingMedicalPrescription = ({
         )}
         </div>
       {toggle && modified && (
-        <Modal active={active} toggle={toggle} onRequestClose={toggle}>
-          <div className="min-w-[20rem] max-w-[40rem] min-h-[20rem] m-5">
-            <h3>Modificando receta #{modified.Medical_Prescription_Code}</h3>
+        <Modal className='z-1000' active={active} toggle={toggle} onRequestClose={toggle}>
+          <div className="min-w-[25rem] max-w-[45rem] min-h-[20rem] m-5 px-1">
+            <div className="flex gap-2 items-center">
+              <MdEditNote className="text-[#A375FF] text-[1.4rem]"/>
+              <p className="text-[1.4rem] text-[#707070]">Modificando receta</p>
+            </div>
+            <span className="text-[1.4rem] text-[#707070] font-bold">{`# ${modified.Medical_Prescription_Code}`}</span>
+            <div className="w-[100%] h-[1px] bg-[#c6c6c6] my-[.5rem]"></div>
             <form onSubmit={handleForm}>
               <div className="block">
                 <div>
-                  <label htmlFor="Editing-Medical_Prescription_Code">
-                    Código
+                  <label className="font-semibold" htmlFor="Editing-Medical_Prescription_Code">
+                    Código:
                   </label>
                   <input
-                    disabled
-                    className="ml-2 mt-2.5"
+                    disabled  
+                    className="ml-2 mt-2.5 bg-transparent"
                     type="text"
                     name="Editing-Medical_Prescription_Code"
                     value={modified.Medical_Prescription_Code}
                   />
                 </div>
-                <div>
-                  <label htmlFor="Editing-Medicine_Name">
-                    Nombre del medicamento
+                <div className="flex flex-col mt-3">
+                  <label className="font-semibold" htmlFor="Editing-Medicine_Name">
+                    Nombre del medicamento:
                   </label>
                   <input
-                    className="ml-2 mt-2.5"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="text"
                     name="Editing-Medicine_Name"
                     defaultValue={modified.Medicine_Name}
                     onChange={(e) => setMedicine_Name(e.target.value)}
                   />
                 </div>
-                <div>
-                  <label htmlFor="Editing-Instructions">Instrucciones</label>
+                <div className="flex flex-col mt-3">
+                  <label className="font-semibold" htmlFor="Editing-Instructions">
+                    Instrucciones:
+                  </label>
                   <input
-                    className="ml-2 mt-2.5"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="text"
                     name="Editing-Instructions"
                     defaultValue={modified.Instructions}
                     onChange={(e) => setInstructions(e.target.value)}
                   />
                 </div>
-                <div>
-                  <label htmlFor="Editing-Description">Descripción</label>
+                <div className="flex flex-col mt-3">
+                  <label className="font-semibold" htmlFor="Editing-Description">
+                    Descripción:
+                  </label>
                   <input
-                    className="ml-2 mt-2.5"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="text"
                     name="Editing-Description"
                     defaultValue={modified.Description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
-                <div>
-                  <label htmlFor="Editing-Dose">Dosis</label>
+                <div className="flex flex-col mt-3">
+                  <label className="font-semibold" htmlFor="Editing-Dose">Dosis:</label>
                   <input
-                    className="ml-2 mt-2.5"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="text"
                     name="Editing-Dose"
                     defaultValue={modified.Dose}
                     onChange={(e) => setDosis(e.target.value)}
                   />
                 </div>
-                <div>
-                  <label htmlFor="Editing-Time_Dose">Dosis por día</label>
+                <div className="flex flex-col mt-3">
+                  <label className="font-semibold" htmlFor="Editing-Time_Dose">Dosis por día:</label>
                   <input
-                    className="ml-2 mt-2.5"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="number"
                     name="Editing-Time_Dose"
                     defaultValue={modified.Time_Dose}
                     onChange={(e) => setDosisTime(e.target.value)}
                   />
                 </div>
-                <div>
-                  <label htmlFor="Editing-Starting_Dose_Date">
-                    Inicio de la dosis
+                <div className="flex flex-col mt-3">
+                  <label className="font-semibold" htmlFor="Editing-Starting_Dose_Date">
+                    Inicio de la dosis:
                   </label>
                   <input
-                    className="ml-2 mt-2.5"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="date"
                     name="Editing-Starting_Dose_Date"
                     defaultValue={new Date(modified.Starting_Dose_Date)
@@ -279,12 +304,12 @@ export const EditExistingMedicalPrescription = ({
                     onChange={(e) => setStartDate(e.target.value)}
                   />
                 </div>
-                <div>
-                  <label htmlFor="Editing-Finishing_Dose_Date">
-                    Finalización de la dosis
+                <div className="flex flex-col mt-3">
+                  <label className="font-semibold" htmlFor="Editing-Finishing_Dose_Date">
+                    Finalización de la dosis:
                   </label>
                   <input
-                    className="ml-2 mt-2.5"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="date"
                     name="Editing-Finishing_Dose_Date"
                     defaultValue={new Date(modified.Finishing_Dose_Date)
@@ -294,9 +319,19 @@ export const EditExistingMedicalPrescription = ({
                   />
                 </div>
               </div>
-              <div className="flex justify-center gap-4">
-                <button type="submit">Guardar</button>
-                <button onClick={toggle}>Cancelar</button>
+              <div className='pt-[1rem] border-t border-t-[#c6c6c6] mt-[1rem] flex items-end justify-end gap-5'>
+                  <button className="btn btn-active btn-sm border border-[#c6c6c6] bg-[#a49bb7] hover:bg-[#9890a9] text-white gap-3" 
+                      type="submit"
+                  >
+                      Guardar
+                  </button>
+                  <button className="btn btn-active border btn-sm border-[#c6c6c6] bg-[#767082] hover:bg-[#716a81] text-white gap-3" 
+                      onClick={() => {
+                          toggle();
+                      }}
+                  >
+                      Cancelar
+                  </button>
               </div>
             </form>
           </div>

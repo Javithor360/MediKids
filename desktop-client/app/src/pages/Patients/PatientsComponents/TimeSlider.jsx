@@ -6,7 +6,7 @@ import "../../../components/assets/scss/TimeSlider.css";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
 
-const TimeSlider = ({ setHour }) => {
+const TimeSlider = ({ setHour, hasSelectedYes }) => {
   const sliderSettings = {
     dots: true,
     infinite: false,
@@ -29,33 +29,36 @@ const TimeSlider = ({ setHour }) => {
   const [selectedTime, setSelectedTime] = useState(null);
 
   const handleTimeClick = (time) => {
-    setSelectedTime(time);
-    setHour(convertTo24HourFormat(time));
+    if (!hasSelectedYes) {
+      setSelectedTime(time);
+      setHour(convertTo24HourFormat(time));
+    }
   };
 
   return (
     <>
       <div className="w-[30rem] mt-[1.75rem]">
         <Slider {...sliderSettings} className="flex flex-row ml-12">
-          {timeValues.map((time, index) => (
-            <button
-              key={index}
-              onClick={() => handleTimeClick(time)}
-              className={`time-card ease-in duration-200 ${
-                selectedTime === time
-                  ? "bg-[#A375FF] border-[2px] border-[#A375FF]"
-                  : "bg-white border-[2px] border-[#c6c6c6]"
+        {timeValues.map((time, index) => (
+          <button
+            key={index}
+            onClick={() => handleTimeClick(time)}
+            className={`time-card ease-in duration-200 ${
+              selectedTime === time
+                ? "bg-[#A375FF] border-[2px] border-[#A375FF]"
+                : "bg-white border-[2px] border-[#c6c6c6]"
+            } ${hasSelectedYes ? "disabled" : ""}`}
+            disabled={hasSelectedYes}
+          >
+            <p
+              className={`${
+                selectedTime === time ? "text-[#FFFFFF]" : "text-[#000000]"
               }`}
             >
-              <p
-                className={`${
-                  selectedTime === time ? "text-[#FFFFFF]" : "text-[#000000]"
-                }`}
-              >
-                {time}
-              </p>
-            </button>
-          ))}
+              {time}
+            </p>
+          </button>
+        ))}
         </Slider>
       </div>
       {selectedTime ? (

@@ -1,10 +1,5 @@
 let eventGuid = 0;
 // const todayStr = new Date().toISOString().replace(/T.*$/, '')
-const todayStr = "2023-09-12"; // YYYY-MM-DD
-const appointmentTimeStart = "15:30:00";
-const appointmentTimeEnd = "16:30:00";
-const formattedTimeStart = "T" + appointmentTimeStart;
-const formattedTimeEnd = "T" + appointmentTimeEnd;
 
 export const DoctorEvents = (appointments, patient) => {
   let events = [];
