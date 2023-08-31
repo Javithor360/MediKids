@@ -47,11 +47,12 @@ export const AppointmentRequestsDetails = () => {
 
   const handleConfirmation = async () => {
     try {
-      await AcceptAppointmentRequest({
+      const res = await AcceptAppointmentRequest({
         id: appointment.id,
         Date: new Date(date).toISOString().split("T")[0],
         Hour: hour,
       });
+      console.log(res);
       setTimeout(() => {
         toggle();
         setTimeout(() => {

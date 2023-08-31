@@ -134,7 +134,6 @@ export const Moths = ({YearState, MonthState, EventsAppmt, EventsMedic, setSelec
         });
       }
     });
-    console.log(MonthEvents);
     return MonthEvents;
   }
 

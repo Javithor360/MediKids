@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ChangeNeumoState, ChangeOtorrinoValues, ChangeOtorrinoState, ChangeNeumoValues, ChangeGastroState, ChangeGastroValues } from '../../../store/slices/appointmentsSlice';
 
 //! Cancel the warning.
-const av = new Animated.Value(0);
-av.addListener(() => {return});
+// const av = new Animated.Value(0);
+// av.addListener(() => {return});
 
 //! Information to single component statement.
 const doctorDescription = {
@@ -101,10 +101,10 @@ export const AppointmentMainScreen = () => {
         }
     }
 
-    useEffect(() => {
+    useEffect(() => { 
         getAppointments();
         getHistoryAppointment();
-    }, [appointmentsState, isFocused]);
+    }, [isFocused]);
 
     return (
         <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
@@ -216,8 +216,8 @@ export const AppointmentMainScreen = () => {
 
                         <View style={styles.card}>
                             {
-                                (appointmentsState.GastroState != null && appointmentsState.GastroState != 4``) ?
-                                <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
+                                (appointmentsState.GastroState != null && appointmentsState.GastroState != 4) ?
+                                <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '105%', zIndex: 999}}></View>
                                 :
                                 null
                             }
