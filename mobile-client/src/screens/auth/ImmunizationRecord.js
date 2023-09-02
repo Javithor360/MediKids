@@ -1,22 +1,25 @@
 //>> Importing libraries
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, ImageBackground,BackHandler, KeyboardAvoidingView, TouchableOpacity} from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Checkbox from 'expo-checkbox';
+import { ScrollView } from "react-native-gesture-handler";
+import { useSelector } from "react-redux";
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
 import { CustomButton, SetLabel, ShowToast, createImmunizationRecord, getPatient } from '../../index';
-import { ScrollView } from "react-native-gesture-handler";
 
 export const ImmunizationRecord = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  const isFocused = useIsFocused()
+  const lng = useSelector(state => state.starter.Language);
 
   //! State for the Form.
   const [PatientId, setPatientId] = useState(null);
@@ -55,7 +58,7 @@ export const ImmunizationRecord = () => {
 
       if(data.success){
         //! Show success message.
-        ShowToast('my_success', 'Éxito', 'Registro de vacunación Actualizado');
+        ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Registro de vacunación Actualizado.' : 'Immunization Record Updated.' );
 
         //! Close loading animation
         setTimeout(() => {
@@ -74,7 +77,7 @@ export const ImmunizationRecord = () => {
       }, 2000);
 
       //>> Show error message.
-      ShowToast('my_error', 'Error', error.response.data.message);
+      ShowToast('my_error', 'Error', lng ? error.response.data.message.es : error.response.data.message.en);
     }
   }
 
@@ -118,6 +121,22 @@ export const ImmunizationRecord = () => {
       getPatientFunct(PatientId);
     }
   }, [PatientId]);
+
+  useEffect(() => {
+    setSuccess(false);
+    setIsChecked({
+      bgc: false,
+      hepatitis: false,
+      pentavalente: false,
+      poliomielitis: false,
+      rotavirus: false,
+      neumococo: false,
+      dtp: false,
+      polio: false,
+      antitetanica: false,
+      spr: false
+    })
+  }, [isFocused]);
 
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#e4e2ff',}}

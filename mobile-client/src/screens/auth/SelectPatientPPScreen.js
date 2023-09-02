@@ -22,6 +22,7 @@ export const SelectPatientPPScreen = () => {
     const Patient = useSelector(state => state.patient);
     const jwtToken = useSelector(state => state.responsible.jwtToken);
     const dispatch = useDispatch();
+    const lng = useSelector(state => state.starter.Language);
     
     const [ImageEl, setImageEl] = useState(null);
 
@@ -75,7 +76,7 @@ export const SelectPatientPPScreen = () => {
             const {data} = await uploadPFPatient(jwtToken, formData);
             if(data.success){
                 dispatch(changePFPatient(data.url));
-                ShowToast('my_success', 'Éxito', 'Foto subida correctamente');
+                ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Foto subida correctamente.' : 'Photo uploaded successfully.');
                 setTimeout(() => {
                     setIsLoading(false);
                     setSuccess(true);
@@ -147,7 +148,7 @@ export const SelectPatientPPScreen = () => {
                                     uploadImage(ImageEl);
                                 } else {
                                     //! ERRROR HANDLING
-                                    ShowToast('my_error', 'Error', 'No se ha seleccionado una foto');
+                                    ShowToast('my_error', 'Error', lng ? 'No se ha seleccionado una foto.' : 'No photo has been selected.');
                                 }
                             }}
                             haveShadow={true}

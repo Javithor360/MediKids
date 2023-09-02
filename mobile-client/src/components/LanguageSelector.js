@@ -2,13 +2,19 @@ import { useState } from 'react';
 import { View, Text, Button, StyleSheet, TouchableOpacity} from 'react-native';
 import { useTranslation } from 'react-i18next';
 import i18n from '../localization/i18n'; // Ruta correcta a tu archivo i18n.js
+import { ChangeLanguages } from '../store/slices/starterSlice';
+import { useDispatch } from 'react-redux';
 
 function LanguageSelector({closeModal}) {
+  const dispatch = useDispatch()
   const { t } = useTranslation();
 
   const [activeLanguage, setActiveLanguage] = useState(i18n.language);
 
   const changeLanguage = (lng) => {
+    if (lng == 'es') { dispatch(ChangeLanguages(true)) }
+    else { dispatch(ChangeLanguages(false)) }
+    
     i18n.changeLanguage(lng);
     setActiveLanguage(lng);
   };

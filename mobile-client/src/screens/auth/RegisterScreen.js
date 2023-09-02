@@ -3,9 +3,10 @@ import { Text, View, Image, TextInput, TouchableOpacity, ScrollView, KeyboardAvo
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {MaskedTextInput} from 'react-native-mask-text';
 import { useTranslation } from 'react-i18next';
+
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
@@ -18,7 +19,8 @@ import { Feather, AntDesign, MaterialIcons, MaterialCommunityIcons as MaterialCo
 export const RegisterScreen = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+  const lng = useSelector(state => state.starter.Language);
 
   //! States for the Form.
   const [FirstNames, setFirstNames] = useState(null);
@@ -54,7 +56,7 @@ export const RegisterScreen = () => {
 
       if(data.success){
         //! Show success message.
-        ShowToast('my_success', 'Éxito', 'Registro completado correctamente');
+        ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Registro completado correctamente.' : 'Registration completed successfully.');
 
         //! Set Async Storage Values
         const userSession = { Email: data.Email, isLoggedIn: false, jwtToken: null}
@@ -80,7 +82,7 @@ export const RegisterScreen = () => {
       }, 2000);
 
       //>> Show error message.
-      ShowToast('my_error', 'Error', error.response.data.message);
+      ShowToast('my_error', 'Error', lng ? error.response.data.message.es : error.response.data.message.en);
     }
   }
 

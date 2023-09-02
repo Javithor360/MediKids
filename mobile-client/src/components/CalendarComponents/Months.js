@@ -147,7 +147,6 @@ export const Moths = ({YearState, MonthState, EventsAppmt, EventsMedic, setSelec
 
   //! Get Table Row function
   const GetTableRow = ({row, isLast}) => {
-    console.log(row)
 
     const onPressDay = (DaySelected) => {
       setSelectedRow(row);

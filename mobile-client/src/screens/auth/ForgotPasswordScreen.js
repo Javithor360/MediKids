@@ -3,7 +3,7 @@ import { Text, View, Image, TextInput, TouchableOpacity, ImageBackground, BackHa
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { MaterialCommunityIcons as MaterialCommIcons, MaterialIcons } from '@expo/vector-icons'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
@@ -14,6 +14,7 @@ import { ChangeStarterEmail } from '../../store/slices/starterSlice';
 export const ForgotPasswordScreen = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
+    const lng = useSelector(state => state.starter.Language);
 
     //! States for the Form.
     const [Email, setEmail] = useState(null);
@@ -42,7 +43,7 @@ export const ForgotPasswordScreen = () => {
             
             if(data.success){
                 //! Show success message.
-                ShowToast('my_success', 'Éxito', data.message);
+                ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? data.message.es : data.message.en);
 
                 //! set the email in the storage for the usage in the Reset password screen.
                 dispatch(ChangeStarterEmail(Email));
@@ -65,7 +66,7 @@ export const ForgotPasswordScreen = () => {
             }, 2500);
             
             //>> Show error message
-            ShowToast('my_error', 'Error', error.response.data.message);
+            ShowToast('my_error', 'Error', lng ? error.response.data.message.es : error.response.data.message.en);
         }
     }
 

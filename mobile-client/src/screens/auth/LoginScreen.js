@@ -3,7 +3,7 @@ import { Text, View, Image, TextInput, TouchableOpacity, ImageBackground, BackHa
 import { MaterialIcons, MaterialCommunityIcons as MaterialCommIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 //>> Importing components
@@ -15,6 +15,7 @@ import { setStatement } from '../../store/slices/starterSlice';
 
 export const LoginScreen = () => {
   const { t } = useTranslation();
+  const lng = useSelector(state => state.starter.Language);
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const route = useRoute();
@@ -54,7 +55,7 @@ export const LoginScreen = () => {
 
       if(data.success){
         //! Show success message.
-        ShowToast('my_success', 'Éxito', 'Inicio de Sesion completo');
+        ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Inicio de Sesion completo.' : 'Logged in successfully.');
 
         //! Set the Async Storage Logged In State.
         const userSession = { Email: Email, isLoggedIn: true, jwtToken: data.token };
@@ -105,12 +106,12 @@ export const LoginScreen = () => {
 
       if(error.response.data?.warning != null){
         //>> Show warning message.
-        ShowToast('my_warning', 'Warning', error.response.data.message);
+        ShowToast('my_warning', lng ? 'Aviso' : 'Warning', lng ? error.response.data.message.es : error.response.data.message.en);
         dispatch(setStatement({Email: Email, State: false}));
         setTimeout(() => navigation.replace('VerifyCodeScreen'), 2000);
       } else {
         //>> Show error message.
-        ShowToast('my_error', 'Error', error.response.data.message);
+        ShowToast('my_error', 'Error', lng ? error.response.data.message.es : error.response.data.message.en);
       }
     }
   }
