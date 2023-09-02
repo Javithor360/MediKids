@@ -2,6 +2,7 @@
 import { Text, View, Image, ImageBackground, BackHandler } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
@@ -12,6 +13,7 @@ import InputCodeField from '../../components/InputCodeField';
 
 export const ForgotPassCodeScreen = () => {
     const navigation = useNavigation();
+    const lng = useSelector(state => state.starter.Language);
 
     //! Verify Code State
     const [verifyCode, setVerifyCode] = useState(null);
@@ -36,7 +38,7 @@ export const ForgotPassCodeScreen = () => {
     
         if(data.success){
             //! Show success message.
-            ShowToast('my_success', 'Éxito', 'Código Verificado correctamente');
+            ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Código Verificado correctamente' : 'Code Verified Successfully');
     
             //! Close loading animation
             setTimeout(() => {
@@ -55,8 +57,7 @@ export const ForgotPassCodeScreen = () => {
         }, 2000);
     
         //>> Show error message.
-        console.log(error);
-        ShowToast('my_error', 'Error', error.response.data.message);
+        ShowToast('my_error', 'Error', lng ? error.response.data.message.es : error.response.data.message.en);
         }
     }
     

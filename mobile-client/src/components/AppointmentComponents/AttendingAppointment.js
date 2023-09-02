@@ -11,6 +11,7 @@ import { SetLabel, ShowToast, getSingleMedicalAppmt } from '../../index';
 import { ChangeGastroState, ChangeNeumoState, ChangeOtorrinoState } from '../../store/slices/appointmentsSlice';
 
 export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode, setShowMedicines }) => {
+    const lng = useSelector(state => state.starter.Language);
     const dispatch = useDispatch();
     const Info = useSelector(state => state.responsible);
     const Patient = useSelector(state => state.patient);
@@ -71,7 +72,7 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
             const {data} = await getSingleMedicalAppmt(jwtToken ,appointmentInfo.id);
 
             if (data.Appointment[0].State == 4) {
-                ShowToast('my_success', 'Éxito', 'La cita ha finalizado, en un momento \nsé mostrará la información de esta.');
+                ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'La cita ha finalizado, en un momento \nsé mostrará la información de esta.' : 'The appointment has ended, the information \nwill be shown shortly.');
                 setIsLoading(true);
                 setDisable(true);
                 setStopTime(TimeElased);
@@ -86,7 +87,7 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
                     }, 2000);
                 }, 5000);
             } else {
-                ShowToast('my_error', 'Error', 'No hay actualizaciones sobre la \nInformación de la cita.')
+                ShowToast('my_error', 'Error', lng ? 'No hay actualizaciones sobre la \nInformación de la cita.' : 'There are no updates on \nappointment information.');
             }
         } catch (error) {
             console.log(error);

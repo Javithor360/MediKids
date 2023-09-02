@@ -62,7 +62,7 @@
         "name": "Nombres",
         "lastName": "Apellidos",
         "age": "edad",
-        "cellphone": "Teléfono",
+        "cellphone": "Num. Celular",
         "confirmPassword": "Confirmar contraseña",
         "logout": "Cerrar sesión"
     },

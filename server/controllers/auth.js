@@ -27,40 +27,46 @@ const register = async (req, res, next) => {
 
     //1 - CHECKING EMPTY VALUES
     if (!First_Names || !Last_Names || !Email || !Password || !DUI || !Birthdate || !Phone) {
-      return res.status(500).json({success: false, message: 'Valores Vacios'});
+      return res.status(500).json({success: false, message: {es: 'Campos sin completar.', en : 'Missing fields.'}});
     }
+
+    // VALIDATE STRING INPUTS.
+    if (!/^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/.test(First_Names)){ return res.status(500).json({success: false, message: {es: 'Nombres no validos.', en: 'Invalid first names.'}}) }
+    if (First_Names.length < 2 || First_Names.length > 50) { return res.status(500).json({success: false, message: {es: 'Nombres no validos.', en: 'Invalid first names.'}}) }
+    if (!/^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/.test(Last_Names)){ return res.status(500).json({success: false, message: {es: 'Apellidos no validos.', en: 'Invalid last names.'}}) }
+    if (Last_Names.length < 3 || Last_Names.length > 50) { return res.status(500).json({success: false, message: {es: 'Apellidos no validos.', en: 'Invalid last names.'}}) }
+    
     //>>2 - CHECK IF DUI EXISTS
     //! EL DUI ES DE 9 DIGITOS 
     // 12345678-9
 
-    //2.5 - CHECK THE PASSWORD WITH THE CONFIRMATION PASSWORD.
-    if(Password != ConfPass){
-      return res.status(500).json({success: false, message: 'Las contraseñas no coinciden'})
-    }
-
     //3 - CHECKING IF VALUES ALREADY EXIST
     const [query_check] = await pool.query('SELECT * FROM responsible WHERE DUI = ? OR Email = ?', [DUI, Email]);
     if (query_check.length != 0) {
-      return res.status(500).json({success: false, message: 'Usuario ya registrado'});
+      return res.status(500).json({success: false, message: {es: 'Responsable ya registrado.', en: 'Responsible already registered.'}});
     } 
 
-    //4 - CHECK VALID VALUES
+    //\\ 4 - CHECK VALID VALUES
     // Number Phone
     if (!/^(?!.*(\d)(?:-?\1){3})([67]\d{3}-\d{4})$/.test(Phone)) {
-      return res.status(500).json({success: false, message: 'Telefono invalido'});
+      return res.status(500).json({success: false, message: {es: 'Número celular invalido.', en: 'Invalid phone number.'}});
     }
     // Email
     if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(Email)) {
-      return res.status(500).json({success: false, message: 'Email invalido'});
+      return res.status(500).json({success: false, message: {es: 'Email invalido', en: 'Invalid Email'}});
+    }
+    // CHECK THE PASSWORD WITH THE CONFIRMATION PASSWORD.
+    if(Password != ConfPass){
+      return res.status(500).json({success: false, message: {es: 'Las contraseñas no coinciden.', en: 'The passwords do not match.'}})
     }
     // Password
-    if(!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[,;.:-_{\[\]}`*+~¨´¡¿'?\=\)(/&%$#"!°|¬])\S{8,30}$/.test(Password)){
-      return res.status(500).json({success: false, message: 'Contraseña invalida: debe de tener \nminimo 8 caracteres y uno especial.'});
+    if(!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/.test(Password)){
+      return res.status(500).json({success: false, message: {es: 'Contraseña invalida: debe de tener \nminimo 8 caracteres y uno especial.', en: 'Invalid Password: must be at least 8 characters \nlong and include one special character.'}});
     }
     // Age
     const ActualDate = new Date();
     if ((ActualDate.getFullYear() - 18) < BD.getFullYear()) {
-      return res.status(500).json({success: false, message: 'Edad Invalida'});
+      return res.status(500).json({success: false, message: {es: 'Edad invalida.', en: 'Invalid age.'}});
     }
 
     // GET USER AGE
@@ -95,26 +101,25 @@ const login = async (req, res, next) => {
   try {
     const {Email, Password} = req.body;
 
-    console.log('??')
     // CHECKING EMPTY VALUES
     if (!Email || !Password) {
-      return res.status(500).json({success: false, message: 'Valores Vacios'});
+      return res.status(500).json({success: false, message: {es: 'Campos sin completar.', en : 'Missing fields.'}});
     }
 
     // CHECKING IF USER EXISTS
     const [query_user] = await pool.query('SELECT * FROM responsible WHERE Email = ? ', [Email]);
     if (query_user.length == 0) {
-      return res.status(500).json({success: false, message: 'Este Email no ha sido registrado'});
+      return res.status(500).json({success: false, message: {es: 'Este Email no ha sido registrado.', en: 'This email has not been registered.'}});
     }
 
     // CHECKING THE PASSWORD
     if (!await bcrypt.compare(Password,  query_user[0].Password)) {
-      return res.status(500).json({success: false, message: 'Contraseña Incorrecta'});
+      return res.status(500).json({success: false, message: {es: 'Contraseña Incorrecta.', en: 'Incorrect Password.'}});
     }
 
     // CHECK IF THE EMAIL IT HAS BEEN VALIDATED
     if (query_user[0].Email_Verify_code != null) {
-      return res.status(500).json({success: false, message: 'Email no verificado', warning: true});
+      return res.status(500).json({success: false, message: {es: 'Email no verificado.', en: 'Email not verified.'}, warning: true});
     }
 
     // CREATE JWT TOKEN
@@ -122,7 +127,6 @@ const login = async (req, res, next) => {
 
     return res.status(200).json({success: true, token, User: query_user[0]});
   } catch (error) {
-    console.log(error);
     return res.status(500).json({error});
   }
 }
@@ -136,19 +140,19 @@ const verify_email = async (req, res, next) => {
 
     // VALIDATE EMPYT VALUES
     if (!verify_code ||!Email) {
-      return res.status(500).json({success: false, message: 'Valor sin ingresar'});
+      return res.status(500).json({success: false, message: {es: 'Campo sin completar.', en : 'Missing field.'}});
     }
 
     // CHECK IF EMAIL HAS ALREADY VERIFIED
     const [query_check_ve_co] = await pool.query('SELECT * FROM Responsible WHERE Email = ? ', [Email]);
     if (query_check_ve_co[0].Email_Verify_code == null) {
-      return res.status(500).json({success: false, message: 'Email ya vericado'});
+      return res.status(500).json({success: false, message: {es: 'Email ya vericado.', en: 'Email already verified.'}});
     }
 
     // GET THE USER WITH THE VERIFY CODE TO VALIDATE IT AT ONCE
     const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Email = ? AND Email_Verify_code = ?', [Email, verify_code]);
     if (query_user.length == 0) {
-      return res.status(500).json({success: false, message: 'Codigo Incorrecto'});
+      return res.status(500).json({success: false, message: {es: 'Código Incorrecto.', en: 'Incorrect Code.'}});
     }
 
     // UPDATE THE USER SETTING THE VERIFY CODE IN NULL
@@ -169,17 +173,17 @@ const forgot_password = async (req, res, next) => {
 
     // VERIFY EMPTY VALUES
     if (!Email) {
-      return res.status(500).json({success: false, message: 'Valores Vacios'});
+      return res.status(500).json({success: false, message: {es: 'Campos sin completar.', en : 'Missing fields.'}});
     }
 
     // QUERY TO GET THE USER
     const [query_user] = await pool.query('SELECT * FROM responsible WHERE Email = ?', [Email]);
     // VALIDATIONS
     if (query_user.length == 0) {
-      return res.status(500).json({success: false, message: 'Email no registrado'});
+      return res.status(500).json({success: false, message: {es: 'Email no registrado.', en : 'Email not registered.'}});
     }
     if (query_user[0].Email_Verify_code != null) {
-      return res.status(500).json({success: false, message: 'Email no verificado'});
+      return res.status(500).json({success: false, message: {es: 'Email no verificado.', en : 'Email not verified.'}});
     }
 
     // GET THE TOKENS
@@ -192,7 +196,7 @@ const forgot_password = async (req, res, next) => {
     send_forgot_pass_email(forgot_pass_tokens.reset_pass_code, Email, res);
     console.log(forgot_pass_tokens.reset_pass_code);
 
-    return res.status(200).json({success: true, message: 'Email Enviado Correctamente'});
+    return res.status(200).json({success: true, message: {es: 'Email Enviado Correctamente.', en: 'Email Sent Successfully.'}});
   } catch (error) {
     return res.status(500).json({error});
   }
@@ -207,7 +211,7 @@ const check_reset_code = async (req, res, next) => {
 
     // CHECK IF THE TOKEN EXISTS
     if (!reset_pass_code) {
-      return res.status(500).json({success: false, message: 'No hay code de reseteo'});
+      return res.status(500).json({success: false, message: {es: 'No hay código de reseteo.', en: 'There is no reset code.'}});
     }
 
     // CREATE MATCH CODE WITH THE TOKEN IN THE DB.
@@ -218,7 +222,7 @@ const check_reset_code = async (req, res, next) => {
     // GET THE USER WITH THE EMAIL
     const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Reset_Pass_Token = ? AND Reset_Pass_Expire > ?', [code_to_match, date_now]);
     if (query_user.length == 0) {
-      return res.status(500).json({success: false, message: 'Código Invalido'});
+      return res.status(500).json({success: false, message: {es: 'Código Invalido.', en: 'Invalid Code.'}});
     }
 
     return res.status(200).json({success: true, data: 'Código Verificado Correctamente'});
@@ -237,23 +241,23 @@ const reset_password = async (req, res, next) => {
 
     // CHECK EMPTY VALUES
     if (!Password && !ConfPass) {
-      return res.status(500).json({success: false, message: 'Valores vacios'});
+      return res.status(500).json({success: false, message: {es: 'Campos sin completar.', en : 'Missing fields.'}});
     }
 
     // CHECK IF THE PASSWOIRD IS THE SAME
     if(Password != ConfPass) {
-      return res.status(500).json({success: false, message: 'Las contraseñas no coinciden'});
+      return res.status(500).json({success: false, message: {es: 'Las contraseñas no coinciden.', en: 'The passwords do not match.'}});
     }
 
     // CHECK IF THE PASSWORD IS THE SAME WITH THE OLD ONE;
     const [query_user] = await pool.query('SELECT * FROM Responsible WHERE Email = ?', [Email]);
     if (await bcrypt.compare(Password, query_user[0].Password)) {
-      return res.status(500).json({success: false, message: 'Contraseña no puede ser igual \na la anterior'});
+      return res.status(500).json({success: false, message: {es: 'Contraseña no puede ser igual \na la anterior', en: 'The password cannot be the same \nas the previous one.'}});
     }
 
     // CHECK THE PASSWORD
-    if (!/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/.test(Password)) {
-      return res.status(500).json({success: false, message: 'La contraseña no es valda'});
+    if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/.test(Password)) {
+      return res.status(500).json({success: false, message: {es: 'La contraseña no es valda.', en: 'Invalid password.'}});
     }
 
     // ENCRYPT THE PASSWORD:
@@ -262,7 +266,7 @@ const reset_password = async (req, res, next) => {
     // SAVE THE FIELDS IN THE DB
     await pool.query('UPDATE Responsible SET Reset_Pass_Token = NULL, Reset_Pass_Expire = NULL, Password = ? WHERE Email = ?', [HashedPass, Email]);
 
-    res.status(201).json({success: true, message: 'contraseña reestablecida correctamente'});
+    res.status(201).json({success: true, message: 'Contraseña reestablecida correctamente'});
   } catch (error) {
     return res.status(500).json({error});
   }
@@ -277,37 +281,41 @@ const register_patients = async (req, res, next) => {
 
     // CHECK EMPTY VALUES
     if (!Email || !First_Names || !Last_Names || !Blood_Type || Gender == undefined || !Weight || !Height || !Selected_Date) {
-      return res.status(500).json({success: false, message: 'Valores vacios'});
+      return res.status(500).json({success: false, message: {es: 'Campos sin completar.', en : 'Missing fields.'}});
     }
 
+    // VALIDATE STRING INPUTS.
+    if (!/^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/.test(First_Names)){ return res.status(500).json({success: false, message: {es: 'Nombres no validos.', en: 'Invalid first names.'}}) }
+    if (First_Names.length < 2 || First_Names.length > 50) { return res.status(500).json({success: false, message: {es: 'Nombres no validos.', en: 'Invalid first names.'}}) }
+    if (!/^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/.test(Last_Names)){ return res.status(500).json({success: false, message: {es: 'Apellidos no validos.', en: 'Invalid last names.'}}) }
+    if (Last_Names.length < 3 || Last_Names.length > 50) { return res.status(500).json({success: false, message: {es: 'Apellidos no validos.', en: 'Invalid last names.'}}) }
+
     // CHECK IF THE PATIENT IS ALREADY REGISTERED
-    const [check_query] = await pool.query('SELECT * FROM patient WHERE First_Names = ? OR Last_Names = ?', [First_Names, Last_Names]);
+    const [check_query] = await pool.query('SELECT * FROM patient WHERE First_Names = ?', [First_Names]);
     if (check_query.length != 0) {
-      return res.status(500).json({success: false, message: 'Paciente ya registrado'});
+      return res.status(500).json({success: false, message: {es: 'Paciente ya registrado.', en: 'Patient already registered.'}});
     }
 
     // CHECK REAL VALUES
-    if (Weight < 10 || Weight > 170) {
-      return res.status(500).json({success: false, message: 'Ingresar valores reales (peso)'});
+    if (Weight < 10 || Weight > 180) {
+      return res.status(500).json({success: false, message: {es: 'Ingresar valores reales (Peso).', en: 'Enter real values (Weight).'}});
     }
-    if (Height < 0.60 || Height > 1.80) {
-      return res.status(500).json({success: false, message: 'Ingresar valores reales (altura)'});
+    if (Height < 0.60 || Height > 1.90) {
+      return res.status(500).json({success: false, message: {es: 'Ingresar valores reales (Altura).', en: 'Enter real values (Height).'}});
     }
 
 
     // CHECK THE AGE OF THE PATIENT AND GET IT.
     const BD = new Date(Selected_Date);
     const ActualDate = new Date();
-    console.log("SELECTED DATE: " + Selected_Date);
-    console.log(Selected_Date);
 
     if (ActualDate.getFullYear() - 18 > BD.getFullYear()) {
-      return res.status(500).json({success: false, message: "Age isn't valid" });
+      return res.status(500).json({success: false, message: {es: "La edad no es valida.", en: 'The age is not valid.'} });
     }
     const Age = ActualDate.getFullYear() - BD.getFullYear();
 
-    if (Age < 0) {
-      return res.status(500).json({success: false, message: "La edad no es valida" });
+    if (BD > ActualDate) {
+      return res.status(500).json({success: false, message: {es: "La edad no es valida.", en: 'The age is not valid.'} });
     }
 
     // GET THE USER TO LINK HIM TO THE PATIENT.
@@ -323,15 +331,6 @@ const register_patients = async (req, res, next) => {
     await pool.query('INSERT INTO patient SET ?', {First_Names, Last_Names, Birthdate: BD, Age, Gender, Blood_Type, Weight, Height, Responsible_id: responsible[0].id, Patient_Code, Medical_History_Code: null, Profile_Photo_Url: P_F, Profile_Photo_Name: null});
 
     return res.status(200).json({success: true, Patient_Code});
-  } catch (error) {
-    return res.status(500).json({error});
-  }
-}
-
-const test_mail = async (req, res, next) => {
-  try {
-    send_verify_code_email('sexo', 'luisernestomr1503@gmail.com', res);
-    return res.status(200).json({success: true});
   } catch (error) {
     return res.status(500).json({error});
   }
@@ -376,7 +375,6 @@ export {
   forgot_password,
   check_reset_code,
   reset_password,
-  test_mail,
   register_patients,
   doctor_login,
 };

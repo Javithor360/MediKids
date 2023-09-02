@@ -426,51 +426,51 @@ db.connect(() => {
   console.log(`[DB] Connection successfully established, starting data insertion process...`);
   try {
 
-    // CREATING RESPONSIBLES
-    console.log(`[DB] - Inserting into "responsible" -`);
-    for (let i = 0; i < responsibles.length; i++) {
-      db.query(`INSERT INTO responsible SET ? `, {
-        First_Names: responsibles[i].First_Names,
-        Last_Names: responsibles[i].Last_Names,
-        Email: responsibles[i].Email,
-        Password: responsibles[i].Password,
-        DUI: responsibles[i].DUI,
-        Birthdate: responsibles[i].Birthdate,
-        Age: responsibles[i].Age,
-        Phone: responsibles[i].Phone,
-        Profile_Photo_Url: responsibles[i].Profile_Photo_Url,
-        Profile_Photo_Name: responsibles[i].Profile_Photo_Name,
-        Reset_Pass_Token: responsibles[i].Reset_Pass_Token,
-        Reset_Pass_Expire: responsibles[i].Reset_Pass_Expire,
-        Email_Verify_Code: responsibles[i].Email_Verify_Code,
-      });
-      console.log(
-        `[DB] Patient ${responsibles[i].First_Names} ${responsibles[i].Last_Names} has been created...`
-      );
-    }
+    // // CREATING RESPONSIBLES
+    // console.log(`[DB] - Inserting into "responsible" -`);
+    // for (let i = 0; i < responsibles.length; i++) {
+    //   db.query(`INSERT INTO responsible SET ? `, {
+    //     First_Names: responsibles[i].First_Names,
+    //     Last_Names: responsibles[i].Last_Names,
+    //     Email: responsibles[i].Email,
+    //     Password: responsibles[i].Password,
+    //     DUI: responsibles[i].DUI,
+    //     Birthdate: responsibles[i].Birthdate,
+    //     Age: responsibles[i].Age,
+    //     Phone: responsibles[i].Phone,
+    //     Profile_Photo_Url: responsibles[i].Profile_Photo_Url,
+    //     Profile_Photo_Name: responsibles[i].Profile_Photo_Name,
+    //     Reset_Pass_Token: responsibles[i].Reset_Pass_Token,
+    //     Reset_Pass_Expire: responsibles[i].Reset_Pass_Expire,
+    //     Email_Verify_Code: responsibles[i].Email_Verify_Code,
+    //   });
+    //   console.log(
+    //     `[DB] Patient ${responsibles[i].First_Names} ${responsibles[i].Last_Names} has been created...`
+    //   );
+    // }
 
-    // CREATING PATIENTS AND ASSINGNING THEM TO THEIR RESPONSIBLES
-    console.log(`[DB] - Inserting into "patient" -`);
-    for (let i = 0; i < patients.length; i++) {
-      db.query(`INSERT INTO patient SET ? `, {
-        First_Names: patients[i].First_Names,
-        Last_Names: patients[i].Last_Names,
-        Birthdate: patients[i].Birthdate,
-        Age: patients[i].Age,
-        Gender: patients[i].Gender,
-        Blood_Type: patients[i].Blood_Type,
-        Weight: patients[i].Weight,
-        Height: patients[i].Height,
-        Responsible_id: patients[i].Responsible_id,
-        Patient_Code: patients[i].Patient_Code,
-        Medical_History_Code: patients[i].Medical_History_Code,
-        Profile_Photo_Url: patients[i].Profile_Photo_Url,
-        Profile_Photo_Name: patients[i].Profile_Photo_Name,
-      });
-      console.log(
-        `[DB] Patient ${patients[i].First_Names} ${patients[i].Last_Names} has been created...`
-      );
-    }
+    // // CREATING PATIENTS AND ASSINGNING THEM TO THEIR RESPONSIBLES
+    // console.log(`[DB] - Inserting into "patient" -`);
+    // for (let i = 0; i < patients.length; i++) {
+    //   db.query(`INSERT INTO patient SET ? `, {
+    //     First_Names: patients[i].First_Names,
+    //     Last_Names: patients[i].Last_Names,
+    //     Birthdate: patients[i].Birthdate,
+    //     Age: patients[i].Age,
+    //     Gender: patients[i].Gender,
+    //     Blood_Type: patients[i].Blood_Type,
+    //     Weight: patients[i].Weight,
+    //     Height: patients[i].Height,
+    //     Responsible_id: patients[i].Responsible_id,
+    //     Patient_Code: patients[i].Patient_Code,
+    //     Medical_History_Code: patients[i].Medical_History_Code,
+    //     Profile_Photo_Url: patients[i].Profile_Photo_Url,
+    //     Profile_Photo_Name: patients[i].Profile_Photo_Name,
+    //   });
+    //   console.log(
+    //     `[DB] Patient ${patients[i].First_Names} ${patients[i].Last_Names} has been created...`
+    //   );
+    // }
 
     // CREATING DOCTORS
     console.log(`[DB] - Inserting into "doctors" -`);
@@ -489,34 +489,34 @@ db.connect(() => {
       );
     }
 
-    // ASIGNNING PATIENTS TO DOCTOR
-    console.log(`[DB] - Inserting into "patients_monitoring" -`);
-    for (let i = 0; i < assigned_patients.length; i++) {
-      db.query(`INSERT INTO patients_monitoring SET ? `, {
-        Doctor_id: assigned_patients[i].Doctor_id,
-        Patient_id: assigned_patients[i].Patient_id,
-      });
-      console.log(
-        `[DB] Patient #${assigned_patients[i].Patient_id} has been assigned to doctor #${assigned_patients[i].Doctor_id}...`
-      );
-    }
+    // // ASIGNNING PATIENTS TO DOCTOR
+    // console.log(`[DB] - Inserting into "patients_monitoring" -`);
+    // for (let i = 0; i < assigned_patients.length; i++) {
+    //   db.query(`INSERT INTO patients_monitoring SET ? `, {
+    //     Doctor_id: assigned_patients[i].Doctor_id,
+    //     Patient_id: assigned_patients[i].Patient_id,
+    //   });
+    //   console.log(
+    //     `[DB] Patient #${assigned_patients[i].Patient_id} has been assigned to doctor #${assigned_patients[i].Doctor_id}...`
+    //   );
+    // }
 
     // CREATING APPOINTMENTS
-    console.log(`[DB] - Inserting into "medical_appointment" -`);
-    for (let i = 0; i < appointments.length; i++) {
-      db.query(`INSERT INTO medical_appointment SET ? `, {
-        Doctor_id: appointments[i].Doctor_id,
-        Responsible_id: appointments[i].Responsible_id,
-        Patient_id: appointments[i].Patient_id,
-        State: appointments[i].State,
-        Week: appointments[i].Week,
-        Description: appointments[i].Description,
-        Date: appointments[i].Date,
-        Hour: appointments[i].Hour,
-      });
-      console.log(`[DB] Appointment #${i + 1} has been created...`);
+    // console.log(`[DB] - Inserting into "medical_appointment" -`);
+    // for (let i = 0; i < appointments.length; i++) {
+    //   db.query(`INSERT INTO medical_appointment SET ? `, {
+    //     Doctor_id: appointments[i].Doctor_id,
+    //     Responsible_id: appointments[i].Responsible_id,
+    //     Patient_id: appointments[i].Patient_id,
+    //     State: appointments[i].State,
+    //     Week: appointments[i].Week,
+    //     Description: appointments[i].Description,
+    //     Date: appointments[i].Date,
+    //     Hour: appointments[i].Hour,
+    //   });
+    //   console.log(`[DB] Appointment #${i + 1} has been created...`);
 
-    }
+    // }
     console.log(`[DB] ALL DATA HAS BEEN INSERTED INTO THEIR RESPECTIVE TABLES!`)
     db.end();
   } catch (error) {

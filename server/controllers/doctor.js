@@ -759,7 +759,7 @@ const accept_appointment_request = async (req, res, next) => {
 
     await pool.query(
       "UPDATE medical_appointment SET Date = ?, Hour = ?, State = ? WHERE id = ?",
-      [Date, Hour, id, 2]
+      [Date, Hour, 2, id]
     );
 
     return res

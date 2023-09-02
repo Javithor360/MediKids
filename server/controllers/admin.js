@@ -87,7 +87,6 @@ const create_doctor = async (req, res, next) => {
       .status(200)
       .json({ success: true, message: "New doctor has been created" });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error });
   }
 };
@@ -193,7 +192,6 @@ const create_patient = async (req, res, next) => {
       .status(200)
       .json({ success: true, message: "New patient has been created" });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error });
   }
 };
@@ -237,7 +235,6 @@ const doctor_assign_patient = async (req, res, next) => {
       message: `Patient #${Patient_id} in the system was assigned to Doctor's ID ${Doctor_id}`,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error });
   }
 };
@@ -291,7 +288,6 @@ const create_appointment = async (req, res, next) => {
       message: `Appointment for Doctor with ID #${Doctor_id} has been created`,
     });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error });
   }
 };

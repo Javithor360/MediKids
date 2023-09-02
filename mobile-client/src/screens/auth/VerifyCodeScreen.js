@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
@@ -14,6 +15,7 @@ import InputCodeField from '../../components/InputCodeField';
 export const VerifyCodeScreen = () => {
     const { t } = useTranslation();
     const navigation = useNavigation();
+    const lng = useSelector(state => state.starter.Language);
 
     //! Get the Email from the global State
     const Email = useSelector(state => state.starter.Email)
@@ -41,7 +43,7 @@ export const VerifyCodeScreen = () => {
         
             if(data.success){
                 //! Show success message.
-                ShowToast('my_success', 'Éxito', 'Email Verificado correctamente');
+                ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Email Verificado correctamente.' : 'Email successfully verified.');
 
                 //! Close loading animation
                 setTimeout(() => {
@@ -61,7 +63,7 @@ export const VerifyCodeScreen = () => {
         
             //>> Show error message.
             console.log(error);
-            ShowToast('my_error', 'Error', error.response.data.message);
+            ShowToast('my_error', 'Error', lng ? error.response.data.message.es : error.response.data.message.en);
         }
     }
 

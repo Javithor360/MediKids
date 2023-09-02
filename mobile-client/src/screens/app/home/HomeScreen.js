@@ -7,10 +7,11 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient'
 import { useTranslation } from 'react-i18next';
+import {differenceInDays, differenceInHours, differenceInMonths} from 'date-fns'
 
 //>> Import Components
 import LanguageSelector from '../../../components/LanguageSelector';
-import { ThreePoints, getMedicalAppointments, getMedicalPrescriptions } from '../../../index'
+import { Moths, ThreePoints, getMedicalAppointments, getMedicalPrescriptions } from '../../../index'
 
 //! Deafult foto
 const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
@@ -44,13 +45,23 @@ export const HomeScreen = () => {
   //! Functions to get the information for the widgets and notifications
   const getAppointmentInfo = async () => {
     try {
+      let appmtLength = 0;
       const {data} = await getMedicalAppointments(jwtToken, Patient.Patient_Code);
 
       const nextAppointment = data.medical_appointments.find(appointment => {
         return appointment.State != 4;
       })
-      
-      setNumberOfApptm(data.medical_appointments.length);
+
+      const a_m_c = () => {
+        data.medical_appointments.forEach(element => {
+          if (element.State != 4){
+            appmtLength++;
+          }
+        });
+      }
+
+      a_m_c();
+      setNumberOfApptm(appmtLength);
       setAppointmentWidget(nextAppointment);
     } catch (error) {
       console.log(error);
@@ -78,10 +89,26 @@ export const HomeScreen = () => {
         return 'Programada';
       case 1:
         return 'Solicitada';
-      case 3:
+      case 2:
         return 'confirmada';
-      case 4:
+      case 3:
         return 'Ejecutandose';
+    }
+  }
+
+  //! Get Patient Age
+  const getPatientAge = (ag, bd) => {
+    if (ag <= 0) {
+      let date = new Date(bd);
+      const Months = differenceInMonths(new Date(), date);
+      const Days = differenceInDays(new Date(), date);
+      if (Days > 31) {
+        return `${Months} ${Months > 1 ? 'Meses' : 'Mes'}`
+      } else {
+        return `${Days} ${Days > 1 ? 'Días' : 'Día'}`
+      }
+    } else {
+      return`${ag} ${ag > 1 ? 'años' : 'año'}`
     }
   }
 
@@ -108,7 +135,7 @@ export const HomeScreen = () => {
                   <Image source={require('../../../../assets/logos/Logotype_Colored.png')} style={styles.logoHeader}/>
                 </View>
                 <View style={[styles.itemContainer, {width: '20%', height: '100%'}]}>
-                  <TouchableOpacity onPress={()=> setView(true)}>
+                  <TouchableOpacity onPress={()=> {setView(true)}}>
                     <Entypo name="dots-three-horizontal" size={34} color="#707070" />
                   </TouchableOpacity>
   
@@ -160,7 +187,7 @@ export const HomeScreen = () => {
                 </View>
                 <View style={[styles.patienDataText, {width: '25%', height: '100%'}]}>
                   <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">{t('homePage.Age')}:</Text>
-                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{Patient.Age} {Patient.Age > 1 ? 'años' : 'año'}</Text>
+                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{getPatientAge(Patient.Age, Patient.Birth_Date)}</Text>
                 </View>
                 <View style={[styles.patienDataText, {width: '25%', height: '100%'}]}>
                   <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">{t('homePage.Cod')}:</Text>

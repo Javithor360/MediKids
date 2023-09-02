@@ -37,6 +37,7 @@ export { PendingAppointment } from './components/AppointmentComponents/PendingAp
 export { NextAppointment } from './components/AppointmentComponents/NextAppointment'
 export { AttendingAppointment } from './components/AppointmentComponents/AttendingAppointment'
 export { AppointmentResults } from './components/AppointmentComponents/AppointmentResults'
+export { ProgrammedAppmt } from './components/AppointmentComponents/ProgrammedAppmt'
 export { AppointmentMedicines } from './components/AppointmentComponents/AppointmentMedicines'
 export { AppointmentStatus } from './components/AppointmentComponents/AppointmentStatus'
 export { Moths } from './components/CalendarComponents/Months'

@@ -45,25 +45,6 @@ CREATE TABLE IF NOT EXISTS medikids_db . Patient (
 	ON UPDATE NO ACTION
 );
 
-CREATE TABLE IF NOT EXISTS medikids_db . Calendar (
-	id INT NOT NULL AUTO_INCREMENT,
-	Patient_id INT NOT NULL,
-	Event_Name VARCHAR(45) NOT NULL,
-	Starting_Event_Date DATETIME NOT NULL,
-	End_Event_Date DATETIME,
-	Start_Time TIME,
-	End_Time TIME,
-	Description VARCHAR(150) NOT NULL,
-	-- Medicine values
-	Dose_int INT,
-	Dose_String VARCHAR(100),
-	PRIMARY KEY (id),
-	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-	FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)
-	ON DELETE NO ACTION
-	ON UPDATE NO ACTION
-);
-
 CREATE TABLE IF NOT EXISTS medikids_db . Medical_Records (
 	id INT NOT NULL AUTO_INCREMENT,
 	Patient_id INT NOT NULL,

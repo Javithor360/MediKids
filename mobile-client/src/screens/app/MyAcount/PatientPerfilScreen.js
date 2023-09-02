@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 //>> IMPORT COMPONENTS
 import { ScreenTitle } from '../../../components/ScreenTitleHook';
 import { getImmunizationRecord } from '../../../index'
+import { differenceInDays, differenceInMonths } from 'date-fns';
 
 //>> Constants
 const { height } = Dimensions.get('window');
@@ -24,6 +25,22 @@ export const PatientPerfilScreen = () => {
 
     //! Function to get the birth date of the patient.
     const getBirthDate = () => new Date(PatientData.Birth_Date).toLocaleDateString();
+
+    //! Get Patient Age
+    const getPatientAge = (ag, bd) => {
+        if (ag <= 0) {
+        let date = new Date(bd);
+        const Months = differenceInMonths(new Date(), date);
+        const Days = differenceInDays(new Date(), date);
+        if (Days > 31) {
+            return `${Months} ${Months > 1 ? 'Meses' : 'Mes'}`
+        } else {
+            return `${Days} ${Days > 1 ? 'Días' : 'Día'}`
+        }
+        } else {
+            return`${ag} ${ag > 1 ? 'años' : 'año'}`
+        }
+    }
 
     //! function to get the Immunization Record.
     const getVaccinesRecord = async () => {
@@ -128,7 +145,7 @@ export const PatientPerfilScreen = () => {
                                     <MaterialCommunityIcons name="timeline-plus-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%'/>
                                     <Text style={styles.TextForImput}>Edad:</Text>
                                 </View>
-                                <Text style={styles.TextWritted}>{PatientData.Age} {PatientData.Age > 1 ? 'años' : 'año'}</Text>
+                                <Text style={styles.TextWritted}>{getPatientAge(PatientData.Age, PatientData.Birth_Date)}</Text>
                             </View>
                         </View>
                         <View style={styles.lineBig}></View>

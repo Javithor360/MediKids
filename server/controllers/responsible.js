@@ -9,6 +9,7 @@ import fs from 'fs';
 import {pool} from '../utils/db.js';
 // import { create_code, create_jwt, create_reset_code, patientCode, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
 import firebaseConfig from '../utils/firebase.config.js';
+import { differenceInMonths } from 'date-fns';
 
 //? Startup Firebase configuration.
 initializeApp(firebaseConfig.firebaseConfig);
@@ -26,7 +27,7 @@ const get_email_to_verify = async (req, res, next) => {
     // QUERY TO GET THE USER
     const [query_user] = await pool.query('SELECT * FROM responsible WHERE Email = ? AND Email_Verify_code != ""', [Email]);
     if (query_user.length == 0) {
-      return res.status(500).json({sucess: false, message: 'Email verificado'});
+      return res.status(500).json({sucess: false, message: {es: 'Email verificado', en: 'Email verified'}});
     }
     // SEND THE USER TO THE FRONT.
     return res.status(200).json({Responsible_user: query_user[0]});
@@ -63,9 +64,21 @@ const get_patients = async (req, res) => {
     const { Email } = req.body;
 
     // GET THE ID OF THE RESPONSIBLE
-    const [getRespId] = await pool.query('SELECT id FROM responsible WHERE Email = ?', [Email])
+    const [getRespId] = await pool.query('SELECT id FROM responsible WHERE Email = ?', [Email]);
 
     // GET THE PATIENTS OF THE RESPONSIBLE.
+    const [p_update] = await pool.query('SELECT * FROM patient WHERE Responsible_id = ?', [getRespId[0].id])
+
+    // UPDATE AGE
+    p_update.forEach(async (element) => {
+      let newAge = new Date().getFullYear() - new Date(element.Birthdate).getFullYear();
+      if (differenceInMonths(new Date(), new Date(element.Birthdate)) < 12) {
+        await pool.query('UPDATE patient SET Age = ? WHERE id = ?', [0, element.id]);
+      } else {
+        await pool.query('UPDATE patient SET Age = ? WHERE id = ?', [newAge, element.id]);
+      }
+    });
+
     const [getPatients] = await pool.query('SELECT * FROM patient WHERE Responsible_id = ?', [getRespId[0].id])
 
     return res.status(200).json({success: true, patients: getPatients});
