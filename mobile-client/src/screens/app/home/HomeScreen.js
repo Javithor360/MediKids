@@ -78,9 +78,9 @@ export const HomeScreen = () => {
         return 'Programada';
       case 1:
         return 'Solicitada';
-      case 3:
+      case 2:
         return 'confirmada';
-      case 4:
+      case 3:
         return 'Ejecutandose';
     }
   }
@@ -108,7 +108,7 @@ export const HomeScreen = () => {
                   <Image source={require('../../../../assets/logos/Logotype_Colored.png')} style={styles.logoHeader}/>
                 </View>
                 <View style={[styles.itemContainer, {width: '20%', height: '100%'}]}>
-                  <TouchableOpacity onPress={()=> setView(true)}>
+                  <TouchableOpacity onPress={()=> {setView(true)}}>
                     <Entypo name="dots-three-horizontal" size={34} color="#707070" />
                   </TouchableOpacity>
   

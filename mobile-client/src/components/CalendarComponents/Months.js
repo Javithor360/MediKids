@@ -113,7 +113,7 @@ export const Moths = ({YearState, MonthState, EventsAppmt, EventsMedic, setSelec
         EventsAppmt.forEach((ev, i) => {
           let EventDate = new Date(ev.Starting_Event_Date);
           let EvntObj = {};
-  
+
           EvntObj.date = el.date;
           EvntObj.DayNumber = el.DayNumber;
           EvntObj.active = el.active;
@@ -127,7 +127,6 @@ export const Moths = ({YearState, MonthState, EventsAppmt, EventsMedic, setSelec
           
           if (compareDates(el.date,EventDate)) {
             const ix = MonthEvents.indexOf(el);
-            // console.log(el,ix)
             MonthEvents[ix] = EvntObj;
           }
 
@@ -148,6 +147,7 @@ export const Moths = ({YearState, MonthState, EventsAppmt, EventsMedic, setSelec
 
   //! Get Table Row function
   const GetTableRow = ({row, isLast}) => {
+    console.log(row)
 
     const onPressDay = (DaySelected) => {
       setSelectedRow(row);
@@ -222,7 +222,7 @@ export const Moths = ({YearState, MonthState, EventsAppmt, EventsMedic, setSelec
             {new Date(row[6].date).getDate()}
           </Text>
           {
-            row[6].AppmtAppmtEventIndex != null &&
+            row[6].AppmtEventIndex != null &&
               <View style={styles.EventPoint}/>
           }
         </TouchableOpacity>

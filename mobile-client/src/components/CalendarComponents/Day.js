@@ -29,12 +29,6 @@ export const Day = ({ SelectDay, SelectedRow, EventsAppmt, setSelectedRow, setSe
       setSelectDay(DaySelected);
     }
 
-    // useEffect(() => {
-    //   console.log(SelectDay);
-    //   console.log(EventsAppmt)
-
-    // }, [SelectDay]);
-  
     return (
       <View style={[styles.tableDaysRow, {backgroundColor: '#fff', flex: 1, elevation: 3, shadowColor: '#000', shadowOffset: {height: 4}, shadowOpacity: 0.1, shadowRadius: 3,}]}>
         {/* Day 0 = Sunday */}
@@ -113,7 +107,7 @@ export const Day = ({ SelectDay, SelectedRow, EventsAppmt, setSelectedRow, setSe
     if (SelectDay.AppmtEventIndex != null) {
       EventsAppmt.forEach(element => {
         let EventDate = new Date(element.Starting_Event_Date);
-        if (EventDate.getHours() == hora) {
+        if (EventDate.getHours() == hora && compareDates(EventDate, new Date(SelectDay.date))) {
           Event = element;
         }
       });

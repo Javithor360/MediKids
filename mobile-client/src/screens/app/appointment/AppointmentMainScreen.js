@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ChangeNeumoState, ChangeOtorrinoValues, ChangeOtorrinoState, ChangeNeumoValues, ChangeGastroState, ChangeGastroValues } from '../../../store/slices/appointmentsSlice';
 
 //! Cancel the warning.
-// const av = new Animated.Value(0);
-// av.addListener(() => {return});
+const av = new Animated.Value(0);
+av.addListener(() => {return});
 
 //! Information to single component statement.
 const doctorDescription = {
@@ -95,13 +95,13 @@ export const AppointmentMainScreen = () => {
     const getHistoryAppointment = async () => {
         try {
             const {data} = await getMedicalRecords(jwtToken, Patient_id);
-            setAppointmentsRecord(data.medical_records);
+            setAppointmentsRecord(data.medical_records.reverse());
         } catch (error) {
             console.log(error);
         }
     }
 
-    useEffect(() => { 
+    useEffect(() => {
         getAppointments();
         getHistoryAppointment();
     }, [isFocused]);
@@ -120,12 +120,12 @@ export const AppointmentMainScreen = () => {
                     />
                     {/* APPOINTMENT STATUS CARD */}
                     {
-                        ((appointmentsState.OtorrinoState != 4 && appointmentsState.OtorrinoState != null) || (appointmentsState.NeumoState != 4 && appointmentsState.NeumoState != null) || (appointmentsState.GastroState != 4 &&appointmentsState.GastroState != null )) &&
+                        ((appointmentsState.OtorrinoState != 4 && appointmentsState.OtorrinoState != null) || (appointmentsState.NeumoState != 4 && appointmentsState.NeumoState != null) || (appointmentsState.GastroState != 4 && appointmentsState.GastroState != null )) &&
                             <View style={[styles.requestAppointmentContainer, styles.btcGreen, styles.shadowC]}>
                                 <Text style={[styles.requestMainTitle, styles.colorGreen]}>Actividad de citas</Text>
-                                { appointmentsState.OtorrinoState && appointmentsState.OtorrinoState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Otorrino_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/otorrino-icon.png')} DoctorName={'Dr. Esteban Gúzman'} Specialty={'Otorrinolaringología'}/> }
-                                { appointmentsState.NeumoState && appointmentsState.NeumoState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Neumo_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/neumologia-icon.png')} DoctorName={'Dr. Adrián Flores'} Specialty={'Neumología'}/>}
-                                { appointmentsState.GastroState && appointmentsState.GastroState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Gastro_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/gastro-icon.png')} DoctorName={'Dr. Fatima Garza'} Specialty={'Gastroenterología'}/>}
+                                { (appointmentsState.OtorrinoState != null && appointmentsState.OtorrinoState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Otorrino_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/otorrino-icon.png')} DoctorName={'Dr. Esteban Gúzman'} Specialty={'Otorrinolaringología'}/> }
+                                { (appointmentsState.NeumoState != null && appointmentsState.NeumoState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Neumo_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/neumologia-icon.png')} DoctorName={'Dr. Adrián Flores'} Specialty={'Neumología'}/>}
+                                { (appointmentsState.GastroState != null && appointmentsState.GastroState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Gastro_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/gastro-icon.png')} DoctorName={'Dr. Fatima Garza'} Specialty={'Gastroenterología'}/>}
                             </View>
                     }
                     <View style={styles.chooseBanner}>

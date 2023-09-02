@@ -1,19 +1,19 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
 //Libraries
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export const NextAppointment = ({appointmentInfo, doctor}) => {
+export const ProgrammedAppmt = ({appointmentInfo, doctor}) => {
     const getDate = () => { return new Date(appointmentInfo.Date).toLocaleDateString() };
 
     return (
         <>
-            <Text style={styles.requestMainTitle}>Cita pendiente</Text>
+            <Text style={styles.requestMainTitle}>Cita Programada</Text>
             <View style={styles.contentContainer}>
                 <View style={styles.iconContainer}><Image style={styles.imageLolIcon} source={require('../../../assets/graphic-icons/next_appointment_2.png')}></Image></View>
                 <View style={styles.separateWays}></View>
                 <View style={styles.containerTextDetails}>
-                    <Text style={styles.textNxt}>Tiene una próxima cita:</Text>
+                    <Text style={styles.textNxt}>Tiene una cita Programada:</Text>
                     <View style={styles.dateDetailsContainer}>
                         <View style={styles.dateWIcon}>
                             <MaterialCommunityIcons name="calendar-week" size={20} color="#46929B" />

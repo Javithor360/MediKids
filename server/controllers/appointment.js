@@ -81,7 +81,8 @@ const get_medical_appointments = async (req, res, next) => {
     const [medical_appointments] = await pool.query('SELECT * FROM medical_appointment WHERE Patient_id = ?', [Patient_id[0].id]);
 
     medical_appointments.forEach(async (el) => {
-      if(el.State == 2){
+      console.log(el)
+      if(el.State == 2 || el.State == 0){
         let HoursSQL = el.Hour.split(':');
         let appointment_hour = new Date(el.Date);
 
