@@ -9,6 +9,7 @@ import Modal from "../../components/Modal";
 import TimeSlider from "../Patients/PatientsComponents/TimeSlider";
 import { useDash } from "../../context/DoctorContext";
 import { CalendarPicker } from "../Patients/PatientsComponents/CalendarPicker";
+import { getPatientAge } from "../../utils/Functions";
 
 export const AppointmentRequestsDetails = () => {
   let navigate = useNavigate();
@@ -115,7 +116,7 @@ export const AppointmentRequestsDetails = () => {
             <div className="w-[1px] h-[2rem] bg-[#bbbbbb] self-center"></div>
             <div className="flex flex-col w-[25%] justify-center items-center">
               <p className="text-[#000000] font-semibold">Edad: </p>
-              <p className="text-[#707070]">{patient.Age} años</p>
+              <p className="text-[#707070]">{getPatientAge(patient.Age, patient.Birthdate)}</p>
             </div>
             <div className="w-[1px] h-[2rem] bg-[#bbbbbb] self-center"></div>
             <div className="w-[25%] flex flex-col justify-center items-center">

@@ -16,6 +16,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useDash } from "../../context/DoctorContext";
 import { ViewMedicalPrescriptions } from "./PatientsComponents/ViewMedicalPrescriptions";
 import { ViewAppointments } from "./PatientsComponents/ViewAppointments";
+import { getPatientAge } from "../../utils/Functions";
 
 export const PatientsDetails = () => {
   const location = useLocation();
@@ -116,7 +117,7 @@ export const PatientsDetails = () => {
               <div className="h-[3rem] flex-row flex">
                 {/* row 1 */}
                   <div className="flex w-[33.33%] h-full justify-center items-center text-center border-r border-[#BBBBBB]">
-                    {patient.Age} años
+                  {getPatientAge(patient.Age, patient.Birthdate)}
                   </div>
                   <div className="flex w-[33.33%] h-full justify-center items-center text-center border-r border-[#BBBBBB]">
                     {patient.Blood_Type}
