@@ -344,6 +344,21 @@ const get_calendar_events = async (req, res, next) => {
   }
 }
 
+//! @route POST api/responsible/get_notifications
+//! @desc Get the notifications for a single patient.
+//! @access Private
+const get_notifications = async (req, res, next) => {
+  try {
+    const {Patient_id} = req.body;
+
+    const [notis] = await pool.query('SELECT * FROM notifications WHERE Patient_id = ?', [Patient_id]);
+
+    return res.status(200).json({success: true, Notifications: notis});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
 export {
   get_email_to_verify,
   get_responsible,
@@ -356,4 +371,5 @@ export {
   get_medical_prescriptions,
   upload_pf_patient,
   get_calendar_events,
+  get_notifications
 }

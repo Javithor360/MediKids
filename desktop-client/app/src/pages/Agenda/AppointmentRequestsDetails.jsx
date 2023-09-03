@@ -51,6 +51,7 @@ export const AppointmentRequestsDetails = () => {
         id: appointment.id,
         Date: new Date(date).toISOString().split("T")[0],
         Hour: hour,
+        Patient_id: patient.id
       });
       console.log(res);
       setTimeout(() => {

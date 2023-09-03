@@ -737,7 +737,8 @@ const get_responsibles = async (req, res, next) => {
 
 const accept_appointment_request = async (req, res, next) => {
   try {
-    const { id, Date, Hour } = req.body;
+    const { id, Date, Hour, Patient_id } = req.body;
+    console.log(Patient_id)
 
     if (!id || !Date || !Hour) {
       return res
@@ -761,6 +762,9 @@ const accept_appointment_request = async (req, res, next) => {
       "UPDATE medical_appointment SET Date = ?, Hour = ?, State = ? WHERE id = ?",
       [Date, Hour, 2, id]
     );
+
+    //! ADD NOTIFICATION.
+    // await pool.query("INSERT INTO notifications SET ?", {Patient_id, Title: 'Cita Confirmada', DateTime: new Date(), })
 
     return res
       .status(200)
