@@ -11,8 +11,10 @@ import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setLogginValues } from '../store/slices/responsibleSlice';
 import { setInitialValues } from '../store/slices/patientSlice';
+import { useTranslation } from 'react-i18next';
 
 export const ThreePoints = ({setLngModal, setView, view}) => {
+  const { t } = useTranslation();
   const navigation = useNavigation()
   const dispatch = useDispatch();
 
@@ -101,7 +103,7 @@ export const ThreePoints = ({setLngModal, setView, view}) => {
       <View style={{ height: '100%', width: '100%', backgroundColor: '#fff', paddingTop: isIOS ? Constants.statusBarHeight : 0 }}>
         <View style={styles.TopContainer}>
           <Image style={{resizeMode: 'contain', width: 45, height: 45}} source={require('../../assets/logos/Isotype.png')} />
-          <Text style={{color:'#616161', fontSize: 26, fontFamily:"poppinsBold", marginLeft:-10}}>Opciones</Text>
+          <Text style={{color:'#616161', fontSize: 26, fontFamily:"poppinsBold", marginLeft:-10}}>{t('ThreePoints.options')}</Text>
           <AntDesign name="close" size={24} color="#707070" onPress={() => CloseModal()}/>
         </View>
         <View style={{width: '100%', paddingHorizontal: 30, paddingTop: 28}}>
