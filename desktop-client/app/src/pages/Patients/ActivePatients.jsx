@@ -148,7 +148,9 @@ export const ActivePatients = (props) => {
           </table>
         </div>
       ) : (
-        <></>
+        <div>
+          <h2>No has atendido a ningún paciente anteriormente</h2>
+        </div>
       )}
 
       {/* <div className="w-full mx-auto my-6 overflow-x-auto">

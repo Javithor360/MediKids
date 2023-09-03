@@ -47,13 +47,12 @@ export const AppointmentRequestsDetails = () => {
 
   const handleConfirmation = async () => {
     try {
-      const res = await AcceptAppointmentRequest({
+      await AcceptAppointmentRequest({
         id: appointment.id,
-        Date: new Date(date).toISOString().split("T")[0],
+        ChosenDate: new Date(date).toISOString().split("T")[0],
         Hour: hour,
         Patient_id: patient.id
       });
-      console.log(res);
       setTimeout(() => {
         toggle();
         setTimeout(() => {
@@ -69,6 +68,7 @@ export const AppointmentRequestsDetails = () => {
     try {
       await DeclineAppointmentRequest({
         id: appointment.id,
+        Patient_id: patient.id
       });
       setTimeout(() => {
         toggle();

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
 import { useDash } from "../../context/DoctorContext";
+import { getPatientAge } from "../../utils/Functions";
 
 export const AppointmentRequests = () => {
   const {
@@ -93,7 +94,7 @@ export const AppointmentRequests = () => {
                                   {`${patient.First_Names} ${patient.Last_Names}`}
                                 </div>
                                 <div className="text-sm text-left opacity-50">
-                                  {patient.Age} años
+                                  {getPatientAge(patient.Age, patient.Birthdate)}
                                 </div>
                               </div>
                             </div>
