@@ -139,11 +139,11 @@ export const SelectProfilePhotoScreen = () => {
                     HaveBtn ?
                     <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.goBack()}>
                         <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-                        <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
+                        <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>{t('selectPhoto.back')}</Text>
                     </TouchableOpacity>
                     :
                     <View style={AuthStylesGlobal.buttomCameBack}>
-                        <Text style={{color: 'white', fontSize: 20, fontFamily: 'poppinsBold'}}>Paso 1</Text>
+                        <Text style={{color: 'white', fontSize: 20, fontFamily: 'poppinsBold'}}>{t('selectPhoto.step1')}</Text>
                     </View>
                 }
             </View>

@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { MaterialCommunityIcons as MaterialCommIcons, MaterialIcons } from '@expo/vector-icons'
 import { useDispatch, useSelector } from 'react-redux';
-
+import { useTranslation } from 'react-i18next';
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
@@ -15,7 +15,7 @@ export const ForgotPasswordScreen = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const lng = useSelector(state => state.starter.Language);
-
+    const { t } = useTranslation();
     //! States for the Form.
     const [Email, setEmail] = useState(null);
 
@@ -100,16 +100,16 @@ export const ForgotPasswordScreen = () => {
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
                 <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.goBack()} disabled={DisableButton}>
                     <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-                    <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
+                    <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>{t('forgotpasswor.back')}</Text>
                 </TouchableOpacity>
             </View>
             <View style={AuthStylesGlobal.contentContainer} >
                 <View style={AuthStylesGlobal.formContent} >
                     <Image style={AuthStylesGlobal.logoImage2} source={require('../../../assets/logos/Logotype_Colored.png')}  />
                     <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/graphic-icons/forgot-password.png')}  />
-                    <Text style={AuthStylesRegisterU.Tex_md}>Olvidé mi contraseña</Text>
+                    <Text style={AuthStylesRegisterU.Tex_md}>{t('forgotpasswor.iforgot')}</Text>
                     <View style={AuthStylesGlobal.cont2} >
-                        <Text style={AuthStylesGlobal.TextCount}>Recibiras instrucciones para reestablecer tu contraseña</Text>
+                        <Text style={AuthStylesGlobal.TextCount}>{t('forgotpasswor.instructions')}</Text>
                     </View>
 
                     <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >

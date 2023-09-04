@@ -8,7 +8,7 @@ import { MaterialIcons, MaterialCommunityIcons, AntDesign, FontAwesome5, Feather
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
-
+import { useTranslation } from 'react-i18next';
 // >> IMPORT COMPONENTS
 import { ScreenTitle } from '../../../index';
 import { setStatement } from '../../../store/slices/starterSlice';
@@ -23,7 +23,7 @@ export const MyAcountScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const [isMainScreen, setIsMainScreen] = useState(true);
-
+  const { t } = useTranslation();
   const LogoutButton = () => {
     AsyncStorage.removeItem('userSession');
 
@@ -82,12 +82,12 @@ export const MyAcountScreen = () => {
                     </View>
                 </View>
                 <View style={styles.ContainerView}>
-                    <Text style={styles.DatosText}>Datos del Encargado</Text>
+                    <Text style={styles.DatosText}>{t('account.dataofcharge')}</Text>
                     <View style={styles.InfoContainer}>
                         <View style={styles.ContainCardText}>
                             <View style={{flexDirection: 'row'}}>
                                 <AntDesign name="profile" size={24} color="#7225f9" marginLeft='5%' marginTop='1%' />
-                                <Text style={styles.TextForImput}>Nombre:</Text>
+                                <Text style={styles.TextForImput}>{t('account.givenNames')}:</Text>
                             </View>
                             <Text style={styles.TextWritted}>{responsible.FirstNames} {responsible.LastNames}</Text>
                         </View>
@@ -114,7 +114,7 @@ export const MyAcountScreen = () => {
                         <View style={styles.ContainCardText}>
                             <View style={{flexDirection: 'row',}}>
                                 <AntDesign name="phone" size={24} color="#7225f9" marginLeft='5%' marginTop='1%' />
-                                <Text style={styles.TextForImput}>Teléfono:</Text>
+                                <Text style={styles.TextForImput}>{t('account.phone')}:</Text>
                             </View>
                             <Text style={styles.TextWritted}>{responsible.Phone}</Text>
                         </View>
@@ -124,25 +124,25 @@ export const MyAcountScreen = () => {
                     <View style={{width: '100%', height: 70, marginTop: '2%', justifyContent: 'center', alignItems: 'center'}}>
                         <TouchableOpacity onPress={() => {navigation.navigate('SelectProfilePhotoScreen')}} style={[{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#FFDEB4',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}, styles.ButtomShadow]}>
                             <FontAwesome5 name="user-circle" size={24} color="#434343" />
-                            <Text style={{color: '#434343', fontSize: 16}}>Cambiar Foto de Perfil</Text>
+                            <Text style={{color: '#434343', fontSize: 16}}>{t('account.changepic')}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{width: '100%', height: 70, justifyContent: 'center', alignItems: 'center'}}>
                         <TouchableOpacity onPress={() => {navigation.navigate('PatientPerfilScreen')}} style={[{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#90dfe7',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}, styles.ButtomShadow]}>
                             <MaterialCommunityIcons name="human-male-child" size={24} color="#434343" />
-                            <Text style={{color: '#434343', fontSize: 16}}>Información del Paciente</Text>
+                            <Text style={{color: '#434343', fontSize: 16}}>{t('account.infopatient')}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{width: '100%', height: 70, justifyContent: 'center', alignItems: 'center'}}>
                         <TouchableOpacity onPress={() => {navigation.navigate('SelectPatientDashboard');}} style={[{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#b2affb',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}, styles.ButtomShadow]}>
                             <Feather name="refresh-cw" size={24} color="#434343" />
-                            <Text style={{color: '#434343', fontSize: 16}}>Cambiar de Paciente</Text>
+                            <Text style={{color: '#434343', fontSize: 16}}>{t('account.changepatient')}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{width: '100%', height: 70, justifyContent: 'center', alignItems: 'center', marginTop: 20, marginBottom: 35}}>
                         <TouchableOpacity onPress={() => {LogoutButton()}} style={[{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#fff', alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10, borderColor: '#ff7171', borderWidth: 2}, styles.ButtomShadow]}>
                             <AntDesign name="logout" size={24} color="#fd4040" />
-                            <Text style={{color: '#fd4040', fontSize: 16}}>Cerrar Sesión</Text>
+                            <Text style={{color: '#fd4040', fontSize: 16}}>{t('account.signoff')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

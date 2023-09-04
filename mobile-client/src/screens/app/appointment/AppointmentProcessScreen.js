@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { LinearGradient } from 'expo-linear-gradient'
 import Constants from 'expo-constants';
+import { useTranslation } from 'react-i18next';
 
 //>> components
 import { PendingAppointment, RequestAppointmentForm, ScreenTitle, NextAppointment, AttendingAppointment, AppointmentResults, AppointmentMedicines, ProgrammedAppmt } from '../../../index';
@@ -16,7 +17,7 @@ import { useSelector } from 'react-redux';
 export const AppointmentProcessScreen = ({ route }) => {
   const { doctorDescription, doctor, speciality, doctorPhoto, Doctor_id, appointmentInfo } = route.params
   const appointmentsState = useSelector(state => state.appointments);
-
+  const { t } = useTranslation();
   //! Verify if the appointment is already finished.
   const [RecordCode, setRecordCode] = useState(null);
   const [ShowMedicines, setShowMedicines] = useState(false);
@@ -85,8 +86,8 @@ export const AppointmentProcessScreen = ({ route }) => {
 
           <View style={[styles.informationContainer, styles.shadowC, styles.wMb]}>
             <View style={styles.infoMainContentC}>
-              <Text style={styles.infoMainTitle}>A tener en cuenta</Text>
-              <Text style={{color: '#707070'}}>Cada uno de nuestros pacientes recibe una atención personalizada, nuestros médicos se encargan de analizar detalladamente cada uno de los casos para brindar el diagnostico adecuado siempre, es por ello que en cada cita se toma en cuenta la siguiente metodología</Text>
+              <Text style={styles.infoMainTitle}>{t('AppointmentPro.consider')}</Text>
+              <Text style={{color: '#707070'}}>{t('AppointmentPro.personalized')}</Text>
               <View style={styles.contentContainer}>
                 <View style={styles.methodsContainer}>
                   <View style={styles.methodDContainer}>
@@ -94,7 +95,7 @@ export const AppointmentProcessScreen = ({ route }) => {
                       <Image source={require('../../../../assets/icons/conditions.png')} style={styles.iconImageStyle}></Image>
                     </View>
                     <View style={[styles.methodDescContainer, styles.borderB]}>
-                      <Text style={styles.pinkText}>Revisión y análisis de sintomas</Text>
+                      <Text style={styles.pinkText}>{t('AppointmentPro.reviewAndanalysis')}</Text>
                     </View>
                   </View>
                   <View style={styles.methodDContainer}>
@@ -102,7 +103,7 @@ export const AppointmentProcessScreen = ({ route }) => {
                       <Image source={require('../../../../assets/icons/avg_time.png')} style={styles.iconImageStyle}></Image>
                     </View>
                     <View style={[styles.methodDescContainer, styles.borderB]}>
-                      <Text style={styles.pinkText}>Tratamiento asignado en un perido de tiempo</Text>
+                      <Text style={styles.pinkText}>{t('AppointmentPro.assigned')}</Text>
                     </View>
                   </View>
                   <View style={styles.methodDContainer}>
@@ -110,7 +111,7 @@ export const AppointmentProcessScreen = ({ route }) => {
                       <Image source={require('../../../../assets/icons/review.png')} style={styles.iconImageStyle}></Image>
                     </View>
                     <View style={styles.methodDescContainer}>
-                      <Text style={styles.pinkText}>Citas de control y seguimiento</Text>
+                      <Text style={styles.pinkText}>{t('AppointmentPro.controlAppointment')}</Text>
                     </View>
                   </View>
                 </View>
@@ -120,7 +121,7 @@ export const AppointmentProcessScreen = ({ route }) => {
                     <MaterialCommunityIcons name="account-heart" size={24} color="white" />
                   </View>
                   <Text style={{color: '#D58C8C', textAlign: 'center',}}>
-                    Atención y calidad garantizadas
+                  {t('AppointmentPro.guaranteed')}
                   </Text>
                 </View>
               </View>

@@ -1,7 +1,147 @@
 {
     "ThreePoints":{
-        "options":"Options"
+        "options":"Options",
+        "signoff":"Sign Off",
+        "ChangePatient":"Change patient",
+        "ViewProfile":"View Profile",
+        "ViewPatient":"View Patient",
+        "ChangeLangua":"Change language"
 
+        
+
+    },
+    "AppointmentMainScreen":{
+        "choose":"Choose the specialty in which to schedule an appointment",
+        "Oto":"Otorhinolaryngology",
+        "Neu":"Pneumology",
+        "gastro":"Gastroenterology",
+        "OtoInfo":"Diagnosis and treatment of diseases of the ear, nose, throat and allergies",
+        "NeuInfo":"Diagnosis and treatment of diseases of the system and respiratory tract and lungs",
+        "gastroInfo":"Diagnosis and treatment of diseases of the esophagus, stomach, intestines, and liver",
+        "schedule":"Schedule appointment",
+        "history":"Appointment History",
+        "NoRecordhistory":"There are no records in the history yet.",
+        "View":"View History"
+
+
+    },
+
+    "AppointmentPro":{
+        "consider":"To consider",
+        "personalized":"Each of our patients receives personalized attention, our doctors are in charge of analyzing each of the cases in detail to always provide the appropriate diagnosis, which is why the following methodology is taken into account at each appointment",
+        "reviewAndanalysis":"Review and analysis of symptoms",
+        "assigned":"Treatment assigned in a period of time",
+        "controlAppointment":"Control and follow-up appointments",
+        "guaranteed":"Guaranteed care and quality"
+
+    },
+
+    "AppointmentHistory":{
+        "details":"appointment details",
+        "regisCod":"Registration Code",
+        "patient":"Patient",
+        "Date":"Date",
+        "doctor":"doctor",
+        "endtime":"Ending time",
+        "generaldiag":"General diagnosis",
+        "prescriptionmedical":"Prescription medical",
+        "Height":"Height",
+        "weight":"Weight",
+        "temp":"Temperature",
+        "close":"Close",
+        "MoreDetails":"More details",
+        "historyAttended":"History of Attended Appointments"
+
+    },
+
+    "account":{
+        "dataofcharge":"Data of the in charge",
+        "givenNames":"Given Names",
+        "phone":"Phone",
+        "changepic":"Change Profile Picture",
+        "infopatient":"Information of the patient",
+        "changepatient":"change patient",
+        "signoff":"Sign Off"
+
+    },
+    "patientperfil":{
+        "givenNames":"Given Names",
+        "patientData":"Patient's data",
+        "cod":"Code",
+        "birthdate":"Birthdate",
+        "gen":"Gender",
+        "age":"Age",
+        "VaccinesRecord":"Vaccination record",
+        "Act":"Actions",
+        "changepic":"Change Profile Picture"
+
+    },
+    "Gastro":{
+        "focuson":"What do we focus on?",
+        "text1":"Medical professionals who have received training in the diagnosis and treatment of diseases of the stomach, intestine and walls.",
+        "text2":"Common diseases",
+        "text3":"These surgeons see a wide range of diseases and pathologies related to problems of the stomach or intestinal walls.",
+        "title1":"Appendicitis",
+        "text4":"It is an inflammation of the appendix, a finger-shaped pouch that projects from the colon on the lower right side of the abdomen.",
+        "title2":"Diarrhea",
+        "text5":"It is an increase in the frequency of bowel movements (more than three per day) accompanied by a decrease in their consistency.",
+        "title3":"Celiac Disease",
+        "text6":"Patients with celiac disease do not tolerate a protein called gluten (wheat, oats, barley, rye).",
+        "title4":"bowel control",
+        "text7":"Difficulty holding a bowel movement. You have dribbling of solid or liquid stool when you least expect it.",
+        "text8":"All patients are analyzed for a more accurate diagnosis and personalized treatment",
+        "title5":"Our Specialist",
+        "text9":"When I see the smile of my patients, that is the true reward ",
+        "text10":"Gastroenterology specialist",
+        "text11":"Graduated from the Faculty of Medicine of the UNAM",
+        "text12":"She is active in gastroenterology medical societies ",
+        "schedule":"Schedule appointment"
+
+    },
+    "Oto":{
+        "focuson":"What do we focus on?",
+        "text1":"These doctors see a wide range of diseases and pathologies related to the senses, such as smell and taste problems or balance and hearing disorders.",
+        "text2":"Common diseases",
+        "text3":"These surgeons see a wide range of diseases and pathologies related to hearing and smell problems.",
+        "title1":"Nosebleed",
+        "text4":"Irritations due to allergies, colds, sneezing, or sinus problems. Very cold or dry air.",
+        "title2":" Hearing loss",
+        "text5":"Hearing loss can be mild, moderate, severe, or profound caused by a variety of factors.",
+        "title3":"Laryngitis",
+        "text6":"It is the inflammation of the voice box (larynx) due to excessive use, irritation or infection and that can become chronic.",
+        "text7":"Sinusitis occurs when fluid builds up in the sinuses (cavities in the face that are filled with air).",
+        "text8":"All patients are analyzed for a more accurate diagnosis and personalized treatment",
+        "title5":"Our Specialist",
+        "text9":"My priority is patients and the satisfaction of parents seeing their children grow up healthy",
+        "text10":"Otorhinolaryngology specialist",
+        "text11":"Graduated from the University of Spain",
+        "text12":"He is an expert in middle ear surgery",
+        "schedule":"Schedule appointment"
+
+    },
+    "Neu":{
+        "focuson":"What do we focus on?",
+        "text1":"Medical professionals who have received specialization in the study, diagnosis and treatment of diseases related to the respiratory system.",
+        "text2":"Common diseases",
+        "text3":"These surgeons see a wide range of diseases and pathologies related to problems of the respiratory system.",
+        "title1":"Asthma",
+        "text4":"Asthma causes wheezing, shortness of breath, chest tightness, and coughing at night or early in the morning.",
+        "title2":"Bronchitis",
+        "text5":"Acute bronchitis is usually caused by inflammation of the airways due to viral infections.",
+        "title3":"Pneumonia",
+        "text6":"Infection affecting one or both lungs. It causes the air sacs, or alveoli, in the lungs to fill with fluid or pus.",
+        "title4":"Chronic cough",
+        "text7":"Chronic cough is defined as a cough that lasts for more than 3 weeks and can lead to bronchitis or more serious complications.",
+        "text8":"All patients are analyzed for a more accurate diagnosis and personalized treatment",
+        "title5":"Our Specialist",
+        "text9":"Health is the source of happiness, and taking care of it early is my priority",
+        "text10":"Pneumology specialist",
+        "text11":"Graduated from the University of Madrid",
+        "text12":"Active member of pulmonology medical societies",
+
+
+        "schedule":"Schedule appointment"
+        
     },
 
     
@@ -69,7 +209,8 @@
     },
     "register1": {
         "title": "Parent information",
-        "alreadyAcc": "¿Do you already have an account?"
+        "alreadyAcc": "¿Do you already have an account?",
+        "back":"Back"
     },
     "verifyCode": {
         "title": "Verify Code",
@@ -80,16 +221,55 @@
         "title": "Your profile photo",
         "text2": "For added security, please upload a photograph that can identify you",
         "selectBtn": "Select",
-        "changeBtn": "Done"
+        "changeBtn": "Done",
+        "back":"Back",
+        "step1":"Step 1"
     },
     "selectPhotoPatient": {
         "title": "Patient's photo",
         "text2": "For greater efficiency and security, place a photograph that identifies the minor.",
         "selectBtn": "Select",
-        "changeBtn": "Done"
+        "changeBtn": "Done",
+        "back":"Back"
     },
     "registerPatient": {
         "title": "Patient's information",
-        "text2": "We need the child's information to do a great job!"
+        "text2": "We need the child's information to do a great job!",
+        "cancel":"Cancel",
+        "accept":"Accept",
+        "back":"Back",
+        "step2":"Step 2"
+    },
+    "forgotpasswordCod":{
+        "passwordcode":"password change code"
+
+    },
+    "forgotpassword":{
+        
+        "back":"Back",
+        "iforgot":"I forgot my password",
+        "instructions":"You will receive instructions to reset your password"
+    },
+    "immunization":{
+        "step3":"Step 3",
+        "Vaccination":"Vaccination record",
+        "needchildInfo":"¡We need the child's information to do a very good job!",
+        "patient":"Patient",
+        "select":"Select Vaccines",
+        "polio":"Poliomyelitis",
+        "penta":"Pentavalent",
+        "neumococo":"Conjugated pneumococcus",
+        "oralPolio":"Oral polio",
+        "anti":"Antitetanus"
+        
+        
+
+    },
+    "resetpassword":{
+        "recoverPass":"Recover password"
+    },
+    "selectPatient":{
+        "selectpatient":"Select a patient",
+        "signoff":"Sign Off"
     }
 }

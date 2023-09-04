@@ -9,7 +9,7 @@ import {
 import Checkbox from 'expo-checkbox';
 import { ScrollView } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
-
+import { useTranslation } from 'react-i18next';
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
@@ -20,7 +20,7 @@ export const ImmunizationRecord = () => {
   const route = useRoute();
   const isFocused = useIsFocused()
   const lng = useSelector(state => state.starter.Language);
-
+  const { t } = useTranslation();
   //! State for the Form.
   const [PatientId, setPatientId] = useState(null);
   const [isChecked, setIsChecked] = useState({
@@ -145,20 +145,20 @@ export const ImmunizationRecord = () => {
         <View style={AuthStylesGlobal.topWaveContainer}>
           <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
           <View style={[AuthStylesGlobal.buttomCameBack]}>
-            <Text style={{color: 'white', fontSize: 20, fontFamily: 'poppinsBold'}}>Paso 3</Text>
+            <Text style={{color: 'white', fontSize: 20, fontFamily: 'poppinsBold'}}>{t('immunization.step3')}</Text>
           </View>
         </View>
         <View style={AuthStylesGlobal.contentContainer}>
           <View style={AuthStylesGlobal.formContent} >
             <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')} />
-            <Text style={[AuthStylesRegisterU.Tex_md, {fontSize: isIOS ? 28 : 30}]}>Registro de vacunación</Text>
+            <Text style={[AuthStylesRegisterU.Tex_md, {fontSize: isIOS ? 28 : 30}]}>{t('immunization.vaccination')}</Text>
             <View style={[AuthStylesGlobal.cont2,]} >
-              <Text style={AuthStylesGlobal.TextCount}>¡Necesitamos la informacion del menor para hacer un muy buen trabajo!</Text>
+              <Text style={AuthStylesGlobal.TextCount}>{t('immunization.needchildInfo')}</Text>
             </View>
-            <Text style={{fontSize: 16 , fontFamily: 'poppinsRegular'}}> Paciente: <Text style={{fontWeight: 'bold'}}>{PatientName}</Text></Text>
+            <Text style={{fontSize: 16 , fontFamily: 'poppinsRegular'}}> {t('immunization.patient')}: <Text style={{fontWeight: 'bold'}}>{PatientName}</Text></Text>
 
             <View style={styles.vaccinesContainer}>
-              <Text style={styles.vaccinesTitle}>Seleccione las Vacunas</Text>
+              <Text style={styles.vaccinesTitle}>{t('immunization.select')}</Text>
               <View style={styles.separatorLine}></View>
               <ScrollView>
                 <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, bgc: !isChecked.bgc })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.bgc ? '#09998c': '#e4e3eb'}]}>
@@ -185,7 +185,7 @@ export const ImmunizationRecord = () => {
                     onValueChange={() => setIsChecked({...isChecked, poliomielitis: !isChecked.poliomielitis})} 
                     style={{marginHorizontal: 16,}}
                   />
-                  <Text style={{color: isChecked.poliomielitis ? "#09998c" : "#707070"}}>Poliomielitis</Text>
+                  <Text style={{color: isChecked.poliomielitis ? "#09998c" : "#707070"}}>{t('immunization.polio')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, pentavalente: !isChecked.pentavalente })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.pentavalente ? '#09998c': '#e4e3eb'}]}>
@@ -194,7 +194,7 @@ export const ImmunizationRecord = () => {
                     onValueChange={() => setIsChecked({...isChecked, pentavalente: !isChecked.pentavalente})} 
                     style={{marginHorizontal: 16,}}
                   />
-                  <Text style={{color: isChecked.pentavalente ? "#09998c" : "#707070"}}>Pentavalente</Text>
+                  <Text style={{color: isChecked.pentavalente ? "#09998c" : "#707070"}}>{t('immunization.penta')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, rotavirus: !isChecked.rotavirus })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.rotavirus ? '#09998c': '#e4e3eb'}]}>
@@ -212,7 +212,7 @@ export const ImmunizationRecord = () => {
                     onValueChange={() => setIsChecked({...isChecked, neumococo: !isChecked.neumococo})} 
                     style={{marginHorizontal: 16,}}
                   />
-                  <Text style={{color: isChecked.neumococo ? "#09998c" : "#707070"}}>Neumococo Conjugado</Text>
+                  <Text style={{color: isChecked.neumococo ? "#09998c" : "#707070"}}>{t('immunization.neumococo')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, dtp: !isChecked.dtp })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.dtp ? '#09998c': '#e4e3eb'}]}>
@@ -230,7 +230,7 @@ export const ImmunizationRecord = () => {
                     onValueChange={() => setIsChecked({...isChecked, polio: !isChecked.polio})}
                     style={{marginHorizontal: 16,}}
                   />
-                  <Text style={{color: isChecked.polio ? "#09998c" : "#707070"}}>Polio Oral</Text>
+                  <Text style={{color: isChecked.polio ? "#09998c" : "#707070"}}>{t('immunization.oralPolio')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, antitetanica: !isChecked.antitetanica })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.antitetanica ? '#09998c': '#e4e3eb'}]}>
@@ -239,7 +239,7 @@ export const ImmunizationRecord = () => {
                     onValueChange={() => setIsChecked({...isChecked, antitetanica: !isChecked.antitetanica})} 
                     style={{marginHorizontal: 16,}}
                   />
-                  <Text style={{color: isChecked.antitetanica ? "#09998c" : "#707070"}}>Antitetánica</Text>
+                  <Text style={{color: isChecked.antitetanica ? "#09998c" : "#707070"}}>{t('immunization.anti')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity activeOpacity={1} onPress={() => setIsChecked({ ...isChecked, spr: !isChecked.spr })} style={[styles.vaccineTypeContainer, {borderColor: isChecked.spr ? '#09998c': '#e4e3eb'}]}>

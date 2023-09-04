@@ -3,7 +3,7 @@ import { Text, View, Image, ImageBackground, BackHandler } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-
+import { useTranslation } from 'react-i18next';
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
@@ -14,7 +14,7 @@ import InputCodeField from '../../components/InputCodeField';
 export const ForgotPassCodeScreen = () => {
     const navigation = useNavigation();
     const lng = useSelector(state => state.starter.Language);
-
+    const { t } = useTranslation();
     //! Verify Code State
     const [verifyCode, setVerifyCode] = useState(null);
 
@@ -88,7 +88,7 @@ export const ForgotPassCodeScreen = () => {
                 <View style={AuthStylesGlobal.formContent} >
                     <Image style={AuthStylesGlobal.logoImage2} source={require('../../../assets/logos/Logotype_Colored.png')}  />
                     <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/graphic-icons/reset-pass.png')}  />
-                    <Text style={AuthStylesRegisterU.Tex_md}>Código de cambio de contraseña</Text>
+                    <Text style={AuthStylesRegisterU.Tex_md}>{t('forgotpasswordCod.passwordcode')}</Text>
                     <Text>Ingrese el codigo enviado a su Email.</Text>
 
                     <InputCodeField value={verifyCode} setValue={setVerifyCode} />

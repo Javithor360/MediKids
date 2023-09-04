@@ -8,6 +8,7 @@ import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder'
 import { LinearGradient } from 'expo-linear-gradient';
 import CachedImage from 'expo-cached-image'
 
+import { useTranslation } from 'react-i18next';
 //>> Importing components
 import { AuthStylesGlobal } from '../../../assets/AuthStyles';
 import { ShowToast, getAllImmunizationRecords, getPatients } from '../../index'
@@ -31,7 +32,7 @@ export const SelectPatientScreen = () => {
   const route = useRoute();
   const dispatch = useDispatch();
   const lng = useSelector(state => state.starter.Language);
-  
+  const { t } = useTranslation();
   const [AccData, setAccData] = useState(null);
 
   const [ReloadSelect, setReloadSelect] = useState(null);
@@ -250,7 +251,7 @@ export const SelectPatientScreen = () => {
             <View style={styles.topIconContainer}>
               <Image style={{width: 70, height: 70, resizeMode: 'contain',}} source={require('../../../assets/graphic-icons/patients_icon.png')}></Image>
             </View>
-            <Text style={AuthStylesGlobal.title_Text2}>Seleccione un paciente</Text>
+            <Text style={AuthStylesGlobal.title_Text2}>{t('selectPatient.selectpatient')}</Text>
             <View style={{width: '90%', alignItems: 'center', justifyContent: 'center',}}>
               <FlatList
                 data={AccData}
@@ -261,7 +262,7 @@ export const SelectPatientScreen = () => {
             </View>
             <View style={{width: '100%', height: 60, alignItems: 'center', justifyContent: 'center', marginTop: 20,}}>
               <TouchableOpacity disabled={DisableBtn} onPress={() => {LogoutButton()}} style={styles.logoutBtn}>
-                <Text style={{color: '#FFFFFF'}}>Cerrar sesión</Text>
+                <Text style={{color: '#FFFFFF'}}>{t('selectPatient.signoff')}</Text>
               </TouchableOpacity>
             </View>
         </View>

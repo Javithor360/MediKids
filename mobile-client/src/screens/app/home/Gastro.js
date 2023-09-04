@@ -7,7 +7,9 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 const Gastro = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const scrollA = useRef(new Animated.Value(0)).current;
   return (
@@ -32,7 +34,7 @@ const Gastro = () => {
         <View style={styles.waveTopContent}>
           <ImageBackground source={require('../../../../assets/waves/waves_start_top.png')} style={styles.waveImg}></ImageBackground>
           <Text style={styles.title1}>
-            ¿En que nos enfocamos?
+          {t('Gastro.focuson')}
           </Text>
           <View style={styles.mainInfoContainer}>
             <View style={styles.spcIconContainer}>
@@ -41,16 +43,16 @@ const Gastro = () => {
               </View>
             </View>
             <View style={styles.infoTextContainer}>
-              <Text style={{color: '#707070', textAlign: 'justify',}}>Profesionales de la medicina que ha recibido formación en el diagnóstico y tratamiento de las enfermedades del estomago, intestino y las paredes.</Text>
+              <Text style={{color: '#707070', textAlign: 'justify',}}>{t('Gastro.text1')}</Text>
             </View>
           </View>
           <View style={styles.separator}></View>
           <Text style={styles.title1}>
-            Enfermedades comunes
+          {t('Gastro.text2')}
           </Text>
           <View style={{alignItems: 'center'}}>
             <Text style={styles.textPart}>
-              Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con problemas del estomago o paredes intestinales. 
+            {t('Gastro.text3')}
             </Text>
           </View>
           <View style={styles.diseasesMainC}>
@@ -62,10 +64,10 @@ const Gastro = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Apendicitis</Text>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title1')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Es una inflamación del apéndice, una bolsa en forma de dedo que se proyecta desde el colon en el lado inferior derecho del abdomen.  </Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Gastro.text4')}  </Text>
                 </View>
               </View>
             </View>
@@ -78,10 +80,10 @@ const Gastro = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Diarrea</Text>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title2')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Es un aumento en la frecuencia de las deposiciones (más de tres al día) acompañada de una disminución de la consistencia de éstas.  </Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Gastro.text5')}  </Text>
                 </View>
               </View>
             </View>
@@ -94,10 +96,10 @@ const Gastro = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Enfermedad celiaca</Text>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title3')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Los pacientes con enfermedad celíaca no toleran una proteína llamada gluten (trigo, avena, cebada,centeno).</Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Gastro.text6')}</Text>
                 </View>
               </View>
             </View>
@@ -110,23 +112,23 @@ const Gastro = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Control Intestinal</Text>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title4')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Dificultad para aguantar una evacuación intestinal. Tiene goteo de heces sólidas o líquidas cuando menos lo espera.</Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Gastro.text7')}</Text>
                 </View>
               </View>
             </View>
             <View style={styles.noteContainer}>
               <Image source={require('../../../../assets/icons/focus_icon.png')} style={{width: '10%', height: '80%', resizeMode: 'contain', marginHorizontal: 4}}></Image>
-              <Text style={{color: '#707070', width:'75%', textAlign: 'justify', marginHorizontal: 4}}>Todos los pacientes son analizados para un diagnostico mas preciso y tratamiento personalizado </Text>
+              <Text style={{color: '#707070', width:'75%', textAlign: 'justify', marginHorizontal: 4}}>{t('Gastro.text8')} </Text>
             </View>
           </View>
 
           <View style={styles.separator}></View>
 
           <Text style={styles.title1}>
-            Nuestro Especialista
+          {t('Gastro.title5')}
           </Text>
           <View style={{flexDirection: 'column', alignItems: 'center', marginTop: 10}}>
             <View style={styles.cardDoctorContainer}>
@@ -134,14 +136,14 @@ const Gastro = () => {
                 <ImageBackground source={require('../../../../assets/default-pics/dra-garza.png')} style={{height: '100%', width: '100%', alignSelf: 'center', justifyContent: 'center', resizeMode: 'contain'}}></ImageBackground>
               </View>
               <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: 600, color: '#707070', fontSize: 21}}>Dra. Fátima Garza</Text>
-              <Text style={styles.docDescription}>"Cuando veo la sonrisa de mis pacientes, esa es la verdadera recompensa"</Text>
+              <Text style={styles.docDescription}>{t('Gastro.text9')}</Text>
 
               <View style={styles.doctorTitle}>
                 <View style={{height: '100%', alignItems: 'center', justifyContent: 'center',}}>
                   <MaterialCommunityIcons name="stethoscope" size={25} color="#707070" />
                 </View>
                 <View style={{height: '100%', justifyContent: 'center'}}>
-                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                  <Text style={{ color: '#707070'}}>{t('Gastro.text10')}.</Text>
                 </View>
               </View>
 
@@ -150,7 +152,7 @@ const Gastro = () => {
                   <MaterialIcons name="stars" size={25} color="#707070" />
                 </View>
                 <View style={{height: '100%', justifyContent: 'center'}}>
-                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                  <Text style={{ color: '#707070'}}>{t('Gastro.text11')}.</Text>
                 </View>
               </View>
 
@@ -159,7 +161,7 @@ const Gastro = () => {
                   <MaterialIcons name="medical-services" size={25} color="#707070" />
                 </View>
                 <View style={{height: '100%', justifyContent: 'center'}}>
-                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                  <Text style={{ color: '#707070'}}>{t('Gastro.text12')}.</Text>
                 </View>
               </View>
 
@@ -179,7 +181,7 @@ const Gastro = () => {
 
             <TouchableOpacity onPress={()=>navigation.navigate('Appointment') } style={styles.programAppointmentBtn}>
               <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
-                Agendar cita
+              {t('Gastro.schedule')}
               </Text>
           </TouchableOpacity>
           </View>

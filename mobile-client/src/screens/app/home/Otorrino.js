@@ -7,7 +7,9 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 const Otorrino = () => {
+  const { t } = useTranslation();
   const navigation = useNavigation();
   const scrollA = useRef(new Animated.Value(0)).current;
   return (
@@ -32,7 +34,7 @@ const Otorrino = () => {
         <View style={styles.waveTopContent}>
           <ImageBackground source={require('../../../../assets/waves/waves_start_top.png')} style={styles.waveImg}></ImageBackground>
           <Text style={styles.title1}>
-            ¿En que nos enfocamos?
+          {t('Oto.focuson')}
           </Text>
           <View style={styles.mainInfoContainer}>
             <View style={styles.spcIconContainer}>
@@ -41,16 +43,16 @@ const Otorrino = () => {
               </View>
             </View>
             <View style={styles.infoTextContainer}>
-              <Text style={{color: '#707070', textAlign: 'justify', alignItems: 'center',}}>Estos médicos ven una amplia gama de enfermedades y patologías relacionadas con los sentidos, como problemas del olfato y el gusto o trastornos del equilibrio y la audición. </Text>
+              <Text style={{color: '#707070', textAlign: 'justify', alignItems: 'center',}}> {t('Oto.text1')} </Text>
             </View>
           </View>
           <View style={[styles.separator, {marginBottom: 30}]}></View>
           <Text style={styles.title1}>
-            Enfermedades comunes
+          {t('Oto.text2')}
           </Text>
           <View style={{alignItems: 'center'}}>
             <Text style={styles.textPart}>
-              Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con problemas del estomago o paredes intestinales. 
+            {t('Oto.text3')}
             </Text>
           </View>
           <View style={styles.diseasesMainC}>
@@ -62,10 +64,10 @@ const Otorrino = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Hemorragia nasal</Text>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Oto.title1')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Irritaciones debido a alergias, resfriados, estornudos o problemas sinusales. Aire muy frío o seco.</Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Oto.text4')}</Text>
                 </View>
               </View>
             </View>
@@ -78,10 +80,10 @@ const Otorrino = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Pérdida de la audición</Text>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Oto.title2')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>La pérdida de audición puede ser leve, moderada, grave o profunda ocasionada por diversos factores</Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Oto.text5')}</Text>
                 </View>
               </View>
             </View>
@@ -94,10 +96,10 @@ const Otorrino = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Laringitis</Text>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Oto.title3')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Es la inflamación de la caja de voz (laringe) por uso excesivo, irritación o infección y que se puede volver crónica</Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Oto.text6')}</Text>
                 </View>
               </View>
             </View>
@@ -113,20 +115,20 @@ const Otorrino = () => {
                   <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Sinusitis</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Las sinusitis ocurren cuando se acumula líquido en los senos paranasales (cavidades en la cara que están llenas de aire).</Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Oto.text7')}</Text>
                 </View>
               </View>
             </View>
             <View style={styles.noteContainer}>
               <Image source={require('../../../../assets/icons/focus_icon.png')} style={{width: '10%', height: '80%', resizeMode: 'contain', marginHorizontal: 4}}></Image>
-              <Text style={{color: '#707070', width:'75%', textAlign: 'justify', marginHorizontal: 4}}>Todos los pacientes son analizados para un diagnostico mas preciso y tratamiento personalizado </Text>
+              <Text style={{color: '#707070', width:'75%', textAlign: 'justify', marginHorizontal: 4}}>{t('Oto.text8')} </Text>
             </View>
           </View>
 
           <View style={styles.separator}></View>
 
           <Text style={styles.title1}>
-            Nuestro Especialista
+          {t('Oto.title5')}
           </Text>
           <View style={{flexDirection: 'column', alignItems: 'center', marginTop: 10}}>
             <View style={styles.cardDoctorContainer}>
@@ -134,14 +136,14 @@ const Otorrino = () => {
                 <ImageBackground source={require('../../../../assets/default-pics/dr-guzman.png')} style={{height: '100%', width: '100%', alignSelf: 'center', justifyContent: 'center', resizeMode: 'contain'}}></ImageBackground>
               </View>
               <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: 600, color: '#707070', fontSize: 21}}>Dr. Esteban Guzmán</Text>
-              <Text style={styles.docDescription}>"Mi prioridad son los pacientes y la satisfacción de los padres al ver a sus hijos crecer sanos"</Text>
+              <Text style={styles.docDescription}>{t('Oto.text9')}</Text>
 
               <View style={styles.doctorTitle}>
                 <View style={{height: '100%', alignItems: 'center', justifyContent: 'center',}}>
                   <MaterialCommunityIcons name="stethoscope" size={25} color="#707070" />
                 </View>
                 <View style={{height: '100%', justifyContent: 'center'}}>
-                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                  <Text style={{ color: '#707070'}}>{t('Oto.text10')}.</Text>
                 </View>
               </View>
 
@@ -150,7 +152,7 @@ const Otorrino = () => {
                   <MaterialIcons name="stars" size={25} color="#707070" />
                 </View>
                 <View style={{height: '100%', justifyContent: 'center'}}>
-                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                  <Text style={{ color: '#707070'}}>{t('Oto.text11')}.</Text>
                 </View>
               </View>
 
@@ -159,7 +161,7 @@ const Otorrino = () => {
                   <MaterialIcons name="medical-services" size={25} color="#707070" />
                 </View>
                 <View style={{height: '100%', justifyContent: 'center'}}>
-                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                  <Text style={{ color: '#707070'}}>{t('Oto.text12')}.</Text>
                 </View>
               </View>
 
@@ -179,7 +181,7 @@ const Otorrino = () => {
 
               <TouchableOpacity onPress={()=>navigation.navigate("Appointment")} style={styles.programAppointmentBtn}>
               <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
-                Agendar cita
+              {t('Oto.schedule')}
               </Text>
           </TouchableOpacity>
           </View>

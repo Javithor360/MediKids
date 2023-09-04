@@ -7,9 +7,11 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 const SpecialtyInfoN = () => {
   const navigation = useNavigation();
   const scrollA = useRef(new Animated.Value(0)).current;
+  const { t } = useTranslation();
   return (
     <View style={{backgroundColor: '#fff',}}>
       <StatusBar
@@ -32,7 +34,7 @@ const SpecialtyInfoN = () => {
         <View style={styles.waveTopContent}>
           <ImageBackground source={require('../../../../assets/waves/waves_start_top.png')} style={styles.waveImg}></ImageBackground>
           <Text style={styles.title1}>
-            ¿En que nos enfocamos?
+          {t('Neu.focuson')}
           </Text>
           <View style={styles.mainInfoContainer}>
             <View style={styles.spcIconContainer}>
@@ -41,17 +43,17 @@ const SpecialtyInfoN = () => {
               </View>
             </View>
             <View style={styles.infoTextContainer}>
-              <Text style={{color: '#707070', textAlign: 'justify',}}>Profesionales de la medicina que ha recibido formación en el diagnóstico y tratamiento de las enfermedades del estomago, intestino y las paredes.</Text>
+              <Text style={{color: '#707070', textAlign: 'justify',}}>{t('Neu.text1')}</Text>
             </View>
           </View>
           <View style={styles.separator}></View>
           <Text style={styles.title1}>
-            Enfermedades comunes
+          {t('Neu.text2')}
           </Text>
+          
           <View style={{alignItems: 'center'}}>
             <Text style={styles.textPart}>
-              Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con problemas del estomago o paredes intestinales. 
-            </Text>
+            {t('Neu.text3')}</Text>
           </View>
           <View style={styles.diseasesMainC}>
             <View style={styles.diseaseCard}>
@@ -62,10 +64,10 @@ const SpecialtyInfoN = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Asma</Text>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}> {t('Neu.title1')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>El asma causa sibilancias, dificultad para respirar, opresión en el pecho y tos durante la noche o temprano por la mañana.</Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}> {t('Neu.text4')}</Text>
                 </View>
               </View>
             </View>
@@ -78,10 +80,10 @@ const SpecialtyInfoN = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Bronquitis</Text>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Neu.title2')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>La bronquitis aguda suele ser causada por la inflamación de las vías respiratorias debido a infecciones virales. </Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Neu.text5')}</Text>
                 </View>
               </View>
             </View>
@@ -94,10 +96,10 @@ const SpecialtyInfoN = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Neumonía</Text>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Neu.title3')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>Infección que afecta un pulmón o los dos. Hace que los sacos de aire, o alvéolos, de los pulmones se llenen de líquido o pus. </Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Neu.text6')} </Text>
                 </View>
               </View>
             </View>
@@ -110,23 +112,23 @@ const SpecialtyInfoN = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>Tos Crónica</Text>
+                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Neu.title4')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
-                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>La tos crónica se define como tos que perdura más de 3 semanas y puede llegar a provocar bronquitis o complicaciones más graves</Text>
+                  <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Neu.text7')} </Text>
                 </View>
               </View>
             </View>
             <View style={styles.noteContainer}>
               <Image source={require('../../../../assets/icons/focus_icon.png')} style={{width: '10%', height: '80%', resizeMode: 'contain', marginHorizontal: 4}}></Image>
-              <Text style={{color: '#707070', width:'75%', textAlign: 'justify', marginHorizontal: 4}}>Todos los pacientes son analizados para un diagnostico mas preciso y tratamiento personalizado </Text>
+              <Text style={{color: '#707070', width:'75%', textAlign: 'justify', marginHorizontal: 4}}>{t('Neu.text8')}</Text>
             </View>
           </View>
 
           <View style={styles.separator}></View>
 
           <Text style={styles.title1}>
-            Nuestro Especialista
+          {t('Neu.title5')}
           </Text>
           <View style={{flexDirection: 'column', alignItems: 'center', marginTop: 10}}>
             <View style={styles.cardDoctorContainer}>
@@ -134,14 +136,14 @@ const SpecialtyInfoN = () => {
                 <ImageBackground source={require('../../../../assets/default-pics/dr-flores.png')} style={{height: '100%', width: '100%', alignSelf: 'center', justifyContent: 'center', resizeMode: 'contain'}}></ImageBackground>
               </View>
               <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: 600, color: '#707070', fontSize: 21}}>Dr. Adrián Flores</Text>
-              <Text style={styles.docDescription}>"La salud es la fuente de la felicidad, y cuidarla desde temprano es mi prioridad"</Text>
+              <Text style={styles.docDescription}>{t('Neu.text9')}</Text>
 
               <View style={styles.doctorTitle}>
                 <View style={{height: '100%', alignItems: 'center', justifyContent: 'center',}}>
                   <MaterialCommunityIcons name="stethoscope" size={25} color="#707070" />
                 </View>
                 <View style={{height: '100%', justifyContent: 'center'}}>
-                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                  <Text style={{ color: '#707070'}}>{t('Neu.text10')}.</Text>
                 </View>
               </View>
 
@@ -150,7 +152,7 @@ const SpecialtyInfoN = () => {
                   <MaterialIcons name="stars" size={25} color="#707070" />
                 </View>
                 <View style={{height: '100%', justifyContent: 'center'}}>
-                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                  <Text style={{ color: '#707070'}}>{t('Neu.text11')}.</Text>
                 </View>
               </View>
 
@@ -159,7 +161,7 @@ const SpecialtyInfoN = () => {
                   <MaterialIcons name="medical-services" size={25} color="#707070" />
                 </View>
                 <View style={{height: '100%', justifyContent: 'center'}}>
-                  <Text style={{ color: '#707070'}}>Lorem ipsum, dolor sit amet consectetur.</Text>
+                  <Text style={{ color: '#707070'}}>{t('Neu.text12')}.</Text>
                 </View>
               </View>
 
@@ -179,7 +181,7 @@ const SpecialtyInfoN = () => {
 
               <TouchableOpacity onPress={()=>navigation.navigate("Appointment")} style={styles.programAppointmentBtn}>
               <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
-                Agendar cita
+              {t('Neu.schedule')}
               </Text>
           </TouchableOpacity>
           </View>

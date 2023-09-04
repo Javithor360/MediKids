@@ -4,6 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
@@ -14,7 +15,7 @@ import { CustomButton, ResetPasswordQuery, SetLabel, ShowToast } from '../../ind
 export const ResetPasswordScreen = () => {
     const navigation = useNavigation();
     const lng = useSelector(state => state.starter.Language);
-
+    const { t } = useTranslation();
     //\\ Get the email from the storage
     const Email = useSelector(state => state.starter.Email);
   
@@ -90,7 +91,7 @@ export const ResetPasswordScreen = () => {
                 <View style={AuthStylesGlobal.formContent} >
                     <Image style={AuthStylesGlobal.logoImage2} source={require('../../../assets/logos/Logotype_Colored.png')}  />
                     <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/graphic-icons/reset-password.png')}  />
-                    <Text style={AuthStylesRegisterU.Tex_md}>Recuperar contraseña</Text>
+                    <Text style={AuthStylesRegisterU.Tex_md}>{t('resetpassword.recoverPass')}</Text>
 
                     <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
                         <MaterialIcons name="lock-open" size={24} color="gray" style={{marginRight: 6}} />
