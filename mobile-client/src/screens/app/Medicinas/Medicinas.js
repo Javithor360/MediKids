@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Constants from 'expo-constants';
 import { useSelector } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 //>> IMPORT COMPONENTS
 import { ScreenTitle } from '../../../index';
@@ -15,6 +16,7 @@ import { getMedicalPrescriptions } from '../../../index'
 
 
 export const Medicinas = () => {
+    const { t } = useTranslation();
     const isFocused = useIsFocused()
     const [isMainScreen, setIsMainScreen] = useState(true);
     const jwtToken = useSelector(state => state.responsible.jwtToken);
@@ -65,21 +67,21 @@ export const Medicinas = () => {
                     <View>
                         <View style={styles.InfoText} >
                             <Text>
-                                <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Instrucción:</Text>
+                                <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>{t('medic.ins')}:</Text>
                                 <Text style={{ color: '#707070'}}> {Prescription.Instructions} </Text>
                             </Text>
                             
                         </View>
                         <View style={[styles.InfoText, {flexDirection: 'column', gap: 0}]} >
-                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Periodo del tratamiento:</Text>
+                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >{t('medic.period')}:</Text>
                             <Text style={{ color: '#707070',}}>{getLocaleDateString(Prescription.Starting_Dose_Date)} - {getLocaleDateString(Prescription.Finishing_Dose_Date)}</Text>
                         </View>
                         <View style={styles.InfoText} >
                             <Text style={{ color: '#A375FF', fontWeight: 'bold'}}>Dosis:</Text>
-                            <Text style={{ color: '#707070',}}>{Prescription.Dose}, {Prescription.Time_Dose} al dia</Text>
+                            <Text style={{ color: '#707070',}}>{Prescription.Dose}, {Prescription.Time_Dose}{t('medic.text1')}</Text>
                         </View>
                         <View style={styles.InfoText} >
-                            <Text style={{ color: '#A375FF', fontWeight: 'bold'}}>Asignado por:</Text>
+                            <Text style={{ color: '#A375FF', fontWeight: 'bold'}}>{t('medic.assigned')}:</Text>
                             <Text style={{ color: '#707070',}}>{getDoctor(Prescription.Doctor_id)}</Text>
                         </View>
                     </View>
@@ -109,7 +111,7 @@ export const Medicinas = () => {
                         
                             <View style={styles.rightTextSctn}>
                                 <View style={styles.linee} />
-                                <Text style={styles.titleBanner}>Medicamentos Activos</Text>
+                                <Text style={styles.titleBanner}>{t('medic.medicAct')}</Text>
                             </View>
                         </View>
                     </View>
@@ -125,7 +127,7 @@ export const Medicinas = () => {
                                 <View style={{width: '100%', alignItems: 'center', justifyContent: 'center'}}>
                                     <View style={{width: '100%', alignItems: 'center', justifyContent: 'center', paddingVertical: hp('15%')}}>
                                         <Image source={require('../../../../assets/icons/not-recipe-2.png')} style={{height: hp('15%'), width: wp('40%'), resizeMode: 'contain', marginLeft: -15}}></Image>
-                                        <Text style={{fontSize: 22, color: '#707070', textAlign: 'center', marginTop: 20,}}>No hay medicamentos activos actualmente</Text>
+                                        <Text style={{fontSize: 22, color: '#707070', textAlign: 'center', marginTop: 20,}}>{t('medic.medicinant')}</Text>
                                     </View>
                                 </View>
                         }

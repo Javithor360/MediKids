@@ -10,6 +10,15 @@
         
 
     },
+    "medic":{
+        "ins":"Instruction",
+        "period":"Treatment period",
+        "text1":"up to date",
+        "assigned":"assigned by",
+        "medicAct":"Active Medications",
+        "medicinant":"There are no active medical currently"
+
+    },
     "AppointmentMainScreen":{
         "choose":"Choose the specialty in which to schedule an appointment",
         "Oto":"Otorhinolaryngology",

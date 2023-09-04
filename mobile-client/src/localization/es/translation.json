@@ -9,6 +9,15 @@
         "ChangeLangua":"Cambiar Idioma"
 
     },
+    "medic":{
+        "ins":"Instrucción",
+        "period":"Periodo del tratamiento",
+        "text1":"al día",
+        "assigned":"Asignado por",
+        "medicAct":"Medicamentos Activos",
+        "medicinant":"No hay medicamentos activos actualmente"
+
+    },
     "AppointmentMainScreen":{
         "choose":"Elige la especialidad en la que agendar una cita",
         "gastro":"Gastroenterología",
