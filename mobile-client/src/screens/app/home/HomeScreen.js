@@ -2,16 +2,16 @@
 //>> Import Libraries
 import { StyleSheet, Text, ScrollView, Image, View, TouchableOpacity, ImageBackground, BackHandler, Modal } from 'react-native';
 import { useIsFocused, useNavigation } from '@react-navigation/native'
-import { MaterialCommunityIcons, Entypo } from '@expo/vector-icons'; 
+import { MaterialCommunityIcons, Entypo, FontAwesome, MaterialIcons } from '@expo/vector-icons'; 
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient'
 import { useTranslation } from 'react-i18next';
-import {differenceInDays, differenceInHours, differenceInMonths} from 'date-fns'
+import {differenceInDays, differenceInMonths} from 'date-fns'
 
 //>> Import Components
 import LanguageSelector from '../../../components/LanguageSelector';
-import { Moths, ThreePoints, getMedicalAppointments, getMedicalPrescriptions, getNotifications } from '../../../index'
+import { ThreePoints, getMedicalAppointments, getMedicalPrescriptions, getNotifications } from '../../../index'
 
 //! Deafult foto
 const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
@@ -35,6 +35,7 @@ export const HomeScreen = () => {
 
   //! Notifications State
   const [DataNotis, setDataNotis] = useState(null);
+  const [IconNotis, setIconNotis] = useState('bell');
 
   const getNotis = async () => {
     try {
@@ -123,6 +124,13 @@ export const HomeScreen = () => {
     }
   }
 
+  //! NOTIFICATION ICON
+  useEffect(() => {
+    if (DataNotis != null && DataNotis.ActualNotis.length != 0) {
+      setIconNotis('bell-badge');
+    }
+  }, [DataNotis]);
+
   //! Functions starting the view.
   useEffect(() => {
     getAppointmentInfo();
@@ -140,7 +148,7 @@ export const HomeScreen = () => {
               <View style={styles.TopLogoBtnContent}>
                 <View style={[styles.itemContainer, {width: '20%', height: '100%'}]}>
                   <TouchableOpacity onPress={()=>navigation.navigate('NotificationScreen', { DataNotis }) } >
-                    <MaterialCommunityIcons name="bell" size={34} color="#707070" />
+                    <MaterialCommunityIcons name={IconNotis} size={34} color="#707070" />
                   </TouchableOpacity>
                 </View>
                 <View style={[styles.itemContainer, {width: '60%', height: '100%'}]}>
@@ -210,7 +218,8 @@ export const HomeScreen = () => {
             <View style={{width: '100%', height: '37.5%', alignItems: 'center',}}>
               <View style={styles.viewBtnContainer}>
                 <View style={[styles.contentBtn, {width: '30%'}]}>
-                  <Image source={require('../../../../assets/icons/medical-note.png')} style={{height: '60%', resizeMode: 'contain'}}></Image>
+                  <MaterialCommunityIcons name="file-account-outline" size={60} color="white" />
+                  {/* <Image source={require('../../../../assets/icons/medical-note.png')} style={{height: '60%', resizeMode: 'contain'}}></Image> */}
                 </View>
                 <View style={[styles.contentBtn, {width: '70%'}]}>
                   <TouchableOpacity style={styles.touchableViewBtn} onPress={()=>navigation.navigate('MyVaccines') }>
@@ -225,6 +234,7 @@ export const HomeScreen = () => {
           {t('homePage.Reminder')}
           </Text>
           
+          {/* WIDGET APPOINTMENTS */}
           <View style={{height: 'auto', width: '100%', flexDirection: 'row',}}>
             <View style={styles.reminderContainer}>
               <View style={styles.reminderCard}>
@@ -233,13 +243,12 @@ export const HomeScreen = () => {
                   {
                     AppointmentWidget != null && AppointmentWidget.length != 0 ?
                       <>
-                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%', marginTop: 6,}}>
-                          <Image source={require('../../../../assets/icons/note-time.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
+                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '80%', marginTop: 6, marginLeft: 'auto', marginRight: 'auto'}}>
+                          <FontAwesome name="calendar" size={34} color="#A375FF" />
                           <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{NumberOfApptm}</Text>
                         </View>
                         <Text style={{marginTop: 10, fontWeight: "900", fontSize: 15, color: '#d17878', textAlign: 'center'}}>{t('homePage.UP')}:</Text>
                         <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>{t('homePage.Date')}: </Text>{AppointmentWidget.Date == null ? 'Pendiente' : getLocaleDateString(AppointmentWidget.Date)}</Text>
-                        {/* <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Hora: </Text>2:00 PM</Text> */}
                         <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>{t('homePage.State')}: </Text>{getStateString(AppointmentWidget.State)}</Text>
                         <TouchableOpacity style={styles.touchableViewBtn2} onPress={() => navigation.navigate('Appointment')}>
                           <Text style={{color: '#fff'}}>{t('homePage.MoreDetails')}</Text>
@@ -254,14 +263,15 @@ export const HomeScreen = () => {
               </View>
             </View>
 
+            {/* WIDGET MEDICINES */}
             <View style={styles.reminderContainer}>
               <View style={styles.reminderCard}>
               <Text style={{marginTop: 25, fontSize: 22, fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>{t('homePage.medicines')}</Text>
                   {
                     MedicinesWidget != null && MedicinesWidget.length != 0 ?
                       <>
-                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '100%', marginTop: 6,}}>
-                          <Image source={require('../../../../assets/icons/recipe.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
+                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-evenly', height: '15%', width: '80%', marginTop: 6, marginLeft: 'auto', marginRight: 'auto'}}>
+                          <MaterialIcons name="medical-services" size={37} color="#A375FF" />
                           <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{MedicinesWidget?.length}</Text>
                         </View>
                         <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>{t('homePage.NameM')}: </Text>{MedicinesWidget[0].Medicine_Name}</Text>

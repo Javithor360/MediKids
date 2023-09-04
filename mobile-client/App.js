@@ -27,6 +27,9 @@ export default function App() {
       require('./assets/logos/adaptive-icon.png'),
       require('./assets/waves/waves_start_top.png'),
       require('./assets/waves/waves_start_buttom.png'),
+      require('./assets/bg/gastro_bg_card.png'),
+      require('./assets/bg/neumologia_bg_card.png'),
+      require('./assets/bg/oto_bg_card.png'),
     ];
     const cacheImages = imageAssets.map((image) => {
       return Asset.fromModule(image).downloadAsync();

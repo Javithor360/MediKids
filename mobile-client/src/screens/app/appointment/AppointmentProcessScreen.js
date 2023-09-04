@@ -50,7 +50,7 @@ export const AppointmentProcessScreen = ({ route }) => {
             (appointmentInfo?.State != null) &&
               <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcGreen, styles.wMb]}>
                 { appointmentInfo.State == 0 && <ProgrammedAppmt appointmentInfo={appointmentInfo} doctor={doctor} />}
-                { appointmentInfo.State == 1 && <PendingAppointment /> }
+                { appointmentInfo.State == 1 && <PendingAppointment appointmentInfo={appointmentInfo}/> }
                 { appointmentInfo.State == 2 && <NextAppointment appointmentInfo={appointmentInfo} doctor={doctor} /> }
                 { (appointmentInfo.State == 3 && Appmt_State != 4) && <AttendingAppointment appointmentInfo={appointmentInfo} Doctor_id={Doctor_id} setRecordCode={setRecordCode} setShowMedicines={setShowMedicines}/> }
                 { (appointmentInfo.State == 4 || Appmt_State == 4) && <AppointmentResults RecordCode={RecordCode} /> }

@@ -385,99 +385,101 @@ const get_notifications = async (req, res, next) => {
     //\\ CREATE 3 AND 4 NOTIFICATION TYPE.
     const [appmts] = await pool.query('SELECT * FROM medical_appointment WHERE patient_id = ?', [Patient_id])
     appmts.map(async (appmt_el, i) => {
-      let HoursSQL = appmt_el.Hour.split(':');
-      let appointment_hour = new Date(appmt_el.Date);
+      if (appmt_el.State == 2 || appmt_el.State == 3) {
+        let HoursSQL = appmt_el.Hour.split(':');
+        let appointment_hour = new Date(appmt_el.Date);
 
-      appointment_hour.setHours(HoursSQL[0]);
-      appointment_hour.setMinutes(HoursSQL[1]);
-      appointment_hour.setSeconds(HoursSQL[2]);
+        appointment_hour.setHours(HoursSQL[0]);
+        appointment_hour.setMinutes(HoursSQL[1]);
+        appointment_hour.setSeconds(HoursSQL[2]);
 
-      const ExistDeletedType3 = deleted_notis.filter(el => el.Type == -3);
-      const ExistDeletedType4 = deleted_notis.filter(el => el.Type == -4);
-      
-      const ExistType3 = validating_notis.filter(el => el.Type == 3);
-      const ExistType4 = validating_notis.filter(el => el.Type == 4);
+        const ExistDeletedType3 = deleted_notis.filter(el => el.Type == -3);
+        const ExistDeletedType4 = deleted_notis.filter(el => el.Type == -4);
+        
+        const ExistType3 = validating_notis.filter(el => el.Type == 3);
+        const ExistType4 = validating_notis.filter(el => el.Type == 4);
 
 
-      //? TYPE 3;
-      //>> FIRST CASE
-      if (ExistDeletedType3.length != 0) {
-        let createNoti3 = false;
-        ExistDeletedType3.map(async (d_3) => {
-          if (d_3.Element_id != appmt_el.id) {
-            if (!createNoti3) {
+        //? TYPE 3;
+        //>> FIRST CASE
+        if (ExistDeletedType3.length != 0) {
+          let createNoti3 = false;
+          ExistDeletedType3.map(async (d_3) => {
+            if (d_3.Element_id != appmt_el.id) {
+              if (!createNoti3) {
 
-              if(differenceInMinutes(appointment_hour, new Date()) <= 90 && differenceInMinutes(appointment_hour, new Date()) >= 0){
-                await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 3, Element_id: appmt_el.id })
-                createNoti3 = true;
-              }
-            }
-
-          }
-        })
-      } 
-      //>> SECOND CASE
-      else if (ExistType3.length != 0) {
-        let createNoti3 = false;
-        ExistType3.map(async (e_3) => {
-          if ( e_3.Element_id != appmt_el.id) {
-            if (!createNoti3){
-
-              if(differenceInMinutes(appointment_hour, new Date()) <= 90 && differenceInMinutes(appointment_hour, new Date()) >= 0){
-                await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 3, Element_id: appmt_el.id })
-                createNoti3 = true;
+                if(differenceInMinutes(appointment_hour, new Date()) <= 90 && differenceInMinutes(appointment_hour, new Date()) >= 0){
+                  await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 3, Element_id: appmt_el.id })
+                  createNoti3 = true;
+                }
               }
 
             }
-          }
-        })
-      }
-      //>> THIRD CASE
-      else {
-        if(differenceInMinutes(appointment_hour, new Date()) <= 90 && differenceInMinutes(appointment_hour, new Date()) >= 0){
-          await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 3, Element_id: appmt_el.id })
+          })
+        } 
+        //>> SECOND CASE
+        else if (ExistType3.length != 0) {
+          let createNoti3 = false;
+          ExistType3.map(async (e_3) => {
+            if ( e_3.Element_id != appmt_el.id) {
+              if (!createNoti3){
+
+                if(differenceInMinutes(appointment_hour, new Date()) <= 90 && differenceInMinutes(appointment_hour, new Date()) >= 0){
+                  await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 3, Element_id: appmt_el.id })
+                  createNoti3 = true;
+                }
+
+              }
+            }
+          })
         }
-      }
-
-
-
-      //? TYPE 4;
-      //>> FIRST CASE
-      if (ExistDeletedType4.length != 0) {
-        let createNoti4 = false;
-        ExistDeletedType4.map(async (d_4) => {
-          if (d_4.Element_id != appmt_el.id) {
-            if (!createNoti4) {
-
-              if(differenceInMinutes(appointment_hour, new Date()) <= 0){
-                await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 4, Element_id: appmt_el.id })
-                createNoti4 = true;
-              }
-            }
-
+        //>> THIRD CASE
+        else {
+          if(differenceInMinutes(appointment_hour, new Date()) <= 90 && differenceInMinutes(appointment_hour, new Date()) >= 0){
+            await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 3, Element_id: appmt_el.id })
           }
-        })
-      } 
-      //>> SECOND CASE
-      else if (ExistType4.length != 0) {
-        let createNoti4 = false;
-        ExistType4.map(async (e_4) => {
-          if ( e_4.Element_id != appmt_el.id) {
-            if (!createNoti4){
+        }
 
-              if(differenceInMinutes(appointment_hour, new Date()) <= 0){
-                await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 4, Element_id: appmt_el.id })
-                createNoti4 = true;
+
+
+        //? TYPE 4;
+        //>> FIRST CASE
+        if (ExistDeletedType4.length != 0) {
+          let createNoti4 = false;
+          ExistDeletedType4.map(async (d_4) => {
+            if (d_4.Element_id != appmt_el.id) {
+              if (!createNoti4) {
+
+                if(differenceInMinutes(appointment_hour, new Date()) <= 0){
+                  await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 4, Element_id: appmt_el.id })
+                  createNoti4 = true;
+                }
               }
 
             }
+          })
+        } 
+        //>> SECOND CASE
+        else if (ExistType4.length != 0) {
+          let createNoti4 = false;
+          ExistType4.map(async (e_4) => {
+            if ( e_4.Element_id != appmt_el.id) {
+              if (!createNoti4){
+
+                if(differenceInMinutes(appointment_hour, new Date()) <= 0){
+                  await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 4, Element_id: appmt_el.id })
+                  createNoti4 = true;
+                }
+
+              }
+            }
+          })
+        }
+        //>> THIRD CASE
+        else {
+          if(differenceInMinutes(appointment_hour, new Date()) <= 0){
+            await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 4, Element_id: appmt_el.id })
           }
-        })
-      }
-      //>> THIRD CASE
-      else {
-        if(differenceInMinutes(appointment_hour, new Date()) <= 0){
-          await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 4, Element_id: appmt_el.id })
         }
       }
     })

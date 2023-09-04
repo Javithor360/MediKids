@@ -4,6 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder'
+import { LinearGradient } from 'expo-linear-gradient';
+import CachedImage from 'expo-cached-image'
+
 import { useTranslation } from 'react-i18next';
 //>> Importing components
 import { AuthStylesGlobal } from '../../../assets/AuthStyles';
@@ -13,6 +17,8 @@ import { setStatement } from '../../store/slices/starterSlice';
 import { setLogginValues } from '../../store/slices/responsibleSlice';
 import { ResetAppmtState } from '../../store/slices/appointmentsSlice';
 
+//! CREATE SHIMMER
+const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 //! HOW AccData WILL LOOKS.
 // const accountData = [
@@ -37,10 +43,17 @@ export const SelectPatientScreen = () => {
 
   const [DisableBtn, setDisableBtn] = useState(false);
 
+  const [ShimmerTime, setShimmerTime] = useState(false);
+
   const getTruncName = (Name) => {
     let arrName = Name.split(' ');
     return `${arrName[0]} ${arrName[2] != null ? arrName[2] : ''}`
   }
+  
+  useEffect(() => {
+    setTimeout(() => { setShimmerTime(true) }, 1000);
+  }, []);
+
 
   const renderItem = ({ item }) => {
     if (item.id === 'addPatient') {
@@ -56,7 +69,9 @@ export const SelectPatientScreen = () => {
       return (
         <TouchableOpacity disabled={DisableBtn} onPress={() => {ValidatePatient(item.Patient_id)}} style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}}>
           <View style={styles.itemContainer}>
-            <Image source={{uri: item.image}} style={styles.image} />
+            <ShimmerPlaceHolder visible={ShimmerTime} style={{width: '100%', height: '100%'}}>
+              <CachedImage source={{uri: item.image}} style={styles.image} />
+            </ShimmerPlaceHolder>
           </View>
           <Text style={styles.name}>{getTruncName(item.name)}</Text>
       </TouchableOpacity>
