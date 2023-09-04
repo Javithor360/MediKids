@@ -41,12 +41,9 @@ export const EditMedicalRecord = ({ setMedicalRecord }) => {
             id="height"
             name="height"
             options={{
-              numericOnly: true,
-              numeral: true,
-              delimiter: ".",
-              numeralIntegerScale: 1,
-              numeralDecimalScale: 2,
-              numeralPositiveOnly: true,
+              delimiter: '.',
+              blocks: [1, 2],
+              numericOnly: true
             }}
             placeholder="Ingrese la altura"
             onChange={(e) => {

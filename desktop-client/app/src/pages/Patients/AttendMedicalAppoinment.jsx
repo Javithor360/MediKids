@@ -7,6 +7,7 @@ import { MdSaveAs } from "react-icons/md";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 
 import Modal from "../../components/Modal.jsx";
+import PencilCharginAnimation from "../../components/PencilCharginAnimation.jsx";
 
 import { CgDanger } from "react-icons/cg";
 import { HiBackspace } from "react-icons/hi";
@@ -18,7 +19,9 @@ import {
   AiFillCaretRight,
   AiFillForward,
 } from "react-icons/ai";
-
+import {
+  VscLoading
+} from 'react-icons/vsc'
 import {
   EditMedicalPrescription,
   EditMedicalRecord,
@@ -163,7 +166,7 @@ export const MedicalAppoinment = () => {
       toggle();
     }
   };
-
+  const [chargin2, setChargin2] = useState(false);
   const handleClick = async (e) => {
     e.preventDefault();
     try {
@@ -184,10 +187,11 @@ export const MedicalAppoinment = () => {
       setChargin(true);
       setTimeout(() => {
         toggle();
+        setChargin2(true);
         setTimeout(() => {
           navigate(-1);
-        }, 3000);
-      }, 3000);
+        }, 5000);
+      }, 5000);
     } catch (error) {
       console.log(error);
     }
@@ -195,7 +199,14 @@ export const MedicalAppoinment = () => {
 
   return (
     <>
-      <div className="flex flex-row justify-between">
+      {
+        chargin2 === true ?
+        <div className="absolute top-0 left-0 h-full w-full flex flex-col justify-center items-center">
+            <PencilCharginAnimation/>
+        </div>
+        :
+        <>
+          <div className="flex flex-row justify-between">
         <p className="text-[1.8rem] text-[#707070] mt-[.6rem] ml-7">
           Atendiendo Paciente:{" "}
         </p>
@@ -303,7 +314,15 @@ export const MedicalAppoinment = () => {
                 disabled={currentPage !== pages.length - 1}
               >
                 <MdSaveAs className="w-5 h-10" />
-                Guardar
+                {chargin === true ? (
+                  <>
+                    <VscLoading className="animate-spin" />
+                  </>
+                ) : (
+                  <>
+                    <span>Guardar</span>
+                  </>
+                )}
               </button>
               <button
                 className="flex items-center justify-center border-2 border-[#707070] bg-[#ff1515] text-[#FFFFFF] gap-2 w-[7rem] h-[3rem] rounded-lg ml-2  mb-9"
@@ -374,7 +393,10 @@ export const MedicalAppoinment = () => {
             </div>
           </div>
         </Modal>
-      )}
+      )} 
+        </>
+      }
+      
     </>
   );
 };

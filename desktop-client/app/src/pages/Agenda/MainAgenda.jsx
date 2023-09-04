@@ -12,16 +12,19 @@ import { BsDot } from 'react-icons/bs'
 import { DoctorEvents } from '../../utils/DoctorEvents';
 import '../../assets/scss/AgendaStyles.scss'
 import { useDash } from '../../context/DoctorContext';
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 export const MainAgenda = () => {
   const { PatientsClassificator, appointments, activePatients } = useDash();
   const [events, setEvents] = useState(appointments);
   const [currentMonth, setCurrentMonth] = useState(new Date());
-
+  const [loadingScreen, setLoadingScreen] = useState(true);
+  setTimeout(() => {
+    setLoadingScreen(false);
+  }, 3000);
   useEffect(() => {
     PatientsClassificator(JSON.parse(localStorage.getItem("userSession")).id);
   }, [])
-  
   const renderEventContent = (eventInfo) => (
     <Tooltip
       position="top-start"
@@ -61,36 +64,50 @@ export const MainAgenda = () => {
   );
 
   return (
-    <div className='demo-app'>
-      <div className='demo-app-main'>
-        <FullCalendar
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          headerToolbar={{
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-          }}
-          initialView='dayGridMonth'
-          initialDate={currentMonth} 
-           datesSet={(info) => {
-            setCurrentMonth(info.view.currentStart); // Actualiza el estado cuando cambie el mes
-          }}
-          editable={false}
-          selectable={false}
-          selectMirror={false}
-          dayMaxEvents={true}
-          initialEvents={DoctorEvents(appointments, activePatients)}
-          eventContent={renderEventContent}
-          locale={esLocale}
-          eventTimeFormat={{
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true
-          }}
-          eventLimit={2}
-          height={'75vh'}
-        />
-      </div>
-    </div>
+    <>
+      {
+        loadingScreen === true ? 
+        <div className="flex items-center justify-center w-full h-full">
+          <PropagateLoader
+            color="#a375ff"
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+        :
+        <div className='main-container'>
+          <div className='content-container'>
+            <FullCalendar
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+              }}
+              initialView='dayGridMonth'
+              initialDate={currentMonth} 
+              datesSet={(info) => {
+                setCurrentMonth(info.view.currentStart); // Actualiza el estado cuando cambie el mes
+              }}
+              editable={false}
+              selectable={false}
+              selectMirror={false}
+              dayMaxEvents={true}
+              initialEvents={DoctorEvents(appointments, activePatients)}
+              eventContent={renderEventContent}
+              locale={esLocale}
+              eventTimeFormat={{
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+              }}
+              eventLimit={2}
+              height={'75vh'}
+            />
+          </div>
+        </div>
+      }
+    </>
+    
   );
 }

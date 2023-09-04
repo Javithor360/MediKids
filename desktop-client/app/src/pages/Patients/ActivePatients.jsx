@@ -2,15 +2,30 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDash } from "../../context/DoctorContext";
 import { getPatientAge } from "../../utils/Functions";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 export const ActivePatients = (props) => {
   const { PatientsClassificator, oldPatients, activePatients } = useDash();
   useEffect(() => {
     PatientsClassificator(JSON.parse(localStorage.getItem("userSession")).id);
   }, []);
-
+  const [loadingScreen, setLoadingScreen] = useState(true);
+  setTimeout(() => {
+    setLoadingScreen(false);
+  }, 3000);
   return (
     <>
+    {
+      loadingScreen === true ? 
+      <div className="flex items-center justify-center w-full h-full">
+        <PropagateLoader
+          color="#a375ff"
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+      :
+      <>
       <div className="w-fit border-b-[0.1875rem] border-b-[#a375ff] mb-12">
         <h1 className="text-[#a375ff] font-bold text-3xl">
           Pacientes activos
@@ -214,6 +229,8 @@ export const ActivePatients = (props) => {
           </tr>
         </table>
       </div> */}
+      </>
+    }
     </>
   );
 };
