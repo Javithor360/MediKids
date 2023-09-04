@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+import { AiFillCheckCircle, AiFillCloseCircle, AiOutlineWarning } from "react-icons/ai";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { RiCalendar2Fill, RiTimeFill } from "react-icons/ri";
 
@@ -9,12 +9,14 @@ import Modal from "../../components/Modal";
 import TimeSlider from "../Patients/PatientsComponents/TimeSlider";
 import { useDash } from "../../context/DoctorContext";
 import { CalendarPicker } from "../Patients/PatientsComponents/CalendarPicker";
+import { getPatientAge } from "../../utils/Functions";
 
 export const AppointmentRequestsDetails = () => {
   let navigate = useNavigate();
   const location = useLocation();
+  const restrictedDays = true;
   const { appointment, patient, responsible } = location.state || {};
-
+  const [noShowBtn, setNoShowBtn] = useState(null);
   const { AcceptAppointmentRequest, DeclineAppointmentRequest } = useDash();
 
   const [date, setDate] = useState(null);
@@ -23,6 +25,14 @@ export const AppointmentRequestsDetails = () => {
   const [active, setActive] = useState(false);
   const [activeError, setActiveError] = useState(false);
   const [isDenied, setIsDenied] = useState();
+
+  const initialDate = JSON.parse(appointment.Week).startDay;
+  const endDate = JSON.parse(appointment.Week).finalDay;
+  const formattedInitialDate = initialDate.split("/").reverse().join("-")
+  const formattedEndDate = endDate.split("/").reverse().join("-")
+  
+  const initialDateObj = new Date(`${formattedInitialDate}T00:00:00`);
+  const endDateObj = new Date(`${formattedEndDate}T00:00:00`);
 
   const toggle = () => {
     setActive(!active);
@@ -47,12 +57,13 @@ export const AppointmentRequestsDetails = () => {
 
   const handleConfirmation = async () => {
     try {
-      const res = await AcceptAppointmentRequest({
+      await AcceptAppointmentRequest({
         id: appointment.id,
-        Date: new Date(date).toISOString().split("T")[0],
+        ChosenDate: new Date(date).toISOString().split("T")[0],
         Hour: hour,
+        Patient_id: patient.id,
+        Doctor_id: JSON.parse(localStorage.getItem('userSession')).id
       });
-      console.log(res);
       setTimeout(() => {
         toggle();
         setTimeout(() => {
@@ -68,6 +79,8 @@ export const AppointmentRequestsDetails = () => {
     try {
       await DeclineAppointmentRequest({
         id: appointment.id,
+        Patient_id: patient.id,
+        Doctor_id: JSON.parse(localStorage.getItem('userSession')).id
       });
       setTimeout(() => {
         toggle();
@@ -79,6 +92,10 @@ export const AppointmentRequestsDetails = () => {
       console.log(error);
     }
   };
+  
+  const handleChangeData=(noShowBtn)=>{
+    setNoShowBtn(noShowBtn);
+  }
   return (
     <>
       <div className="w-fit border-b-[0.1875rem] border-b-[#a375ff] mb-12 self-center mx-auto block">
@@ -114,7 +131,7 @@ export const AppointmentRequestsDetails = () => {
             <div className="w-[1px] h-[2rem] bg-[#bbbbbb] self-center"></div>
             <div className="flex flex-col w-[25%] justify-center items-center">
               <p className="text-[#000000] font-semibold">Edad: </p>
-              <p className="text-[#707070]">{patient.Age} años</p>
+              <p className="text-[#707070]">{getPatientAge(patient.Age, patient.Birthdate)}</p>
             </div>
             <div className="w-[1px] h-[2rem] bg-[#bbbbbb] self-center"></div>
             <div className="w-[25%] flex flex-col justify-center items-center">
@@ -186,14 +203,14 @@ export const AppointmentRequestsDetails = () => {
           <b>Rango de días:</b>{" "}
           <span>{determineWeekRange(JSON.parse(appointment.Week))}</span>
         </div>
-        <CalendarPicker setDate={setDate} />
+        <CalendarPicker setDate={setDate} restrictedDays={restrictedDays} formattedInitialDate={initialDateObj} formattedEndDate={endDateObj} {...(restrictedDays ? { handleChangeData: handleChangeData } : null)}/>
         <div className="text-[#707070] mt-9 flex flex-row items-start gap-3">
           <RiTimeFill className="mt-[.3rem] text-[1.2rem]" />
           <p className="text-[#707070] text-[1.1rem] font-semibold">
             Por favor elija una horario según su disponibilidad
           </p>
         </div>
-        <TimeSlider setHour={setHour} />
+        <TimeSlider setHour={setHour} noShowBtn={noShowBtn}/>
       </div>
       <div className="block mt-12 mb-2 w-fit">
         <h2 className="text-[#707070] font-bold text-center">
@@ -213,13 +230,18 @@ export const AppointmentRequestsDetails = () => {
           <IoMdArrowRoundBack className="w-4 h-4" />
           Regresar
         </button>
-        <button
-          className="btn btn-active border border-[#c6c6c6] bg-[#53de66] hover:bg-[#4ac65b] text-white gap-3"
-          onClick={handleClick}
-        >
-          <AiFillCheckCircle className="w-4 h-4" />
-          Aceptar
-        </button>
+        {
+          noShowBtn ?
+          null
+          :
+          <button
+            className="btn btn-active border border-[#c6c6c6] bg-[#53de66] hover:bg-[#4ac65b] text-white gap-3"
+            onClick={handleClick}
+          >
+            <AiFillCheckCircle className="w-4 h-4" />
+            Aceptar
+          </button>
+        }
         <button
           className="btn btn-active border border-[#c6c6c6] bg-red-400 hover:bg-[#da6e6e]  text-white gap-3"
           onClick={() => {
@@ -335,11 +357,21 @@ export const AppointmentRequestsDetails = () => {
           toggle={toggleError}
           onRequestClose={toggleError}
         >
-          <h1>ERROR</h1>
-          <p>
-            Asegúrate que los campos de selección de fecha y horario estén
-            completos antes de proceder.
-          </p>
+        <div className="h-[100%] w-[38rem] p-[3rem]">
+          <div className="border-b border-b-[#c6c6c6] mb-[1rem]">
+            <p className="text-[1.6rem] text-red-400 font-semibold flex flex-row gap-2 items-center">
+              <AiOutlineWarning className='text-red-400' /> Advertencia
+            </p>
+          </div>
+          <div className="w-[100%] h-[100%] mx-auto rounded-sm flex bg-[#ffe9d9]">
+            <div className="w-[2%] bg-red-400"> </div>
+            <div className="w-[98%] h-full p-[1rem]">
+              <p className="text-[#707070]">
+                Asegúrate que los campos de selección de fecha y horario estén completos antes de proceder.
+              </p>
+            </div>
+          </div>
+        </div>
         </Modal>
       )}
     </>

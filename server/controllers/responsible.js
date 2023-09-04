@@ -3,19 +3,31 @@
 import { initializeApp } from 'firebase/app'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { v4 } from 'uuid';
+import { differenceInHours, differenceInMinutes, differenceInMonths } from 'date-fns';
 import fs from 'fs';
 
 //>> IMPORT CONFIGS & FUNCTIONS 
 import {pool} from '../utils/db.js';
 // import { create_code, create_jwt, create_reset_code, patientCode, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
 import firebaseConfig from '../utils/firebase.config.js';
-import { differenceInMonths } from 'date-fns';
 
 //? Startup Firebase configuration.
 initializeApp(firebaseConfig.firebaseConfig);
 
 //? Setup Firebase Storage.
 const storage = getStorage();
+
+//* Get the specialties of the doctor
+const getSpecialty = (d_i) => {
+  switch (d_i) {
+    case 1:
+      return 'Otorrinolaringología';
+    case 2:
+      return 'Neumología';
+    case 3:
+      return 'Gastroenterología'
+  }
+}
 
 //! @route POST api/responsible/get_email_to_verify
 //! @desc Get the email of the responsible who has not still verified it
@@ -344,6 +356,178 @@ const get_calendar_events = async (req, res, next) => {
   }
 }
 
+//! @route POST api/responsible/get_notifications
+//! @desc Get the notifications for a single patient.
+//! @access Private
+/*
+    * TYPE OF NOTIFICATIONS
+    \ 1 - Appointment accepted
+    \ 2 - Appointment rejected
+    \ 3 - Appointment reminder (1:30h before)
+    \ 4 - Appointment starting
+    \ 5 - Appointment finished
+    \ 6 - Medicines
+    ? NEGATIVE VALUES MEANS DELETED
+*/
+const get_notifications = async (req, res, next) => {
+  try {
+    const {Patient_id} = req.body;
+    //! BOTH KIND OF NOTIS
+    let ActualNotis = [];
+    let PassedNotis = [];
+
+    //! GET ALL NOTIFICATIONS
+    const [validating_notis] = await pool.query('SELECT * FROM notifications WHERE Patient_id = ?', [Patient_id]);
+
+    //>> GET DELETED NOTIS
+    const deleted_notis = validating_notis.filter(el => el.Type < 0);
+
+    //\\ CREATE 3 AND 4 NOTIFICATION TYPE.
+    const [appmts] = await pool.query('SELECT * FROM medical_appointment WHERE patient_id = ?', [Patient_id])
+    appmts.map(async (appmt_el, i) => {
+      let HoursSQL = appmt_el.Hour.split(':');
+      let appointment_hour = new Date(appmt_el.Date);
+
+      appointment_hour.setHours(HoursSQL[0]);
+      appointment_hour.setMinutes(HoursSQL[1]);
+      appointment_hour.setSeconds(HoursSQL[2]);
+
+      const ExistDeletedType3 = deleted_notis.filter(el => el.Type == -3);
+      const ExistDeletedType4 = deleted_notis.filter(el => el.Type == -4);
+      
+      const ExistType3 = validating_notis.filter(el => el.Type == 3);
+      const ExistType4 = validating_notis.filter(el => el.Type == 4);
+
+
+      //? TYPE 3;
+      //>> FIRST CASE
+      if (ExistDeletedType3.length != 0) {
+        let createNoti3 = false;
+        ExistDeletedType3.map(async (d_3) => {
+          if (d_3.Element_id != appmt_el.id) {
+            if (!createNoti3) {
+
+              if(differenceInMinutes(appointment_hour, new Date()) <= 90 && differenceInMinutes(appointment_hour, new Date()) >= 0){
+                await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 3, Element_id: appmt_el.id })
+                createNoti3 = true;
+              }
+            }
+
+          }
+        })
+      } 
+      //>> SECOND CASE
+      else if (ExistType3.length != 0) {
+        let createNoti3 = false;
+        ExistType3.map(async (e_3) => {
+          if ( e_3.Element_id != appmt_el.id) {
+            if (!createNoti3){
+
+              if(differenceInMinutes(appointment_hour, new Date()) <= 90 && differenceInMinutes(appointment_hour, new Date()) >= 0){
+                await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 3, Element_id: appmt_el.id })
+                createNoti3 = true;
+              }
+
+            }
+          }
+        })
+      }
+      //>> THIRD CASE
+      else {
+        if(differenceInMinutes(appointment_hour, new Date()) <= 90 && differenceInMinutes(appointment_hour, new Date()) >= 0){
+          await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 3, Element_id: appmt_el.id })
+        }
+      }
+
+
+
+      //? TYPE 4;
+      //>> FIRST CASE
+      if (ExistDeletedType4.length != 0) {
+        let createNoti4 = false;
+        ExistDeletedType4.map(async (d_4) => {
+          if (d_4.Element_id != appmt_el.id) {
+            if (!createNoti4) {
+
+              if(differenceInMinutes(appointment_hour, new Date()) <= 0){
+                await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 4, Element_id: appmt_el.id })
+                createNoti4 = true;
+              }
+            }
+
+          }
+        })
+      } 
+      //>> SECOND CASE
+      else if (ExistType4.length != 0) {
+        let createNoti4 = false;
+        ExistType4.map(async (e_4) => {
+          if ( e_4.Element_id != appmt_el.id) {
+            if (!createNoti4){
+
+              if(differenceInMinutes(appointment_hour, new Date()) <= 0){
+                await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 4, Element_id: appmt_el.id })
+                createNoti4 = true;
+              }
+
+            }
+          }
+        })
+      }
+      //>> THIRD CASE
+      else {
+        if(differenceInMinutes(appointment_hour, new Date()) <= 0){
+          await pool.query('INSERT INTO notifications SET ?', { Patient_id, Doctor_id: appmt_el.Doctor_id, Title: getSpecialty(appmt_el.Doctor_id), DateTime: new Date(), Type: 4, Element_id: appmt_el.id })
+        }
+      }
+    })
+
+
+
+
+    //\\ CREATE 6 NOTIFICATION TYPE
+    // const [medicines] = await pool.query('SELECT * FROM medical_prescription WHERE Patient_id = ?', [Patient_id]);
+    // if (medicines.length > 0) {
+    //   medicines.map((el, i) => {
+        
+    //   })
+    // }
+
+
+    //! GET ALL NOTIFICATIONS
+    const [notis] = await pool.query('SELECT * FROM notifications WHERE Patient_id = ? AND Type > 0', [Patient_id]);
+
+    //! SEPARATE NOTIS
+    notis.map((el, i) => {
+      if (differenceInHours(new Date(), new Date(el.DateTime)) >= 24) {
+        PassedNotis.push(el)
+      } else {
+        ActualNotis.push(el);
+      }
+    })
+    
+    return res.status(200).json({success: true, ActualNotis, PassedNotis});
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
+//! @route POST api/responsible/delete_notification
+//! @desc Delete a single notification for a single patient.
+//! @access Private
+const delete_notification = async (req, res, next) => {
+  try {
+    const { Notification_id, Type } = req.body;
+    const getNegativeType = -Type;
+
+    await pool.query('UPDATE notifications SET Type = ? WHERE id = ?', [getNegativeType, Notification_id])
+
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    return res.status(500).json({error});
+  }
+}
+
 export {
   get_email_to_verify,
   get_responsible,
@@ -356,4 +540,6 @@ export {
   get_medical_prescriptions,
   upload_pf_patient,
   get_calendar_events,
+  get_notifications,
+  delete_notification
 }

@@ -166,3 +166,21 @@ CREATE TABLE IF NOT EXISTS medikids_db . documents_dui (
 	PRIMARY KEY (id),
 	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
 )
+
+CREATE TABLE IF NOT EXISTS medikids_db . notifications (
+	id INT NOT NULL AUTO_INCREMENT,
+	Patient_id INT NOT NULL,
+	Doctor_id INT NOT NULL,
+	Title VARCHAR(100) NOT NULL,
+	Element_id INT NOT NULL,
+	DateTime DATETIME NOT NULL,
+	Type INT NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+	FOREIGN KEY(Doctor_id) REFERENCES medikids_db . Doctors(id)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION,
+	FOREIGN KEY(Patient_id) REFERENCES medikids_db . Patient(id)
+	ON DELETE NO ACTION
+	ON UPDATE NO ACTION
+)

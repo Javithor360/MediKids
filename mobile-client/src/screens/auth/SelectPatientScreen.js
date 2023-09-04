@@ -11,6 +11,7 @@ import { ShowToast, getAllImmunizationRecords, getPatients } from '../../index'
 import { setInitialValues } from '../../store/slices/patientSlice';
 import { setStatement } from '../../store/slices/starterSlice';
 import { setLogginValues } from '../../store/slices/responsibleSlice';
+import { ResetAppmtState } from '../../store/slices/appointmentsSlice';
 
 
 //! HOW AccData WILL LOOKS.
@@ -208,6 +209,7 @@ export const SelectPatientScreen = () => {
     getPatientsFunct();
     getImmunizationRecordFunc();
     setDisableBtn(false);
+    dispatch(ResetAppmtState());
   }, [ReloadSelect]);
 
   // aux

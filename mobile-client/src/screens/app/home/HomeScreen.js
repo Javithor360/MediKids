@@ -11,7 +11,7 @@ import {differenceInDays, differenceInHours, differenceInMonths} from 'date-fns'
 
 //>> Import Components
 import LanguageSelector from '../../../components/LanguageSelector';
-import { Moths, ThreePoints, getMedicalAppointments, getMedicalPrescriptions } from '../../../index'
+import { Moths, ThreePoints, getMedicalAppointments, getMedicalPrescriptions, getNotifications } from '../../../index'
 
 //! Deafult foto
 const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
@@ -32,6 +32,17 @@ export const HomeScreen = () => {
   const [AppointmentWidget, setAppointmentWidget] = useState([]);
   const [MedicinesWidget, setMedicinesWidget] = useState([]);
   const [NumberOfApptm, setNumberOfApptm] = useState(0);
+
+  //! Notifications State
+  const [DataNotis, setDataNotis] = useState(null);
+
+  const getNotis = async () => {
+    try {
+      setDataNotis((await getNotifications(jwtToken, Patient.id)).data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   //>> Aviod Come Back
   useEffect(() => {
@@ -116,6 +127,7 @@ export const HomeScreen = () => {
   useEffect(() => {
     getAppointmentInfo();
     getMedicinesInfo();
+    getNotis();
   }, [isFocused]);
 
   return (
@@ -127,7 +139,7 @@ export const HomeScreen = () => {
             <View style={styles.TopLogoBtnContainer}>
               <View style={styles.TopLogoBtnContent}>
                 <View style={[styles.itemContainer, {width: '20%', height: '100%'}]}>
-                  <TouchableOpacity onPress={()=>navigation.navigate('NotificationScreen') } >
+                  <TouchableOpacity onPress={()=>navigation.navigate('NotificationScreen', { DataNotis }) } >
                     <MaterialCommunityIcons name="bell" size={34} color="#707070" />
                   </TouchableOpacity>
                 </View>

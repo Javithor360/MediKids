@@ -6,7 +6,7 @@ import "../../../components/assets/scss/TimeSlider.css";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
 
-const TimeSlider = ({ setHour, hasSelectedYes }) => {
+const TimeSlider = ({ setHour, hasSelectedYes, noShowBtn }) => {
   const sliderSettings = {
     dots: true,
     infinite: false,
@@ -18,12 +18,12 @@ const TimeSlider = ({ setHour, hasSelectedYes }) => {
   };
 
   const timeValues = [
-    "10:00 p.m.",
+    "07:00 a.m.",
     "09:00 a.m.",
-    "12:00 p.m.",
-    "01:00 p.m.",
-    "08:00 a.m.",
-    "09:00 p.m.",
+    "11:00 a.m.",
+    "02:00 p.m.",
+    "04:00 p.m.",
+    "06:00 p.m.",
   ];
 
   const [selectedTime, setSelectedTime] = useState(null);
@@ -47,7 +47,7 @@ const TimeSlider = ({ setHour, hasSelectedYes }) => {
               selectedTime === time
                 ? "bg-[#A375FF] border-[2px] border-[#A375FF]"
                 : "bg-white border-[2px] border-[#c6c6c6]"
-            } ${hasSelectedYes ? "disabled" : ""}`}
+            } ${hasSelectedYes || noShowBtn ? "disabled" : ""}`}
             disabled={hasSelectedYes}
           >
             <p

@@ -40,10 +40,10 @@ export const MainAgenda = () => {
           <div className='border-b border-b-[#dddddd] border-l border-r border-l-[#dddddd] border-r-[#dddddd] flex flex-col w-full rounded-b-[10px] px-3 pb-2 items-start justify-start'>
             <b>Detalles:</b> 
             <p>{eventInfo.event.extendedProps.description}</p>
-            <div className='absolute bg-[#ffffff] border-b border-r border-b-[#dddddd] border-r-[#dddddd] w-[.8rem] h-[.8rem] -bottom-[4px] left-[10%] rotate-45'></div>
+            {/* <div className='absolute bg-[#ffffff] border-b border-r border-b-[#dddddd] border-r-[#dddddd] w-[.8rem] h-[.8rem] -bottom-[4px] left-[10%] rotate-45'></div> */}
             <b>Paciente:</b> 
             <p>{eventInfo.event.extendedProps.patient}</p>
-            <div className='absolute bg-[#ffffff] border-b border-r border-b-[#dddddd] border-r-[#dddddd] w-[.8rem] h-[.8rem] -bottom-[4px] left-[10%] rotate-45'></div>
+            {/* <div className='absolute bg-[#ffffff] border-b border-r border-b-[#dddddd] border-r-[#dddddd] w-[.8rem] h-[.8rem] -bottom-[4px] left-[10%] rotate-45'></div> */}
           </div>
         </div>
         <div className='h-2 bg-transparent'>

@@ -7,6 +7,17 @@ import { patientCode } from "../utils/functions.js";
 // ! @desc Get all doctor personal information
 // ! @access private
 
+const getSpecialty = (d_i) => {
+  switch (d_i) {
+    case 1:
+      return 'Otorrinolaringología';
+    case 2:
+      return 'Neumología';
+    case 3:
+      return 'Gastroenterología'
+  }
+}
+
 const get_info = async (req, res, next) => {
   try {
     const { Doctor_id } = req.body;
@@ -737,9 +748,9 @@ const get_responsibles = async (req, res, next) => {
 
 const accept_appointment_request = async (req, res, next) => {
   try {
-    const { id, Date, Hour } = req.body;
+    const { id, ChosenDate, Hour, Patient_id, Doctor_id } = req.body;
 
-    if (!id || !Date || !Hour) {
+    if (!id || !ChosenDate || !Hour) {
       return res
         .status(500)
         .json({ message: "You must provide every field with a value" });
@@ -759,8 +770,17 @@ const accept_appointment_request = async (req, res, next) => {
 
     await pool.query(
       "UPDATE medical_appointment SET Date = ?, Hour = ?, State = ? WHERE id = ?",
-      [Date, Hour, 2, id]
+      [ChosenDate, Hour, 2, id]
     );
+
+    await pool.query("INSERT INTO notifications SET ?", {
+      Patient_id,
+      Doctor_id,
+      Title: getSpecialty(Doctor_id),
+      DateTime: new Date(),
+      Type: 1,
+      Element_id: id,
+    });
 
     return res
       .status(200)
@@ -777,7 +797,7 @@ const accept_appointment_request = async (req, res, next) => {
 
 const decline_appointment_request = async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id, Patient_id, Doctor_id } = req.body;
 
     if (!id) {
       return res
@@ -798,6 +818,15 @@ const decline_appointment_request = async (req, res, next) => {
     }
 
     await pool.query("DELETE FROM medical_appointment WHERE id = ?", [id]);
+
+    //! ADD NOTIFICATION.
+    await pool.query("INSERT INTO notifications SET ?", {
+      Patient_id,
+      Title: getSpecialty(Doctor_id),
+      DateTime: new Date(),
+      Type: 2,
+      Element_id: id,
+    });
 
     return res.status(200).json({
       success: true,
@@ -880,5 +909,5 @@ export {
   accept_appointment_request,
   decline_appointment_request,
   get_appointments_history,
-  get_doctors
+  get_doctors,
 };
