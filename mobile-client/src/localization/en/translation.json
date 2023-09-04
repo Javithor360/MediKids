@@ -1,7 +1,38 @@
 {
-    "homePage": {
-        "welcomeMsg": "Hello!"
+    "ThreePoints":{
+        "options":"Options"
+
     },
+
+    
+    "homePage": {
+        "welcomeMsg": "Hello!",
+        "inCharge":"In Charge",
+        "givenNames":"Given Names",
+        "Age":"Age",
+        "Cod":"Cod",
+        "VPD":"View Patient Data",
+        "Reminder":"Reminder",
+        "Quotes":"Appointments",
+        "UP":"upcoming appointments",
+        "Date":"Date",
+        "State":"State",
+        "MoreDetails":"More details",
+        "NAA":"There are no active appointments",
+        "medicines":"Medicines",
+        "NameM":"Name",
+        "ending":"Ending",
+        "dose":"Dose",
+        "noActM":"There are no active Medicines",
+        "categories":"Categories",
+        "gastro":"Gastroenterology",
+        "textCate":"Trained specialists and the best team to care for your child.",
+        "Oto":"Otorhinolaryngology",
+        "Neu":"Pneumology"
+
+
+    },
+   
     "selectLng": {
         "title": "Select language",
         "lng_name_en": "English",

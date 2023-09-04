@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {manipulateAsync} from 'expo-image-manipulator'
 import { useTranslation } from 'react-i18next';
+
 //>> Importing components
 import  { AuthStylesGlobal, AuthStylesRegisterU, SelectProfilePhoto }  from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
@@ -21,6 +22,7 @@ export const SelectProfilePhotoScreen = () => {
     const responsible = useSelector(state => state.responsible);
     const dispatch = useDispatch();
     const route = useRoute();
+    const lng = useSelector(state => state.starter.Language);
     
     const [ImageEl, setImageEl] = useState(null);
 
@@ -77,7 +79,7 @@ export const SelectProfilePhotoScreen = () => {
             const {data} = await uploadPFResponsible(formData);
             if(data.success){
                 dispatch(changePerfilPhoto(data.url));
-                ShowToast('my_success', 'Éxito', 'Foto subida correctamente');
+                ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Foto subida correctamente' : 'Photo uploaded Correctly.');
                 setTimeout(() => {
                     setIsLoading(false);
                     setSuccess(true);
@@ -181,7 +183,7 @@ export const SelectProfilePhotoScreen = () => {
                                     uploadImage(ImageEl);
                                 } else {
                                     //! ERRROR HANDLING
-                                    ShowToast('my_error', 'Error', 'No se ha seleccionado una foto');
+                                    ShowToast('my_error', 'Error', lng ? 'No se ha seleccionado una foto.' : 'No photo has been selected.');
                                 }
                             }}
                             haveShadow={true}

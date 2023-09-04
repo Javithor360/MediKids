@@ -1,27 +1,41 @@
-import React from 'react'
+
+//>> IMPORT LIBRARIES
+import React, { useEffect, useState } from 'react'
 import { View,Text,Image} from 'react-native-animatable'
 import { StyleSheet, TouchableOpacity } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { ScreenTitle } from '../../../components/ScreenTitleHook';
+import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient'
 import Constants from 'expo-constants';
+import { useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
+
+//>> IMPORT COMPONENTS
+import { ScreenTitle } from '../../../components/ScreenTitleHook';
+import { getNotifications } from '../../../index'
 
 export const NotificationScreen = () => {
-  return (
-    <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
-        <ScrollView ScrollView style={styles.fullScreenContainer}>
-            <ScreenTitle
-                Label={"Notificaciones"}
-                IconName={"bell-badge-outline"}
-                fontSize={20}
-                textColor={'#FFFFFF'}
-                paddingH={30}
-            /> 
-            <View style={{marginLeft: 20, flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 20,}}>
-                <Text style={{fontSize: 24, color: '#707070', fontWeight: 600,}}>Recientes</Text>
-            </View>
+    const isFocused = useIsFocused()
+    const jwtToken = useSelector(state => state.responsible.jwtToken);
+    const Patient_id = useSelector(state => state.patient.id);
+
+    //! Notifications State
+    const [Notifications, setNotifications] = useState(null);
+
+    const getNotis = async () => {
+        try {
+            setNotifications((await getNotifications(jwtToken, Patient_id)).data.Notifications);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        getNotis()
+    }, [isFocused]);
+
+    const NotiCard = () => {
+        return (
             <View style={styles.Noti} >
                 <View style={{width: '90%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
                     <View style={styles.ContainImage} >
@@ -55,20 +69,56 @@ export const NotificationScreen = () => {
                     </View>
                 </View>
             </View>
-            <View style={{marginLeft: 20, flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 20,}}>
-                <Text style={{fontSize: 24, color: '#707070', fontWeight: 600,}}>Pasadas</Text>
-            </View>
-        </ScrollView>
-    </LinearGradient>
+        )
+    }
 
-    
-  )
+    return (
+        <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
+            <ScrollView ScrollView style={styles.fullScreenContainer}>
+                <View style={{backgroundColor:'#fff'}}>
+                    <ScreenTitle
+                        Label={"Notificaciones"}
+                        IconName={"bell-badge-outline"}
+                        fontSize={20}
+                        textColor={'#FFFFFF'}
+                        paddingH={30}
+                    /> 
+                    {
+                        Notifications != null && Notifications.length != 0 ?
+                        <>
+                            <View style={{marginHorizontal: 20, flexDirection: 'row', alignItems: 'center', marginBottom: 20, alignContent: 'center', justifyContent: 'space-between'}}>
+                                <Text style={{fontSize: 24, color: '#707070', fontWeight: 600,}}>Recientes</Text>
+                                <View style={{width: '65%', height: 3, borderRadius: 10, backgroundColor: '#666666'}}/>
+                            </View>
+                            <NotiCard />
+                            <NotiCard />
+                            <View style={{marginHorizontal: 20, flexDirection: 'row', alignItems: 'center', marginBottom: 20, alignContent: 'center', justifyContent: 'space-between'}}>
+                                <Text style={{fontSize: 24, color: '#707070', fontWeight: 600,}}>Pasadas</Text>
+                                <View style={{width: '70%', height: 3, borderRadius: 10, backgroundColor: '#666666'}}/>
+                            </View>
+                            <NotiCard />
+                            <NotiCard />
+                            <NotiCard />
+                        </>
+                        :
+                        <View style={{width: '100%', height: 500}} >
+                            <View style={styles.NotNotisContainer}>
+                                <Text style={{fontFamily: 'poppinsRegular', fontSize: 20, color: '#606060', marginBottom: 10, marginTop: 15}}>No hay ninguna notificación.</Text>
+                                <Ionicons name="notifications-off" size={130} color="#606060" />
+                            </View>
+                        </View>
+                    }
+
+                </View>
+            </ScrollView>
+        </LinearGradient>
+    )
 }
 
 const styles = StyleSheet.create({
     fullScreenContainer:{
-        backgroundColor: '#FFFFFF',
-        marginTop: Constants.statusBarHeight,
+        height: '100%',
+        marginTop: Constants.statusBarHeight
     },
     ContainDate:{
         flexDirection:'row',
@@ -126,7 +176,7 @@ const styles = StyleSheet.create({
         //more..
         paddingVertical: 20,
         paddingHorizontal: 10,
-        marginBottom: 40,
+        marginBottom: 20,
     },
     ContainImage:{
         // height:'100%',
@@ -197,5 +247,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderColor:'#c6c6c6',
         borderWidth: 1,
+    }, 
+    NotNotisContainer: {
+        borderColor: '#c2c2c2',
+        borderWidth: 1,
+        marginHorizontal: 24,
+        justifyContent: 'center',
+        paddingHorizontal: 10,
+        paddingVertical: 15,
+        alignItems: 'center',
+        borderRadius: 8,
+        elevation: 3,
+        //iOS
+        shadowColor: '#000',
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        height: '100%'
     }
 })

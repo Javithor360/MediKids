@@ -7,10 +7,11 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient'
 import { useTranslation } from 'react-i18next';
+import {differenceInDays, differenceInHours, differenceInMonths} from 'date-fns'
 
 //>> Import Components
 import LanguageSelector from '../../../components/LanguageSelector';
-import { ThreePoints, getMedicalAppointments, getMedicalPrescriptions } from '../../../index'
+import { Moths, ThreePoints, getMedicalAppointments, getMedicalPrescriptions } from '../../../index'
 
 //! Deafult foto
 const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
@@ -44,13 +45,23 @@ export const HomeScreen = () => {
   //! Functions to get the information for the widgets and notifications
   const getAppointmentInfo = async () => {
     try {
+      let appmtLength = 0;
       const {data} = await getMedicalAppointments(jwtToken, Patient.Patient_Code);
 
       const nextAppointment = data.medical_appointments.find(appointment => {
         return appointment.State != 4;
       })
-      
-      setNumberOfApptm(data.medical_appointments.length);
+
+      const a_m_c = () => {
+        data.medical_appointments.forEach(element => {
+          if (element.State != 4){
+            appmtLength++;
+          }
+        });
+      }
+
+      a_m_c();
+      setNumberOfApptm(appmtLength);
       setAppointmentWidget(nextAppointment);
     } catch (error) {
       console.log(error);
@@ -78,10 +89,26 @@ export const HomeScreen = () => {
         return 'Programada';
       case 1:
         return 'Solicitada';
-      case 3:
+      case 2:
         return 'confirmada';
-      case 4:
+      case 3:
         return 'Ejecutandose';
+    }
+  }
+
+  //! Get Patient Age
+  const getPatientAge = (ag, bd) => {
+    if (ag <= 0) {
+      let date = new Date(bd);
+      const Months = differenceInMonths(new Date(), date);
+      const Days = differenceInDays(new Date(), date);
+      if (Days > 31) {
+        return `${Months} ${Months > 1 ? 'Meses' : 'Mes'}`
+      } else {
+        return `${Days} ${Days > 1 ? 'Días' : 'Día'}`
+      }
+    } else {
+      return`${ag} ${ag > 1 ? 'años' : 'año'}`
     }
   }
 
@@ -108,7 +135,7 @@ export const HomeScreen = () => {
                   <Image source={require('../../../../assets/logos/Logotype_Colored.png')} style={styles.logoHeader}/>
                 </View>
                 <View style={[styles.itemContainer, {width: '20%', height: '100%'}]}>
-                  <TouchableOpacity onPress={()=> setView(true)}>
+                  <TouchableOpacity onPress={()=> {setView(true)}}>
                     <Entypo name="dots-three-horizontal" size={34} color="#707070" />
                   </TouchableOpacity>
   
@@ -131,7 +158,11 @@ export const HomeScreen = () => {
                 {/* ¡Hola! */}
                 {t('homePage.welcomeMsg')}
               </Text>
+<<<<<<< HEAD
               <Text style={{fontWeight:'bold', color: '#D58C8C',fontSize: 18, fontFamily: 'poppinsBold'}}>{t('homePage.responsible')}</Text>
+=======
+              <Text style={{fontWeight:'bold', color: '#D58C8C',fontSize: 18, fontFamily: 'poppinsBold'}}>{t('homePage.inCharge')}</Text>
+>>>>>>> 2f912733f219cdce7c20d5291e28cb1904fe001b
             </View>
             <View style={styles.userNameDsp}>
               <View style={{height: '100%', justifyContent: 'center'}}>
@@ -155,15 +186,15 @@ export const HomeScreen = () => {
             <View style={{width: '100%', height: '37.5%', alignItems: 'center',}}>
               <View style={styles.patientData}>
                 <View style={[styles.patienDataText, {width: '50%', height: '100%'}]}>
-                  <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Nombre del paciente:</Text>
+                  <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">{t('homePage.givenNames')}:</Text>
                   <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{Patient.FirstNames} {Patient.LastNames}</Text>
                 </View>
                 <View style={[styles.patienDataText, {width: '25%', height: '100%'}]}>
-                  <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Edad:</Text>
-                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{Patient.Age} {Patient.Age > 1 ? 'años' : 'año'}</Text>
+                  <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">{t('homePage.Age')}:</Text>
+                  <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{getPatientAge(Patient.Age, Patient.Birth_Date)}</Text>
                 </View>
                 <View style={[styles.patienDataText, {width: '25%', height: '100%'}]}>
-                  <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">Código:</Text>
+                  <Text style={styles.patientDataTitles} numberOfLines={1} ellipsizeMode="tail">{t('homePage.Cod')}:</Text>
                   <Text style={styles.patientDataEach} numberOfLines={1} ellipsizeMode="tail">{Patient.Patient_Code}</Text>
                 </View>
               </View>
@@ -175,7 +206,7 @@ export const HomeScreen = () => {
                 </View>
                 <View style={[styles.contentBtn, {width: '70%'}]}>
                   <TouchableOpacity style={styles.touchableViewBtn} onPress={()=>navigation.navigate('MyVaccines') }>
-                    <Text style={{color: '#A375FF'}} >Ver Datos del Paciente</Text>
+                    <Text style={{color: '#A375FF'}} >{t('homePage.VPD')}</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -183,13 +214,13 @@ export const HomeScreen = () => {
           </View>
 
           <Text style={{marginTop: 30, fontSize: 29, color: '#707070',textDecorationLine: 'underline', textAlign: 'center', fontFamily: 'poppinsBold', marginBottom: -15}}>
-            Recordatorios
+          {t('homePage.Reminder')}
           </Text>
           
           <View style={{height: 'auto', width: '100%', flexDirection: 'row',}}>
             <View style={styles.reminderContainer}>
               <View style={styles.reminderCard}>
-                <Text style={{marginTop: 25, fontSize: 22,fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>Citas</Text>
+                <Text style={{marginTop: 25, fontSize: 22,fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>{t('homePage.Quotes')}</Text>
                   
                   {
                     AppointmentWidget != null && AppointmentWidget.length != 0 ?
@@ -198,18 +229,18 @@ export const HomeScreen = () => {
                           <Image source={require('../../../../assets/icons/note-time.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
                           <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{NumberOfApptm}</Text>
                         </View>
-                        <Text style={{marginTop: 10, fontWeight: "900", fontSize: 15, color: '#d17878', textAlign: 'center'}}>Próxima cita:</Text>
-                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Fecha: </Text>{AppointmentWidget.Date == null ? 'Pendiente' : getLocaleDateString(AppointmentWidget.Date)}</Text>
+                        <Text style={{marginTop: 10, fontWeight: "900", fontSize: 15, color: '#d17878', textAlign: 'center'}}>{t('homePage.UP')}:</Text>
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>{t('homePage.Date')}: </Text>{AppointmentWidget.Date == null ? 'Pendiente' : getLocaleDateString(AppointmentWidget.Date)}</Text>
                         {/* <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Hora: </Text>2:00 PM</Text> */}
-                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Estado: </Text>{getStateString(AppointmentWidget.State)}</Text>
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>{t('homePage.State')}: </Text>{getStateString(AppointmentWidget.State)}</Text>
                         <TouchableOpacity style={styles.touchableViewBtn2} onPress={() => navigation.navigate('Appointment')}>
-                          <Text style={{color: '#fff'}}>Más detalles</Text>
+                          <Text style={{color: '#fff'}}>{t('homePage.MoreDetails')}</Text>
                         </TouchableOpacity>
                       </>
                       :
                       <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '65%', width: '100%'}}>
                         <Image source={require('../../../../assets/icons/not-note-time.png')} style={{height: '40%', width:'60%', resizeMode: 'contain'}}/>
-                        <Text style={{color: '#707070', fontSize: 16, textAlign: 'center', marginTop: 18}}>No hay citas activos</Text>
+                        <Text style={{color: '#707070', fontSize: 16, textAlign: 'center', marginTop: 18}}>{t('homePage.NAA')}</Text>
                       </View>
                   }
               </View>
@@ -217,7 +248,7 @@ export const HomeScreen = () => {
 
             <View style={styles.reminderContainer}>
               <View style={styles.reminderCard}>
-              <Text style={{marginTop: 25, fontSize: 22, fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>Medicinas</Text>
+              <Text style={{marginTop: 25, fontSize: 22, fontWeight: 600, color: '#000000', textAlign: 'center', fontStyle: 'italic'}}>{t('homePage.medicines')}</Text>
                   {
                     MedicinesWidget != null && MedicinesWidget.length != 0 ?
                       <>
@@ -225,17 +256,17 @@ export const HomeScreen = () => {
                           <Image source={require('../../../../assets/icons/recipe.png')} style={{height: '80%', resizeMode: 'contain', marginLeft: -5}}/>
                           <Text style={{fontSize: 35, color: '#A375FF', fontWeight: 600,}}>{MedicinesWidget?.length}</Text>
                         </View>
-                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Nombre: </Text>{MedicinesWidget[0].Medicine_Name}</Text>
-                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Finalización: </Text>{getLocaleDateString(MedicinesWidget[0].Finishing_Dose_Date)}</Text>
-                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>Dosis: </Text>{MedicinesWidget[0].Dose}</Text>
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>{t('homePage.NameM')}: </Text>{MedicinesWidget[0].Medicine_Name}</Text>
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>{t('homePage.ending')}: </Text>{getLocaleDateString(MedicinesWidget[0].Finishing_Dose_Date)}</Text>
+                        <Text style={{marginTop: 10, fontWeight: 600, color: '#707070'}}><Text style={{color: '#000000', fontWeight: "900", fontSize: 15,}}>{t('homePage.dose')}: </Text>{MedicinesWidget[0].Dose}</Text>
                         <TouchableOpacity style={styles.touchableViewBtn2} onPress={() => navigation.navigate('Medicinas')}>
-                          <Text style={{color: '#fff'}}>Más detalles</Text>
+                          <Text style={{color: '#fff'}}>{t('homePage.MoreDetails')}</Text>
                         </TouchableOpacity>
                       </>
                       :
                       <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '69%', width: '100%'}}>
                         <Image source={require('../../../../assets/icons/not-recipe.png')} style={{height: '40%', width:'60%', resizeMode: 'contain'}}/>
-                        <Text style={{color: '#707070', fontSize: 16, textAlign: 'center', marginTop: 18}}>No hay medicamentos activos</Text>
+                        <Text style={{color: '#707070', fontSize: 16, textAlign: 'center', marginTop: 18}}>{t('homePage.noAct')}</Text>
                       </View>
                   }
 
@@ -244,7 +275,7 @@ export const HomeScreen = () => {
           </View>
 
           <Text style={{fontSize: 30, color: '#707070',textDecorationLine: 'underline', textAlign: 'center', fontFamily: 'poppinsBold', marginBottom: 15}}>
-            Categorias
+          {t('homePage.categories')}
           </Text>
 
           <View style={[styles.categCardContainer, {backgroundColor: '#FDEBD0'}]}>
@@ -253,10 +284,10 @@ export const HomeScreen = () => {
             </View>
             <View style={{width: 1.5, height: '55%', backgroundColor: '#B2BABB', borderRadius: 5}} />
             <View style={{width: '64%', height: '100%', padding: 10, flexDirection: 'column', justifyContent: 'space-evenly'}}>
-              <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>Gastroenterología</Text>
-              <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a.</Text>
+              <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>{t('homePage.gastro')}</Text>
+              <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>{t('homePage.textCate')}</Text>
               <TouchableOpacity onPress={()=>navigation.navigate('Gastro') } style={styles.touchableViewBtn3}>
-                  <Text style={{color: '#fff'}}>Más detalles</Text>
+                  <Text style={{color: '#fff'}}>{t('homePage.MoreDetails')}</Text>
                 </TouchableOpacity>
             </View>
           </View>
@@ -267,10 +298,10 @@ export const HomeScreen = () => {
             </View>
             <View style={{width: 1.5, height: '55%', backgroundColor: '#B2BABB', borderRadius: 5}} />
             <View style={{width: '64%', height: '100%', padding: 10, flexDirection: 'column', justifyContent: 'space-evenly'}}>
-              <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>Otorrinolaringología</Text>
-              <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a.</Text>
+              <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>{t('homePage.Oto')}</Text>
+              <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>{t('homePage.textCate')}</Text>
               <TouchableOpacity onPress={()=>navigation.navigate('Otorrino') } style={styles.touchableViewBtn3}>
-                  <Text style={{color: '#fff'}}>Más detalles</Text>
+                  <Text style={{color: '#fff'}}>{t('homePage.MoreDetails')}</Text>
                 </TouchableOpacity>
             </View>
           </View>
@@ -281,10 +312,10 @@ export const HomeScreen = () => {
             </View>
             <View style={{width: 1.5, height: '55%', backgroundColor: '#B2BABB', borderRadius: 5}} />
             <View style={{width: '64%', height: '100%', padding: 10, flexDirection: 'column', justifyContent: 'space-evenly'}}>
-              <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>Neumología</Text>
-              <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>Especialistas capacitados y el mejor equipo para atender a tu hijo/a.</Text>
+              <Text style={{fontWeight: 600, fontSize: 20, color: "#707070", textAlign: 'center', fontStyle: 'italic'}}>{t('homePage.Neu')}</Text>
+              <Text style={{fontSize: 14, color: "#707070", textAlign: 'justify'}}>{t('homePage.textCate')}</Text>
               <TouchableOpacity onPress={()=>navigation.navigate('SpecialityInfoN') } style={styles.touchableViewBtn3}>
-                  <Text style={{color: '#fff'}}>Más detalles</Text>
+                  <Text style={{color: '#fff'}}>{t('homePage.MoreDetails')}</Text>
                 </TouchableOpacity>
             </View>
           </View>

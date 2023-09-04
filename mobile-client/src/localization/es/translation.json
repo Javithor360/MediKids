@@ -1,6 +1,36 @@
 {
+
+    "ThreePoints":{
+        "options":"Opciones"
+
+    },
+
     "homePage": {
-        "welcomeMsg": "¡Hola!"
+        "welcomeMsg": "¡Hola!",
+        "inCharge":"Encargado",
+        "givenNames": "Nombres",
+        "Age":"Edad",
+        "Cod":"Código",
+        "VPD":"Ver datos del Paciente",
+        "Reminder":"Recordatorio",
+        "Quotes":"Citas",
+        "UP":"Próximas citas",
+        "Date":"Fecha",
+        "State":"Estado",
+        "MoreDetails":"Más Detalles",
+        "NAA":"No hay citas activas",
+        "medicines":"Medicinas",
+        "NameM":"Nombre",
+        "ending":"Finalización",
+        "dose":"Dosis",
+        "noActM":"No hay medicamentos activos",
+        "categories":"Categorías",
+        "gastro":"Gastroenterología",
+        "textCate":"Especialistas capacitados y el mejor equipo para atender a tu hijo/a.",
+        "Oto":"Otorrinolaringología",
+        "Neu":"Neumología"
+
+
     },
     "selectLng": {
         "title": "Seleccionar Idioma",
@@ -32,7 +62,7 @@
         "name": "Nombres",
         "lastName": "Apellidos",
         "age": "edad",
-        "cellphone": "Teléfono",
+        "cellphone": "Num. Celular",
         "confirmPassword": "Confirmar contraseña",
         "logout": "Cerrar sesión"
     },

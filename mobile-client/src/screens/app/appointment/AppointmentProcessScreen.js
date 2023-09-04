@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import Constants from 'expo-constants';
 
 //>> components
-import { PendingAppointment, RequestAppointmentForm, ScreenTitle, NextAppointment, AttendingAppointment, AppointmentResults, AppointmentMedicines } from '../../../index';
+import { PendingAppointment, RequestAppointmentForm, ScreenTitle, NextAppointment, AttendingAppointment, AppointmentResults, AppointmentMedicines, ProgrammedAppmt } from '../../../index';
 import WeekDate from '../../../components/WeekDate';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -48,6 +48,7 @@ export const AppointmentProcessScreen = ({ route }) => {
           {
             (appointmentInfo?.State != null) &&
               <View style={[styles.requestAppointmentContainer, styles.shadowC, styles.btcGreen, styles.wMb]}>
+                { appointmentInfo.State == 0 && <ProgrammedAppmt appointmentInfo={appointmentInfo} doctor={doctor} />}
                 { appointmentInfo.State == 1 && <PendingAppointment /> }
                 { appointmentInfo.State == 2 && <NextAppointment appointmentInfo={appointmentInfo} doctor={doctor} /> }
                 { (appointmentInfo.State == 3 && Appmt_State != 4) && <AttendingAppointment appointmentInfo={appointmentInfo} Doctor_id={Doctor_id} setRecordCode={setRecordCode} setShowMedicines={setShowMedicines}/> }

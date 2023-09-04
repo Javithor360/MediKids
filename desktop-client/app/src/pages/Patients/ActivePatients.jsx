@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDash } from "../../context/DoctorContext";
+import { getPatientAge } from "../../utils/Functions";
 
 export const ActivePatients = (props) => {
   const { PatientsClassificator, oldPatients, activePatients } = useDash();
@@ -31,15 +32,6 @@ export const ActivePatients = (props) => {
             </thead>
             <tbody>
               {activePatients.map((patient) => {
-                // setState({
-                //   id: patient.id,
-                //   first_names: patient.First_Names,
-                //   last_names: patient.Last_Names,
-                //   age: patient.Age,
-                //   blood_type: patient.Blood_Type,
-                //   weight: patient.Weight,
-                //   height: patient.Height,
-                // });
                 return (
                   <tr className="text-center" key={patient.id}>
                     <td className="border-r border-[#BBBBBB]">
@@ -60,7 +52,7 @@ export const ActivePatients = (props) => {
                           <div className="font-bold text-left">
                             {`${patient.First_Names} ${patient.Last_Names}`}
                           </div>
-                          <div className="text-sm text-left opacity-50">{`${patient.Age} años`}</div>
+                          <div className="text-sm text-left opacity-50">{getPatientAge(patient.Age, patient.Birthdate)}</div>
                         </div>
                       </div>
                     </td>
@@ -105,15 +97,6 @@ export const ActivePatients = (props) => {
             </thead>
             <tbody>
               {oldPatients.map((patient) => {
-                // setState({
-                //   id: patient.id,
-                //   first_names: patient.First_Names,
-                //   last_names: patient.Last_Names,
-                //   age: patient.Age,
-                //   blood_type: patient.Blood_Type,
-                //   weight: patient.Weight,
-                //   height: patient.Height,
-                // });
                 return (
                   <tr className="text-center" key={patient.id}>
                     <td className="border-r border-[#BBBBBB]">
@@ -134,7 +117,7 @@ export const ActivePatients = (props) => {
                           <div className="font-bold text-left">
                             {`${patient.First_Names} ${patient.Last_Names}`}
                           </div>
-                          <div className="text-sm text-left opacity-50">{`${patient.Age} años`}</div>
+                          <div className="text-sm text-left opacity-50">{getPatientAge(patient.Age, patient.Birthdate)}</div>
                         </div>
                       </div>
                     </td>
@@ -148,7 +131,9 @@ export const ActivePatients = (props) => {
           </table>
         </div>
       ) : (
-        <></>
+        <div>
+          <h2>No has atendido a ningún paciente anteriormente</h2>
+        </div>
       )}
 
       {/* <div className="w-full mx-auto my-6 overflow-x-auto">

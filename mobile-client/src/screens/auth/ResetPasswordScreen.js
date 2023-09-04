@@ -3,16 +3,17 @@ import { Text, View, Image, TextInput, ImageBackground, BackHandler} from 'react
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isIOS } from '../../constants';
 import { CustomButton, ResetPasswordQuery, SetLabel, ShowToast } from '../../index';
-import { useSelector } from 'react-redux';
 
 
 export const ResetPasswordScreen = () => {
     const navigation = useNavigation();
+    const lng = useSelector(state => state.starter.Language);
 
     //\\ Get the email from the storage
     const Email = useSelector(state => state.starter.Email);
@@ -41,7 +42,7 @@ export const ResetPasswordScreen = () => {
 
             if(data.success){
                 //! Show success message.
-                ShowToast('my_success', 'Éxito', 'Cambio de contraseña completado');
+                ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Contraseña restablecida correctamente.' : 'Password reset successful.');
 
                 //! Close loading animation
                 setTimeout(() => {
@@ -60,7 +61,7 @@ export const ResetPasswordScreen = () => {
             }, 3000);
 
             //>> Show error message.
-            ShowToast('my_error', 'Error', error.response.data.message);
+            ShowToast('my_error', 'Error', lng ? error.response.data.message.es : error.response.data.message.en);
         }
     }
 

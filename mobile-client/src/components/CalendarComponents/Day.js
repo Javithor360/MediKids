@@ -9,9 +9,6 @@ const compareDates = (date1, date2) => {
   return date1WT.getTime() === date2WT.getTime();
 }
 
-
-
-
 export const Day = ({ SelectDay, SelectedRow, EventsAppmt, setSelectedRow, setSelectDay, setEventSelected }) => {
   const DayHours = Array.from({ length: 24 }, (_, index) => index);
 
@@ -32,12 +29,6 @@ export const Day = ({ SelectDay, SelectedRow, EventsAppmt, setSelectedRow, setSe
       setSelectDay(DaySelected);
     }
 
-    // useEffect(() => {
-    //   console.log(SelectDay);
-    //   console.log(EventsAppmt)
-
-    // }, [SelectDay]);
-  
     return (
       <View style={[styles.tableDaysRow, {backgroundColor: '#fff', flex: 1, elevation: 3, shadowColor: '#000', shadowOffset: {height: 4}, shadowOpacity: 0.1, shadowRadius: 3,}]}>
         {/* Day 0 = Sunday */}
@@ -116,7 +107,7 @@ export const Day = ({ SelectDay, SelectedRow, EventsAppmt, setSelectedRow, setSe
     if (SelectDay.AppmtEventIndex != null) {
       EventsAppmt.forEach(element => {
         let EventDate = new Date(element.Starting_Event_Date);
-        if (EventDate.getHours() == hora) {
+        if (EventDate.getHours() == hora && compareDates(EventDate, new Date(SelectDay.date))) {
           Event = element;
         }
       });
@@ -126,7 +117,6 @@ export const Day = ({ SelectDay, SelectedRow, EventsAppmt, setSelectedRow, setSe
 
   const HourCard = ({i, hour}) => {
     let haveEvent = getEvent(hour);
-    console.log(haveEvent)
     return (
       <View style={{width: '100%', height: 90, marginBottom: i == 23 ? (haveEvent != null ? 20 : -30) : 0}}>
         <View style={{width: '100%', flexDirection: 'row', alignItems: 'center'}}>

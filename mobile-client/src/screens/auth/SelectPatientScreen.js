@@ -23,7 +23,8 @@ export const SelectPatientScreen = () => {
   const Resp = useSelector(state => state.responsible);
   const navigation = useNavigation();
   const route = useRoute();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const lng = useSelector(state => state.starter.Language);
   
   const [AccData, setAccData] = useState(null);
 
@@ -43,7 +44,7 @@ export const SelectPatientScreen = () => {
   const renderItem = ({ item }) => {
     if (item.id === 'addPatient') {
       return (
-        <TouchableOpacity disabled={DisableBtn} style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}} onPress={() => {navigation.navigate('RegisterPatientScreen', {loggedIn: true})}} >
+        <TouchableOpacity disabled={DisableBtn} style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}} onPress={() => {navigation.navigate('RegisterPatientDashboard', {loggedIn: true})}} >
           <View style={styles.itemContainer}>
             <Image source={require('../../../assets/icons/add_icon.png')} style={styles.image} />
           </View>
@@ -114,7 +115,7 @@ export const SelectPatientScreen = () => {
           })
           if (VaccinesNotFounded) {
             setDisableBtn(true);
-            ShowToast('my_warning', 'Warning', 'El paciente no tiene registro\n de vacunación')
+            ShowToast('my_warning', lng ? 'Aviso' : 'Warning', lng ? 'El paciente no tiene registro\n de vacunación.' : 'The patient has no vaccination record.')
             setTimeout(() => {
               navigation.navigate('ImmunizationRecordScreen', {Patient_id})
             }, 2000);
@@ -124,7 +125,7 @@ export const SelectPatientScreen = () => {
       })
     } else {
       setDisableBtn(true);
-      ShowToast('my_warning', 'Warning', 'El paciente no tiene registro\n de vacunación')
+      ShowToast('my_warning', lng ? 'Aviso' : 'Warning', lng ? 'El paciente no tiene registro\n de vacunación.' : 'The patient has no vaccination record.')
       setTimeout(() => {
         navigation.navigate('ImmunizationRecordScreen', {Patient_id})
       }, 2000);

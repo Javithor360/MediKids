@@ -95,7 +95,7 @@ export const AppointmentMainScreen = () => {
     const getHistoryAppointment = async () => {
         try {
             const {data} = await getMedicalRecords(jwtToken, Patient_id);
-            setAppointmentsRecord(data.medical_records);
+            setAppointmentsRecord(data.medical_records.reverse());
         } catch (error) {
             console.log(error);
         }
@@ -104,7 +104,7 @@ export const AppointmentMainScreen = () => {
     useEffect(() => {
         getAppointments();
         getHistoryAppointment();
-    }, [appointmentsState, isFocused]);
+    }, [isFocused]);
 
     return (
         <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]} style={{height: '100%'}}>
@@ -120,12 +120,12 @@ export const AppointmentMainScreen = () => {
                     />
                     {/* APPOINTMENT STATUS CARD */}
                     {
-                        ((appointmentsState.OtorrinoState != 4 && appointmentsState.OtorrinoState != null) || (appointmentsState.NeumoState != 4 && appointmentsState.NeumoState != null) || (appointmentsState.GastroState != 4 &&appointmentsState.GastroState != null )) &&
+                        ((appointmentsState.OtorrinoState != 4 && appointmentsState.OtorrinoState != null) || (appointmentsState.NeumoState != 4 && appointmentsState.NeumoState != null) || (appointmentsState.GastroState != 4 && appointmentsState.GastroState != null )) &&
                             <View style={[styles.requestAppointmentContainer, styles.btcGreen, styles.shadowC]}>
                                 <Text style={[styles.requestMainTitle, styles.colorGreen]}>Actividad de citas</Text>
-                                { appointmentsState.OtorrinoState && appointmentsState.OtorrinoState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Otorrino_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/otorrino-icon.png')} DoctorName={'Dr. Esteban Gúzman'} Specialty={'Otorrinolaringología'}/> }
-                                { appointmentsState.NeumoState && appointmentsState.NeumoState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Neumo_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/neumologia-icon.png')} DoctorName={'Dr. Adrián Flores'} Specialty={'Neumología'}/>}
-                                { appointmentsState.GastroState && appointmentsState.GastroState != 4 && <AppointmentStatus Doctor_id={appointmentsState.Gastro_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/gastro-icon.png')} DoctorName={'Dr. Fatima Garza'} Specialty={'Gastroenterología'}/>}
+                                { (appointmentsState.OtorrinoState != null && appointmentsState.OtorrinoState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Otorrino_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/otorrino-icon.png')} DoctorName={'Dr. Esteban Gúzman'} Specialty={'Otorrinolaringología'}/> }
+                                { (appointmentsState.NeumoState != null && appointmentsState.NeumoState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Neumo_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/neumologia-icon.png')} DoctorName={'Dr. Adrián Flores'} Specialty={'Neumología'}/>}
+                                { (appointmentsState.GastroState != null && appointmentsState.GastroState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Gastro_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/gastro-icon.png')} DoctorName={'Dr. Fatima Garza'} Specialty={'Gastroenterología'}/>}
                             </View>
                     }
                     <View style={styles.chooseBanner}>
@@ -181,7 +181,7 @@ export const AppointmentMainScreen = () => {
                         <View style={styles.card}>
                             {
                                 (appointmentsState.NeumoState != null && appointmentsState.NeumoState != 4) ?
-                                <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
+                                <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '105%', zIndex: 999}}></View>
                                 :
                                 null
                             }
@@ -216,8 +216,8 @@ export const AppointmentMainScreen = () => {
 
                         <View style={styles.card}>
                             {
-                                (appointmentsState.GastroState != null && appointmentsState.GastroState != 4``) ?
-                                <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '100%', zIndex: 999}}></View>
+                                (appointmentsState.GastroState != null && appointmentsState.GastroState != 4) ?
+                                <View style={{position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%', height: '105%', zIndex: 999}}></View>
                                 :
                                 null
                             }

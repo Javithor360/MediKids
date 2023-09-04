@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ImageBackground, Modal, TouchableHighlight, BackHandler, KeyboardAvoidingView,} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import DateTimePicker from "@react-native-community/datetimepicker"
+import { useSelector } from "react-redux";
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterP, AuthStylesRegisterU } from '../../../assets/AuthStyles';
@@ -13,12 +14,12 @@ import {MaskedTextInput} from 'react-native-mask-text';
 
 //>> Importing icons
 import { Feather, AntDesign, Fontisto, MaterialCommunityIcons as MaterialCommIcons, MaterialIcons } from '@expo/vector-icons';
-import { useSelector } from "react-redux";
 
 export const RegisterPatientScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const Email = useSelector(state => state.responsible.Email);
+  const lng = useSelector(state => state.starter.Language);
 
   //! Parameter State
   const [loggedIn, setLoggedIn] = useState(false);
@@ -148,7 +149,7 @@ export const RegisterPatientScreen = () => {
         });
 
         //! Show success message.
-        ShowToast('my_success', 'Éxito', 'Paciente Registrado correctamente');
+        ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Paciente Registrado correctamente.' : 'Patient Registered successfully.');
 
         //! Close loading animation
         setTimeout(() => {
@@ -170,7 +171,7 @@ export const RegisterPatientScreen = () => {
       }, 2000);
 
       //>> Show error message.
-      ShowToast('my_error', 'Error', error.response.data.message);
+      ShowToast('my_error', 'Error', lng ? error.response.data.message.es : error.response.data.message.en);
     }
   }
 

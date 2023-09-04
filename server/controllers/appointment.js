@@ -36,7 +36,6 @@ const request_medical_appointment = async (req, res, next) => {
     const { Patient_Code, Doctor_id, Week, Description } = req.body;
     const Responsible_id = req.auth_token.user.id;
 
-    // console.log(Patient_Code, Doctor_id, , Description, Responsible_id);
     //? Found the patient_id with the patient_code.
     const [Patient_id] = await pool.query('SELECT id FROM patient WHERE Patient_Code = ?', [Patient_Code]);
 
@@ -60,7 +59,6 @@ const request_medical_appointment = async (req, res, next) => {
 
     return res.status(200).json({success: true});
   } catch (error) {
-    console.log(error)
     return res.status(500).json({ error });
   }
 }
@@ -81,7 +79,7 @@ const get_medical_appointments = async (req, res, next) => {
     const [medical_appointments] = await pool.query('SELECT * FROM medical_appointment WHERE Patient_id = ?', [Patient_id[0].id]);
 
     medical_appointments.forEach(async (el) => {
-      if(el.State == 2){
+      if(el.State == 2 || el.State == 0){
         let HoursSQL = el.Hour.split(':');
         let appointment_hour = new Date(el.Date);
 
@@ -141,7 +139,6 @@ const get_single_medical_appmt_record = async (req, res, next) => {
 
     return res.status(200).json({success: true, appointment_record: Single_Appmt_rcd});
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error });
   }
 }
@@ -164,7 +161,6 @@ const get_medicines_appmt_result = async (req, res, next) => {
     
     return res.status(200).json({success: true, Medicines});
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error });
   }
 }

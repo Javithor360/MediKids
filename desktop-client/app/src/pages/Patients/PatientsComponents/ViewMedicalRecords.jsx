@@ -9,6 +9,7 @@ import {
 } from "react-icons/ai";
 
 import { useDash } from "../../../context/DoctorContext";
+import { getPatientAge } from "../../../utils/Functions";
 
 export const ViewMedicalRecords = ({ responsibleInfo }) => {
   const location = useLocation();
@@ -109,7 +110,7 @@ const FirstPage = ({ responsibleInfo, vaccines }) => {
             {patient.Last_Names.toUpperCase()}
           </p>
           <p>
-            Edad: {patient.Age} {patient.Age === 1 ? "año" : "años"}
+            Edad: {getPatientAge(patient.Age, patient.Birthdate)}
           </p>
           <p>Tipo de sangre: {patient.Blood_Type}</p>
           <p>Peso: {patient.Weight}</p>

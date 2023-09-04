@@ -103,15 +103,15 @@ export const WelcomeScreen = () => {
 
 const styles = StyleSheet.create({
   buttomCameBack: {
-    top: '5%',
+    top: '5.4%',
     left: 15,
     backgroundColor: '#A375FF',
     position: 'absolute',
     borderRadius: 6,
     flexDirection: 'row',
-    paddingHorizontal: 14,
+    paddingHorizontal: 13,
     alignItems: 'center',
-    paddingVertical: isIOS ? 8 : 0,
+    paddingVertical: isIOS ? 6 : 0,
     zIndex: 2,
   },
   image: {

@@ -10,6 +10,7 @@ import { ChangeGastroState, ChangeNeumoState, ChangeOtorrinoState } from '../../
 
 export const RequestAppointmentForm = ({Doctor_id}) => {
     const dispatch = useDispatch()
+    const lng = useSelector(state => state.starter.Language);
     
     //! GET info from the state in redux
     const Patient_Code = useSelector(state => state.patient.Patient_Code)
@@ -27,12 +28,12 @@ export const RequestAppointmentForm = ({Doctor_id}) => {
     const RequestAppointmentFunct = async () => {
         try {
             if(!Week) {
-                ShowToast('my_error', 'Error', 'Seleccione una semana específica')
+                ShowToast('my_error', 'Error', lng ? 'Seleccione una semana específica.' : 'Select a specific week.')
                 return;
             }
 
-            if (!Description) {
-                ShowToast('my_error', 'Error', 'Escriba una descripción sobre \nsu solicitud')
+            if (!Description || Description.length < 10 || Description > 100 ) {
+                ShowToast('my_error', 'Error', lng ? 'Escriba correctamente la descripción \nsobre su solicitud.' : 'Please enter a valid description \nfor your request.')
                 return;
             }
             const {data} = await requestMedicalAppointment(jwtToken, Patient_Code, Doctor_id, Week, Description)
@@ -49,7 +50,7 @@ export const RequestAppointmentForm = ({Doctor_id}) => {
                 setTimeout(() => {
                     setIsLoading(false);
                     setSuccess(true);
-                    ShowToast('my_success', 'Éxito', 'Su cita se ha solicitado correctamente')
+                    ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Su cita se ha solicitado correctamente.' : 'Your appointment has been \nsuccessfully requested.')
                 }, 4000);
             }
         } catch (error) {
@@ -62,12 +63,12 @@ export const RequestAppointmentForm = ({Doctor_id}) => {
         <Text style={styles.requestMainTitle}>Solicitar cita médica</Text>
         <View style={styles.sectionIconContainer}>
             <View><MaterialCommunityIcons name="playlist-edit" size={24} color="#46929B" /></View>
-            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: 'bold',}}>Brinda la siguiente información previa</Text></View>
+            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: '500',}}>Brinda la siguiente información previa</Text></View>
         </View>
         <TextInput placeholder='Síntomas o condición a tratar' style={styles.inputSympthoms} onChangeText={text => setDescription(text)} />
         <View style={styles.sectionIconContainer}>
             <View><MaterialCommunityIcons name="calendar-week" size={24} color="#46929B" /></View>
-            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: 'bold',}}>Seleccione una de las semanas disponibles</Text></View>
+            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: '500',}}>Seleccione una de las semanas disponibles</Text></View>
         </View>
         <WeekDate setWeek={setWeek}/>
         <TouchableOpacity disabled={Disable} style={styles.requestApmtBtn} onPress={() => {RequestAppointmentFunct()}}>
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
         marginVertical: 16,
     },
     sectionIconContainer: {
-        width: '90%',
+        width: '80%',
         alignSelf: 'center',
         flexDirection: 'row',
         alignItems: 'center',

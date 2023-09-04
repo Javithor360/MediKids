@@ -96,14 +96,14 @@ export const DoctorProvider = ({ children }) => {
       );
 
       setOldPatients(
-        actPats.data.body.filter(
-          (patient) =>
-            !allApo.data.body.some(
-              (appointment) =>
-                appointment.Patient_id === patient.id &&
-                appointment.State !== 1 &&
-                appointment.State !== 4
-            )
+        actPats.data.body.filter((patient) =>
+          allApo.data.body.some(
+            (appointment) =>
+              appointment.Patient_id === patient.id &&
+              (appointment.State === 1 || appointment.State === 4) &&
+              appointment.Date !== null &&
+              appointment.Hour !== null
+          )
         )
       );
     } catch (error) {

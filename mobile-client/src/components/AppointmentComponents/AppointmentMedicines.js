@@ -2,7 +2,7 @@
 //>> IMPORT LIBRARIES
 import { View, Text, StyleSheet } from 'react-native'
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { Octicons } from '@expo/vector-icons';
+import { Octicons, Entypo } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -61,12 +61,13 @@ export const AppointmentMedicines = ({RecordCode}) => {
         <Text style={[styles.requestMainTitle, styles.colorYellow]}>Medicinas</Text>
         {
             (Medicines != null && Medicines.length != 0) ?
-                Medicines.map((medicine) => {
-                    return <GetMedicineCard Medicine={medicine}/>
+                Medicines.map((medicine, i) => {
+                    return <GetMedicineCard key={i} Medicine={medicine}/>
                 })
                 :
-                <View>
-                    <Text>No se asignaron Medicinas</Text>
+                <View style={{width: '100%', paddingHorizontal: 20, marginBottom:20, alignItems: 'center'}}>
+                    <Text style={{textAlign: 'center', marginBottom: 6, fontFamily: 'poppinsRegular', fontSize: 16}}>No se asignaron Medicinas</Text>
+                    <Entypo name="notifications-off" size={60} color="#f99b21" />
                 </View>
         }
         <View style={{marginTop: 10, width: "100%"}}></View>

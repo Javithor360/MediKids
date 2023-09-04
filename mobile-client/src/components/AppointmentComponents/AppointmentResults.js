@@ -67,7 +67,7 @@ export const AppointmentResults = ({ RecordCode }) => {
                         </View>
                         <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
                             <MaterialCommunityIcons name="timeline-plus" size={20} color="#46929B" />
-                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Edad: </Text>{PatientInfo.marginVertical} años</Text>
+                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Edad: </Text>{PatientInfo.Age} años</Text>
                         </View>
                     </View>
                 </View>
