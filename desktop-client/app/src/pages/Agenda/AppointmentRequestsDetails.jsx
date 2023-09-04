@@ -52,7 +52,8 @@ export const AppointmentRequestsDetails = () => {
         id: appointment.id,
         ChosenDate: new Date(date).toISOString().split("T")[0],
         Hour: hour,
-        Patient_id: patient.id
+        Patient_id: patient.id,
+        Doctor_id: JSON.parse(localStorage.getItem('userSession')).id
       });
       setTimeout(() => {
         toggle();
@@ -69,7 +70,8 @@ export const AppointmentRequestsDetails = () => {
     try {
       await DeclineAppointmentRequest({
         id: appointment.id,
-        Patient_id: patient.id
+        Patient_id: patient.id,
+        Doctor_id: JSON.parse(localStorage.getItem('userSession')).id
       });
       setTimeout(() => {
         toggle();

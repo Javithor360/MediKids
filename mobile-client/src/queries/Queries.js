@@ -154,3 +154,9 @@ export const getCalendarEvents = async (jwtToken, Patient_id) => {
 export const getNotifications = async (jwtToken, Patient_id) => {
   return await axios.post(`http://${localhost}:5005/api/responsible/get_notifications`, {Patient_id}, get_private_headers(jwtToken));
 }
+
+//! Delete the Notifications of the patient
+//@access Private
+export const deleteNotification = async (jwtToken, Notification_id, Type) => {
+  return await axios.post(`http://${localhost}:5005/api/responsible/delete_notification`, {Notification_id, Type}, get_private_headers(jwtToken));
+}

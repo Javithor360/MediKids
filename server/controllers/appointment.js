@@ -90,7 +90,7 @@ const get_medical_appointments = async (req, res, next) => {
         const msDif = appointment_hour - CurrentTime;
         const minDif = msDif / (1000 * 60);
 
-        if(minDif < 90){
+        if(minDif <= 90){
           await pool.query('UPDATE medical_appointment SET State = 3 WHERE id = ?',[el.id]);
         }
       }

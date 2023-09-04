@@ -7,6 +7,17 @@ import { patientCode } from "../utils/functions.js";
 // ! @desc Get all doctor personal information
 // ! @access private
 
+const getSpecialty = (d_i) => {
+  switch (d_i) {
+    case 1:
+      return 'Otorrinolaringología';
+    case 2:
+      return 'Neumología';
+    case 3:
+      return 'Gastroenterología'
+  }
+}
+
 const get_info = async (req, res, next) => {
   try {
     const { Doctor_id } = req.body;
@@ -737,7 +748,7 @@ const get_responsibles = async (req, res, next) => {
 
 const accept_appointment_request = async (req, res, next) => {
   try {
-    const { id, ChosenDate, Hour, Patient_id } = req.body;
+    const { id, ChosenDate, Hour, Patient_id, Doctor_id } = req.body;
 
     if (!id || !ChosenDate || !Hour) {
       return res
@@ -764,10 +775,11 @@ const accept_appointment_request = async (req, res, next) => {
 
     await pool.query("INSERT INTO notifications SET ?", {
       Patient_id,
-      Title: "Cita Confirmada",
+      Doctor_id,
+      Title: getSpecialty(Doctor_id),
       DateTime: new Date(),
       Type: 1,
-      Description: "Tu cita ha sido confirmada",
+      Element_id: id,
     });
 
     return res
@@ -785,7 +797,7 @@ const accept_appointment_request = async (req, res, next) => {
 
 const decline_appointment_request = async (req, res, next) => {
   try {
-    const { id, Patient_id } = req.body;
+    const { id, Patient_id, Doctor_id } = req.body;
 
     if (!id) {
       return res
@@ -810,10 +822,10 @@ const decline_appointment_request = async (req, res, next) => {
     //! ADD NOTIFICATION.
     await pool.query("INSERT INTO notifications SET ?", {
       Patient_id,
-      Title: "Cita rechazada",
+      Title: getSpecialty(Doctor_id),
       DateTime: new Date(),
       Type: 2,
-      Description: "Tu cita ha sido rechazada",
+      Element_id: id,
     });
 
     return res.status(200).json({

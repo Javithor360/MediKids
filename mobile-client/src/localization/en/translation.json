@@ -7,14 +7,14 @@
     
     "homePage": {
         "welcomeMsg": "Hello!",
-        "inCharge":"In Charge",
+        "inCharge":"Responsible",
         "givenNames":"Given Names",
         "Age":"Age",
         "Cod":"Cod",
         "VPD":"View Patient Data",
         "Reminder":"Reminder",
-        "Quotes":"Appointments",
-        "UP":"upcoming appointments",
+        "Quotes":"Appoint...",
+        "UP":"Next appoint",
         "Date":"Date",
         "State":"State",
         "MoreDetails":"More details",

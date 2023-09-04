@@ -70,11 +70,39 @@ const appointmentsSlice = createSlice({
       state.Gastro_Description = Gastro_Description;
       state.Gastro_Date = Gastro_Date;
       state.Gastro_Hour = Gastro_Hour;
+    },
+    ResetAppmtState: (state, action) => {
+      //* Otorrino values
+      state.OtorrinoState = null;
+      state.Otorrino_Appmt_id = null;
+      state.Otorrino_Doctor_id = null;
+      state.Otorrino_Week = null;
+      state.Otorrino_Description = null;
+      state.Otorrino_Date = null;
+      state.Otorrino_Hour = null;
+
+      //* Neumo Values
+      state.NeumoState = null;
+      state.Neumo_Appmt_id = null;
+      state.Neumo_Doctor_id = null;
+      state.Neumo_Week = null;
+      state.Neumo_Description = null;
+      state.Neumo_Date = null;
+      state.Neumo_Hour = null;
+
+      //* Gastro Values
+      state.GastroState = null;
+      state.Gastro_Appmt_id = null;
+      state.Gastro_Doctor_id = null;
+      state.Gastro_Week = null;
+      state.Gastro_Description = null;
+      state.Gastro_Date = null;
+      state.Gastro_Hour = null;
     }
   }
 });
 
 //! Exporting Actions
-export const { ChangeOtorrinoState, ChangeOtorrinoValues, ChangeNeumoState, ChangeNeumoValues, ChangeGastroState, ChangeGastroValues } = appointmentsSlice.actions;
+export const { ChangeOtorrinoState, ChangeOtorrinoValues, ChangeNeumoState, ChangeNeumoValues, ChangeGastroState, ChangeGastroValues, ResetAppmtState } = appointmentsSlice.actions;
 //! Exporting reducer
 export default appointmentsSlice.reducer;
