@@ -70,7 +70,7 @@ export function CalendarPicker({ setDate, hasSelectedYes, restrictedDays, format
         nextLabel={<AiOutlineRight />}
         tileDisabled={restrictedDays ? ({ date }) => isDateDisabled(date) : null}
         className={hasSelectedYes ? 'custom-calendar' : null}
-        activeStartDate={initialMonthStartDate}
+        activeStartDate={restrictedDays ? initialMonthStartDate : null}
       />
       {value ? (
         <>
