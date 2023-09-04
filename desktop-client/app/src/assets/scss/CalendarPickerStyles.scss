@@ -15,12 +15,14 @@
     pointer-events: none;
     cursor: default; 
     opacity: .7;
-  }
+}
 .react-calendar__tile:disabled{
-    background-color: #f4f4f4 !important;
+    background-color: #e9e9f9 !important;
+    opacity: .4;
 }
 .react-calendar__navigation button:disabled{
-    background-color: #f4f4f4 !important;
+    background-color: #e9e9f9 !important;
+    opacity: .4;
 }
 .react-calendar__navigation{
     border-bottom: 1px solid #cbcbcb !important;
@@ -32,7 +34,16 @@
     justify-content: center;
     font-size: .8rem;
     color: #000000;
-
+}
+.overlapped{
+    position: absolute;
+    top: 0%;
+    left: 1.75rem;
+    background-color: transparent;
+    height: 20%;
+    border-radius: 5px;
+    z-index: 1;
+    width: 70%;
 }
 .react-calendar__month-view__weekdays__weekday > abbr:where([title]) {
     text-decoration: none;
@@ -63,4 +74,7 @@
 }
 .react-calendar{
     margin-bottom: 2rem;
+}
+.custom-calendar .react-calendar__navigation{
+    pointer-events: none;
 }
