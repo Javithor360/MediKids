@@ -70,7 +70,7 @@ export const SelectPatientScreen = () => {
         <TouchableOpacity disabled={DisableBtn} onPress={() => {ValidatePatient(item.Patient_id)}} style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center',}}>
           <View style={styles.itemContainer}>
             <ShimmerPlaceHolder visible={ShimmerTime} style={{width: '100%', height: '100%'}}>
-              <CachedImage source={{uri: item.image}} style={styles.image} />
+              <Image source={{uri: item.image}} style={styles.image} />
             </ShimmerPlaceHolder>
           </View>
           <Text style={styles.name}>{getTruncName(item.name)}</Text>
@@ -100,7 +100,8 @@ export const SelectPatientScreen = () => {
           Weight: patient.Weight,
           Height: patient.Height,
           Patient_Code: patient.Patient_Code,
-          Profile_Photo_Url: patient.Profile_Photo_Url
+          Profile_Photo_Url: patient.Profile_Photo_Url,
+          Profile_Photo_Name: patient.Profile_Photo_Name,
         }))
       }
     });
@@ -156,7 +157,7 @@ export const SelectPatientScreen = () => {
       let AC = [{ id: 'addPatient', name: 'Añadir Paciente' }];
       
       data.patients.map((patient, id) => {
-        const obj = {id: id+1, name: `${patient.First_Names} ${patient.Last_Names}`, image: patient.Profile_Photo_Url, Patient_id: patient.id};
+        const obj = {id: id+1, name: `${patient.First_Names} ${patient.Last_Names}`, image: patient.Profile_Photo_Url, Patient_id: patient.id, Profile_Photo_Name: patient.Profile_Photo_Name == null ? '0' : patient.Profile_Photo_Name};
         AC.unshift(obj);
       })
 

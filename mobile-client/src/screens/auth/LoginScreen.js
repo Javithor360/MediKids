@@ -71,6 +71,7 @@ export const LoginScreen = () => {
           Age: data.User.Age,
           Phone: data.User.Phone,
           ProfilePhotoUrl: data.User.Profile_Photo_Url,
+          Profile_Photo_Name: data.User.Profile_Photo_Name,
           jwtToken: data.token,
         }))
 

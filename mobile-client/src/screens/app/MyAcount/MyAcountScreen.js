@@ -1,7 +1,7 @@
 
 //>> IMPORT LIBRERIES
-import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View,TouchableOpacity, ImageBackground, Dimensions} from 'react-native'
+import { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View,TouchableOpacity, Image} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { MaterialIcons, MaterialCommunityIcons, AntDesign, FontAwesome5, Feather } from '@expo/vector-icons'; 
@@ -9,59 +9,69 @@ import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from 'expo-constants';
 import { useTranslation } from 'react-i18next';
+import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder'
+
 // >> IMPORT COMPONENTS
 import { ScreenTitle } from '../../../index';
 import { setStatement } from '../../../store/slices/starterSlice';
 import { setLogginValues } from '../../../store/slices/responsibleSlice';
 import { setInitialValues } from '../../../store/slices/patientSlice';
 
-//>> Constants
-const { height } = Dimensions.get('window');
+//! CREATE SHIMMER
+const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 export const MyAcountScreen = () => {
-  const responsible = useSelector(state => state.responsible)
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const [isMainScreen, setIsMainScreen] = useState(true);
-  const { t } = useTranslation();
-  const LogoutButton = () => {
-    AsyncStorage.removeItem('userSession');
+    const responsible = useSelector(state => state.responsible)
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const [isMainScreen, setIsMainScreen] = useState(true);
+    const { t } = useTranslation();
 
-    //\\ Reset the Starter slice in redux
-    dispatch(setStatement({
-      Email: null,
-      State: null,
-    }))
+    //! Shimmer State
+    const [ShimmerTime, setShimmerTime] = useState(false);
 
-    //\\ Reset the Responsible slider in redux
-    dispatch(setLogginValues({
-      FirstNames: null,
-      LastNames: null,
-      Email: null,
-      Phone: null,
-      DUI: null,
-      Age: null,
-      ProfilePhotoUrl: null,
-      Birthdate: null,
-      jwtToken: null,
-    }))
+    const LogoutButton = () => {
+        AsyncStorage.removeItem('userSession');
 
-    //\\ Reset the patient slice in redux
-    dispatch(setInitialValues({
-      FirstNames: null,
-      LastNames: null,
-      Birth_Date: null,
-      Age: null,
-      Gender: null,
-      Blood_Type: null,
-      Weight: null,
-      Height: null,
-      Patient_Code: null,
-      Profile_Photo_Url: null,
-    }))
+        //\\ Reset the Starter slice in redux
+        dispatch(setStatement({
+        Email: null,
+        State: null,
+        }))
 
-    navigation.navigate('LoginScreen', {swipeBack: false});
-  }
+        //\\ Reset the Responsible slider in redux
+        dispatch(setLogginValues({
+        FirstNames: null,
+        LastNames: null,
+        Email: null,
+        Phone: null,
+        DUI: null,
+        Age: null,
+        ProfilePhotoUrl: null,
+        Birthdate: null,
+        jwtToken: null,
+        }))
+
+        //\\ Reset the patient slice in redux
+        dispatch(setInitialValues({
+        FirstNames: null,
+        LastNames: null,
+        Birth_Date: null,
+        Age: null,
+        Gender: null,
+        Blood_Type: null,
+        Weight: null,
+        Height: null,
+        Patient_Code: null,
+        Profile_Photo_Url: null,
+        }))
+
+        navigation.navigate('LoginScreen', {swipeBack: false});
+    }
+
+    useEffect(() => {
+        setTimeout(() => { setShimmerTime(true) }, 1000);
+    }, []);
 
   return (
     <LinearGradient colors={['#e4e2ff', '#e4e2ff', '#FFFFFF', '#FFFFFF']} locations={[0, 0.5, 0.5, 1]}>
@@ -77,8 +87,9 @@ export const MyAcountScreen = () => {
                 />
                 <View style={styles.containPhoto}>
                     <View style={styles.profilePhotoWrapper}>
-                        <ImageBackground style={styles.profilePhotoImage} source={{uri: responsible.ProfilePhotoUrl}}>
-                        </ImageBackground>
+                        <ShimmerPlaceHolder visible={ShimmerTime} style={{width: '100%', height: '100%'}}>
+                            <Image source={{uri: responsible.ProfilePhotoUrl}} style={{width:'100%', height:'100%'}}/>
+                        </ShimmerPlaceHolder>
                     </View>
                 </View>
                 <View style={styles.ContainerView}>

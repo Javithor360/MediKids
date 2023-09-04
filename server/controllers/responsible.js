@@ -245,13 +245,14 @@ const upload_pf_patient = async (req, res, next) => {
     //? Get the url from the snapshot.
     const url = await getDownloadURL(storageRef);
 
+
     //! Save in the database;
     await pool.query('UPDATE Patient SET Profile_Photo_Url = ?, Profile_Photo_Name = ? WHERE id = ?', [url, name, Patient_id]);
 
     //>> Delete File fron upload directory.
     fs.unlink(req.file.path, (err) => {if (err) throw err});
 
-    return res.status(200).json({success: true, url});
+    return res.status(200).json({success: true, url, name});
   } catch (error) {
     return res.status(500).json({error});
   }

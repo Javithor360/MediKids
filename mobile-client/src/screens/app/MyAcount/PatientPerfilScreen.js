@@ -1,6 +1,6 @@
 
 //>> IMPORT LIBRERIES
-import { ScrollView, StyleSheet, Text, View, ImageBackground, Dimensions, TouchableOpacity} from 'react-native'
+import { ScrollView, StyleSheet, Text, View, Dimensions, TouchableOpacity, Image} from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { MaterialIcons, MaterialCommunityIcons, AntDesign, Feather, FontAwesome5, Octicons } from '@expo/vector-icons'; 
 import Constants from 'expo-constants';
@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder'
+import CachedImage from 'expo-cached-image'
 
 //>> IMPORT COMPONENTS
 import { ScreenTitle } from '../../../components/ScreenTitleHook';
@@ -16,6 +18,9 @@ import { differenceInDays, differenceInMonths } from 'date-fns';
 
 //>> Constants
 const { height } = Dimensions.get('window');
+
+//! CREATE SHIMMER
+const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 export const PatientPerfilScreen = () => {
     const navigation = useNavigation();
@@ -26,6 +31,9 @@ export const PatientPerfilScreen = () => {
 
     //! Function to get the birth date of the patient.
     const getBirthDate = () => new Date(PatientData.Birth_Date).toLocaleDateString();
+
+      //! Shimmer State
+  const [ShimmerTime, setShimmerTime] = useState(false);
 
     //! Get Patient Age
     const getPatientAge = (ag, bd) => {
@@ -83,6 +91,7 @@ export const PatientPerfilScreen = () => {
 
     useEffect(() => {
         getVaccinesRecord();
+        setTimeout(() => { setShimmerTime(true) }, 1000);
     }, []);
     
     return (
@@ -98,8 +107,9 @@ export const PatientPerfilScreen = () => {
                     />
                     <View style={styles.containPhoto}>
                         <View style={styles.profilePhotoWrapper}>
-                            <ImageBackground style={styles.profilePhotoImage} source={{uri: PatientData.Profile_Photo_Url}}>
-                            </ImageBackground>
+                            <ShimmerPlaceHolder visible={ShimmerTime} style={{width: '100%', height: '100%'}}>
+                                <Image source={{uri: PatientData.Profile_Photo_Url}} style={{width:'100%', height:'100%'}}/>
+                            </ShimmerPlaceHolder>
                         </View>
                     </View>
                     <View style={styles.ContainerView}>

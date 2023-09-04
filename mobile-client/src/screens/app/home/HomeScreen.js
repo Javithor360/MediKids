@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient'
 import { useTranslation } from 'react-i18next';
 import {differenceInDays, differenceInMonths} from 'date-fns'
+import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder'
+import CachedImage from 'expo-cached-image'
 
 //>> Import Components
 import LanguageSelector from '../../../components/LanguageSelector';
@@ -15,6 +17,9 @@ import { ThreePoints, getMedicalAppointments, getMedicalPrescriptions, getNotifi
 
 //! Deafult foto
 const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
+
+//! CREATE SHIMMER
+const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 export const HomeScreen = () => {
   const { t } = useTranslation();
@@ -36,6 +41,9 @@ export const HomeScreen = () => {
   //! Notifications State
   const [DataNotis, setDataNotis] = useState(null);
   const [IconNotis, setIconNotis] = useState('bell');
+
+  //! Shimmer State
+  const [ShimmerTime, setShimmerTime] = useState(false);
 
   const getNotis = async () => {
     try {
@@ -124,6 +132,11 @@ export const HomeScreen = () => {
     }
   }
 
+  //! Change Shimmer
+  useEffect(() => {
+    setTimeout(() => { setShimmerTime(true) }, 1000);
+  }, []);
+  
   //! NOTIFICATION ICON
   useEffect(() => {
     if (DataNotis != null && DataNotis.ActualNotis.length != 0) {
@@ -192,7 +205,9 @@ export const HomeScreen = () => {
                 {
                   defaultProfPhoto != Patient.Profile_Photo_Url ?
                     <View style={styles.profilePhotoWrapper}>
-                      <ImageBackground style={styles.profilePhotoImage} source={{uri: Patient.Profile_Photo_Url}} />
+                      <ShimmerPlaceHolder visible={ShimmerTime} style={{width: '100%', height: '100%'}}>
+                        <Image  source={{uri: Patient.Profile_Photo_Url}} style={{width:'100%', height:'100%'}}/>
+                      </ShimmerPlaceHolder>
                     </View>
                     :
                     <Image source={require('../../../../assets/icons/kid.png')} style={{width: '70%', resizeMode: 'contain',}} />
