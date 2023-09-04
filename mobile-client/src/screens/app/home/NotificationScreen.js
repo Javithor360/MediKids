@@ -172,7 +172,6 @@ export const NotificationScreen = ({route}) => {
                                 <View style={styles.ContainDate}>
                                     <MaterialCommunityIcons name="timer-sand" size={10.5} color="#707070" style={styles.Icon1}  />
                                     <Text style={styles.Time}>{new Date(Noti.DateTime).toLocaleDateString()}</Text>
-                                    {/* <MaterialCommunityIcons name="clock-time-eight-outline" size={10.5} color="#707070" style={styles.Icon2} /> */}
                                     <Text style={styles.Time1}>{getTime(Noti.DateTime)}</Text>
                                 </View>
                             </View>
@@ -199,7 +198,7 @@ export const NotificationScreen = ({route}) => {
                 <View style={{backgroundColor:'#fff'}}>
                     <ScreenTitle
                         Label={"Notificaciones"}
-                        IconName={"bell-badge-outline"}
+                        IconName={"bell-outline"}
                         fontSize={20}
                         textColor={'#FFFFFF'}
                         paddingH={30}
