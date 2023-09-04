@@ -131,7 +131,7 @@ export const HomeScreen = () => {
                 {/* ¡Hola! */}
                 {t('homePage.welcomeMsg')}
               </Text>
-              <Text style={{fontWeight:'bold', color: '#D58C8C',fontSize: 18, fontFamily: 'poppinsBold'}}>Encargado</Text>
+              <Text style={{fontWeight:'bold', color: '#D58C8C',fontSize: 18, fontFamily: 'poppinsBold'}}>{t('homePage.responsible')}</Text>
             </View>
             <View style={styles.userNameDsp}>
               <View style={{height: '100%', justifyContent: 'center'}}>

@@ -30,6 +30,8 @@ export const ScheduleAppointment = ({ setScheAppoint, nextAppointment }) => {
     setHasSelectedYes(!hasSelectedYes);
   };
 
+  const restrictedDays = false;
+
   return (
     <div className="">
       <div className="inline-flex items-center gap-2 ml-7 mb-3 mt-7">
@@ -53,7 +55,7 @@ export const ScheduleAppointment = ({ setScheAppoint, nextAppointment }) => {
       <p className="mt-7 ml-7 font-semibold text-[#707070] text-[1.2rem]">
         1. Seleccione una fecha
       </p>
-      <CalendarPicker setDate={setDate} hasSelectedYes={!hasSelectedYes}/>
+      <CalendarPicker setDate={setDate} hasSelectedYes={!hasSelectedYes} restrictedDays={restrictedDays}/>
       <p className="mt-7 ml-7 font-semibold text-[#707070] text-[1.2rem]">
         2. Selecciona un horario
       </p>
