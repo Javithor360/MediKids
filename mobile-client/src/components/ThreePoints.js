@@ -18,7 +18,7 @@ export const ThreePoints = ({setLngModal, setView, view}) => {
   const navigation = useNavigation()
   const dispatch = useDispatch();
 
-  const OptionsNames = ['Cambiar Paciente', 'Ver Perfil', 'Ver Paciente', 'Cambiar Idioma'];
+  const OptionsNames = [`${t('ThreePoints.ChangePatient')}`, `${t('ThreePoints.ViewProfile')}`, `${t('ThreePoints.ViewPatient')}`, `${t('ThreePoints.ChangeLangua')}`];
   const OptionIcons = [
     <FontAwesome name="exchange" size={22} color="#A375FF"/>,
     <MaterialIcons name="person" size={22} color="#A375FF" />,
@@ -118,7 +118,7 @@ export const ThreePoints = ({setLngModal, setView, view}) => {
         <View style={{width: '100%', height: 70, justifyContent: 'flex-end', alignItems: 'center', marginBottom: 35, height: '40%'}}>
             <TouchableOpacity onPress={() => {LogoutButton()}} style={[{ height: '20%',width: '85%',borderRadius: 15,backgroundColor: '#fe3838', alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}, styles.ButtomShadow]}>
                 <AntDesign name="logout" size={26} color="#fff" />
-                <Text style={{color: '#fff', fontSize: 18}}>Cerrar Sesión</Text>
+                <Text style={{color: '#fff', fontSize: 18}}>{t('ThreePoints.signoff')}</Text>
             </TouchableOpacity>
         </View>
       </View>

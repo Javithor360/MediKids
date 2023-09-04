@@ -118,7 +118,7 @@ export const RegisterScreen = () => {
             <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
             <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableButton} onPress={() => navigation.goBack()}>
               <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-              <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
+              <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>{t('register1.back')}</Text>
             </TouchableOpacity>
           </View>
           <View style={AuthStylesGlobal.contentContainer}>

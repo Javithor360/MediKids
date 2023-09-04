@@ -1,9 +1,142 @@
 {
 
     "ThreePoints":{
-        "options":"Opciones"
+        "options":"Opciones",
+        "signoff":"Cerrar Sesión",
+        "ChangePatient":"Cambiar de Paciente",
+        "ViewProfile":"Ver Perfil",
+        "ViewPatient":"Ver Paciente",
+        "ChangeLangua":"Cambiar Idioma"
 
     },
+    "AppointmentMainScreen":{
+        "choose":"Elige la especialidad en la que agendar una cita",
+        "gastro":"Gastroenterología",
+        "Oto":"Otorrinolaringología",
+        "Neu":"Neumología",
+        "OtoInfo":"Diagnóstico y tratamiento de las enfermedades del oído, nariz, garganta y alergías",
+        "NeuInfo":"Diagnóstico y tratamiento de enfermedades del sistema y vías respiratorias y pulmones",
+        "gastroInfo":"Diagnóstico y tratamiento de enfermedades del esófago, el estómago, los intestinos, y el hígado",
+        "schedule":"Agendar cita",
+        "history":"Historial de citas",
+        "NoRecordhistory":"Todavía no hay registros en el historial.",
+        "View":"Ver historial"
+    },
+
+    "AppointmentPro":{
+        "consider":"A tener en cuenta",
+        "personalized":"Cada uno de nuestros pacientes recibe una atención personalizada, nuestros médicos se encargan de analizar detalladamente cada uno de los casos para brindar el diagnostico adecuado siempre, es por ello que en cada cita se toma en cuenta la siguiente metodología",
+        "reviewAndanalysis":"Revisión y análisis de sintomas",
+        "assigned":"Tratamiento asignado en un periodo de tiempo",
+        "controlAppointment":"Citas de control y seguimiento",
+        "guaranteed":"Atención y calidad garantizadas"
+    },
+
+    "AppointmentHistory":{
+        "details":"Detalles de la cita",
+        "regisCod":"Código de Registro",
+        "patient":"Paciente",
+        "Date":"Fecha",
+        "doctor":"Médico",
+        "endtime":"Hora de Finalización",
+        "generaldiag":"Diagnostico General",
+        "prescriptionmedical":"Medicamentos Recetados",
+        "Height":"Altura",
+        "weight":"Weight",
+        "temp":"Temperatura",
+        "close":"Cerrar",
+        "MoreDetails":"Más Detalles",
+        "historyAttended":"Historial de Citas Atendidas"
+
+    },
+
+    "account":{
+        "dataofcharge":"Datos del encargado",
+        "givenNames": "Nombres",
+        "phone":"Teléfono",
+        "changepic":"Cambiar Foto de Perfil",
+        "infopatient":"Información del Paciente",
+        "changepatient":"Cambiar de Paciente",
+        "signoff":"Cerrar Sesión"
+
+    },
+
+    "patientperfil":{
+        "givenNames":"Nombres",
+        "patientData":"Datos del Paciente",
+        "code":"Código",
+        "birthdate":"Fecha de nacimiento",
+        "gen":"Género",
+        "age":"Edad",
+        "VaccinesRecord":"Cartilla de vacunación",
+        "Act":"Acciones",
+        "changepic":"Cambiar Foto de Perfil"
+    },
+    "Gastro":{
+        "focuson":"¿En que nos enfocamos?",
+        "text1":"Profesionales de la medicina que ha recibido formación en el diagnóstico y tratamiento de las enfermedades del estomago, intestino y las paredes.",
+        "text2":"Enfermedades comunes",
+        "text3":"Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con problemas del estomago o paredes intestinales.",
+        "title1":"Apendicitis",
+        "text4":"Es una inflamación del apéndice, una bolsa en forma de dedo que se proyecta desde el colon en el lado inferior derecho del abdomen. ",
+        "title2":"Diarrea",
+        "text5":"Es un aumento en la frecuencia de las deposiciones (más de tres al día) acompañada de una disminución de la consistencia de éstas. ",
+        "title3":"Enfermedad celíaca",
+        "text6":"Los pacientes con enfermedad celíaca no toleran una proteína llamada gluten (trigo, avena, cebada,centeno).",
+        "title4":"Control intestinal",
+        "text7":"Dificultad para aguantar una evacuación intestinal. Tiene goteo de heces sólidas o líquidas cuando menos lo espera.",
+        "text8":"Todos los pacientes son analizados para un diagnóstico más preciso y tratamiento personalizado",
+        "title5":"Nuestro Especialista",
+        "text9":"Cuando veo la sonrisa de mis pacientes, esa es la verdadera recompensa",
+        "text10":"Especialista en Gastroenterología",
+        "text11":"Graduada de la facultad de Medicina de la UNAM",
+        "text12":"Participa activamente en sociedades médicas de gastroenterología ",
+        "schedule":"Agendar cita"
+    },
+    "Oto":{
+        "focuson":"¿En que nos enfocamos?",
+        "text1":"Estos médicos ven una amplia gama de enfermedades y patologías relacionadas con los sentidos, como problemas del olfato y el gusto o trastornos del equilibrio y la audición.",
+        "text2":"Enfermedades comunes",
+        "text3":"  Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con problemas del sentido olfato y auditivo.",
+        "title1":"Hemorragia nasal",
+        "text4":"Irritaciones debido a alergias, resfriados, estornudos o problemas sinusales. Aire muy frío o seco.",
+        "title2":" Pérdida de la audicións",
+        "text5":"La pérdida de audición puede ser leve, moderada, grave o profunda ocasionada por diversos factores",
+        "title3":"Laringitis",
+        "text6":"Es la inflamación de la caja de voz (laringe) por uso excesivo, irritación o infección y que se puede volver crónica",
+        "text7":"Las sinusitis ocurren cuando se acumula líquido en los senos paranasales (cavidades en la cara que están llenas de aire).",
+        "text8":"Todos los pacientes son analizados para un diagnóstico más preciso y tratamiento personalizado",
+        "title5":"Nuestro Especialista",
+        "text9":"My priority is patients and the satisfaction of parents seeing their children grow up healthy",
+        "text10":"Especialista Otorrinolaringología",
+        "text11":"Graduado de la Universidad de españa",
+        "text12":"Es un experto en cirugía de oído medio",
+        "schedule":"Agendar cita"
+    },
+    "Neu":{
+     
+        "focuson":"¿En que nos enfocamos?",
+        "text1":"Profesionales de la medicina que han recibido especializacion en el estudio, diagnóstico y tratamiento de las enfermedades relacionadas con el sistema respiratorio.",
+        "text2":"Enfermedades comunes",
+        "text3":" Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con problemas del sistema respiratorio. ",
+        "title1":"Asma",
+        "text4":"El asma causa sibilancias, dificultad para respirar, opresión en el pecho y tos durante la noche o temprano por la mañana.",
+        "title2":"Bronquitis",
+        "text5":"La bronquitis aguda suele ser causada por la inflamación de las vías respiratorias debido a infecciones virales. ",
+        "title3":"Neumonía",
+        "text6":"Infección que afecta un pulmón o los dos. Hace que los sacos de aire, o alvéolos, de los pulmones se llenen de líquido o pus.",
+        "title4":"Tos Crónica",
+        "text7":"La tos crónica se define como tos que perdura más de 3 semanas y puede llegar a provocar bronquitis o complicaciones más graves",
+        "text8":"Todos los pacientes son analizados para un diagnóstico más preciso y tratamiento personalizado",
+        "title5":"Nuestro Especialista",
+        "text9":"La salud es la fuente de la felicidad, y cuidarla desde temprano es mi prioridad",
+        "text10":"Especialista en Neumología",
+        "text11":"Graduado de la Universidad de madrid",
+        "text12":"Miembro activo de sociedades médicas de neumología",
+
+        "schedule":"Agendar cita"
+    },
+
 
     "homePage": {
         "welcomeMsg": "¡Hola!",
@@ -68,7 +201,8 @@
     },
     "register1": {
         "title": "Datos del encargado",
-        "alreadyAcc": "¿Ya tienes una cuenta?"
+        "alreadyAcc": "¿Ya tienes una cuenta?",
+        "back":"Atrás"
     },
     "verifyCode": {
         "title": "Código de verificación",
@@ -79,12 +213,54 @@
         "title": "Tu foto de perfil",
         "text2": "Para mayor seguridad, coloca una fotografía que pueda identificarte.",
         "selectBtn": "Seleccionar",
-        "changeBtn": "Aceptar"
+        "changeBtn": "Aceptar",
+        "back":"Atrás",
+        "step1":"Paso 1"
     },
     "selectPhotoPatient": {
         "title": "Foto del Paciente",
         "text2": "Para mayor eficacia y seguridad, coloca una fotografía que identifique al menor.",
         "selectBtn": "Seleccionar",
-        "changeBtn": "Aceptar"
+        "changeBtn": "Aceptar",
+        "back":"Atrás"
+    },
+    "registerPatient": {
+        "title": "Datos del Paciente",
+        "text2": "¡Necesitamos la información del menor para hacer un muy buen trabajo!",
+        "cancel":"Cancelar",
+        "accept":"Aceptar",
+        "back":"Atrás",
+        "step2":"Paso 2"
+    },
+
+
+    "forgotpasswordCod":{
+        "passwordcode":"Código de cambio de contraseña"
+
+    },
+    "forgotpassword":{
+        
+        "back":"Atrás",
+        "iforgot":"Olvidé mi contraseña",
+        "instructions":"Recibiras instrucciones para restablecer tu contraseña"
+    },
+    "immunization":{
+        "step3":"Step 3",
+        "Vaccination":"Registro de vacunación",
+        "needchildInfo":"¡Necesitamos la información del menor para hacer un muy buen trabajo!",
+        "patient":"Paciente",
+        "select":"Seleccione las Vacunas",
+        "polio":"Poliomielitis",
+        "penta":"Pentavalent",
+        "neumococo":"Neumococo Conjugado",
+        "oralPolio":"Polio Oral",
+        "anti":"Antitetánica"
+    },
+    "resetpassword":{
+        "recoverPass":"Recuperar contraseña"
+    },
+    "selectPatient":{
+        "selectpatient":"Seleccione un paciente",
+        "signoff":"Cerrar Sesión"
     }
 }

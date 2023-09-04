@@ -7,6 +7,7 @@ import Constants from 'expo-constants';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 //>> IMPORT COMPONENTS
 import { ScreenTitle } from '../../../components/ScreenTitleHook';
@@ -19,7 +20,7 @@ const { height } = Dimensions.get('window');
 export const PatientPerfilScreen = () => {
     const navigation = useNavigation();
     const PatientData = useSelector(state => state.patient);
-
+    const { t } = useTranslation();
     //! State tp Vaccines Array.
     const [ShowVaccines, setShowVaccines] = useState(null);
 
@@ -102,12 +103,12 @@ export const PatientPerfilScreen = () => {
                         </View>
                     </View>
                     <View style={styles.ContainerView}>
-                        <Text style={styles.DatosText}>Datos del Paciente</Text>
+                        <Text style={styles.DatosText}>{t('patientperfil.patientData')}</Text>
                         <View style={styles.InfoContainer}>
                             <View style={styles.ContainCardText}>
                                 <View style={{flexDirection: 'row'}}>
                                     <AntDesign name="profile" size={24} color="#7225f9" marginLeft='5%' marginTop='1%' />
-                                    <Text style={styles.TextForImput}>Nombre:</Text>
+                                    <Text style={styles.TextForImput}>{t('patientperfil.givenNames')}:</Text>
                                 </View>
                                 <Text style={styles.TextWritted}>{PatientData.FirstNames} {PatientData.LastNames}</Text>
                             </View>
@@ -116,7 +117,7 @@ export const PatientPerfilScreen = () => {
                             <View style={styles.ContainCardText}>
                                 <View style={{flexDirection: 'row',}}>
                                     <Octicons name="id-badge" size={24} color="#7225f9" marginLeft='5%' marginTop='1%' />
-                                    <Text style={styles.TextForImput}>Código:</Text>
+                                    <Text style={styles.TextForImput}>{t('patientperfil.cod')}:</Text>
                                 </View>
                                 <Text style={styles.TextWritted}>{PatientData.Patient_Code}</Text>
                             </View>
@@ -125,7 +126,7 @@ export const PatientPerfilScreen = () => {
                             <View style={styles.ContainCardText}>
                                 <View style={{flexDirection: 'row',}}>
                                     <MaterialCommunityIcons name="calendar-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%'/>
-                                    <Text style={styles.TextForImput}>Fecha de nacimiento:</Text>
+                                    <Text style={styles.TextForImput}>{t('patientperfil.birthdate')}:</Text>
                                 </View>
                                 <Text style={styles.TextWritted}>{getBirthDate()}</Text>
                             </View>
@@ -134,7 +135,7 @@ export const PatientPerfilScreen = () => {
                             <View style={styles.ContainCardText}>
                                 <View style={{flexDirection: 'row',}}>
                                     <MaterialIcons name="person-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%' />
-                                    <Text style={styles.TextForImput}>Género:</Text>
+                                    <Text style={styles.TextForImput}>{t('patientperfil.gen')}:</Text>
                                 </View>
                                 <Text style={styles.TextWritted}>{PatientData.Gender}</Text>
                             </View>
@@ -143,14 +144,14 @@ export const PatientPerfilScreen = () => {
                             <View style={styles.ContainCardText}>
                                 <View style={{flexDirection: 'row',}}>
                                     <MaterialCommunityIcons name="timeline-plus-outline" size={24} color="#7225f9" marginLeft='5%' marginTop='1%'/>
-                                    <Text style={styles.TextForImput}>Edad:</Text>
+                                    <Text style={styles.TextForImput}>{t('patientperfil.age')}:</Text>
                                 </View>
                                 <Text style={styles.TextWritted}>{getPatientAge(PatientData.Age, PatientData.Birth_Date)}</Text>
                             </View>
                         </View>
                         <View style={styles.lineBig}></View>
 
-                        <Text style={[styles.DatosText, {marginTop: '7%'}]}>Cartilla de vacunación</Text>
+                        <Text style={[styles.DatosText, {marginTop: '7%'}]}>{t('patientperfil.VaccinesRecord')}</Text>
                         <ScrollView contentContainerStyle={{ flexGrow: 1 }} style={[styles.InfoContainer, {backgroundColor: '#CECEF6', maxHeight: 550, height: 600 }]}>
                             {
                                 ShowVaccines != null &&
@@ -161,11 +162,11 @@ export const PatientPerfilScreen = () => {
                         </ScrollView>
 
                         <View style={styles.lineBig}></View>
-                        <Text style={[styles.DatosText, {marginTop: '7%'}]}>Acciones</Text>
+                        <Text style={[styles.DatosText, {marginTop: '7%'}]}>{t('patientperfil.Act')}</Text>
                         <View style={{width: '100%', height: 70, marginTop: '2%', justifyContent: 'center', alignItems: 'center'}}>
                             <TouchableOpacity onPress={() => {navigation.navigate('SelectPatientPPScreen')}} style={[{ height: '75%',width: '90%',borderRadius: 15,backgroundColor: '#FFDEB4',alignItems: 'center',justifyContent: 'center', marginHorizontal: 'auto', flexDirection: 'row', gap: 10}, styles.ButtomShadow]}>
                                 <FontAwesome5 name="user-circle" size={24} color="#434343" />
-                                <Text style={{color: '#434343', fontSize: 16}}>Cambiar Foto de Perfil</Text>
+                                <Text style={{color: '#434343', fontSize: 16}}>{t('patientperfil.changepic')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

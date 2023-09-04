@@ -4,7 +4,7 @@ import { Text, ScrollView, StyleSheet, View, Image, TouchableOpacity,Modal } fro
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { LinearGradient } from 'expo-linear-gradient';
 import Constants from 'expo-constants';
-
+import { useTranslation } from 'react-i18next';
 //>> IMPORT COMPONENTS
 import { ScreenTitle, getMedicalRecords } from '../../../index';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ export const HistorialAppointment = ({ route }) => {
     // const jwtToken = useSelector(state => state.responsible.jwtToken);
     const Patient = useSelector(state => state.patient)
     const { AppointmentsRecord } = route.params;
-    
+    const { t } = useTranslation();
     //! MODAL STATES
     const [view, setView] = useState(false);
     const [SelectedRecord, setSelectedRecord] = useState(null);
@@ -66,56 +66,56 @@ export const HistorialAppointment = ({ route }) => {
                     <View style={{ flex:1, backgroundColor:'rgba(1,1,1, 0.5)', justifyContent:'center',}}>
                         <View style={{height:'70%',width:'90%',backgroundColor:'#ffff',left:22,borderRadius:30, overflow: 'hidden'}}>
                             <View style={{width: '100%', height: '12%', alignItems: 'center', paddingVertical: 20, backgroundColor: '#e4e2ff', }}>
-                                <Text style={[styles.spcTitle, {fontSize:20,color:'#707070', textShadowColor: 'rgba(0, 0, 0, 0)', fontSize: 24}]}>Detalles de la cita</Text>
+                                <Text style={[styles.spcTitle, {fontSize:20,color:'#707070', textShadowColor: 'rgba(0, 0, 0, 0)', fontSize: 24}]}>{t('AppointmentHistory.details')}</Text>
                             </View>
 
                             <View style={{ height:'70%',width:'90%',top:20, alignSelf:'center',}}>
                                 <View style={styles.InfoText} >
-                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16, }}>Código de Regstro: </Text>
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16, }}>{t('AppointmentHistory.regisCod')}: </Text>
                                     <Text style={{ color: '#707070',fontSize:16, }}>{SelectedRecord.Medical_History_Code}</Text>
                                 </View>
                                 <View style={styles.InfoText} >
-                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Paciente: </Text>
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>{t('AppointmentHistory.patient')}: </Text>
                                     <Text style={{ color: '#707070',fontSize:16,top:10, }}>{Patient.FirstNames} {Patient.LastNames}</Text>
                                 </View>
                                 <View style={styles.InfoText} >
-                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Fecha: </Text>
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>{t('AppointmentHistory.Date')}: </Text>
                                     <Text style={{ color: '#707070',fontSize:16,top:10, }}>{getLocaleDateString(SelectedRecord.Date_Time)}</Text>
                                 </View>
                                 <View style={styles.InfoText} >
-                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Medico: </Text>
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>{t('AppointmentHistory.doctor')}: </Text>
                                     <Text style={{ color: '#707070',fontSize:16,top:10, }}>{getDoctorsName(SelectedRecord.Doctor_id)}</Text>
                                 </View>
                                 <View style={styles.InfoText} >
-                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Hora de Finalización: </Text>
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>{t('AppointmentHistory.endtime')}: </Text>
                                     <Text style={{ color: '#707070',fontSize:16,top:10, }}>{new Date(SelectedRecord.Date_Time).toLocaleTimeString()}</Text>
                                 </View>
                                 <View style={[styles.InfoText, {flexDirection: 'column'}]} >
-                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Diagnostico General:</Text>
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>{t('AppointmentHistory.generaldiag')}:</Text>
                                     <Text style={{ color: '#707070',fontSize:16 }}>{SelectedRecord.Diagnosis_Mobile}</Text>
                                 </View>
                                 <View style={[styles.InfoText, {flexDirection: 'column'}]} >
-                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Medicamentos Recetados:</Text>
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>{t('AppointmentHistory.prescriptionmedical')}:</Text>
                                     <Text style={{ color: '#707070',fontSize:16 }}>{getPrescriptionsNames(SelectedRecord.Prescriptions_Names)}</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', width: '100%'}}>
                                     <View style={[styles.InfoText, {flexDirection: 'column'}]} >
-                                        <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Altura:</Text>
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>{t('AppointmentHistory.Height')}:</Text>
                                         <Text style={{ color: '#707070',fontSize:16 }}>{SelectedRecord.Height} Mtrs</Text>
                                     </View>
                                     <View style={[styles.InfoText, {flexDirection: 'column', marginLeft: 50}]} >
-                                        <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Peso:</Text>
+                                        <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>{t('AppointmentHistory.weight')}:</Text>
                                         <Text style={{ color: '#707070',fontSize:16 }}>{SelectedRecord.Weight} lbs</Text>
                                     </View>
                                 </View>
                                 <View style={styles.InfoText} >
-                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>Temperatura: </Text>
+                                    <Text style={{ color: '#A375FF', fontWeight: 'bold',fontSize:16,marginTop:10, }}>{t('AppointmentHistory.temp')}: </Text>
                                     <Text style={{ color: '#707070',fontSize:16,top:10, }}>{SelectedRecord.Temperature} °C</Text>
                                 </View>
                             </View>
                             
                             <TouchableOpacity style={styles.apptBtn1} onPress={()=> setView(false)} >
-                                <Text style={{color: '#fff', fontSize: 13.5,}}>Cerrar</Text>
+                                <Text style={{color: '#fff', fontSize: 13.5,}}>{t('AppointmentHistory.close')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -144,19 +144,19 @@ export const HistorialAppointment = ({ route }) => {
 
                     <View style={{ paddingHorizontal: 0, alignItems: 'center'}}>
                         <View style={styles.InfoText} >
-                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Código de Registro: </Text>
+                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>{t('AppointmentHistory.regisCod')}: </Text>
                             <Text style={{ color: '#707070',}}>{Record.Medical_History_Code}</Text>
                         </View>
                         <View style={styles.InfoText} >
-                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Paciente: </Text>
+                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>{t('AppointmentHistory.patient')}: </Text>
                             <Text style={{ color: '#707070',}}>{Patient.FirstNames} {Patient.LastNames}</Text>
                         </View>
                         <View style={styles.InfoText} >
-                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >Fecha: </Text>
+                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >{t('AppointmentHistory.Date')}: </Text>
                             <Text style={{ color: '#707070',}}>{getLocaleDateString(Record.Date_Time)}</Text>
                         </View>
                         <View style={styles.InfoText} >
-                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>Medico: </Text>
+                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>{t('AppointmentHistory.doctor')}: </Text>
                             <Text style={{ color: '#707070',}}>{getDoctorsName(Record.Doctor_id)}</Text>
                         </View>
                     </View>
@@ -166,7 +166,7 @@ export const HistorialAppointment = ({ route }) => {
                             setView(true)
                             setSelectedRecord(Record);
                         }}>
-                            <Text style={{color: '#fff', fontSize: 13.5, fontWeight: '600'}}>Más detalles</Text>
+                            <Text style={{color: '#fff', fontSize: 13.5, fontWeight: '600'}}>{t('AppointmentHistory.MoreDetails')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -189,7 +189,7 @@ export const HistorialAppointment = ({ route }) => {
                         <View style={styles.chooseContent}>
                             <View style={styles.rightTextSctn}>
                                 <View style={styles.linee}></View>
-                                <Text style={styles.titleBanner}>Historial de Citas Atendidas</Text>
+                                <Text style={styles.titleBanner}>{t('AppointmentHistory.historyAttended')}</Text>
                             </View>
                         </View>
                     </View>

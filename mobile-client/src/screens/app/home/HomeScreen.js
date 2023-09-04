@@ -262,7 +262,7 @@ export const HomeScreen = () => {
                       :
                       <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '69%', width: '100%'}}>
                         <Image source={require('../../../../assets/icons/not-recipe.png')} style={{height: '40%', width:'60%', resizeMode: 'contain'}}/>
-                        <Text style={{color: '#707070', fontSize: 16, textAlign: 'center', marginTop: 18}}>{t('homePage.noAct')}</Text>
+                        <Text style={{color: '#707070', fontSize: 16, textAlign: 'center', marginTop: 18}}>{t('homePage.noActM')}</Text>
                       </View>
                   }
 

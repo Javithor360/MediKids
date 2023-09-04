@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ImageBackgr
 import { useNavigation, useRoute } from '@react-navigation/native';
 import DateTimePicker from "@react-native-community/datetimepicker"
 import { useSelector } from "react-redux";
-
+import { useTranslation } from 'react-i18next';
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterP, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';
@@ -20,7 +20,7 @@ export const RegisterPatientScreen = () => {
   const route = useRoute();
   const Email = useSelector(state => state.responsible.Email);
   const lng = useSelector(state => state.starter.Language);
-
+  const { t } = useTranslation();
   //! Parameter State
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -112,10 +112,10 @@ export const RegisterPatientScreen = () => {
                 <View>
                   <View>{getDatePicker()}</View>
                   <TouchableOpacity underlayColor={'transparent'} activeOpacity={0.3} onPress={onCancelPicker} style={[stylesRegPa.btnPickerTex, stylesRegPa.BtnPickerCancel]}>
-                    <Text>Cancel</Text>
+                    <Text>{t('registerPatient.cancel')}</Text>
                   </TouchableOpacity>
                   <TouchableOpacity underlayColor={'transparent'} activeOpacity={0.3} onPress={onDonePicker} style={[stylesRegPa.btnPickerTex, stylesRegPa.BtnPickerDone]}>
-                    <Text>Aceptar</Text>
+                    <Text>{t('registerPatient.accept')}</Text>
                   </TouchableOpacity>
                 </View>
               </View>
@@ -209,20 +209,20 @@ export const RegisterPatientScreen = () => {
               loggedIn ?
                 <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableButton} onPress={() => navigation.goBack()}>
                   <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-                  <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
+                  <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>{t('registerPatient.back')}</Text>
                 </TouchableOpacity>
                 :
                 <View style={[AuthStylesGlobal.buttomCameBack]}>
-                  <Text style={{color: 'white', fontSize: 20, fontFamily: 'poppinsBold'}}>Paso 2</Text>
+                  <Text style={{color: 'white', fontSize: 20, fontFamily: 'poppinsBold'}}>{t('registerPatient.step2')}</Text>
                 </View>
             }
         </View>
         <View style={AuthStylesGlobal.contentContainer}>
           <View style={AuthStylesGlobal.formContent} >
             <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')} />
-            <Text style={AuthStylesRegisterU.Tex_md}>Datos del paciente</Text>
+            <Text style={AuthStylesRegisterU.Tex_md}>{t('registerPatient.title')}</Text>
             <View style={[AuthStylesGlobal.cont2, {marginTop: -10}]} >
-              <Text style={AuthStylesGlobal.TextCount}>¡Necesitamos la informacion del menor para hacer un muy buen trabajo!</Text>
+              <Text style={AuthStylesGlobal.TextCount}>{t('registerPatient.text2')}</Text>
             </View>
 
             <View style={{flexDirection: 'row', width: '90%', gap: 15}}>
