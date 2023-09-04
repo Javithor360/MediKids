@@ -9,7 +9,6 @@ import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder'
-import CachedImage from 'expo-cached-image'
 
 //>> IMPORT COMPONENTS
 import { ScreenTitle } from '../../../components/ScreenTitleHook';

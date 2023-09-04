@@ -6,7 +6,6 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder'
 import { LinearGradient } from 'expo-linear-gradient';
-import CachedImage from 'expo-cached-image'
 
 import { useTranslation } from 'react-i18next';
 //>> Importing components

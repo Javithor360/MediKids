@@ -9,7 +9,6 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { useTranslation } from 'react-i18next';
 import {differenceInDays, differenceInMonths} from 'date-fns'
 import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder'
-import CachedImage from 'expo-cached-image'
 
 //>> Import Components
 import LanguageSelector from '../../../components/LanguageSelector';
