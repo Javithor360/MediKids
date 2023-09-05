@@ -113,30 +113,6 @@ export const DoctorProvider = ({ children }) => {
     }
   };
 
-  const CreateMedicalRecordEntry = async (data, arr_press) => {
-    try {
-      await newMedicalRecordEntry(
-        {
-          Patient_id: data.Patient_id,
-          Doctor_id: data.Doctor_id,
-          Medical_Appointment_id: data.Medical_Appointment_id,
-          height: data.height,
-          weight: data.weight,
-          temperature: data.temperature,
-          notes: data.notes,
-          HtmlNotes: data.HtmlNotes,
-          Array_Prescriptions: arr_press,
-        },
-        PrivateConfig
-      );
-      setErrorMessage([]);
-    } catch (error) {
-      const entries = error.response.data.error.split(",");
-      setErrorMessage((prevData) => [...prevData, ...entries]);
-      console.error(error);
-    }
-  };
-
   const EndMedicalAppointment = async (
     Doctor_id,
     Patient_id,
@@ -147,12 +123,6 @@ export const DoctorProvider = ({ children }) => {
     scheAppoint,
     togglesParams
   ) => {
-    // const res = await AddMedicalPrescription(medicalPrescript);
-    // let Arr = res != null ? res.data.Array_Prescriptions : [];
-    // CreateMedicalRecordEntry(medicalRecord, Arr);
-    // EditMedicalPrescription(medicalPrescript);
-    // EditAppointmentStatus(scheAppoint.originalAppointment, 5);
-    // ScheduleAppointment(scheAppoint);
     try {
       const new_prescriptions = medicalPrescript.new_prescriptions.map((m) => {
         const { hasSelectedYes, ...rest } = m;
@@ -340,7 +310,6 @@ export const DoctorProvider = ({ children }) => {
         ActivePatientsQuery,
         AppointmentsQuery,
         PatientsClassificator,
-        CreateMedicalRecordEntry,
         EndMedicalAppointment,
         PatientAppointmentWithDoctor,
         ResponsibleInformation,
