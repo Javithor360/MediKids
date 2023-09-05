@@ -9,6 +9,8 @@ export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id})
     const appointmentsState = useSelector(state => state.appointments);
     const navigation = useNavigation()
     const { t } = useTranslation();
+    const lng = useSelector(state => state.starter.Language);
+
     const getAppointmentState = () => {
         let appointmentStateValue;
 
@@ -16,11 +18,11 @@ export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id})
         else if (Doctor_id == 2) { appointmentStateValue = appointmentsState.NeumoState }
         else if (Doctor_id == 3) { appointmentStateValue = appointmentsState.GastroState }
 
-        if (appointmentStateValue == 1){ return 'SOLICITADA' }
-        else if (appointmentStateValue == 2){ return 'PENDIENTE' }
-        else if (appointmentStateValue == 3){ return 'EN PROGRESO' }
-        else if (appointmentStateValue == 4){ return 'TERMINADA' }
-        else if (appointmentStateValue == 0){ return 'PROGRAMADA' }
+        if (appointmentStateValue == 1){ return lng ? 'SOLICITADA' : 'REQUESTED' }
+        else if (appointmentStateValue == 2){ return lng ? 'PENDIENTE' : 'PENDING' }
+        else if (appointmentStateValue == 3){ return lng ? 'EN PROGRESO' : 'IN PROGRESS' }
+        else if (appointmentStateValue == 4){ return lng ? 'TERMINADA' : 'FINISHED' }
+        else if (appointmentStateValue == 0){ return lng ? 'PROGRAMADA' : 'PROGRAMMED' }
     }
     
     const getAppointmentInfo = () => {

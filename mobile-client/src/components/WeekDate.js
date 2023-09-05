@@ -4,6 +4,7 @@ import { eachWeekOfInterval, addDays, format, startOfMonth, subMonths, addMonths
 import { es } from 'date-fns/locale';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 const WeekDate = ({ setWeek }) => {
   const currentDate = new Date();
@@ -11,6 +12,7 @@ const WeekDate = ({ setWeek }) => {
   const endDate = new Date(2023, 11, 31);
   const { t } = useTranslation();
   const startOfCurrentMonth = startOfMonth(currentDate);
+  const lng = useSelector(state => state.starter.Language);
 
   const options = { weekStartsOn: 1 };
   const capitalizeFirstLetter = (str) => {
