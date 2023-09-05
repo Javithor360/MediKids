@@ -30,23 +30,24 @@ import { useDash } from "../../context/DoctorContext";
 export const MedicalAppoinment = () => {
   const location = useLocation();
   const { patient } = location.state || {};
-  const Doctor_id = JSON.parse(localStorage.getItem("userSession")).id;
 
   let navigate = useNavigate();
   const {
     EndMedicalAppointment,
-    PatientMedicalPrescriptions,
     medicalPrescriptions,
     nextAppointment,
+    errorMessage,
+    setErrorMessage,
   } = useDash();
 
   // Variables utilized by modals
   const [active, setActive] = useState(false);
   const [errorHandler, setErrorHandler] = useState(false);
-  const [errorMessage, setErrorMessage] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
 
   const [chargin, setChargin] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [submit, setSubmit] = useState(false);
 
   const [tabSelector, setTabSelector] = useState(1);
 
@@ -141,18 +142,24 @@ export const MedicalAppoinment = () => {
     }
 
     if (scheAppoint && scheAppoint.hasSelectedYes) {
-      if (new Date(scheAppoint.Date).getFullYear() < new Date().getFullYear())
+      if (new Date(scheAppoint.Date).getFullYear() < new Date().getFullYear()) { 
         newErrorMessages.push(
           `En la programación de citas: El dato de 'Fecha' está incompleto`
         );
-      if (!scheAppoint.Hour)
+        isEmpty = true;
+      }
+      if (!scheAppoint.Hour) {
         newErrorMessages.push(
           `En la programación de citas: El dato de 'Hora' no está completo`
         );
-      if (!scheAppoint.Description)
+        isEmpty = true;
+      }
+      if (!scheAppoint.Description) {
         newErrorMessages.push(
           `En la programación de citas: El dato de 'Motivo de la cita' no está completo`
         );
+        isEmpty = true;
+      }
     }
 
     setErrorMessage(newErrorMessages);
@@ -164,34 +171,58 @@ export const MedicalAppoinment = () => {
     }
   };
 
+  useEffect(() => {
+    if (isSubmit) {
+      if (errorMessage.length !== 0) {
+        toggleError();
+        toggle();
+        setIsSubmit(false)
+      } else {
+        toggle();
+        setIsSubmit(false);
+        console.log(errorMessage.length);
+      }
+    }
+  }, [errorMessage]);
+  
   const handleClick = async (e) => {
     e.preventDefault();
     try {
       await EndMedicalAppointment(
+        JSON.parse(localStorage.getItem("userSession")).id,
+        patient.id,
+        patient.Responsible_id,
+        nextAppointment.id,
         {
           height,
           weight,
           temperature,
           notes,
-          Patient_id: patient.id,
-          Doctor_id,
-          Medical_Appointment_id: nextAppointment.id,
           HtmlNotes,
         },
-        { medicalPrescript },
-        scheAppoint
+        medicalPrescript,
+        scheAppoint,
+        {
+          addPrescriptions: medicalPrescript.new_prescriptions[0].hasSelectedYes,
+          editPrescriptions: medicalPrescript.edited_prescriptions > 0 ? true : false,
+          scheduleAppointment: scheAppoint.hasSelectedYes,
+        }
       );
-      setChargin(true);
-      setTimeout(() => {
-        toggle();
-        setTimeout(() => {
-          navigate(-1);
-        }, 3000);
-      }, 3000);
+      setIsSubmit(true);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
+  // console.log('errorMessage')
+  // setErrorMessage(errorMessage);
+  // setChargin(true);
+  // setTimeout(() => {
+  //   toggle();
+  //   setIsSubmit(false);
+  //   setTimeout(() => {
+  //     navigate(-1);
+  //   }, 3000);
+  // }, 3000);
 
   return (
     <>
@@ -365,7 +396,10 @@ export const MedicalAppoinment = () => {
               <div className="flex items-center justify-center ">
                 <button
                   className=" flex items-center justify-center  border-2 border-[#707070] bg-[#A375FF] text-[#FFFFFF] gap-2 w-[8rem] h-[3rem] rounded-lg   mt-5 text-[1.2rem] "
-                  onClick={() => toggleError()}
+                  onClick={() => {
+                    toggleError();
+                    setErrorMessage([]);
+                  }}
                 >
                   <HiBackspace className="w-5 h-10" />
                   Regresar
@@ -413,9 +447,8 @@ const MedicalRecordConfirmation = ({ medicalRecord }) => {
 
         <li className="list-none ">
           <h3> Anotaciones:</h3>
-         
+
           <div className="block mt-2 max-w-[25rem] rounded-lg  border border-[#000000]     ">
-            
             {parser(medicalRecord.HtmlNotes)}
           </div>
         </li>

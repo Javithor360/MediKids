@@ -49,8 +49,6 @@ export const EditMedicalPrescription = ({
 
   useEffect(() => {
     setMedicalPrescript({
-      Patient_id: patient.id,
-      Doctor_id: JSON.parse(localStorage.getItem("userSession")).id,
       edited_prescriptions: editMedicalPrescription,
       new_prescriptions: newMedicalPrescriptionEntry,
     });

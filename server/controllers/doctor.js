@@ -10,13 +10,13 @@ import { patientCode } from "../utils/functions.js";
 const getSpecialty = (d_i) => {
   switch (d_i) {
     case 1:
-      return 'Otorrinolaringología';
+      return "Otorrinolaringología";
     case 2:
-      return 'Neumología';
+      return "Neumología";
     case 3:
-      return 'Gastroenterología'
+      return "Gastroenterología";
   }
-}
+};
 
 const get_info = async (req, res, next) => {
   try {
@@ -124,92 +124,6 @@ const get_appointments = async (req, res, next) => {
     );
 
     return res.status(200).json({ success: true, body: appointments_info });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error });
-  }
-};
-
-// ! @route POST api/doctor/new_medical_record_entry
-// ! @desc Adds a new medical record entry
-// ! @access private
-
-const new_medical_record_entry = async (req, res, next) => {
-  try {
-    const {
-      height,
-      weight,
-      temperature,
-      notes,
-      HtmlNotes,
-      Patient_id,
-      Doctor_id,
-      Medical_Appointment_id,
-      Array_Prescriptions,
-    } = req.body;
-
-    if (
-      !height ||
-      !weight ||
-      !temperature ||
-      !notes ||
-      !HtmlNotes ||
-      !Patient_id ||
-      !Doctor_id ||
-      !Medical_Appointment_id
-    ) {
-      return res
-        .status(500)
-        .json({ message: "You must provide every field with a value" });
-    }
-
-    if (height <= 0)
-      return next(
-        new ErrorResponse("La altura proporcionada no es válida", 400, "error")
-      );
-
-    if (weight <= 0)
-      return next(
-        new ErrorResponse("El peso proporcionada no es válido", 400, "error")
-      );
-
-    if (temperature <= 0)
-      return next(
-        new ErrorResponse(
-          "La temperatura proporcionada no es válida",
-          400,
-          "error"
-        )
-      );
-
-    // if(notes === "") return next(new ErrorResponse("", 400, "error"));
-
-    let Prescriptions_Names = {};
-    if (Array_Prescriptions != null) {
-      Array_Prescriptions.forEach((element, i) => {
-        Prescriptions_Names[i] = element;
-      });
-    }
-    Prescriptions_Names = JSON.stringify(Prescriptions_Names);
-
-    await pool.query("INSERT INTO medical_records SET ?", {
-      Medical_History_Code: patientCode(),
-      Patient_id,
-      Doctor_id,
-      Medical_Appointment_id,
-      Date_Time: new Date(),
-      Diagnosis_Mobile: notes,
-      Diagnosis: HtmlNotes.HtmlNotes,
-      Weight: weight,
-      Height: height,
-      Temperature: temperature,
-      Prescriptions_Names,
-    });
-
-    return res.status(200).json({
-      success: true,
-      message: `Medical record for patient #${Patient_id} was successfully inserted`,
-    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });
@@ -363,170 +277,6 @@ const get_patient_vaccines = async (req, res, next) => {
   }
 };
 
-// ! @route POST api/doctor/set_medical_prescription
-// ! @desc Stablish a new prescription for a patient
-// ! @access private
-
-const set_medical_prescription = async (req, res, next) => {
-  try {
-    const { Patient_id, Doctor_id, new_prescriptions } = req.body;
-    let Array_Prescriptions_Names = [];
-
-    if (!Patient_id || !Doctor_id || !new_prescriptions) {
-      return res.status(500).json({
-        success: false,
-        message: "You must provide every field with a value",
-      });
-    }
-
-    const [patient_check] = await pool.query(
-      "SELECT * FROM patient WHERE id = ?",
-      [Patient_id]
-    );
-
-    if (patient_check.length != 1) {
-      return res.status(500).json({
-        success: false,
-        message: "Provided patient does not exist",
-      });
-    }
-
-    const [doctor_check] = await pool.query(
-      "SELECT * FROM doctors WHERE id = ?",
-      [Doctor_id]
-    );
-
-    if (doctor_check.length != 1) {
-      return res.status(500).json({
-        success: false,
-        message: "Provided doctor does not exist",
-      });
-    }
-
-    // NEW PRESCRIPTIONS VALIDATIONS
-    new_prescriptions.map((np, i) => {
-      if (
-        new Date() >
-        (new Date(np.Finishing_Dose_Date) || new Date(np.Starting_Dose_Date))
-      ) {
-        return res.status(500).json({
-          success: false,
-          message: `Dose dates on new medicine #${
-            i + 1
-          } can not be lower than the actual date.`,
-        });
-      }
-    });
-
-    new_prescriptions.map(async (np) => {
-      const patient_code = patientCode();
-      Array_Prescriptions_Names.push(np.data.Medicine_Name);
-      await pool.query(`INSERT INTO medical_prescription SET ?`, {
-        Medical_Prescription_Code: patient_code,
-        Patient_id,
-        Doctor_id,
-        Medicine_Name: np.data.Medicine_Name,
-        Instructions: np.data.Instructions,
-        Description: np.data.Description,
-        Created_Date: new Date(),
-        Starting_Dose_Date: new Date(np.data.Starting_Dose_Date),
-        Finishing_Dose_Date: new Date(np.data.Finishing_Dose_Date),
-        Dose: np.data.Dose,
-        Time_Dose: np.data.Time_Dose,
-      });
-    });
-
-    return res.status(200).json({
-      success: true,
-      body: `Medical prescription for patient #${Patient_id} has been updated. ${new_prescriptions.length} new medicines were added`,
-      Array_Prescriptions: Array_Prescriptions_Names,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error });
-  }
-};
-
-// ! @route POST api/doctor/edit_medical_prescription
-// ! @desc Edits an existing medical prescription
-// ! @access private
-
-const edit_medical_prescription = async (req, res, next) => {
-  try {
-    const { Patient_id, Doctor_id, edited_prescriptions } = req.body;
-
-    if (!Patient_id || !Doctor_id || !edited_prescriptions) {
-      return res.status(500).json({
-        success: false,
-        message: "You must provide every field with a value",
-      });
-    }
-
-    const [patient_check] = await pool.query(
-      "SELECT * FROM patient WHERE id = ?",
-      [Patient_id]
-    );
-
-    if (patient_check.length != 1) {
-      return res.status(500).json({
-        success: false,
-        message: "Provided patient does not exist",
-      });
-    }
-
-    const [doctor_check] = await pool.query(
-      "SELECT * FROM doctors WHERE id = ?",
-      [Doctor_id]
-    );
-
-    if (doctor_check.length != 1) {
-      return res.status(500).json({
-        success: false,
-        message: "Provided doctor does not exist",
-      });
-    }
-
-    // EDITED PRESCRIPTIONS VALIDATIONS
-    edited_prescriptions.map((ep, i) => {
-      if (
-        new Date() >
-        (new Date(ep.Finishing_Dose_Date) || new Date(ep.Starting_Dose_Date))
-      ) {
-        return res.status(500).json({
-          success: false,
-          message: `Dose dates on new medicine #${
-            i + 1
-          } can not be lower than the actual date.`,
-        });
-      }
-    });
-
-    edited_prescriptions.map(async (ep) => {
-      await pool.query(
-        `UPDATE medical_prescription SET Medicine_Name = ?, Instructions = ?, Description = ?, Starting_Dose_Date = ?, Finishing_Dose_Date = ?, Dose = ?, Time_Dose = ? WHERE Medical_Prescription_Code = ?`,
-        [
-          ep.Medicine_Name,
-          ep.Instructions,
-          ep.Description,
-          new Date(ep.Starting_Dose_Date),
-          new Date(ep.Finishing_Dose_Date),
-          ep.Dose,
-          ep.Time_Dose,
-          ep.Medical_Prescription_Code,
-        ]
-      );
-    });
-
-    return res.status(200).json({
-      success: true,
-      message: `${edited_prescriptions.length} prescriptions were edited`,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error });
-  }
-};
-
 // ! @route POST api/doctor/get_medical_prescription
 // ! @desc Obtains all the patient's prescriptions
 // ! @access private
@@ -554,135 +304,6 @@ const get_medical_prescriptions = async (req, res, next) => {
     //   })
     // }
     return res.status(200).json({ success: true, body: query_check });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error });
-  }
-};
-
-// ! @route POST api/doctor/schedule_appointment
-// ! @desc Creates a new appointment forced by the doctor
-// ! @access private
-
-const schedule_appointment = async (req, res, next) => {
-  try {
-    const { Doctor_id, Responsible_id, Patient_id, Description, Date, Hour } =
-      req.body;
-
-    if (
-      !Doctor_id ||
-      !Responsible_id ||
-      !Patient_id ||
-      !Description ||
-      !Date ||
-      !Hour
-    ) {
-      return res
-        .status(500)
-        .json({ message: "You must provide every field with a value" });
-    }
-
-    const [patient_check] = await pool.query(
-      "SELECT * FROM patient WHERE id = ?",
-      [Patient_id]
-    );
-
-    if (patient_check.length != 1) {
-      return res.status(500).json({
-        success: false,
-        message: "Provided patient does not exist",
-      });
-    }
-
-    const [responsible_check] = await pool.query(
-      "SELECT * FROM responsible WHERE id = ?",
-      [Responsible_id]
-    );
-
-    if (responsible_check.length != 1) {
-      return res.status(500).json({
-        success: false,
-        message: "Provided responsible does not exist",
-      });
-    }
-
-    const [doctor_check] = await pool.query(
-      "SELECT * FROM doctors WHERE id = ?",
-      [Doctor_id]
-    );
-
-    if (doctor_check.length != 1) {
-      return res.status(500).json({
-        success: false,
-        message: "Provided doctor does not exist",
-      });
-    }
-
-    // Checking if appointment already exists
-    // const [query_check] = await pool.query(
-    //   "SELECT * FROM medical_appointment WHERE Doctor_id = ? AND Responsible_id = ? AND Patient_id = ? AND State = ?",
-    //   [Doctor_id, Responsible_id, Patient_id]
-    // );
-
-    // if (query_check.length != 0) {
-    //   return res.status(500).json({
-    //     success: false,
-    //     message: `It seems like there is an already scheduled appointment with the doctor #${Doctor_id} and patient #${Patient_id}`,
-    //   });
-    // }
-
-    const new_appointment = await pool.query(
-      "INSERT INTO medical_appointment SET ?",
-      {
-        Doctor_id,
-        Responsible_id,
-        Patient_id,
-        State: 0,
-        Description,
-        Date,
-        Hour,
-      }
-    );
-
-    return res.status(200).json({ success: true, body: new_appointment });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error });
-  }
-};
-
-// ! @route POST api/doctor/update_appointment_state
-// ! @desc Edits an existing appointment's state
-// ! @access private
-
-const update_appointment_state = async (req, res, next) => {
-  try {
-    const { id, State } = req.body;
-
-    if (!id || !State) {
-      return res
-        .status(500)
-        .json({ message: "You must provide every field with a value" });
-    }
-
-    const [query_check] = await pool.query(
-      "SELECT * FROM medical_appointment WHERE id = ?",
-      [id]
-    );
-
-    if (query_check.length === 0) {
-      return res.status(500).json({
-        success: false,
-        message: `Selected appointment does not exist`,
-      });
-    }
-
-    const edited_appointment = await pool.query(
-      "UPDATE medical_appointment SET State = ? WHERE id = ?",
-      [State, id]
-    );
-
-    return res.status(200).json({ success: true, body: edited_appointment });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });
@@ -890,24 +511,434 @@ const get_doctors = async (req, res, next) => {
   }
 };
 
+// ! @route POST api/doctor/end_medical_appointment
+// ! @desc Handles all the data put during the appointment process
+// ! @access private
+
+const end_medical_appointment = async (req, res, next) => {
+  try {
+    const {
+      Doctor_id,
+      Patient_id,
+      Responsible_id,
+      Appointment_id,
+      medical_record,
+      medical_prescription,
+      medical_appointment,
+      toggles,
+    } = req.body;
+    let errorMessages = [];
+
+    if (
+      !Doctor_id ||
+      !Patient_id ||
+      !Responsible_id ||
+      !Appointment_id ||
+      !medical_record ||
+      !medical_record.height ||
+      !medical_record.weight ||
+      !medical_record.temperature ||
+      !medical_record.notes ||
+      !medical_record.HtmlNotes ||
+      !medical_prescription ||
+      // !medical_prescription.new_prescriptions ||
+      // !medical_prescription.edited_prescriptions ||
+      !medical_appointment ||
+      !toggles
+    ) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "You must provide every field data from medical record, medical prescription, medical appointment and the other basic fields.",
+      });
+    }
+
+    /*
+      ? GENERAL QUERY VALIDATIONS
+    */
+    const [patient_check] = await pool.query(
+      "SELECT * FROM patient WHERE id = ?",
+      [Patient_id]
+    );
+
+    if (patient_check.length != 1) {
+      return res.status(400).json({
+        success: false,
+        message: "Provided patient does not exist",
+      });
+    }
+
+    const [doctor_check] = await pool.query(
+      "SELECT * FROM doctors WHERE id = ?",
+      [Doctor_id]
+    );
+
+    if (doctor_check.length != 1) {
+      return res.status(400).json({
+        success: false,
+        message: "Provided doctor does not exist",
+      });
+    }
+
+    const [responsible_check] = await pool.query(
+      "SELECT * FROM responsible WHERE id = ?",
+      [Responsible_id]
+    );
+
+    if (responsible_check.length != 1) {
+      return res.status(400).json({
+        success: false,
+        message: "Provided responsible does not exist",
+      });
+    }
+
+    const [appointment_check] = await pool.query(
+      "SELECT * FROM medical_appointment WHERE id = ?",
+      [Appointment_id]
+    );
+
+    if (appointment_check.length != 1) {
+      return res.status(400).json({
+        success: false,
+        message: "Provided appointment does not exist",
+      });
+    }
+
+    /*
+      ? MEDICAL RECORD VALIDATION
+      ? AND EXTRA FIELD DEFINITION
+    */
+    if (medical_record.height <= 0 || medical_record.height > 2.1) {
+      errorMessages.push(
+        "En el registro de expediente: El valor de la altura ingresada no es un valor realista"
+      );
+    }
+
+    if (medical_record.weight <= 0 || medical_record.weight > 500) {
+      errorMessages.push(
+        "En el registro de expediente: El valor del peso ingresado no es un valor realista"
+      );
+    }
+
+    if (medical_record.temperature <= 0 || medical_record.temperature > 45) {
+      errorMessages.push(
+        "En el registro de expediente: El valor de la temperatura ingresada no es un valor realista"
+      );
+    }
+
+    if (medical_record.notes.length < 75) {
+      errorMessages.push(
+        "En el registro de expediente: La longitud del campo de anotaciones no es lo suficientemente extensa como para dejar registro de la consulta "
+      );
+    }
+
+    /*
+      ? ADD MEDICAL PRESCRIPTIONS VALIDATIONS
+      ? AND EXTRA INFORMATION DEFINITION
+    */
+    if (toggles.addPrescriptions) {
+      medical_prescription.new_prescriptions.map((np, i) => {
+        if (
+          new Date() >
+          (new Date(np.data.Finishing_Dose_Date) ||
+            new Date(np.data.Starting_Dose_Date))
+        ) {
+          errorMessages.push(
+            `En la asignación de nueva receta médica: El ${
+              i + 1
+            }° medicamento no puede tener fechas de inicio y finalización de dosis menores a la fecha actual.`
+          );
+        }
+
+        if (
+          new Date(np.data.Starting_Dose_Date) >
+          new Date(np.data.Finishing_Dose_Date)
+        ) {
+          errorMessages.push(
+            `En la asignación de nueva receta médica: El ${
+              i + 1
+            }° medicamento no puede tener una fecha de inicio de dosis mayor a la fecha de finalización de dosis.`
+          );
+        }
+
+        if (
+          !/^[^0-9!@#$%^&*()_+<>?:"{}|~`[\]]{1,5}[a-zA-Z0-9\s]{0,45}$/.test(
+            np.data.Medicine_Name
+          )
+        ) {
+          errorMessages.push(
+            `En la asignación de nueva receta médica: El nombre del ${
+              i + 1
+            }° medicamento no debe ser muy extenso y tampoco debe contener caracteres especiales`
+          );
+        }
+
+        if (!/.{10,}/.test(np.data.Instructions)) {
+          errorMessages.push(
+            `En la asignación de nueva receta médica: Las instrucciones del ${
+              i + 1
+            }° deben ser más especificas`
+          );
+        }
+
+        if (!/.{10,}/.test(np.data.Description)) {
+          errorMessages.push(
+            `En la asignación de nueva receta médica: La descripción del ${
+              i + 1
+            }° medicamento debe estar más detallada`
+          );
+        }
+
+        if (!/^.{10,45}$/.test(np.data.Dose)) {
+          errorMessages.push(
+            `En la asignación de nueva receta médica: La explicación de la dosis del ${
+              i + 1
+            }° medicamento debe ser breve pero concisa`
+          );
+        }
+
+        if (np.data.Time_Dose > 9) {
+          errorMessages.push(
+            `En la asignación de nueva receta médica: El ${
+              i + 1
+            }° medicamento no tener una cantidad de dosis por día tan elevada.`
+          );
+        }
+      });
+    }
+
+    /*
+        ? EDIT EXISTING MEDICAL PRESCRIPTION
+        ? VALIDATIONS AND DATA INSERTION
+    */
+    if (toggles.editPrescriptions) {
+      medical_prescription.edited_prescriptions.map((ep, i) => {
+        if (
+          new Date() >
+          (new Date(ep.Finishing_Dose_Date) || new Date(ep.Starting_Dose_Date))
+        ) {
+          errorMessages.push(
+            `En la edición de receta médica: El ${
+              i + 1
+            }° medicamento no puede tener fechas de inicio y finalización de dosis menores a la fecha actual.`
+          );
+        }
+
+        if (
+          new Date(ep.Starting_Dose_Date) > new Date(ep.Finishing_Dose_Date)
+        ) {
+          errorMessages.push(
+            `En la edición de receta médica: El ${
+              i + 1
+            }° medicamento no puede tener una fecha de inicio de dosis mayor a la fecha de finalización de dosis.`
+          );
+        }
+
+        if (
+          !/^[^0-9!@#$%^&*()_+<>?:"{}|~`[\]]{1,5}[a-zA-Z0-9\s]{0,45}$/.test(
+            ep.Medicine_Name
+          )
+        ) {
+          errorMessages.push(
+            `En la edición de receta médica: El nombre del ${
+              i + 1
+            }° medicamento no debe ser muy extenso y tampoco debe contener caracteres especiales`
+          );
+        }
+
+        if (!/.{10,}/.test(ep.Instructions)) {
+          errorMessages.push(
+            `En la edición de receta médica: Las instrucciones del ${
+              i + 1
+            }° deben ser más especificas`
+          );
+        }
+
+        if (!/.{10,}/.test(ep.Description)) {
+          errorMessages.push(
+            `En la edición de receta médica: La descripción del ${
+              i + 1
+            }° medicamento debe estar más detallada`
+          );
+        }
+
+        if (!/^.{10,45}$/.test(ep.Dose)) {
+          errorMessages.push(
+            `En la edición de receta médica: La explicación de la dosis del ${
+              i + 1
+            }° medicamento debe ser breve pero concisa`
+          );
+        }
+
+        if (ep.Time_Dose > 9) {
+          errorMessages.push(
+            `En la edición de receta médica: El ${
+              i + 1
+            }° medicamento no tener una cantidad de dosis por día tan elevada.`
+          );
+        }
+      });
+    }
+
+    /*
+      ? SCHEDULE NEW APPOINTMENT VALIDATIONS
+      ? AND EXTRA INFORMATION
+    */
+    if (toggles.scheduleAppointment) {
+      const [scheduleAppointment_check] = await pool.query(
+        "SELECT * FROM medical_appointment WHERE Patient_id = ? AND Doctor_id = ? AND Responsible_id = ? AND State IN (?, ?, ?)",
+        [Patient_id, Doctor_id, Responsible_id, 0, 1, 2]
+      );
+
+      if (scheduleAppointment_check.length > 0) {
+        errorMessages.push(
+          `En la programación de consulta médica: Parece ser que este paciente ya tiene otra cita programada.`
+        );
+      }
+      if (medical_appointment.Description.length < 20) {
+        errorMessages.push(
+          `En la programación de consulta médica: El motivo de la cita debe estar más detallado.`
+        );
+      }
+
+      if (
+        new Date(medical_appointment.Date).getFullYear() >
+        new Date().getFullYear() + 2
+      ) {
+        errorMessages.push(
+          `En la programación de consulta médica: El año de la cita no debe excederse de los 2 años al año actual.`
+        );
+      }
+    }
+
+
+    //? ERROR HANDLER VALIDATOR
+    if (errorMessages.length > 0) {
+      next(new ErrorResponse(errorMessages, 400, "error"));
+      return;
+    } else {
+      let Prescriptions_Names_Add = [];
+      let Prescriptions_Names_Obj = {};
+      
+      //* NEW MEDICAL PRESCRIPTION FINAL QUERY *//
+      if(toggles.addPrescriptions) {
+        medical_prescription.new_prescriptions.map(async (np) => {
+          const patient_code = patientCode();
+          Prescriptions_Names_Add.push(np.data.Medicine_Name);
+          await pool.query(`INSERT INTO medical_prescription SET ?`, {
+            Medical_Prescription_Code: patient_code,
+            Patient_id,
+            Doctor_id,
+            Medicine_Name: np.data.Medicine_Name,
+            Instructions: np.data.Instructions,
+            Description: np.data.Description,
+            Created_Date: new Date(),
+            Starting_Dose_Date: new Date(np.data.Starting_Dose_Date),
+            Finishing_Dose_Date: new Date(np.data.Finishing_Dose_Date),
+            Dose: np.data.Dose,
+            Time_Dose: np.data.Time_Dose,
+          });
+        });
+      }
+
+      if (Prescriptions_Names_Add.length !== 0) {
+        Prescriptions_Names_Add.forEach((element, i) => {
+          Prescriptions_Names_Obj[i] = element;
+        });
+      }
+      let Prescriptions_Names_Final = JSON.stringify(Prescriptions_Names_Obj);
+
+      //* MEDICAL RECORD FINAL QUERY *//
+      await pool.query("INSERT INTO medical_records SET ?", {
+        Medical_History_Code: patientCode(),
+        Patient_id,
+        Doctor_id,
+        Medical_Appointment_id: Appointment_id,
+        Date_Time: new Date(),
+        Diagnosis_Mobile: medical_record.notes,
+        Diagnosis: medical_record.HtmlNotes.HtmlNotes,
+        Weight: medical_record.weight,
+        Height: medical_record.height,
+        Temperature: medical_record.temperature,
+        Prescriptions_Names: Prescriptions_Names_Final,
+      });
+
+
+      //* EDIT MEDICAL PRESCRIPTION FINAL QUERY *//
+      if(toggles.editPrescriptions) {
+        medical_prescription.edited_prescriptions.map(async (ep) => {
+          await pool.query(
+            `UPDATE medical_prescription SET Medicine_Name = ?, Instructions = ?, Description = ?, Starting_Dose_Date = ?, Finishing_Dose_Date = ?, Dose = ?, Time_Dose = ? WHERE Medical_Prescription_Code = ?`,
+            [
+              ep.Medicine_Name,
+              ep.Instructions,
+              ep.Description,
+              new Date(ep.Starting_Dose_Date),
+              new Date(ep.Finishing_Dose_Date),
+              ep.Dose,
+              ep.Time_Dose,
+              ep.Medical_Prescription_Code,
+            ]
+          );
+        });
+      }
+
+      //* SCHEDULE APPOINTMENT FINAL QUERY *//
+      if(toggles.scheduleAppointment) {
+        await pool.query("INSERT INTO medical_appointment SET ?", {
+          Doctor_id,
+          Responsible_id,
+          Patient_id,
+          State: 0,
+          Description: medical_appointment.Description,
+          Date: medical_appointment.Date,
+          Hour: medical_appointment.Hour,
+        });
+      }
+
+      //* UPDATE APPOINTMENT STATUS WHEN ALL IS CONFIRMED QUERY *//
+      await pool.query(
+        "UPDATE medical_appointment SET State = ? WHERE id = ?",
+        [4, Appointment_id]
+      );
+
+      //* SEND NOTIFICATION TO PATIENT *//
+      await pool.query("INSERT INTO notifications SET ?", {
+        Doctor_id,
+        Patient_id,
+        Title: getSpecialty(Doctor_id),
+        DateTime: new Date(),
+        Type: 5,
+        Element_id: Appointment_id,
+      });
+    }
+
+    return res
+      .status(200)
+      .json({
+        success: true,
+        message: `Medical appointment ${Appointment_id} has been closed successfully.`,
+      });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
 export {
   get_info,
   active_patients,
   get_appointments,
-  new_medical_record_entry,
   get_patient_appointment_with_specific_doctor,
   get_responsible_info,
   get_patient_medical_record,
   get_patient_vaccines,
-  set_medical_prescription,
-  edit_medical_prescription,
   get_medical_prescriptions,
-  schedule_appointment,
-  update_appointment_state,
   get_appointment_requests,
   get_responsibles,
   accept_appointment_request,
   decline_appointment_request,
   get_appointments_history,
   get_doctors,
+  end_medical_appointment,
 };
