@@ -99,7 +99,7 @@ export const Medicinas = () => {
             <ScrollView style={styles.fullScreenContainer}>
                 <View style={{backgroundColor:'#fff'}}>
                     <ScreenTitle
-                        Label={"Medicinas"}
+                        Label={`${t('medic.title')}`}
                         IconName={"clipboard-text-multiple"}
                         fontSize={20}
                         textColor={'#FFFFFF'}

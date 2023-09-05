@@ -5,13 +5,14 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { Octicons, Entypo } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 //>> IMPORT COMPONENTS
 import { getMedicinesAppmtResult } from '../../index'
 
 export const AppointmentMedicines = ({RecordCode}) => {
     const jwtToken = useSelector(state => state.responsible.jwtToken);
-
+    const { t } = useTranslation();
     //! Medicines asigned state
     const [Medicines, setMedicines] = useState(null);
 
@@ -40,13 +41,13 @@ export const AppointmentMedicines = ({RecordCode}) => {
                 </View>
 
                 <View style={{width: '90%', alignSelf: 'center', gap: 10, paddingVertical: 16}}>
-                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>Descripcion de la Asignación: </Text>{Medicine.Description}</Text>
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>{t('appointmentMedicines.text1')}: </Text>{Medicine.Description}</Text>
 
-                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>Dosis: </Text>{Medicine.Dose}, {Medicine.Time_Dose} al dia</Text>
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>{t('appointmentMedicines.text2')}: </Text>{Medicine.Dose}, {Medicine.Time_Dose} {t('appointmentMedicines.text5')}</Text>
 
-                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>Instrucciones: </Text>{Medicine.Instructions}</Text>
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>{t('appointmentMedicines.text3')}: </Text>{Medicine.Instructions}</Text>
 
-                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E'}}>Duración: </Text>{getLocaleDateString(Medicine.Starting_Dose_Date)} - {getLocaleDateString(Medicine.Finishing_Dose_Date)}</Text>
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E'}}>{t('appointmentMedicines.text4')}: </Text>{getLocaleDateString(Medicine.Starting_Dose_Date)} - {getLocaleDateString(Medicine.Finishing_Dose_Date)}</Text>
                 </View>
             </View>
         );
@@ -58,7 +59,7 @@ export const AppointmentMedicines = ({RecordCode}) => {
 
   return (
     <>
-        <Text style={[styles.requestMainTitle, styles.colorYellow]}>Medicinas</Text>
+        <Text style={[styles.requestMainTitle, styles.colorYellow]}>{t('appointmentMedicines.text6')}</Text>
         {
             (Medicines != null && Medicines.length != 0) ?
                 Medicines.map((medicine, i) => {
@@ -66,7 +67,7 @@ export const AppointmentMedicines = ({RecordCode}) => {
                 })
                 :
                 <View style={{width: '100%', paddingHorizontal: 20, marginBottom:20, alignItems: 'center'}}>
-                    <Text style={{textAlign: 'center', marginBottom: 6, fontFamily: 'poppinsRegular', fontSize: 16}}>No se asignaron Medicinas</Text>
+                    <Text style={{textAlign: 'center', marginBottom: 6, fontFamily: 'poppinsRegular', fontSize: 16}}>{t('appointmentMedicines.text7')}</Text>
                     <Entypo name="notifications-off" size={60} color="#f99b21" />
                 </View>
         }

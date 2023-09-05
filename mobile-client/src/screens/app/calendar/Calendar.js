@@ -7,16 +7,18 @@ import Constants from 'expo-constants';
 import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { useSelector } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 //>> IMPORT COMPONENTS
 import { Day, EventInfo, Moths, ScreenTitle, getCalendarEvents } from '../../../index';
 import { isIOS } from '../../../constants';
 
 export const Calendar = () => {
+  const { t } = useTranslation();
   const jwtToken = useSelector(state => state.responsible.jwtToken);
   const Patient_id = useSelector(state => state.patient.id);
   const isFocused = useIsFocused()
-  const dayOfWeek = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab']
+  const dayOfWeek = [`${t('calendar.dom')}`, `${t('calendar.lun')}`, `${t('calendar.mar')}`, `${t('calendar.mie')}`, `${t('calendar.jue')}`, `${t('calendar.vie')}`, `${t('calendar.sab')}`]
 
   //! Time Values
   const CurrentYear = new Date().getFullYear();
@@ -31,7 +33,7 @@ export const Calendar = () => {
   const [SelectedRow, setSelectedRow] = useState(null);
   const [SelectDay, setSelectDay] = useState(null);
   const [EventSelected, setEventSelected] = useState(null);
-  const Months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto','Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  const Months = [`${t('calendar.january')}`, `${t('calendar.february')}`, `${t('calendar.march')}`, `${t('calendar.april')}`, `${t('calendar.may')}`, `${t('calendar.june')}`, `${t('calendar.july')}`,`${t('calendar.august')}`,`${t('calendar.sept')}`, `${t('calendar.oct')}`, `${t('calendar.november')}`, `${t('calendar.december')}`];
 
   //! SET THE INITIAL VALUES
   const setStates = (Year, Month) => {
@@ -134,7 +136,7 @@ export const Calendar = () => {
       <ScrollView style={styles.fullScreenContainer}>
         <View style={{backgroundColor:'#fff',}}>
         <ScreenTitle
-            Label={"Calendario y recordatorios"}
+            Label={`${t('calendar.title')}`}
             IconName={"calendar-blank"}
             fontSize={20}
             textColor={'#FFFFFF'}

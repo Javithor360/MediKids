@@ -155,7 +155,7 @@ export const LoginScreen = () => {
           <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
           <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} disabled={DisableButton} onPress={() => navigation.replace('WelcomeScreen')}>
             <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-            <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>Atrás</Text>
+            <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>{t('loginScn.back')}</Text>
           </TouchableOpacity>
         </View>
         <View style={AuthStylesGlobal.contentContainer} >

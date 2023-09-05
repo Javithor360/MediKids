@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Fontisto, FontAwesome5, Ionicons, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
-
+import { useTranslation } from 'react-i18next';
 //>> IMPORT COMPONENTS
 import { SetLabel, ShowToast, getSingleMedicalAppmt } from '../../index';
 import { ChangeGastroState, ChangeNeumoState, ChangeOtorrinoState } from '../../store/slices/appointmentsSlice';
@@ -17,7 +17,7 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
     const Patient = useSelector(state => state.patient);
     const jwtToken = useSelector(state => state.responsible.jwtToken);
     const getDate = () => { return new Date(appointmentInfo.Date).toLocaleDateString() };
-
+    const { t } = useTranslation();
     //! State to the counter
     const [TimeElased, setTimeElased] = useState(null);
 
@@ -153,9 +153,9 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
 
     return (
         <>
-            <Text style={styles.requestMainTitle}>Información de la cita</Text>
+            <Text style={styles.requestMainTitle}>{t('attending.text1')}</Text>
             <View style={styles.cardContainer}>
-                <Text style={styles.cardTitle}>Informacion Personal:</Text>
+                <Text style={styles.cardTitle}>{t('attending.text2')}:</Text>
                 <View style={[styles.personalInfoContainer, styles.withMb]}>
                     <View style={styles.iconBackC}>
                         <View style={styles.iconBack}>
@@ -163,7 +163,7 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
                         </View>
                     </View>
                     <View style={styles.someDetailsC}>
-                        <Text style={styles.patientTitle}>Atendiendo paciente:</Text>
+                        <Text style={styles.patientTitle}>{t('attending.text3')}:</Text>
                         <Text style={{color: '#707070'}} numberOfLines={1}>{Patient.FirstNames} {Patient.LastNames}</Text>
                     </View> 
                 </View>
@@ -175,14 +175,14 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
                         </View>
                     </View>
                     <View style={styles.someDetailsC}>
-                        <Text style={styles.patientTitle}>Encargado</Text>
+                        <Text style={styles.patientTitle}>{t('attending.text4')}</Text>
                         <Text style={{color: '#707070'}} numberOfLines={1}>{Info.FirstNames} {Info.LastNames}</Text>
                     </View> 
                 </View>
             </View>
 
             <View style={styles.cardContainer}>
-                <Text style={styles.cardTitle}>Informacion de la cita:</Text>
+                <Text style={styles.cardTitle}>{t('attending.text5')}:</Text>
                 <View style={[styles.personalInfoContainer, styles.withMb]}>
                     <View style={styles.iconBackC}>
                         <View style={styles.iconBack}>
@@ -190,7 +190,7 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
                         </View>
                     </View>
                     <View style={styles.someDetailsC}>
-                        <Text style={styles.patientTitle}>Motivo de la cita:</Text>
+                        <Text style={styles.patientTitle}>{t('attending.text6')}:</Text>
                         <Text style={{color: '#707070'}} numberOfLines={1}>{appointmentInfo.Description}</Text>
                     </View> 
                 </View>
@@ -202,14 +202,14 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
                         </View>
                     </View>
                     <View style={styles.someDetailsC}>
-                        <Text style={styles.patientTitle}>Fecha y hora de inicio:</Text>
+                        <Text style={styles.patientTitle}>{t('attending.text7')}:</Text>
                         <Text style={{color: '#707070'}} numberOfLines={1}>{getDate()} - {appointmentInfo.Hour}</Text>
                     </View>
                 </View>
             </View>
 
             <View style={[styles.cardContainer, {backgroundColor: '#4c9ca5', marginBottom: 40, height: 370}]}>
-                <Text style={[styles.cardTitle, {color: 'white', textAlign: 'center', fontSize: 20, fontStyle: 'italic'}]}>Estado de la cita</Text>
+                <Text style={[styles.cardTitle, {color: 'white', textAlign: 'center', fontSize: 20, fontStyle: 'italic'}]}>{t('attending.text8')}</Text>
                 <View style={[styles.personalInfoContainer, styles.withMb]}>
                     <View style={styles.iconBackC}>
                         <View style={[styles.iconBack, {backgroundColor: 'rgba(255, 255, 255, 0.9)'}]}>
@@ -217,7 +217,7 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
                         </View>
                     </View>
                     <View style={styles.someDetailsC}>
-                        <Text style={[styles.patientTitle, {color: 'white', fontWeight: 'bold'}]}>Tiempo Restante:</Text>
+                        <Text style={[styles.patientTitle, {color: 'white', fontWeight: 'bold'}]}>{t('attending.text9')}:</Text>
                         <Text style={{color: '#fafafa'}} numberOfLines={1}>{TimeLeft != null ? `${TimeLeft.hours < 10 ? `0${TimeLeft.hours}` : TimeLeft.hours}:${TimeLeft.minutes < 10 ? `0${TimeLeft.minutes}` : TimeLeft.minutes}:${TimeLeft.seconds < 10 ? `0${TimeLeft.seconds}` : TimeLeft.seconds}` : 'Cargando...'}</Text>
                     </View>
                 </View>
@@ -230,7 +230,7 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
                     </View>
                     <View style={styles.someDetailsC}>
                         <Text>
-                        <Text style={[styles.patientTitle, {color: 'white', fontWeight: 'bold'}]}>Estado: </Text>
+                        <Text style={[styles.patientTitle, {color: 'white', fontWeight: 'bold'}]}>{t('attending.text10')}: </Text>
                             <Text style={{color: '#fafafa'}} numberOfLines={1}>
                                 {StopRunning ? 'Terminado.' : `${Running != null ? `${Running ? `En progreso${Points}` : `Esperando${Points}`}` : `Cargando${Points}`}`}
                             </Text>
@@ -241,7 +241,7 @@ export const AttendingAppointment = ({ appointmentInfo, Doctor_id, setRecordCode
                     <View style={{height: 2, width: '90%', backgroundColor: 'white'}} />
                 </View>
                 <View style={{width: '100%', marginTop: 10}}>
-                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20, fontStyle: 'italic', textAlign: 'center'}}>Tiempo Transcurrido</Text>
+                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20, fontStyle: 'italic', textAlign: 'center'}}>{t('attending.text11')}</Text>
                 </View>
                 <View style={{width: '100%', alignItems: 'center', marginTop: 14}}>
                     <View style={{backgroundColor: 'rgba(255, 255, 255, 0.8)', width: '64%', paddingHorizontal: 10, paddingVertical: 8, borderRadius: 4}}>

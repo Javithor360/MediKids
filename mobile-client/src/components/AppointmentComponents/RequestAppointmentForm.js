@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 //Components
 import WeekDate from '../WeekDate'
 import { SetLabel, ShowToast, requestMedicalAppointment } from '../.././index'
@@ -11,7 +12,7 @@ import { ChangeGastroState, ChangeNeumoState, ChangeOtorrinoState } from '../../
 export const RequestAppointmentForm = ({Doctor_id}) => {
     const dispatch = useDispatch()
     const lng = useSelector(state => state.starter.Language);
-    
+    const { t } = useTranslation();
     //! GET info from the state in redux
     const Patient_Code = useSelector(state => state.patient.Patient_Code)
     const jwtToken = useSelector(state => state.responsible.jwtToken);
@@ -60,19 +61,19 @@ export const RequestAppointmentForm = ({Doctor_id}) => {
     
   return (
     <>
-        <Text style={styles.requestMainTitle}>Solicitar cita médica</Text>
+        <Text style={styles.requestMainTitle}>{t('requestAppoint.text1')}</Text>
         <View style={styles.sectionIconContainer}>
             <View><MaterialCommunityIcons name="playlist-edit" size={24} color="#46929B" /></View>
-            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: '500',}}>Brinda la siguiente información previa</Text></View>
+            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: '500',}}>{t('requestAppoint.text2')}</Text></View>
         </View>
-        <TextInput placeholder='Síntomas o condición a tratar' style={styles.inputSympthoms} onChangeText={text => setDescription(text)} />
+        <TextInput placeholder={`${t('requestAppoint.symp')}`} style={styles.inputSympthoms} onChangeText={text => setDescription(text)} />
         <View style={styles.sectionIconContainer}>
             <View><MaterialCommunityIcons name="calendar-week" size={24} color="#46929B" /></View>
-            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: '500',}}>Seleccione una de las semanas disponibles</Text></View>
+            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: '500',}}>{t('requestAppoint.text3')}</Text></View>
         </View>
         <WeekDate setWeek={setWeek}/>
         <TouchableOpacity disabled={Disable} style={styles.requestApmtBtn} onPress={() => {RequestAppointmentFunct()}}>
-            <Text style={{color: '#ffffff', fontWeight: 600, fontSize: 16,}}><SetLabel isLoading={isLoading} LabelText={'Solicitar Cita'} Success={Success}/></Text>
+            <Text style={{color: '#ffffff', fontWeight: 600, fontSize: 16,}}><SetLabel isLoading={isLoading} LabelText={`${t('requestAppoint.request')}`} Success={Success}/></Text>
         </TouchableOpacity>
     </>
   )

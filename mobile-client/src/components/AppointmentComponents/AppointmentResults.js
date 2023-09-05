@@ -5,14 +5,14 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { MaterialCommunityIcons, FontAwesome, FontAwesome5 } from '@expo/vector-icons'; 
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-
+import { useTranslation } from 'react-i18next';
 //>> IMPORT COMPONENTS
 import { getSingleMedicalAppmtRecord } from '../../index'
 
 export const AppointmentResults = ({ RecordCode }) => {
     const jwtToken = useSelector(state => state.responsible.jwtToken);
     const PatientInfo = useSelector(state => state.patient);
-
+    const { t } = useTranslation();
     //! State for the Results of the Appointment.
     const [ResultInfo, setResultInfo] = useState(null);
 
@@ -31,7 +31,7 @@ export const AppointmentResults = ({ RecordCode }) => {
 
     return (
         <>
-            <Text style={[styles.requestMainTitle, styles.colorGreen]}>Resultados de la cita</Text>
+            <Text style={[styles.requestMainTitle, styles.colorGreen]}>{t('appointmentResult.text1')}</Text>
             <View style={styles.cardContainer}>
                 <View style={[styles.personalInfoContainer, styles.withMb]}>
                     <View style={styles.iconBackC}>
@@ -40,24 +40,24 @@ export const AppointmentResults = ({ RecordCode }) => {
                         </View>
                     </View>
                     <View style={styles.someDetailsC}>
-                        <Text style={styles.patientTitle}>Registro de datos:</Text>
+                        <Text style={styles.patientTitle}>{t('appointmentResult.text2')}:</Text>
                     </View> 
                 </View>
                 <View style={styles.contentListContainer}>
                     <View style={styles.singleItemC}>
                         <View style={{flexDirection: 'row', alignItems: 'center', width: '100%', gap: 6,}}>
                             <FontAwesome name="child" size={20} color="#46929B" />
-                            <Text style={{color: '#707070'}} numberOfLines={1}><Text style={styles.eachTitle}>Paciente: </Text>{PatientInfo.FirstNames} {PatientInfo.LastNames}</Text>
+                            <Text style={{color: '#707070'}} numberOfLines={1}><Text style={styles.eachTitle}>{t('appointmentResult.text3')}: </Text>{PatientInfo.FirstNames} {PatientInfo.LastNames}</Text>
                         </View>
                     </View>
                     <View style={styles.singleItemC2}>
                         <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
                             <FontAwesome5 name="weight" size={16} color="#46929B" />
-                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Peso: </Text>{ResultInfo?.Weight} lb</Text>
+                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>{t('appointmentResult.text4')}: </Text>{ResultInfo?.Weight} lb</Text>
                         </View>
                         <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
                             <MaterialCommunityIcons name="human-male-height" size={20} color="#46929B" />
-                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Altura: </Text>{ResultInfo?.Height} mts</Text>
+                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>{t('appointmentResult.text5')}: </Text>{ResultInfo?.Height} mts</Text>
                         </View>
                     </View>
                     <View style={styles.singleItemC2}>
@@ -67,7 +67,7 @@ export const AppointmentResults = ({ RecordCode }) => {
                         </View>
                         <View style={{flexDirection: 'row', gap: 6, alignItems: 'center',}}>
                             <MaterialCommunityIcons name="timeline-plus" size={20} color="#46929B" />
-                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>Edad: </Text>{PatientInfo.Age} años</Text>
+                            <Text style={{color: '#707070'}}><Text style={styles.eachTitle}>{t('appointmentResult.text6')}: </Text>{PatientInfo.Age} {t('appointmentResult.text7')}</Text>
                         </View>
                     </View>
                 </View>
@@ -81,7 +81,7 @@ export const AppointmentResults = ({ RecordCode }) => {
                         </View>
                     </View>
                     <View style={styles.someDetailsC}>
-                        <Text style={styles.patientTitle}>Diagnóstico general</Text>
+                        <Text style={styles.patientTitle}>{t('appointmentResult.text8')}</Text>
                     </View> 
                 </View>
                 <View style={styles.diagnosDescC}>
