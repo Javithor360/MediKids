@@ -1,0 +1,50 @@
+{
+    "login":{
+        "tittle":"BIenvenidos",
+        "subtittle":"Ingrese sus credenciales para acceder",
+        "subtittle1":"Ususairo",
+        "subtitlle2":"Contraseña",
+        "button":"Accceder"
+    },
+    "index":{
+        "tittle":"Buenos dias",
+        "tittle1":"Buenas tardes",
+        "tittle2":"Buenas noches",
+        "tittle3":"Pacientes atendidos",
+        "tittle4":"Solicitudes pendientes",
+        "tittle5":"Consultas agendadas",
+        "subtittle":"Los servicios prestados a la clínica MediKids han resultado en la atención de diversos pacientes que hasta la fecha suman:",
+        "subtittle1":"En el panel de solicitudes permite revisar los pacientes que desean agendar una cita. La cantidad de solicitudes pendientes es de:",
+        "subtittle2":"El calendario permite organizar y llevar control de las consultas a atender, por el momento la cntidad de consultas a atender es de:",
+        "button":"Ver mas"
+    },
+    "sidebar":{
+        "tittle":"Inicio",
+        "tittle1":"Comunicados",
+        "tittle2":"Agenda",
+        "subtittle":"Solicitud de citas",
+        "subtittle1":"Citas programadas",
+        "tittle3":"Control de pacientes",
+        "subtittle2":"Mis pacientes",
+        "subtittle3":"Buscar expediente",
+        "tittle4":"Configuración",
+        "tittle5":"Cerrar sesión"
+    },
+    "cites":{
+        "subtittle":"No hay solicitudes de citas"
+    },
+    "pacients":{
+        "tittle":"Pacientes activos",
+        "subtittle":"PACIENTE",
+        "subtittle1":"NÚMERO DE CÓDIGO",
+        "subtittle2":"DETALLES",
+        "button":"VER DETALLES",
+        "tittle1":"Pacientes atendidos previamente"
+    },
+    "settings":{
+        "tittle":"Configuración",
+        "tittle1":"Foto de perfil",
+        "button":"Cambiar",
+        "tittle2":"Idioma del sistema"
+    }
+}

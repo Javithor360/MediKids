@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 //>> Components
 import { AppointmentStatus, ScreenTitle, getMedicalAppointments, getMedicalRecords } from '../../../index';
 import { useDispatch, useSelector } from 'react-redux';
-import { ChangeNeumoState, ChangeOtorrinoValues, ChangeOtorrinoState, ChangeNeumoValues, ChangeGastroState, ChangeGastroValues } from '../../../store/slices/appointmentsSlice';
+import { ChangeNeumoState, ChangeOtorrinoValues, ChangeOtorrinoState, ChangeNeumoValues, ChangeGastroState, ChangeGastroValues, ResetAppmtState } from '../../../store/slices/appointmentsSlice';
 
 //! Cancel the warning.
 const av = new Animated.Value(0);
@@ -37,7 +37,6 @@ export const AppointmentMainScreen = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const isFocused = useIsFocused()
-    const [isMainScreen, setIsMainScreen] = useState(true);
     const { t } = useTranslation();
     //! Get elements from the redux state.
     const Patient_Code = useSelector(state => state.patient.Patient_Code);
@@ -53,6 +52,7 @@ export const AppointmentMainScreen = () => {
             let Hour = new Date();
             const {data} = await getMedicalAppointments(jwtToken, Patient_Code, Hour);
 
+            dispatch(ResetAppmtState());
             data.medical_appointments.forEach(appointment => {
 
                 if(appointment.Doctor_id == 1){
@@ -116,7 +116,7 @@ export const AppointmentMainScreen = () => {
                         fontSize={20}
                         textColor={'#FFFFFF'}
                         paddingH={30}
-                        isMainScreen={isMainScreen}
+                        isMainScreen={true}
                     />
                     {/* APPOINTMENT STATUS CARD */}
                     {

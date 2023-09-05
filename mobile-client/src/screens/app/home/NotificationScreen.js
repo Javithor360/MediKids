@@ -22,7 +22,6 @@ import { ShowToast, deleteNotification } from '../../../index'
     \ 3 - Appointment reminder (1:30h before)
     \ 4 - Appointment starting
     \ 5 - Appointment finished
-    \ 6 - Medicines
 */
 
 export const NotificationScreen = ({route}) => {
@@ -37,8 +36,8 @@ export const NotificationScreen = ({route}) => {
 
     const getNotis = async () => {
         try {
-            setActualNotifications(DataNotis.ActualNotis);
-            setPassedNotifications(DataNotis.PassedNotis);
+            setActualNotifications(DataNotis.ActualNotis.reverse());
+            setPassedNotifications(DataNotis.PassedNotis.reverse());
         } catch (error) {
             console.log(error)
         }

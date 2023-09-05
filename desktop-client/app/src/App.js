@@ -20,6 +20,8 @@ import {
 import { AuthProvider } from "./context/AuthContext";
 import { DoctorProvider } from "./context/DoctorContext";
 
+import './libs/i18n';
+
 function App() {
   return (
     <BrowserRouter>

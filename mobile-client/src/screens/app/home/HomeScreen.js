@@ -140,6 +140,8 @@ export const HomeScreen = () => {
   useEffect(() => {
     if (DataNotis != null && DataNotis.ActualNotis.length != 0) {
       setIconNotis('bell-badge');
+    } else {
+      setIconNotis('bell')
     }
   }, [DataNotis]);
 
