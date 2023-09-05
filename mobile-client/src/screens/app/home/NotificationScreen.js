@@ -9,6 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import Constants from 'expo-constants';
 import { useSelector } from 'react-redux';
 import { useIsFocused } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
 
 //>> IMPORT COMPONENTS
 import { ScreenTitle } from '../../../components/ScreenTitleHook';
@@ -29,7 +30,7 @@ export const NotificationScreen = ({route}) => {
     const isFocused = useIsFocused()
     const jwtToken = useSelector(state => state.responsible.jwtToken);
     const lng = useSelector(state => state.starter.Language);
-
+    const { t } = useTranslation();
     //! Notifications State
     const [ActualNotifications, setActualNotifications] = useState(null);
     const [PassedNotifications, setPassedNotifications] = useState(null);
@@ -183,7 +184,7 @@ export const NotificationScreen = ({route}) => {
                                 </Text>
                             </View>
                             <TouchableOpacity onPress={() => deleteNoti(Noti.id, kn, Noti.Type)} style={styles.deleteBtnC}>
-                                <Text style={{color: '#707070'}}>Eliminar</Text>
+                                <Text style={{color: '#707070'}}>{t('noti.deleted')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -197,7 +198,7 @@ export const NotificationScreen = ({route}) => {
             <ScrollView ScrollView style={styles.fullScreenContainer}>
                 <View style={{backgroundColor:'#fff'}}>
                     <ScreenTitle
-                        Label={"Notificaciones"}
+                        Label={`${t('noti.title')}`}
                         IconName={"bell-outline"}
                         fontSize={20}
                         textColor={'#FFFFFF'}
@@ -208,7 +209,7 @@ export const NotificationScreen = ({route}) => {
                         <>
                             {/* NOTIFICACIONES ACTUALES */}
                             <View style={{marginHorizontal: 20, flexDirection: 'row', alignItems: 'center', marginBottom: 20, alignContent: 'center', justifyContent: 'space-between'}}>
-                                <Text style={{fontSize: 24, color: '#707070', fontWeight: 600,}}>Recientes</Text>
+                                <Text style={{fontSize: 24, color: '#707070', fontWeight: 600,}}>{t('noti.text1')}</Text>
                                 <View style={{width: '60%', height: 3, borderRadius: 10, backgroundColor: '#666666'}}/>
                             </View>
                             {
@@ -218,14 +219,14 @@ export const NotificationScreen = ({route}) => {
                                     })
                                     :
                                     <View style={styles.NotNotisCard}>
-                                        <Text style={{fontFamily: 'poppinsRegular', fontSize: 16, marginTop: 5, marginBottom: 5}}>No hay notificaciones actuales.</Text>
+                                        <Text style={{fontFamily: 'poppinsRegular', fontSize: 16, marginTop: 5, marginBottom: 5}}>{t('noti.text2')}.</Text>
                                         <Ionicons name="md-notifications-off-outline" size={38} color="black" />
                                     </View>
                             }
 
                             {/* NOTIFICACIONES PASADAS */}
                             <View style={{marginHorizontal: 20, flexDirection: 'row', alignItems: 'center', marginBottom: 20, alignContent: 'center', justifyContent: 'space-between', marginTop: 20}}>
-                                <Text style={{fontSize: 24, color: '#707070', fontWeight: 600,}}>Antiguas</Text>
+                                <Text style={{fontSize: 24, color: '#707070', fontWeight: 600,}}>{t('noti.text3')}</Text>
                                 <View style={{width: '65%', height: 3, borderRadius: 10, backgroundColor: '#666666'}}/>
                             </View>
                             {
@@ -235,7 +236,7 @@ export const NotificationScreen = ({route}) => {
                                     })
                                     :
                                     <View style={styles.NotNotisCard}>
-                                        <Text style={{fontFamily: 'poppinsRegular', fontSize: 16, marginTop: 5, marginBottom: 5}}>No hay notificaciones pasadas.</Text>
+                                        <Text style={{fontFamily: 'poppinsRegular', fontSize: 16, marginTop: 5, marginBottom: 5}}>{t('noti.text4')}.</Text>
                                         <Ionicons name="md-notifications-off-outline" size={38} color="black" />
                                     </View>
                             }
@@ -243,7 +244,7 @@ export const NotificationScreen = ({route}) => {
                         :
                         <View style={{width: '100%', height: 500}} >
                             <View style={styles.NotNotisContainer}>
-                                <Text style={{fontFamily: 'poppinsRegular', fontSize: 20, color: '#606060', marginBottom: 10, marginTop: 15}}>No hay ninguna notificación.</Text>
+                                <Text style={{fontFamily: 'poppinsRegular', fontSize: 20, color: '#606060', marginBottom: 10, marginTop: 15}}>{t('noti.text5')}.</Text>
                                 <Ionicons name="notifications-off" size={130} color="#606060" />
                             </View>
                         </View>

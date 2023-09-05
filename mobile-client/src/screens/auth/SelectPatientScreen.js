@@ -153,7 +153,7 @@ export const SelectPatientScreen = () => {
       const {data} = await getPatients(Resp.Email);
       setPatientData(data.patients);
 
-      let AC = [{ id: 'addPatient', name: 'Añadir Paciente' }];
+      let AC = [{ id: 'addPatient', name: `${t('selectPatient.addpatient')}`} ];
       
       data.patients.map((patient, id) => {
         const obj = {id: id+1, name: `${patient.First_Names} ${patient.Last_Names}`, image: patient.Profile_Photo_Url, Patient_id: patient.id, Profile_Photo_Name: patient.Profile_Photo_Name == null ? '0' : patient.Profile_Photo_Name};

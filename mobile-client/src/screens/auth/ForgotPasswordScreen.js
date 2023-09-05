@@ -100,16 +100,16 @@ export const ForgotPasswordScreen = () => {
                 <ImageBackground resizeMode='cover' style={AuthStylesGlobal.waveImg} source={require("../../../assets/waves/waves_start_top.png")}/> 
                 <TouchableOpacity activeOpacity={0.5} style={AuthStylesGlobal.buttomCameBack} onPress={() => navigation.goBack()} disabled={DisableButton}>
                     <MaterialIcons name="arrow-back-ios" size={17} color="white" />
-                    <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>{t('forgotpasswor.back')}</Text>
+                    <Text style={{fontFamily: 'poppinsBold', fontSize: 17, paddingTop: isAN ? 5 : 0, color: 'white'}}>{t('forgotpassword.back')}</Text>
                 </TouchableOpacity>
             </View>
             <View style={AuthStylesGlobal.contentContainer} >
                 <View style={AuthStylesGlobal.formContent} >
                     <Image style={AuthStylesGlobal.logoImage2} source={require('../../../assets/logos/Logotype_Colored.png')}  />
                     <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/graphic-icons/forgot-password.png')}  />
-                    <Text style={AuthStylesRegisterU.Tex_md}>{t('forgotpasswor.iforgot')}</Text>
+                    <Text style={AuthStylesRegisterU.Tex_md}>{t('forgotpassword.iforgot')}</Text>
                     <View style={AuthStylesGlobal.cont2} >
-                        <Text style={AuthStylesGlobal.TextCount}>{t('forgotpasswor.instructions')}</Text>
+                        <Text style={AuthStylesGlobal.TextCount}>{t('forgotpassword.instructions')}</Text>
                     </View>
 
                     <View style={[AuthStylesGlobal.inputBox, AuthStylesGlobal.customW91]} >
@@ -117,7 +117,7 @@ export const ForgotPasswordScreen = () => {
                         <TextInput
                             autoFocus={true}
                             style={AuthStylesGlobal.inputExtended}
-                            placeholder="Ingresar Email"
+                            placeholder={`${t('forgotpassword.email')}`}
                             placeholderTextColor="gray"
                             keyboardType='email-address'
                             autoCapitalize='none'
@@ -140,7 +140,7 @@ export const ForgotPasswordScreen = () => {
                             fontFamily={'poppinsBold'}
                             fontSize={16}
                             textColor={'white'}
-                            Label={<SetLabel LabelText={'Enviar'} isLoading={isLoading} Success={Success} />}
+                            Label={<SetLabel LabelText={`${t('forgotpassword.send')}`} isLoading={isLoading} Success={Success} />}
                             handlePress={() => {sendForgotPassEmail()}}
                             haveShadow={true}
                             disable={DisableButton}

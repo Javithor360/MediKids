@@ -16,7 +16,33 @@
         "text1":"up to date",
         "assigned":"assigned by",
         "medicAct":"Active Medications",
-        "medicinant":"There are no active medical currently"
+        "medicinant":"There are no active medical currently",
+        "title":"Medicines"
+
+    },
+    "calendar":{
+        "january":"January",
+        "february":"February ",
+        "march":"March ",
+        "april":"April ",
+        "may":"May ",
+        "june":"June ",
+        "july":"July ",
+        "august":"August ",
+        "sept":"September ",
+        "oct":"October",
+        "november":"November ",
+        "december":"December",
+        "dom":"Sunday ",
+        "lun":"Monday ",
+        "mar":"Tuesday ",
+        "mie":"Wednesday ",
+        "jue":"Thursday ",
+        "vie":"Friday ",
+        "sab":"Saturday",
+        "title":"Calendar and reminders"
+
+
 
     },
     "AppointmentMainScreen":{
@@ -70,7 +96,8 @@
         "changepic":"Change Profile Picture",
         "infopatient":"Information of the patient",
         "changepatient":"change patient",
-        "signoff":"Sign Off"
+        "signoff":"Sign Off",
+        "title":"My account"
 
     },
     "patientperfil":{
@@ -82,7 +109,8 @@
         "age":"Age",
         "VaccinesRecord":"Vaccination record",
         "Act":"Actions",
-        "changepic":"Change Profile Picture"
+        "changepic":"Change Profile Picture",
+        "title":"Patient's data"
 
     },
     "Gastro":{
@@ -202,7 +230,8 @@
         "forgotPass": "Forgot your password?",
         "loginT": "Log in",
         "dontHaveA" : "You don't have an account?",
-        "signup": "Sign up"
+        "signup": "Sign up",
+        "back":"Back"
     },
     "globals": {
         "email": "Email",
@@ -254,7 +283,8 @@
 
     },
     "forgotpassword":{
-        
+        "email":"Enter Email",
+        "send":"Send",
         "back":"Back",
         "iforgot":"I forgot my password",
         "instructions":"You will receive instructions to reset your password"
@@ -279,6 +309,90 @@
     },
     "selectPatient":{
         "selectpatient":"Select a patient",
-        "signoff":"Sign Off"
+        "signoff":"Sign Off",
+        "addpatient":"Add Patient"
+    },
+    "requestAppoint":{
+        "text1":"Request medical appointment",
+        "text2":"Provide the following prior information",
+        "text3":"Select one of the available weeks",
+        "request":"Request appointment",
+        "symp":"Symptoms or condition to treat"
+    },
+    "noti":{
+        "title":"Notifications",
+        "text1":"Recent",
+        "text2":"No current notifications",
+        "text3":"Ancient",
+        "text4":"No past notifications",
+        "text5":"There is no notification",
+        "deleted":"Deleted"
+
+    },
+    "weekDate":{
+        "text1":"When your request is reviewed, an available day of that week will be chosen for the appointment",
+        "text2":"selected week",
+        "text3":"Week",
+        "to":"to"
+    },
+    "appointmentMedicines":{
+        "text1":"Assignment Description",
+        "text2":"Dose",
+        "text3":"Instructions",
+        "text4":"Duration",
+        "text5":"Per Day",
+        "text6":"Medicines",
+        "text7":"No medications were assigned"
+    },
+    "appointmentResult":{
+        "text1":"Appointment results",
+        "text2":"Data register",
+        "text3":"Patient",
+        "text4":"Weight",
+        "text5":"Height",
+        "text6":"Age",
+        "text7":"Years",
+        "text8":"General diagnosis"
+    },
+    "appointmentStatus":{
+        "text1":"Otorhinolaryngology Specialist",
+        "text2":"Graduated from the University of Spain with more than 30 years of experience",
+        "text3":"Gastroenterology specialist",
+        "text4":"Specialist in gastroenterology graduated from the Faculty of Medicine of the UNAM",
+        "text5":"Pneumology specialist",
+        "text6":"Graduated from the Faculty of Medicine of the Autonomous University of Madrid",
+        "text7":"View more"
+    },
+    "attending":{
+        "text1":"Appointment information",
+        "text2":"Personal information",
+        "text3":"attending patient",
+        "text4":"Responsible",
+        "text5":"Appointment information",
+        "text6":"Reason for the appointment",
+        "text7":"Date and time of",
+        "text8":"Appointment status",
+        "text9":"Time left",
+        "text10":"State",
+        "text11":"Time elapsed"
+    },
+    "next":{
+        "text1":"Pending appointment",
+        "text2":"You have an upcoming appointment",
+        "text3":"Date",
+        "text4":"Time",
+        "text5":"Doctor"
+    },
+    "pending":{
+        "text1":"Appointment confirmation",
+        "text2":"When the appointment has been confirmed, this section shows the exact date of the appointment and the time",
+        "text3":"Selected Week"
+    },
+    "programmed":{
+        "text1":"Scheduled Appointment",
+        "text2":"You have a scheduled appointment",
+        "text3":"Date",
+        "text4":"Time",
+        "text5":"Doctor"
     }
 }
