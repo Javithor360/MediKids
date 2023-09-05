@@ -124,7 +124,10 @@ switch (index.Empezar) {
           clear();
           //\\ GET THE USER.
           do {
+            clear();
             console.log(' + Enviar Mensaje a un doctor ');
+            console.log('');
+            console.log(' - Ingrese "cancelar" para salir. ');
             console.log('');
             const userName = await inquirer.prompt({
               name: 'Usuario',
@@ -133,42 +136,171 @@ switch (index.Empezar) {
             })
             u_n = userName.Usuario;
 
-  
-            //! CHECK THE DATABASE.
-            const spinner = createSpinner('Verificando Usuario...').start();
+            if (u_n != 'cancelar' && u_n != 'Cancelar') {
+              //! CHECK THE DATABASE.
+              const spinnerUser = createSpinner('Verificando Usuario...').start();
+              const [drs] = await pool.query('SELECT * FROM doctors WHERE User = ?', [u_n])
+              await sleep(5000);
+    
+              if (drs.length != 0) {
+                spinnerUser.success({text: ' Usuario Verificado...'});
+                await sleep(2000);
+                ClearSpace();
 
-            const [drs] = await pool.query('SELECT * FROM doctors WHERE User = ?', [u_n])
-  
-            if (drs.length != 0) {
-              spinner.success({text: ' Usuario Verificado...'});
+                //* SEND THE MESSAGE
+                let message;
+                let b3 = false;
+                let f_n = drs[0].First_Names.split(' ');
+                let l_n = drs[0].Last_Names.split(' ');
+
+                do {
+                  const UserMessage = await inquirer.prompt({
+                    name: 'Mensaje',
+                    type: 'input',
+                    message: `Ingrese el mensaje para el doctor ${f_n[0]} ${l_n[0]}:`
+                  });
+                  message = UserMessage.Mensaje;
+                  const spinnerMsg = createSpinner('Validando Mensaje...').start();
+                  await sleep(3000);
+
+                  if (message.length == 0) {
+                    spinnerMsg.error({text: ' MENSAJE INVALIDO'});
+                    await sleep(2000);
+                    ClearSpace();
+                  } else {
+                    spinnerMsg.success({text: ' Mensaje Verificado...'});
+                    await sleep(2000);
+                    ClearSpace();
+                    b3 = true;
+                  }
+
+                } while (!b3);
+
+                // UPLOAD TO THE DB.
+                const spinnerUM = createSpinner('Enviando Mensaje...').start();
+                await sleep(3000);
+                await pool.query('INSERT INTO notices SET ?', {
+                  Doctor_id: drs[0].id,
+                  Description: message,
+                  Date_Time: new Date()
+                })
+                spinnerUM.success({text: ' ¡Mensaje enviado correctamente! '});
+                await sleep(2500);
+                ClearSpace();
+                b1 = true;
+              } else {
+                spinnerUser.error({text: ' USUARIO INCORRECTO'});
+                await sleep(2000);
+                console.log('')
+              }
+            } else {
+              const s_c = createSpinner('Cancelando Operación...').start();
+              await sleep(3000);
+          
+              s_c.success({text: ' Operación Cancelada.'});
               await sleep(2000);
               ClearSpace();
-
-              //* SEND THE MESSAGE
-              let message;
-              do {
-                
-              } while (condition);
-
               b1 = true;
-            } else {
-              spinner.error({text: ' USUARIO INCORRECTO'});
-              await sleep(2000);
-              console.log('')
             }
           } while (!b1);
-          
-
           break;
+
+        case 'Registrar nuevo DUI.':
+          let DUI;
+          let b4 = false;
+          let b5 = false;
+          clear()
+          //\\ ADD A NEW DUI TO THE DABASE
+          do {
+            clear();
+            console.log(' + Registrar un nuevo numero de DUI ');
+            console.log(' - Ingrese "cancelar" para salir. ');
+            console.log('');
+
+            //! GET THE DUI NUMBER
+            const userDUI = await inquirer.prompt({
+              name: 'DUI',
+              type: 'input',
+              message: 'Ingrese el Numero de DUI (con Guíon):'
+            })
+            DUI = userDUI.DUI;
+
+            if (DUI != 'cancelar' && DUI != 'Cancelar') {
+              const spinnerDUI = createSpinner('Validando DUI...').start();
+              const [DuiMatch] = await pool.query('SELECT * FROM documents_dui WHERE DUI = ?', [DUI])
+              await sleep(4500);
+  
+              if (!/^[0-9]{8}-[0-9]{1}$/.test(DUI) && DuiMatch.length == 0) {
+                spinnerDUI.error({text: ' DUI INVALIDO'});
+                await sleep(2000);
+                ClearSpace();
+              } else {
+                spinnerDUI.success({text: ' DUI Verificado...'});
+                await sleep(2000);
+                ClearSpace();
+
+                // CONFIRM THE DATA
+                console.log(' * DATOS A CONFIRMAR: ');
+                console.log(` DUI: ${DUI}`);
+                console.log('');
+                const confirmData = await inquirer.prompt({
+                  name: 'Confirmar',
+                  type: 'confirm',
+                  message: '¿Desea Confirmar?',
+                })
+    
+                if (confirmData.Confirmar) {
+                  const spinnerUD = createSpinner('Guardando Información...').start();
+                  await sleep(4500);
+    
+                  //! SAVE THE INFO IN THE DB
+                  await pool.query('INSERT INTO documents_dui SET ?',{ DUI });
+    
+                  spinnerUD.success({text: ' ¡Información Guardada Correctamente!'});
+                  await sleep(2000);
+                  ClearSpace();
+                } else {
+                  const spinnerCancel = createSpinner('Cancelando...').start();
+                  await sleep(3000);
+    
+                  spinnerCancel.success({text: ' Operación Finalizada.'});
+                  await sleep(2000);
+                  ClearSpace();
+                }
+                b4 = true;
+              }  
+            } else {
+              const s_c = createSpinner('Cancelando Operación...').start();
+              await sleep(3000);
+              s_c.success({text: ' Operación Cancelada.'});
+              await sleep(2000);
+              ClearSpace();
+              b4 = true;
+            }
+          } while (!b4);
+          break;
+         
+          case 'Cerrar Sesión.':
+            const spinnerClose = createSpinner('Cerrando Sistema...').start();
+            await sleep(3000);
+
+            spinnerClose.success({text: ' Sistema cerrado, BYE!.'});
+            await sleep(2000);
+            ClearSpace();
+            closeMenu = true;
+            break;
       }
       //>> -------------------------------- END SWITCH
 
     } while (!closeMenu);
     break;
 
-
-
   case 'Cerrar Sistema':
-    console.log('no')
+    const spinnerClose = createSpinner('Cerrando Sistema...').start();
+    await sleep(3000);
+
+    spinnerClose.success({text: ' Sistema cerrado, BYE!.'});
+    await sleep(2000);
+    ClearSpace();
     break;
 }

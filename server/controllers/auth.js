@@ -36,9 +36,14 @@ const register = async (req, res, next) => {
     if (!/^[A-Za-zÁÉÍÓÚÜáéíóúüÑñ\s]+$/.test(Last_Names)){ return res.status(500).json({success: false, message: {es: 'Apellidos no validos.', en: 'Invalid last names.'}}) }
     if (Last_Names.length < 3 || Last_Names.length > 50) { return res.status(500).json({success: false, message: {es: 'Apellidos no validos.', en: 'Invalid last names.'}}) }
     
-    //>>2 - CHECK IF DUI EXISTS
-    //! EL DUI ES DE 9 DIGITOS 
-    // 12345678-9
+    //>>2 - VALIDATE THE DUI
+    const [AllDuis] = await pool.query('SELECT * FROM documents_dui');
+    console.log(AllDuis);
+    let existDui = false;
+    AllDuis.map((el) => { if (el.DUI == DUI) existDui = true; });
+    if (!existDui) {
+      return res.status(500).json({success: false, message: {es: 'DUI invalido.', en: 'Invalid DUI.'}});
+    }
 
     //3 - CHECKING IF VALUES ALREADY EXIST
     const [query_check] = await pool.query('SELECT * FROM responsible WHERE DUI = ? OR Email = ?', [DUI, Email]);
