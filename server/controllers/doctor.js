@@ -795,9 +795,9 @@ const end_medical_appointment = async (req, res, next) => {
           `En la programación de consulta médica: Parece ser que este paciente ya tiene otra cita programada.`
         );
       }
-      if (medical_appointment.Description.length < 20) {
+      if (medical_appointment.Description.length < 20 && medical_appointment.Description.length > 150) {
         errorMessages.push(
-          `En la programación de consulta médica: El motivo de la cita debe estar más detallado.`
+          `En la programación de consulta médica: El motivo de la cita debe tener mínimo 20 y máximo 150 letras.`
         );
       }
 
@@ -814,8 +814,7 @@ const end_medical_appointment = async (req, res, next) => {
 
     //? ERROR HANDLER VALIDATOR
     if (errorMessages.length > 0) {
-      next(new ErrorResponse(errorMessages, 400, "error"));
-      return;
+      return next(new ErrorResponse(errorMessages, 400, "error"));
     } else {
       let Prescriptions_Names_Add = [];
       let Prescriptions_Names_Obj = {};

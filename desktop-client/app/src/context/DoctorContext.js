@@ -191,7 +191,8 @@ export const DoctorProvider = ({ children }) => {
       );
       setErrorMessage([]);
     } catch (error) {
-      if (error) { //! VALIDAR SI EL ERROR ES DEL ERRORHANDLER U OTRO
+      console.log(error.response.data.error)
+      if (error.response.data.error) { //! VALIDAR SI EL ERROR ES DEL ERRORHANDLER U OTRO
         const entries = error.response.data.error.split(",");
         setErrorMessage((prevData) => [...prevData, ...entries]);
       }
