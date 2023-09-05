@@ -20,16 +20,16 @@ av.addListener(() => {return});
 //! Information to single component statement.
 const doctorDescription = {
     otoDoctorInsights: {
-        insight1: "Especialista en otorrinolaringología",
-        insight2: "Graduado de la universidad de España con más de 30 años de experiencia",
+        insight1: `${t('AppointmentMainScreen.text1')}`,
+        insight2: `${t('AppointmentMainScreen.text2')}`,
     },
     gastroDoctorInsights: {
-        insight1: "Especialista en gastroenterología",
-        insight2: "Especialista en gastroenterología graduada de la facultad de Medicina de la UNAM",
+        insight1: `${t('AppointmentMainScreen.text3')}`,
+        insight2: `${t('AppointmentMainScreen.text4')}`,
     },    
     neuDoctorInsights: {
-        insight1: "Especialista en neumología",
-        insight2: "Graduado de la Facultad de Medicina de la Universidad Autónoma de Madrid",
+        insight1: `${t('AppointmentMainScreen.text5')}`,
+        insight2: `${t('AppointmentMainScreen.text6')}`,
     }
   };
 
@@ -111,7 +111,7 @@ export const AppointmentMainScreen = () => {
             <ScrollView style={styles.fullScreenContainer}>
                 <View style={{backgroundColor:'#fff'}}>
                     <ScreenTitle
-                        Label={"Citas"}
+                        Label={`${t('AppointmentMainScreen.title')}`}
                         IconName={"clipboard-text-multiple"}
                         fontSize={20}
                         textColor={'#FFFFFF'}

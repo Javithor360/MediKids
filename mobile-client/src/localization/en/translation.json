@@ -56,7 +56,14 @@
         "schedule":"Schedule appointment",
         "history":"Appointment History",
         "NoRecordhistory":"There are no records in the history yet.",
-        "View":"View History"
+        "View":"View History",
+        "title":"Appointments",
+        "text1":"Otolaryngology specialist",
+        "text2":"Graduated from the University of Spain with more than 30 years of experience",
+        "text3":"Gastroenterology specialist",
+        "text4":"Specialist in gastroenterology graduated from the Faculty of Medicine of the UNAM",
+        "text5":"Pneumology specialist",
+        "text6":"Graduated from the Faculty of Medicine of the Autonomous University of Madrid"
 
 
     },
@@ -67,7 +74,8 @@
         "reviewAndanalysis":"Review and analysis of symptoms",
         "assigned":"Treatment assigned in a period of time",
         "controlAppointment":"Control and follow-up appointments",
-        "guaranteed":"Guaranteed care and quality"
+        "guaranteed":"Guaranteed care and quality",
+        "title":"Appointment"
 
     },
 
@@ -85,7 +93,11 @@
         "temp":"Temperature",
         "close":"Close",
         "MoreDetails":"More details",
-        "historyAttended":"History of Attended Appointments"
+        "historyAttended":"History of Attended Appointments",
+        "title":"Dating History",
+        "oto":"Otorhinolaryngology",
+        "neu":"Pneumology",
+        "gastro":"Gastroenterology"
 
     },
 

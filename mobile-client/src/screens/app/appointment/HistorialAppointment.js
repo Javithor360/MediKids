@@ -22,11 +22,11 @@ export const HistorialAppointment = ({ route }) => {
     const getSpecialtyName = (Doctor_id) => {
         switch (Doctor_id) {
             case 1:
-                return 'Otorrinolaringologia';
+                return `${t('AppointmentHistory.oto')}`;
             case 2:
-                return 'Neumologia';
+                return `${t('AppointmentHistory.neu')}`;
             case 3:
-                return 'Gastroenterologia';
+                return `${t('AppointmentHistory.gastro')}`;
         }
     }
     
@@ -179,7 +179,7 @@ export const HistorialAppointment = ({ route }) => {
             <ScrollView style={styles.fullScreenContainer}>
                 <View style={{backgroundColor:'#fff'}}>
                     <ScreenTitle
-                        Label={"Historial de Citas"}
+                        Label={`${t('AppointmentHistory.title')}`}
                         IconName={"clipboard-text-multiple"}
                         fontSize={20}
                         textColor={'#FFFFFF'}
