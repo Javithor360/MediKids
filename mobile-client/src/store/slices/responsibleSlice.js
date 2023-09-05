@@ -9,6 +9,7 @@ const initialState = {
   DUI: null,
   Age: null,
   ProfilePhotoUrl: null,
+  Profile_Photo_Name: null,
   Birthdate: null,
   jwtToken: null,
 }
@@ -31,7 +32,9 @@ const responsibleSlice = createSlice({
       state.jwtToken = jwtToken;
     },
     changePerfilPhoto: (state, action) => {
-      state.ProfilePhotoUrl = action.payload;
+      const {ProfilePhotoUrl, Profile_Photo_Name} = action.payload;
+      state.ProfilePhotoUrl = ProfilePhotoUrl;
+      state.Profile_Photo_Name = Profile_Photo_Name;
     }
   }
 });

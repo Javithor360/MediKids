@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {manipulateAsync} from 'expo-image-manipulator'
 import { useTranslation } from 'react-i18next';
+import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder'
+import { LinearGradient } from 'expo-linear-gradient'
 
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterU, SelectProfilePhoto } from '../../../assets/AuthStyles';
@@ -14,7 +16,8 @@ import { isAN, isIOS } from '../../constants';
 import { CustomButton, SetLabel, ShowToast, uploadPFPatient } from '../../index';
 import { changePFPatient } from '../../store/slices/patientSlice';
 
-const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
+//! CREATE SHIMMER
+const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 export const SelectPatientPPScreen = () => {
     const { t } = useTranslation();
@@ -34,6 +37,9 @@ export const SelectPatientPPScreen = () => {
 
     //! State For disable the button
     const [DisableButton, setDisableButton] = useState(false);
+
+    //! Shimmer State
+    const [ShimmerTime, setShimmerTime] = useState(false);
 
     //! Function to select the profile photo from the galery of the user.
     const pickeImage = async () => {
@@ -75,7 +81,11 @@ export const SelectPatientPPScreen = () => {
             formData.append('Patient_id', Patient.id)
             const {data} = await uploadPFPatient(jwtToken, formData);
             if(data.success){
-                dispatch(changePFPatient(data.url));
+                console.log(data.name);
+                dispatch(changePFPatient({
+                    Profile_Photo_Url: data.url,
+                    Profile_Photo_Name: data.name,
+                }));
                 ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Foto subida correctamente.' : 'Photo uploaded successfully.');
                 setTimeout(() => {
                     setIsLoading(false);
@@ -102,6 +112,10 @@ export const SelectPatientPPScreen = () => {
         }
     }, [isLoading, Success]);
 
+    useEffect(() => {
+        setTimeout(() => { setShimmerTime(true) }, 1000);
+      }, []);
+
     return (
     <>
         <ScrollView style={[AuthStylesGlobal.mainContainer, {backgroundColor: '#e4e2ff'}]}>
@@ -121,7 +135,15 @@ export const SelectPatientPPScreen = () => {
                     </View>
                     <View style={[SelectProfilePhoto.hr, SelectProfilePhoto.customMarginB_2]} />
                     <View style={SelectProfilePhoto.profilePhotoWrapper}>
-                        <ImageBackground style={SelectProfilePhoto.profilePhotoImage} source={ImageEl ? {uri: ImageEl} : {uri: Patient.Profile_Photo_Url || defaultProfPhoto}} />
+                        <ShimmerPlaceHolder visible={ShimmerTime} style={{width: '100%', height: '100%'}}>
+                            {
+                                ImageEl ?
+                                    <ImageBackground style={SelectProfilePhoto.profilePhotoImage} source={{uri: ImageEl}} />
+                                    :
+                                    <Image source={{uri: Patient.Profile_Photo_Url}} style={{width:'100%', height:'100%'}}/>
+
+                            }
+                        </ShimmerPlaceHolder>
                     </View>
                     <TouchableOpacity disabled={DisableButton} style={SelectProfilePhoto.uploadBtn} activeOpacity={0.5} onPress={() => pickeImage()}>
                         <MaterialIcons name="drive-folder-upload" size={24} color="#707070" />

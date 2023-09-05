@@ -64,6 +64,7 @@ export default function AppCommon ({children}) {
         Age: data.Responsible_user.Age,
         Phone: data.Responsible_user.Phone,
         ProfilePhotoUrl: data.Responsible_user.Profile_Photo_Url,
+        Profile_Photo_Name: data.Responsible_user.Profile_Photo_Name,
         jwtToken: jwtToken,
       }))
     } catch (error) {

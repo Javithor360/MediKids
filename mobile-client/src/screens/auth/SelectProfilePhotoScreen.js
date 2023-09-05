@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {manipulateAsync} from 'expo-image-manipulator'
 import { useTranslation } from 'react-i18next';
+import {createShimmerPlaceholder} from 'react-native-shimmer-placeholder'
+import { LinearGradient } from 'expo-linear-gradient'
 
 //>> Importing components
 import  { AuthStylesGlobal, AuthStylesRegisterU, SelectProfilePhoto }  from '../../../assets/AuthStyles';
@@ -14,7 +16,8 @@ import { isAN, isIOS } from '../../constants';
 import { CustomButton, SetLabel, ShowToast, uploadPFResponsible } from '../../index';
 import { changePerfilPhoto } from '../../store/slices/responsibleSlice';
 
-const defaultProfPhoto = 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'
+//! CREATE SHIMMER
+const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 export const SelectProfilePhotoScreen = () => {
     const { t } = useTranslation();
@@ -37,6 +40,9 @@ export const SelectProfilePhotoScreen = () => {
 
     //! State For disable the button
     const [DisableButton, setDisableButton] = useState(false);
+
+    //! Shimmer State
+    const [ShimmerTime, setShimmerTime] = useState(false);
 
     //! Function to select the profile photo from the galery of the user.
     const pickeImage = async () => {
@@ -130,6 +136,10 @@ export const SelectProfilePhotoScreen = () => {
         }
     }, [navigation]);
 
+    useEffect(() => {
+        setTimeout(() => { setShimmerTime(true) }, 1000);
+    }, []);
+
     return (
     <>
         <ScrollView style={[AuthStylesGlobal.mainContainer, {backgroundColor: '#e4e2ff'}]}>
@@ -156,7 +166,15 @@ export const SelectProfilePhotoScreen = () => {
                     </View>
                     <View style={[SelectProfilePhoto.hr, SelectProfilePhoto.customMarginB_2]} />
                     <View style={SelectProfilePhoto.profilePhotoWrapper}>
-                        <ImageBackground style={SelectProfilePhoto.profilePhotoImage} source={ImageEl ? {uri: ImageEl} : {uri: responsible.ProfilePhotoUrl || defaultProfPhoto}} />
+                        <ShimmerPlaceHolder visible={ShimmerTime} style={{width: '100%', height: '100%'}}>
+                            {
+                                ImageEl ?
+                                    <ImageBackground style={SelectProfilePhoto.profilePhotoImage} source={{uri: ImageEl}} />
+                                    :
+                                    <Image source={{uri: responsible.ProfilePhotoUrl}} style={{width:'100%', height:'100%'}}/>
+
+                            }
+                        </ShimmerPlaceHolder>
                     </View>
                     <TouchableOpacity disabled={DisableButton} style={SelectProfilePhoto.uploadBtn} activeOpacity={0.5} onPress={() => pickeImage()}>
                         <MaterialIcons name="drive-folder-upload" size={24} color="#707070" />

@@ -13,6 +13,7 @@ const initialState = {
   Height: null,
   Patient_Code: null,
   Profile_Photo_Url: null,
+  Profile_Photo_Name: null,
 }
 
 //! Configure actions of the Slice.
@@ -21,7 +22,7 @@ const patientSlice = createSlice({
   initialState,
   reducers: {
     setInitialValues: (state, action) => {
-      const {Patient_id, FirstNames, LastNames, Birth_Date, Age, Gender, Blood_Type, Weight, Height, Patient_Code, Profile_Photo_Url} = action.payload;
+      const {Patient_id, FirstNames, LastNames, Birth_Date, Age, Gender, Blood_Type, Weight, Height, Patient_Code, Profile_Photo_Url, Profile_Photo_Name} = action.payload;
       state.id = Patient_id;
       state.FirstNames = FirstNames;
       state.LastNames = LastNames;
@@ -33,9 +34,12 @@ const patientSlice = createSlice({
       state.Height = Height;
       state.Patient_Code = Patient_Code;
       state.Profile_Photo_Url = Profile_Photo_Url;
+      state.Profile_Photo_Name = Profile_Photo_Name;
     },
     changePFPatient: (state, action) => {
-      state.Profile_Photo_Url = action.payload;
+      const { Profile_Photo_Url, Profile_Photo_Name} = action.payload;
+      state.Profile_Photo_Url = Profile_Photo_Url;
+      state.Profile_Photo_Name = Profile_Photo_Name;
     }
   }
 })
