@@ -246,12 +246,10 @@ db.connect(() => {
     // PATIENT VACCTINES TABLE
     db.query(`
       CREATE TABLE IF NOT EXISTS ${config_env.DATABASE} . documents_dui (
-          id INT NOT NULL AUTO_INCREMENT,
-          DUI INT NOT NULL,
-          First_Names VARCHAR(255) NOT NULL,
-          Last_Names VARCHAR(255) NOT NULL,
-          PRIMARY KEY (id),
-          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
+        id INT NOT NULL AUTO_INCREMENT,
+        DUI VARCHAR(50) NOT NULL,
+        PRIMARY KEY (id),
+        UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE
       );
     `);
     console.log(
