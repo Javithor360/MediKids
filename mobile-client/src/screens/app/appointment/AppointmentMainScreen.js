@@ -113,7 +113,7 @@ export const AppointmentMainScreen = () => {
             <ScrollView style={styles.fullScreenContainer}>
                 <View style={{backgroundColor:'#fff'}}>
                     <ScreenTitle
-                        Label={"Citas"}
+                        Label={`${t('AppointmentMainScreen.title')}`}
                         IconName={"clipboard-text-multiple"}
                         fontSize={20}
                         textColor={'#FFFFFF'}

@@ -53,7 +53,14 @@
         "schedule":"Agendar cita",
         "history":"Historial de citas",
         "NoRecordhistory":"Todavía no hay registros en el historial.",
-        "View":"Ver historial"
+        "View":"Ver historial",
+        "title":"Citas",
+        "text1":"Especialista en otorrinolaringología",
+        "text2":"Graduado de la universidad de España con más de 30 años de experiencia",
+        "text3":"Especialista en gastroenterología",
+        "text4":"Especialista en gastroenterología graduada de la facultad de Medicina de la UNAM",
+        "text5":"Especialista en neumología",
+        "text6":"Graduado de la Facultad de Medicina de la Universidad Autónoma de Madrid"
     },
 
     "AppointmentPro":{
@@ -62,7 +69,8 @@
         "reviewAndanalysis":"Revisión y análisis de sintomas",
         "assigned":"Tratamiento asignado en un periodo de tiempo",
         "controlAppointment":"Citas de control y seguimiento",
-        "guaranteed":"Atención y calidad garantizadas"
+        "guaranteed":"Atención y calidad garantizadas",
+        "title":"Cita"
     },
 
     "AppointmentHistory":{
@@ -79,7 +87,11 @@
         "temp":"Temperatura",
         "close":"Cerrar",
         "MoreDetails":"Más Detalles",
-        "historyAttended":"Historial de Citas Atendidas"
+        "historyAttended":"Historial de Citas Atendidas",
+        "title":"Historia de Citas",
+        "oto":"Otorrinolaringología",
+        "neu":"Neumología",
+        "gastro":"Gastroenterología"
 
     },
 

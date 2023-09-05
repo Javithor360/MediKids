@@ -39,7 +39,7 @@ export const AppointmentProcessScreen = ({ route }) => {
       <ScrollView style={styles.fullScreenContainer}>
         <View style={{backgroundColor:'#fff'}}>
           <ScreenTitle
-            Label={`Citas - ${speciality}`}
+            Label={`${t('AppointmentPro.title')} - ${speciality}`}
             IconName={"clipboard-text-multiple"}
             fontSize={17}
             textColor={'#FFFFFF'}
