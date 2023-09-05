@@ -822,6 +822,7 @@ const decline_appointment_request = async (req, res, next) => {
     //! ADD NOTIFICATION.
     await pool.query("INSERT INTO notifications SET ?", {
       Patient_id,
+      Doctor_id,
       Title: getSpecialty(Doctor_id),
       DateTime: new Date(),
       Type: 2,

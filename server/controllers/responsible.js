@@ -318,7 +318,7 @@ const get_calendar_events = async (req, res, next) => {
     }
 
     //\\ Get and validate the appointments events
-    const [appointments] = await pool.query('SELECT * FROM medical_appointment WHERE Patient_id = ?', [Patient_id]);
+    const [appointments] = await pool.query('SELECT * FROM medical_appointment WHERE Patient_id = ? AND State <> 4', [Patient_id]);
     if (appointments.length != 0) {
       appointments.map((appmt) => {
         let EventObj = {};
