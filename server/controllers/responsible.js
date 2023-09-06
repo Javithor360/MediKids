@@ -367,7 +367,6 @@ const get_calendar_events = async (req, res, next) => {
     \ 3 - Appointment reminder (1:30h before)
     \ 4 - Appointment starting
     \ 5 - Appointment finished
-    \ 6 - Medicines
     ? NEGATIVE VALUES MEANS DELETED
 */
 const get_notifications = async (req, res, next) => {
@@ -484,18 +483,6 @@ const get_notifications = async (req, res, next) => {
         }
       }
     })
-
-
-
-
-    //\\ CREATE 6 NOTIFICATION TYPE
-    // const [medicines] = await pool.query('SELECT * FROM medical_prescription WHERE Patient_id = ?', [Patient_id]);
-    // if (medicines.length > 0) {
-    //   medicines.map((el, i) => {
-        
-    //   })
-    // }
-
 
     //! GET ALL NOTIFICATIONS
     const [notis] = await pool.query('SELECT * FROM notifications WHERE Patient_id = ? AND Type > 0', [Patient_id]);

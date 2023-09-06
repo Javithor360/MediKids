@@ -230,7 +230,7 @@ switch (index.Empezar) {
               const [DuiMatch] = await pool.query('SELECT * FROM documents_dui WHERE DUI = ?', [DUI])
               await sleep(4500);
   
-              if (!/^[0-9]{8}-[0-9]{1}$/.test(DUI) && DuiMatch.length == 0) {
+              if (!/^[0-9]{8}-[0-9]{1}$/.test(DUI) || DuiMatch.length != 0) {
                 spinnerDUI.error({text: ' DUI INVALIDO'});
                 await sleep(2000);
                 ClearSpace();

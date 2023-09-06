@@ -5,6 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import DateTimePicker from "@react-native-community/datetimepicker"
 import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
+
 //>> Importing components
 import { AuthStylesGlobal, AuthStylesRegisterP, AuthStylesRegisterU } from '../../../assets/AuthStyles';
 import { isAN, isIOS } from '../../constants';

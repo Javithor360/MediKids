@@ -108,6 +108,19 @@ export const RegisterScreen = () => {
           BackHandler.addEventListener('hardwareBackPress', () => {return true})
         }
     }, [navigation, DisableBack]);
+
+    useEffect(() => {
+      setFirstNames(null);
+      setLastNames(null);
+      setDUI(null);
+      setPhone(null);
+      setEmail(null);
+      setPassword(null);
+      setConfPass(null);
+      setSuccess(false);
+      setDisableButton(false);
+      setDisableBack(false);
+    }, []);
   
   return (
     <>
