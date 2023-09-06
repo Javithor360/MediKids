@@ -17,21 +17,6 @@ import { ChangeNeumoState, ChangeOtorrinoValues, ChangeOtorrinoState, ChangeNeum
 const av = new Animated.Value(0);
 av.addListener(() => {return});
 
-//! Information to single component statement.
-const doctorDescription = {
-    otoDoctorInsights: {
-        insight1: `${t('AppointmentMainScreen.text1')}`,
-        insight2: `${t('AppointmentMainScreen.text2')}`,
-    },
-    gastroDoctorInsights: {
-        insight1: `${t('AppointmentMainScreen.text3')}`,
-        insight2: `${t('AppointmentMainScreen.text4')}`,
-    },    
-    neuDoctorInsights: {
-        insight1: `${t('AppointmentMainScreen.text5')}`,
-        insight2: `${t('AppointmentMainScreen.text6')}`,
-    }
-  };
 
 export const AppointmentMainScreen = () => {
     const dispatch = useDispatch();
@@ -39,12 +24,29 @@ export const AppointmentMainScreen = () => {
     const isFocused = useIsFocused()
     const { t } = useTranslation();
     //! Get elements from the redux state.
+    const lng = useSelector(state => state.starter.Language);
     const Patient_Code = useSelector(state => state.patient.Patient_Code);
     const Patient_id = useSelector(state => state.patient.id);
     const appointmentsState = useSelector(state => state.appointments);
     const jwtToken = useSelector(state => state.responsible.jwtToken);
-
+    
     const [AppointmentsRecord, setAppointmentsRecord] = useState(null);
+    
+    //! Information to single component statement.
+    const doctorDescription = {
+        otoDoctorInsights: {
+            insight1: `${t('appointmentStatus.text1')}`,
+            insight2: `${t('appointmentStatus.text2')}`,
+        },
+        gastroDoctorInsights: {
+            insight1: `${t('appointmentStatus.text3')}`,
+            insight2: `${t('appointmentStatus.text4')}`,
+        },    
+        neuDoctorInsights: {
+            insight1:`${t('appointmentStatus.text5')}`,
+            insight2: `${t('appointmentStatus.text6')}`,
+        }
+    };
 
     //! function to get the values of the appointments
     const getAppointments = async () => {
@@ -123,9 +125,9 @@ export const AppointmentMainScreen = () => {
                         ((appointmentsState.OtorrinoState != 4 && appointmentsState.OtorrinoState != null) || (appointmentsState.NeumoState != 4 && appointmentsState.NeumoState != null) || (appointmentsState.GastroState != 4 && appointmentsState.GastroState != null )) &&
                             <View style={[styles.requestAppointmentContainer, styles.btcGreen, styles.shadowC]}>
                                 <Text style={[styles.requestMainTitle, styles.colorGreen]}>Actividad de citas</Text>
-                                { (appointmentsState.OtorrinoState != null && appointmentsState.OtorrinoState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Otorrino_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/otorrino-icon.png')} DoctorName={'Dr. Esteban Gúzman'} Specialty={'Otorrinolaringología'}/> }
-                                { (appointmentsState.NeumoState != null && appointmentsState.NeumoState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Neumo_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/neumologia-icon.png')} DoctorName={'Dr. Adrián Flores'} Specialty={'Neumología'}/>}
-                                { (appointmentsState.GastroState != null && appointmentsState.GastroState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Gastro_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/gastro-icon.png')} DoctorName={'Dr. Fatima Garza'} Specialty={'Gastroenterología'}/>}
+                                { (appointmentsState.OtorrinoState != null && appointmentsState.OtorrinoState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Otorrino_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/otorrino-icon.png')} DoctorName={'Dr. Esteban Gúzman'} Specialty={lng ? 'Otorrinolaringología' : 'Otorhinolaryngology'}/> }
+                                { (appointmentsState.NeumoState != null && appointmentsState.NeumoState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Neumo_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/neumologia-icon.png')} DoctorName={'Dr. Adrián Flores'} Specialty={lng ? 'Neumología' : 'Pneumology'}/>}
+                                { (appointmentsState.GastroState != null && appointmentsState.GastroState != 4) && <AppointmentStatus Doctor_id={appointmentsState.Gastro_Doctor_id} ImageIcon={require('../../../../assets/graphic-icons/gastro-icon.png')} DoctorName={'Dr. Fatima Garza'} Specialty={lng ? 'Gastroenterología' : 'Gastroenterology'}/>}
                             </View>
                     }
                     <View style={styles.chooseBanner}>

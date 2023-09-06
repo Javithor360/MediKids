@@ -53,7 +53,7 @@
         "OtoInfo":"Diagnosis and treatment of diseases of the ear, nose, throat and allergies",
         "NeuInfo":"Diagnosis and treatment of diseases of the system and respiratory tract and lungs",
         "gastroInfo":"Diagnosis and treatment of diseases of the esophagus, stomach, intestines, and liver",
-        "schedule":"Schedule appointment",
+        "schedule":"Arrange appmt...",
         "history":"Appointment History",
         "NoRecordhistory":"There are no records in the history yet.",
         "View":"View History",
@@ -390,7 +390,7 @@
     },
     "next":{
         "text1":"Pending appointment",
-        "text2":"You have an upcoming appointment",
+        "text2":"Upcoming appointment",
         "text3":"Date",
         "text4":"Time",
         "text5":"Doctor"
