@@ -1,0 +1,45 @@
+.message-card {
+    width: 80%;
+    height: 10rem;
+    border-radius: 10px;
+    border: 1px solid #c6c6c6;
+    border-left: 5px solid #A375FF;
+    overflow: hidden;
+    padding-bottom: .5rem;
+}
+.heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 30%;
+    background: #f7f7f7;
+    padding: 0 1rem 0 1rem;
+    border-bottom: 1px solid #c6c6c6;
+}
+.avatar-container {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    height: 100%;
+    align-items: center;
+    gap: .5rem;
+}
+.__avatar {
+    height: 80% !important;
+}
+.date-container {
+    width: fit-content;
+    display: flex;
+    color: #707070;
+    flex-direction: row;
+    gap: .5rem;
+    height: 100%;
+    align-items: center;
+}
+.content-text {
+    height: 70%;
+    width: 100%;
+    padding: 1rem;
+    color: #707070;
+    overflow-y: auto;
+}
