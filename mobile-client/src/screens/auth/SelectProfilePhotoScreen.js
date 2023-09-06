@@ -15,6 +15,7 @@ import  { AuthStylesGlobal, AuthStylesRegisterU, SelectProfilePhoto }  from '../
 import { isAN, isIOS } from '../../constants';
 import { CustomButton, SetLabel, ShowToast, uploadPFResponsible } from '../../index';
 import { changePerfilPhoto } from '../../store/slices/responsibleSlice';
+import { uploadFile } from '../../../firebaseConfig';
 
 //! CREATE SHIMMER
 const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
@@ -74,15 +75,10 @@ export const SelectProfilePhotoScreen = () => {
                 [],
                 {compress: 0.9}
             )
-
-            const formData = new FormData();
-            formData.append('image',{
-                uri: manipImage.uri,
-                type: 'image/jpeg',
-                name: 'image.png',
-            })
-            formData.append('Email', responsible.Email)
-            const {data} = await uploadPFResponsible(formData);
+            
+            const FileName = await uploadFile(manipImage.uri, 'perfil_photos');
+            const {data} = await uploadPFResponsible(FileName, responsible.Email);
+            
             if(data.success){
                 dispatch(changePerfilPhoto(data.url));
                 ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Foto subida correctamente' : 'Photo uploaded Correctly.');

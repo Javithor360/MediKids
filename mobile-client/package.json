@@ -31,6 +31,7 @@
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.4",
     "expo-vector-icons": "^10.0.1",
+    "firebase": "^10.3.1",
     "i18next": "^23.4.4",
     "i18next-http-backend": "^2.2.1",
     "lottie-react-native": "5.1.4",
@@ -53,6 +54,7 @@
     "react-native-shimmer-placeholder": "^2.0.9",
     "react-native-stopwatch-timer": "^0.0.21",
     "react-native-toast-message": "^2.1.6",
+    "react-native-uuid": "^2.0.1",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1"
   },

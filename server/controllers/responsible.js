@@ -1,10 +1,8 @@
 
 //>> IMPORT MODULES
 import { initializeApp } from 'firebase/app'
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
-import { v4 } from 'uuid';
+import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import { differenceInHours, differenceInMinutes, differenceInMonths } from 'date-fns';
-import fs from 'fs';
 
 //>> IMPORT CONFIGS & FUNCTIONS 
 import {pool} from '../utils/db.js';
@@ -120,31 +118,16 @@ const get_patient = async (req, res) => {
 //! @access Public
 const upload_pf_responsible = async (req, res, next) => {
   try {
-    const {Email} = req.body;
+    const {Email, FileName} = req.body;
 
-    //? Set name of the foto.
-    const name = v4();
-
-    //? Reference to the storage where the photo will be upload.
-    const storageRef = ref(storage, `perfil_photos/${name}`);
-    
-    //? Create the config for the upload.
-    const metadata = {contentType: req.file.mimetype};
-
-    //? Get the buffer of the image;
-    const buffer = fs.readFileSync(req.file.path);
-    
-    //? Upload the image.
-    await uploadBytesResumable(storageRef, buffer, metadata);
-
+    //? Reference to the storage to get the url of the image.
+    const storageRef = ref(storage, `perfil_photos/${FileName}`);
+  
     //? Get the url from the snapshot.
     const url = await getDownloadURL(storageRef);
 
     //! Save in the database;
-    await pool.query('UPDATE Responsible SET Profile_Photo_Url = ?, Profile_Photo_Name = ? WHERE Email = ?', [url, name, Email]);
-
-    //>> Delete File fron upload directory.
-    fs.unlink(req.file.path, (err) => {if (err) throw err});
+    await pool.query('UPDATE responsible SET Profile_Photo_Url = ?, Profile_Photo_Name = ? WHERE Email = ?', [url, FileName, Email]);
 
     return res.status(200).json({success: true, url});
   } catch (error) {
@@ -225,34 +208,18 @@ const get_medical_prescriptions = async (req, res, next) => {
 //! @access Private
 const upload_pf_patient = async (req, res, next) => {
   try {
-    const {Patient_id} = req.body;
+    const {Patient_id, FileName} = req.body;
 
-    //? Set name of the foto.
-    const name = v4();
-
-    //? Reference to the storage where the photo will be upload.
-    const storageRef = ref(storage, `patient_pf/${name}`);
-    
-    //? Create the config for the upload.
-    const metadata = {contentType: req.file.mimetype};
-
-    //? Get the buffer of the image;
-    const buffer = fs.readFileSync(req.file.path);
-    
-    //? Upload the image.
-    await uploadBytesResumable(storageRef, buffer, metadata);
-
+    //? Reference to the storage to get the url of the image.
+    const storageRef = ref(storage, `perfil_photos/${FileName}`);
+  
     //? Get the url from the snapshot.
     const url = await getDownloadURL(storageRef);
 
-
     //! Save in the database;
-    await pool.query('UPDATE Patient SET Profile_Photo_Url = ?, Profile_Photo_Name = ? WHERE id = ?', [url, name, Patient_id]);
+    await pool.query('UPDATE Patient SET Profile_Photo_Url = ?, Profile_Photo_Name = ? WHERE id = ?', [url, FileName, Patient_id]);
 
-    //>> Delete File fron upload directory.
-    fs.unlink(req.file.path, (err) => {if (err) throw err});
-
-    return res.status(200).json({success: true, url, name});
+    return res.status(200).json({success: true, url, FileName});
   } catch (error) {
     return res.status(500).json({error});
   }

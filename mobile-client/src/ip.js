@@ -2,4 +2,4 @@
 //>> IP ADDRESS FROM THE SERVER
 //>> ===========================
 
-export default ip = () => '192.168.92.206';
+export default ip = () => 'https://medikids-server.uc.r.appspot.com';

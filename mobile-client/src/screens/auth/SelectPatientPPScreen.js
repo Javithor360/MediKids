@@ -15,6 +15,7 @@ import { AuthStylesGlobal, AuthStylesRegisterU, SelectProfilePhoto } from '../..
 import { isAN, isIOS } from '../../constants';
 import { CustomButton, SetLabel, ShowToast, uploadPFPatient } from '../../index';
 import { changePFPatient } from '../../store/slices/patientSlice';
+import { uploadFile } from '../../../firebaseConfig';
 
 //! CREATE SHIMMER
 const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
@@ -72,16 +73,9 @@ export const SelectPatientPPScreen = () => {
                 {compress: 0.9}
             )
 
-            const formData = new FormData();
-            formData.append('image',{
-                uri: manipImage.uri,
-                type: 'image/jpeg',
-                name: 'image.png',
-            })
-            formData.append('Patient_id', Patient.id)
-            const {data} = await uploadPFPatient(jwtToken, formData);
+            const FileName = await uploadFile(manipImage.uri, 'patient_pf');
+            const {data} = await uploadPFPatient(jwtToken, Patient.id, FileName);
             if(data.success){
-                console.log(data.name);
                 dispatch(changePFPatient({
                     Profile_Photo_Url: data.url,
                     Profile_Photo_Name: data.name,
