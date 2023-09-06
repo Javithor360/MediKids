@@ -132,7 +132,9 @@ export const Sidebar = () => {
                     to="/agenda/appointment_requests"
                     className="flex items-center h-12 w-[90%] ml-auto truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white"
                   >
-                    <AiOutlineInbox className="w-6 h-6" />
+                      <div className="w-[10%]">
+                        <AiOutlineInbox className="w-6 h-6" />
+                      </div>
                     <p className="ml-4 text-lg">{t("sidebar.subtittle")}</p>
                   </Link>
                 </li>
@@ -141,7 +143,9 @@ export const Sidebar = () => {
                     to="/agenda/calendar"
                     className="flex items-center h-12 w-[90%] ml-auto truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white"
                   >
-                    <AiOutlineClockCircle className="w-6 h-6" />
+                    <div className="w-[10%]">
+                      <AiOutlineClockCircle className="w-6 h-6" />
+                    </div>
                     <p className="ml-4 text-lg">{t("sidebar.subtittle1")}</p>
                   </Link>
                 </li>

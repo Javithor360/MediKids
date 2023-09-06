@@ -39,7 +39,7 @@ export const ViewMedicalPrescriptions = () => {
         :
         <>
         {
-          medicalPrescriptions.length === 0 ? 
+          medicalPrescriptions.length !== 0 ? 
             <div className="rounded-md border-[#bbbbbb] border border-t my-12">
               <table className="rounded-md shadow-md">
                 <thead className="bg-[#D8D7FE] text-[#707070]">

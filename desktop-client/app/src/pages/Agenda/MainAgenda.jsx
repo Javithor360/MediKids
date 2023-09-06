@@ -103,6 +103,7 @@ export const MainAgenda = () => {
               }}
               eventLimit={2}
               height={'75vh'}
+              width={'100%'}
             />
           </div>
         </div>

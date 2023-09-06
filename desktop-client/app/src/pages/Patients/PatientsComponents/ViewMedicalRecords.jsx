@@ -177,7 +177,7 @@ const FirstPage = ({ responsibleInfo, vaccines }) => {
             </div>  
           </div>
 
-          <div className="w-full rounded-lg border border-[#bbbbbb] h-fit flex flex-col overflow-hidden translate-y-9">
+          <div className="w-full rounded-lg border border-[#bbbbbb] h-fit flex flex-col overflow-hidden">
             <div className="w-full h-fit p-3 bg-[#d8d7fe] text-center">
               <span className="font-semibold">Información del responsable</span>
             </div>
@@ -198,12 +198,12 @@ const FirstPage = ({ responsibleInfo, vaccines }) => {
               </div>
             </div>  
           </div>
-          <div className="h-fit w-full bg-blue-300 border border-[#bbbbbb] mt-[2rem] rounded-md overflow-hidden">
+          <div className="h-fit w-full border border-[#bbbbbb] mt-[1rem] rounded-md overflow-hidden">
             <div className="w-full h-fit p-3 bg-[#d8d7fe] text-center flex flex-row items-center justify-center gap-2 ">
               <MdVaccines></MdVaccines><span className="font-semibold">Registro de vacunas</span>
             </div>
             <div className="h-[7rem] overflow-y-auto border-t border-t-[#bbbbbb]">
-              <ul className="p-9">
+              <ul className="p-3">
                 {vaccineEntries.map(([vaccine, value]) => (
                   <li key={vaccine} className="flex flex-row gap-2 p-2 items-center">
                     {

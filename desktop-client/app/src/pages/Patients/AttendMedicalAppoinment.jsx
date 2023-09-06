@@ -347,7 +347,7 @@ export const MedicalAppoinment = () => {
                 </p>
               </div>
             </div>
-            <div className="mt-5 info-container bg-red-300 ml-2 text-[#707070] text-[1.2rem] list-none">
+            <div className="mt-5 info-container ml-2 text-[#707070] text-[1.2rem] list-none">
               {pages[currentPage]}
             </div>
             <div className="border-t border-t-[#c6c6c6] flex items-center justify-between pt-[1rem] mt-[1rem]">
@@ -425,8 +425,8 @@ export const MedicalAppoinment = () => {
                       className="ml-2 text-[1rem] list-none items-center flex flex-row gap-3 mb-3"
                       key={i}
                     >
-                      <CgDanger className="inline-flex items-center justify-center gap-3 text-[1.8rem]  text-red-400" />
-                      <span className="">
+                      <CgDanger className="w-[10%] inline-flex items-center justify-center gap-3 text-[1.8rem]  text-red-400" />
+                      <span className="w-[90%]">
                         {parser(placeholderChanger(i))}
                       </span>
                     </li>
