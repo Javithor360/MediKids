@@ -168,7 +168,7 @@ export const PatientsDetails = () => {
             </p>
           </Link> */}
           <Link
-            className="rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
+            className="text-center rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
             onClick={() => {
               toggle();
               setNumbercomp(3);
@@ -185,7 +185,7 @@ export const PatientsDetails = () => {
             </p>
           </Link>
           <Link
-            className="rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
+            className="rounded-2xl text-center border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
             to={"/patients/active/details/appoinment"}
             state={{ patient }}
           >

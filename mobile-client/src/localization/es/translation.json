@@ -111,7 +111,7 @@
     "patientperfil":{
         "givenNames":"Nombres",
         "patientData":"Datos del Paciente",
-        "code":"Código",
+        "cod":"Código",
         "birthdate":"Fecha de nacimiento",
         "gen":"Género",
         "age":"Edad",
