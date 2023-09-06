@@ -78,7 +78,7 @@ export const MyAcountScreen = () => {
         <ScrollView style={styles.MainContainer}>
             <View style={{backgroundColor:'#fff'}}>
                 <ScreenTitle
-                    Label={"Mi Cuenta"}
+                    Label={`${t('account.title')}`}
                     IconName={"account-circle"}
                     fontSize={20}
                     textColor={'#FFFFFF'}

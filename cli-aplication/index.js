@@ -1,204 +1,306 @@
 #!/usr/bin/env node
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import gradient from 'gradient-string';
-import chalkAnimation from 'chalk-animation';
-import figlet from 'figlet';
-import { createSpinner } from 'nanospinner';
 import clear from 'clear';
-// import { pool } from './db';
+import { createSpinner } from 'nanospinner';
+import { createPool } from 'mysql2/promise';
 
+//>> DABASE CONNECT
+const pool = createPool({
+    host: 'localhost',
+    user: 'root',
+    password: "12345",
+    port: "3306",
+    database: 'medikids_db',
+})
+
+// SLEEPER
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+const ClearSpace = () => {
+  clear();
+  console.log('');
+}
+
+//! PRINCIPAL MENU
+clear();
 console.log('=======================================');
-console.log('= PANEL DE ADMINISTRACION DE MEDI' + chalk.magenta('KIDS') + ' =');
+console.log('= Ingresar Panel Admin - MEDI' + chalk.magenta('KIDS') + ' =');
 console.log('=======================================');
 console.log((''))
 console.log('Que desea hacer?')
 console.log(('------------------------------------'))
 console.log((''))
+
+// STARTING QUESTION
 const index = await inquirer.prompt({
-  name: 'question1',
+  name: 'Empezar',
   type: 'list',
-  message: 'Que deseas hacer?',
   choices: [
-    'Iniciar sesion',
-    'Cerrar sistema'
-  ]
+    'Iniciar Sesión',
+    'Cerrar Sistema',
+  ],
 })
 
-switch (index.question1) {
-  case 'Iniciar sesion':
-    let usern, variable;
+//\\ CHOOSE OPTION.
+switch (index.Empezar) {
+  //>> LOGIN IN THE SYSTEM
+  case 'Iniciar Sesión':
+    let username, password;
+
+    //\\ GET THE USER
+    ClearSpace();
     do {
-      console.clear();
-      if (usern != variable) {
-        console.log(chalk.red('Usuario incorrecto'))
-      }
       const user = await inquirer.prompt({
-        name: 'username',
+        name: 'Usuario',
         type: 'input',
-        message: 'Digite su usuario'
+        message: 'Digite el Usuario Administrador:',
       })
-      usern = user.username;
-      variable = 'medi_admin'
-    }
-    while (usern !== variable)
-    let word, pas;
-    do {
-      console.clear();
-      if (word != pas) {
-        console.log(chalk.red('Contraseña incorrecta'))
+      username = user.Usuario;
+      const spinner = createSpinner('Verificando Usuario...').start();
+      await sleep(2000);
+
+      if (username != 'MediAdmin#1') {
+        spinner.error({text: ' USUARIO INCORRECTO.'});
+        await sleep(2000);
+        ClearSpace();
+      } else {
+        spinner.success({text: ' Usuario Correcto...'});
+        await sleep(2000);
+        ClearSpace();
       }
-      const password = await inquirer.prompt({
-        name: 'pas',
-        type: 'password',
-        message: 'Digite su Contraseña'
-      })
-      word = password.pas;
-      pas = 'medidoc001';
-    }
-    while (word !== pas)
-    clear();
-    let menu;
-    menu = true;
+    } while (username != 'MediAdmin#1');
+
+    //\\ GET THE PASSWORD
+    ClearSpace();
     do {
+      const pass = await inquirer.prompt({
+        name: 'Password',
+        type: 'password',
+        message: 'Ingrese la Contraseña:',
+        mask: '*',
+      })
+      password = pass.Password;
+      const spinner = createSpinner('Verificando Contraseña...').start();
+      await sleep(2000);
+      
+      if (password != 'MKD-AD-1'){
+        spinner.error({text: ' CONTRASEÑA INCORRECTA'});
+        await sleep(2000);
+        ClearSpace();
+      } else {
+        spinner.success({text: ' Contraseña Correcta...'});
+        await sleep(2000);
+        ClearSpace();
+      }
+    } while (password != 'MKD-AD-1');
+
+    //\\ ADMIN MENU.
+    let closeMenu = false;
+    do {
+      clear();
       console.log('=========================');
       console.log('= BIENVENIDO A MEDI' + chalk.magenta('KIDS') + '=');
       console.log('=========================');
       console.log((''))
       console.log('---------------------------------------------------------');
-      console.log('Bienvenido Dr Latex ¿qué desea hacer?');
+      console.log(`Bienvenido "${username}" ¿qué desea hacer?`);
       console.log('---------------------------------------------------------');
-      const answers = await inquirer.prompt({
-        name: 'question1',
+      const adminMenuIndex = await inquirer.prompt({
+        name: 'Opciones',
         type: 'list',
-        message: 'Que deseas hacer?',
         choices: [
-          'Enviar mensaje a un doctor',
-          'Administrar doctores',
-          'Registrar DUI',
-          'Cerrar sesion'
+          'Enviar Mensaje a un doctor.',
+          'Registrar nuevo DUI.',
+          'Cerrar Sesión.',
         ]
-      });
+      })
 
-      switch (answers.question1) {
-        case 'Registrar a un doctor':
-          console.clear();
-          const Name = await inquirer.prompt({
-            name: 'name',
-            type: 'input',
-            message: 'Digite los nombres del doctor'
-          });
-          console.clear();
-          const Last = await inquirer.prompt({
-            name: 'last',
-            type: 'input',
-            message: 'Digite los Apellidos del doctor'
-          });
-          console.clear();
-          let Us;
-
+      //>> -------------------------------- START SWITCH
+      switch (adminMenuIndex.Opciones) {
+        case 'Enviar Mensaje a un doctor.':
+          let u_n;
+          let b1 = false;
+          clear();
+          //\\ GET THE USER.
           do {
-            console.clear();
-
-            if (Us && Us.length < 4) {
-              console.log(chalk.red('Usuario no válido'));
-            }
-
-            const Username = await inquirer.prompt({
-              name: 'user',
+            clear();
+            console.log(' + Enviar Mensaje a un doctor ');
+            console.log('');
+            console.log(' - Ingrese "cancelar" para salir. ');
+            console.log('');
+            const userName = await inquirer.prompt({
+              name: 'Usuario',
               type: 'input',
-              message: 'Asigne un usuario para el doctor'
-            });
-
-            Us = Username.user;
-
-            if (Us.length < 4) {
-              continue;
-            }
-            let wordpas, conf;
-            do {
-              console.clear();
-              if (wordpas != conf) {
-                console.log(chalk.red('Las contraseñas no son iguales'))
-              }
-              const Password = await inquirer.prompt({
-                name: 'pass',
-                type: 'input',
-                message: 'Digite una contraseña:'
-              })
-              const Pass = await inquirer.prompt({
-                name: 'word',
-                type: 'input',
-                message: 'confirme contraseña:'
-              })
-              wordpas = Password.pass;
-              conf = Pass.word;
-            }
-
-            while (wordpas !== conf)
-
-            console.log(chalk.green('Usuario registrado con exito'));
-            await delay(2000);
-            function delay(ms) {
-              return new Promise(resolve => setTimeout(resolve, ms));
-            }
-          } while (Us.length < 4);
-          break;
-
-        case 'Enviar mensaje a un doctor':
-          let docs, variable;
-          do {
-            console.clear();
-            if (docs != variable) {
-              console.log(chalk.red('Usuario inexistente'))
-            }
-            const docin = await inquirer.prompt({
-              name: 'us',
-              type: 'input',
-              message: 'Digite el usuario del doctor al que desea enviar un mensaje:'
+              message: 'Ingrese el nombre de usuario del doctor:'
             })
-            docs = docin.us
-            variable = 'doc001'
-          }
-          while (docs !== variable)
-          console.clear();
-          const tittle = await inquirer.prompt({
-            name: 'tittle',
-            type: 'label',
-            message: 'Ingresa el titulo del mensaje'
-          })
-          console.clear();
-          const mensaje = await inquirer.prompt({
-            name: 'mensaje',
-            type: 'label',
-            message: 'Ingresa el mensaje que desea enviar'
-          })
-          pool.query('INSERT INTO notices ')
-          console.log(chalk.green('Mensaje enviado con exito'));
-          await delay(2000);
-          function delay(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-          }
-          break;
-          case 'Administrar doctores':
-          console.log('docs')
+            u_n = userName.Usuario;
+
+            if (u_n != 'cancelar' && u_n != 'Cancelar') {
+              //! CHECK THE DATABASE.
+              const spinnerUser = createSpinner('Verificando Usuario...').start();
+              const [drs] = await pool.query('SELECT * FROM doctors WHERE User = ?', [u_n])
+              await sleep(5000);
+    
+              if (drs.length != 0) {
+                spinnerUser.success({text: ' Usuario Verificado...'});
+                await sleep(2000);
+                ClearSpace();
+
+                //* SEND THE MESSAGE
+                let message;
+                let b3 = false;
+                let f_n = drs[0].First_Names.split(' ');
+                let l_n = drs[0].Last_Names.split(' ');
+
+                do {
+                  const UserMessage = await inquirer.prompt({
+                    name: 'Mensaje',
+                    type: 'input',
+                    message: `Ingrese el mensaje para el doctor ${f_n[0]} ${l_n[0]}:`
+                  });
+                  message = UserMessage.Mensaje;
+                  const spinnerMsg = createSpinner('Validando Mensaje...').start();
+                  await sleep(3000);
+
+                  if (message.length == 0) {
+                    spinnerMsg.error({text: ' MENSAJE INVALIDO'});
+                    await sleep(2000);
+                    ClearSpace();
+                  } else {
+                    spinnerMsg.success({text: ' Mensaje Verificado...'});
+                    await sleep(2000);
+                    ClearSpace();
+                    b3 = true;
+                  }
+
+                } while (!b3);
+
+                // UPLOAD TO THE DB.
+                const spinnerUM = createSpinner('Enviando Mensaje...').start();
+                await sleep(3000);
+                await pool.query('INSERT INTO notices SET ?', {
+                  Doctor_id: drs[0].id,
+                  Description: message,
+                  Date_Time: new Date()
+                })
+                spinnerUM.success({text: ' ¡Mensaje enviado correctamente! '});
+                await sleep(2500);
+                ClearSpace();
+                b1 = true;
+              } else {
+                spinnerUser.error({text: ' USUARIO INCORRECTO'});
+                await sleep(2000);
+                console.log('')
+              }
+            } else {
+              const s_c = createSpinner('Cancelando Operación...').start();
+              await sleep(3000);
+          
+              s_c.success({text: ' Operación Cancelada.'});
+              await sleep(2000);
+              ClearSpace();
+              b1 = true;
+            }
+          } while (!b1);
           break;
 
-        case 'Registrar DUI':
-          console.log('Duis')
-          break;
+        case 'Registrar nuevo DUI.':
+          let DUI;
+          let b4 = false;
+          let b5 = false;
+          clear()
+          //\\ ADD A NEW DUI TO THE DABASE
+          do {
+            clear();
+            console.log(' + Registrar un nuevo numero de DUI ');
+            console.log(' - Ingrese "cancelar" para salir. ');
+            console.log('');
 
-        case 'Cerrar sesion':
-          menu = false;
+            //! GET THE DUI NUMBER
+            const userDUI = await inquirer.prompt({
+              name: 'DUI',
+              type: 'input',
+              message: 'Ingrese el Numero de DUI (con Guíon):'
+            })
+            DUI = userDUI.DUI;
+
+            if (DUI != 'cancelar' && DUI != 'Cancelar') {
+              const spinnerDUI = createSpinner('Validando DUI...').start();
+              const [DuiMatch] = await pool.query('SELECT * FROM documents_dui WHERE DUI = ?', [DUI])
+              await sleep(4500);
+  
+              if (!/^[0-9]{8}-[0-9]{1}$/.test(DUI) || DuiMatch.length != 0) {
+                spinnerDUI.error({text: ' DUI INVALIDO'});
+                await sleep(2000);
+                ClearSpace();
+              } else {
+                spinnerDUI.success({text: ' DUI Verificado...'});
+                await sleep(2000);
+                ClearSpace();
+
+                // CONFIRM THE DATA
+                console.log(' * DATOS A CONFIRMAR: ');
+                console.log(` DUI: ${DUI}`);
+                console.log('');
+                const confirmData = await inquirer.prompt({
+                  name: 'Confirmar',
+                  type: 'confirm',
+                  message: '¿Desea Confirmar?',
+                })
+    
+                if (confirmData.Confirmar) {
+                  const spinnerUD = createSpinner('Guardando Información...').start();
+                  await sleep(4500);
+    
+                  //! SAVE THE INFO IN THE DB
+                  await pool.query('INSERT INTO documents_dui SET ?',{ DUI });
+    
+                  spinnerUD.success({text: ' ¡Información Guardada Correctamente!'});
+                  await sleep(2000);
+                  ClearSpace();
+                } else {
+                  const spinnerCancel = createSpinner('Cancelando...').start();
+                  await sleep(3000);
+    
+                  spinnerCancel.success({text: ' Operación Finalizada.'});
+                  await sleep(2000);
+                  ClearSpace();
+                }
+                b4 = true;
+              }  
+            } else {
+              const s_c = createSpinner('Cancelando Operación...').start();
+              await sleep(3000);
+              s_c.success({text: ' Operación Cancelada.'});
+              await sleep(2000);
+              ClearSpace();
+              b4 = true;
+            }
+          } while (!b4);
           break;
-        default:
-          console.log('Opción no válida');
-          break;
+         
+          case 'Cerrar Sesión.':
+            const spinnerClose = createSpinner('Cerrando Sistema...').start();
+            await sleep(3000);
+
+            spinnerClose.success({text: ' Sistema cerrado, BYE!.'});
+            await sleep(2000);
+            ClearSpace();
+            closeMenu = true;
+            break;
       }
-    } while (menu)
+      //>> -------------------------------- END SWITCH
+
+    } while (!closeMenu);
     break;
 
-  case 'Cerrar sistema':
-    console.log('Cerrando consola');
+  case 'Cerrar Sistema':
+    const spinnerClose = createSpinner('Cerrando Sistema...').start();
+    await sleep(3000);
+
+    spinnerClose.success({text: ' Sistema cerrado, BYE!.'});
+    await sleep(2000);
+    ClearSpace();
     break;
 }

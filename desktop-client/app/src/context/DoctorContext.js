@@ -1,24 +1,20 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   getDoctorInfo,
   getActivePatients,
   getAllApointments,
-  newMedicalRecordEntry,
   getPatientAppointmentWithDoctor,
   getResponsibleInfo,
   getPatientMedicalRecords,
   getPatientVaccines,
   getPatientMedicalPrescription,
-  setPatientMedicalPrescription,
-  editPatientMedicalPrescription,
-  createNewAppointment,
-  editAppointment,
   appointmentRequests,
   getResponsibles,
   acceptAppointment,
   declineAppointment,
   appointmentsHistory,
   getDoctors,
+  endMedicalAppointment,
 } from "../api/queries";
 
 const dashContext = createContext();
@@ -46,6 +42,12 @@ export const DoctorProvider = ({ children }) => {
   const [medicalPrescriptions, setMedicalPrescriptions] = useState([]);
 
   const [doctors, setDoctors] = useState([]);
+
+  const [errorMessage, setErrorMessage] = useState([""]);
+
+  useEffect(() => {
+    console.log(errorMessage);
+  }, [errorMessage]);
 
   const PrivateConfig = {
     header: {
@@ -111,41 +113,60 @@ export const DoctorProvider = ({ children }) => {
     }
   };
 
-  const CreateMedicalRecordEntry = async (data, arr_press) => {
+  const EndMedicalAppointment = async (
+    Doctor_id,
+    Patient_id,
+    Responsible_id,
+    Appointment_id,
+    medicalRecord,
+    medicalPrescript,
+    scheAppoint,
+    togglesParams
+  ) => {
     try {
-      return await newMedicalRecordEntry(
+      const new_prescriptions = medicalPrescript.new_prescriptions.map((m) => {
+        const { hasSelectedYes, ...rest } = m;
+        return rest;
+      });
+
+      await endMedicalAppointment(
         {
-          Patient_id: data.Patient_id,
-          Doctor_id: data.Doctor_id,
-          Medical_Appointment_id: data.Medical_Appointment_id,
-          height: data.height,
-          weight: data.weight,
-          temperature: data.temperature,
-          notes: data.notes,
-          HtmlNotes: data.HtmlNotes,
-          Array_Prescriptions: arr_press,
+          Doctor_id,
+          Patient_id,
+          Responsible_id,
+          Appointment_id,
+          medical_record: {
+            height: medicalRecord.height,
+            weight: medicalRecord.weight,
+            temperature: medicalRecord.temperature,
+            notes: medicalRecord.notes,
+            HtmlNotes: medicalRecord.HtmlNotes,
+          },
+          medical_prescription: {
+            new_prescriptions,
+            edited_prescriptions: medicalPrescript.edited_prescriptions,
+          },
+          medical_appointment: {
+            Description: scheAppoint.Description,
+            Date: scheAppoint.Date,
+            Hour: scheAppoint.Hour,
+          },
+          toggles: {
+            addPrescriptions: togglesParams.addPrescriptions,
+            editPrescriptions: togglesParams.editPrescriptions,
+            scheduleAppointment: togglesParams.scheduleAppointment,
+          },
         },
         PrivateConfig
       );
+      setErrorMessage([]);
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const EndMedicalAppointment = async (
-    medicalRecord,
-    medicalPrescript,
-    scheAppoint
-  ) => {
-    try {
-      const res = await AddMedicalPrescription(medicalPrescript);
-      let Arr = res != null ? res.data.Array_Prescriptions : [];
-      CreateMedicalRecordEntry(medicalRecord, Arr);
-      EditMedicalPrescription(medicalPrescript);
-      EditAppointmentStatus(scheAppoint.originalAppointment, 4);
-      ScheduleAppointment(scheAppoint);
-    } catch (error) {
-      console.log(error);
+      console.log(error.response.data.error)
+      if (error.response.data.error) { //! VALIDAR SI EL ERROR ES DEL ERRORHANDLER U OTRO
+        const entries = error.response.data.error.split(",");
+        setErrorMessage((prevData) => [...prevData, ...entries]);
+      }
+      console.error(error);
     }
   };
 
@@ -195,75 +216,6 @@ export const DoctorProvider = ({ children }) => {
         PrivateConfig
       );
       setMedicalPrescriptions(res.data.body);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const AddMedicalPrescription = async (body) => {
-    try {
-      if (
-        body.medicalPrescript.new_prescriptions.length > 0 &&
-        body.medicalPrescript.new_prescriptions[0].hasSelectedYes === true
-      ) {
-        const new_prescriptions = body.medicalPrescript.new_prescriptions.map(
-          (m) => {
-            const { hasSelectedYes, ...rest } = m;
-            return rest;
-          }
-        );
-        return await setPatientMedicalPrescription(
-          {
-            Patient_id: body.medicalPrescript.Patient_id,
-            Doctor_id: body.medicalPrescript.Doctor_id,
-            new_prescriptions: new_prescriptions,
-          },
-          PrivateConfig
-        );
-      }
-      return;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const EditMedicalPrescription = async (body) => {
-    try {
-      if (body.medicalPrescript.edited_prescriptions.length > 0) {
-        await editPatientMedicalPrescription({
-          Patient_id: body.medicalPrescript.Patient_id,
-          Doctor_id: body.medicalPrescript.Doctor_id,
-          edited_prescriptions: body.medicalPrescript.edited_prescriptions,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const ScheduleAppointment = async (body) => {
-    try {
-      if (body.hasSelectedYes) {
-        await createNewAppointment(
-          {
-            Doctor_id: body.Doctor_id,
-            Responsible_id: body.Responsible_id,
-            Patient_id: body.Patient_id,
-            Description: body.Description,
-            Date: body.Date,
-            Hour: body.Hour,
-          },
-          PrivateConfig
-        );
-      } else return;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const EditAppointmentStatus = async (id, State) => {
-    try {
-      await editAppointment({ id, State }, PrivateConfig);
     } catch (error) {
       console.log(error);
     }
@@ -352,21 +304,18 @@ export const DoctorProvider = ({ children }) => {
         setMedicalPrescriptions,
         doctors,
         setDoctors,
+        errorMessage,
+        setErrorMessage,
         DoctorInfoQuery,
         ActivePatientsQuery,
         AppointmentsQuery,
         PatientsClassificator,
-        CreateMedicalRecordEntry,
         EndMedicalAppointment,
         PatientAppointmentWithDoctor,
         ResponsibleInformation,
         PatientMedicalRecords,
         PatientVaccines,
         PatientMedicalPrescriptions,
-        AddMedicalPrescription,
-        EditMedicalPrescription,
-        ScheduleAppointment,
-        EditAppointmentStatus,
         DoctorAppointmentRequests,
         ResponsiblesInfo,
         AcceptAppointmentRequest,

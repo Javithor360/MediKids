@@ -151,7 +151,7 @@ export const ImmunizationRecord = () => {
         <View style={AuthStylesGlobal.contentContainer}>
           <View style={AuthStylesGlobal.formContent} >
             <Image style={AuthStylesGlobal.logoImage} source={require('../../../assets/logos/Isotype.png')} />
-            <Text style={[AuthStylesRegisterU.Tex_md, {fontSize: isIOS ? 28 : 30}]}>{t('immunization.vaccination')}</Text>
+            <Text style={[AuthStylesRegisterU.Tex_md, {fontSize: isIOS ? 28 : 30}]}>{t('immunization.Vaccination')}</Text>
             <View style={[AuthStylesGlobal.cont2,]} >
               <Text style={AuthStylesGlobal.TextCount}>{t('immunization.needchildInfo')}</Text>
             </View>

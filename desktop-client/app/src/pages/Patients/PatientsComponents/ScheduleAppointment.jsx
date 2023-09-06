@@ -15,11 +15,7 @@ export const ScheduleAppointment = ({ setScheAppoint, nextAppointment }) => {
 
   useEffect(() => {
     setScheAppoint({
-      hasSelectedYes, // CUANDO SE IMPLEMENTE LA ACTIVACIÓN DEL COMPONENTE SE CAMBIARÁ POR EL USESTATE
-      originalAppointment: nextAppointment.id,
-      Doctor_id: JSON.parse(localStorage.getItem("userSession")).id,
-      Responsible_id: patient.Responsible_id,
-      Patient_id: patient.id,
+      hasSelectedYes,
       Description: reason,
       Date: new Date(date).toISOString().split("T")[0],
       Hour: hour,
@@ -34,7 +30,7 @@ export const ScheduleAppointment = ({ setScheAppoint, nextAppointment }) => {
 
   return (
     <div className="">
-      <div className="inline-flex items-center gap-2 ml-7 mb-3 mt-7">
+      <div className="inline-flex items-center gap-2 mb-3 ml-7 mt-7">
         <p className="font-semibold text-[#707070] text-[1.1rem]">
           ¿Programar una cita próxima?
         </p>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 
 import {
@@ -20,8 +21,10 @@ import { useDash } from "../context/DoctorContext";
 
 import ColLogotype from "../assets/logos/MediKids_Colored-Logotype.png";
 import Avatar from "../assets/template/avatar.jpg";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export const Sidebar = () => {
+  //const { t } = useTranslation();
   const { DoctorInfoQuery, Info } = useDash();
   let navigate = useNavigate();
 
@@ -54,10 +57,7 @@ export const Sidebar = () => {
           </div>
           <div className="mt-5 ml-40 inline-flex items-center gap-3">
           <p className="text-xl">Idioma del sistema</p> 
-          <select className="ml-10" >
-            <option>Español</option>
-            <option>Ingles</option>
-          </select>
+          <LanguageSwitcher />
           
 
           </div>

@@ -4,10 +4,12 @@ import { useNavigation } from '@react-navigation/native';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { useSelector } from 'react-redux';
-
+import { useTranslation } from 'react-i18next';
 export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id}) => {
     const appointmentsState = useSelector(state => state.appointments);
     const navigation = useNavigation()
+    const { t } = useTranslation();
+    const lng = useSelector(state => state.starter.Language);
 
     const getAppointmentState = () => {
         let appointmentStateValue;
@@ -16,11 +18,11 @@ export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id})
         else if (Doctor_id == 2) { appointmentStateValue = appointmentsState.NeumoState }
         else if (Doctor_id == 3) { appointmentStateValue = appointmentsState.GastroState }
 
-        if (appointmentStateValue == 1){ return 'SOLICITADA' }
-        else if (appointmentStateValue == 2){ return 'PENDIENTE' }
-        else if (appointmentStateValue == 3){ return 'EN PROGRESO' }
-        else if (appointmentStateValue == 4){ return 'TERMINADA' }
-        else if (appointmentStateValue == 0){ return 'PROGRAMADA' }
+        if (appointmentStateValue == 1){ return lng ? 'SOLICITADA' : 'REQUESTED' }
+        else if (appointmentStateValue == 2){ return lng ? 'PENDIENTE' : 'PENDING' }
+        else if (appointmentStateValue == 3){ return lng ? 'EN PROGRESO' : 'IN PROGRESS' }
+        else if (appointmentStateValue == 4){ return lng ? 'TERMINADA' : 'FINISHED' }
+        else if (appointmentStateValue == 0){ return lng ? 'PROGRAMADA' : 'PROGRAMMED' }
     }
     
     const getAppointmentInfo = () => {
@@ -72,16 +74,16 @@ export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id})
     const getDoctorDescription = () => {
         const doctorDescription = {
             otoDoctorInsights: {
-                insight1: "Especialista en otorrinolaringología",
-                insight2: "Graduado de la universidad de España con más de 30 años de experiencia",
+                insight1: `${t('appointmentStatus.text1')}`,
+                insight2: `${t('appointmentStatus.text2')}`,
             },
             gastroDoctorInsights: {
-                insight1: "Especialista en gastroenterología",
-                insight2: "Especialista en gastroenterología graduada de la facultad de Medicina de la UNAM",
+                insight1: `${t('appointmentStatus.text3')}`,
+                insight2: `${t('appointmentStatus.text4')}`,
             },    
             neuDoctorInsights: {
-                insight1: "Especialista en neumología",
-                insight2: "Graduado de la Facultad de Medicina de la Universidad Autónoma de Madrid",
+                insight1:`${t('appointmentStatus.text5')}`,
+                insight2: `${t('appointmentStatus.text6')}`,
             }
         };
 
@@ -111,7 +113,7 @@ export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id})
                                     Doctor_id,
                                     appointmentInfo: getAppointmentInfo(),
                             })}>
-                                <Text style={{color: '#ffffff'}}>Ver Más</Text>
+                                <Text style={{color: '#ffffff'}}>{t('appointmentStatus.text7')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

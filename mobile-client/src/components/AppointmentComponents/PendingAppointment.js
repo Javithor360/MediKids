@@ -1,21 +1,23 @@
 import { useEffect } from 'react';
 import { Text, StyleSheet, Image, View } from 'react-native'
+import { useTranslation } from 'react-i18next';
 //Libraries
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export const PendingAppointment = ({appointmentInfo}) => {
+    const { t } = useTranslation();
     const getWeek = () => {
         let objWeek = JSON.parse(appointmentInfo.Week);
         return `${objWeek.startDay} - ${objWeek.finalDay}`
     }
     return (
         <>
-            <Text style={styles.requestMainTitle}>Confirmación de cita</Text>
+            <Text style={styles.requestMainTitle}>{t('pending.text1')}</Text>
             <Image source={require('../../../assets/graphic-icons/review.png')} style={styles.imageIconLol}/>
-            <Text style={styles.description}>Cuando la cita haya sido confirmanda, en este apartado aparecerá la fecha exacta de la cita y la hora.</Text>
+            <Text style={styles.description}>{t('pending.text2')}.</Text>
             <View style={{width: '80%', backgroundColor: '#d8d8d8', height: 2, marginLeft: 'auto', marginRight: 'auto', marginBottom: 10, borderRadius: 10}}/>
             <View style={{marginBottom: 20, width: '85%', marginLeft: 'auto', marginRight:'auto'}}>
-                <Text style={{textAlign: 'center', fontFamily: 'poppinsBold', fontSize: 15, color:'#46929B', marginBottom: 6}}>Semana Seleccionada:</Text>
+                <Text style={{textAlign: 'center', fontFamily: 'poppinsBold', fontSize: 15, color:'#46929B', marginBottom: 6}}>{t('pending.text3')}:</Text>
                 <Text style={{textAlign: 'center', color: '#707070',marginBottom:15}}>{getWeek()}</Text>
             </View>
         </>

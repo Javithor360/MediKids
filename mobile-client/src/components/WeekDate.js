@@ -3,13 +3,16 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { eachWeekOfInterval, addDays, format, startOfMonth, subMonths, addMonths } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { MaterialIcons } from '@expo/vector-icons'; 
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 const WeekDate = ({ setWeek }) => {
   const currentDate = new Date();
   const startDate = currentDate;
   const endDate = new Date(2023, 11, 31);
-
+  const { t } = useTranslation();
   const startOfCurrentMonth = startOfMonth(currentDate);
+  const lng = useSelector(state => state.starter.Language);
 
   const options = { weekStartsOn: 1 };
   const capitalizeFirstLetter = (str) => {
@@ -33,7 +36,7 @@ const WeekDate = ({ setWeek }) => {
     return weeksWithoutWeekend.reduce((acc, startDate) => {
       const endDate = getSaturday(addDays(startDate, 4));
       const monthKey = format(startDate, 'MMMM', { locale: es });
-      const weekRange = `${format(startDate, 'dd/MM/yyyy')} al ${format(endDate, 'dd/MM/yyyy')}`;
+      const weekRange = `${format(startDate, 'dd/MM/yyyy')} ${t('weekDate.to')} ${format(endDate, 'dd/MM/yyyy')}`;
       if (!acc[monthKey]) {
         acc[monthKey] = [];
       }
@@ -103,7 +106,7 @@ const WeekDate = ({ setWeek }) => {
             ]}
           >
             <View style={styles.cardTitleWeek}>
-              <Text style={{fontSize: 15, fontWeight: 'bold'}}>Semana:</Text>
+              <Text style={{fontSize: 15, fontWeight: 'bold'}}>{t('weekDate.text3')}:</Text>
             </View>
             <View style={styles.weekRangeContainer}>
               <Text style={[styles.cardText, selectedWeek === week && styles.selectedCardText]}>
@@ -116,11 +119,11 @@ const WeekDate = ({ setWeek }) => {
       
       {selectedWeek ?
         <View style={styles.selectedWeekContainer}>
-          <Text style={styles.selectedWeekText}>Semana seleccionada: {selectedWeek}</Text>
+          <Text style={styles.selectedWeekText}>{t('weekDate.text2')}: {selectedWeek}</Text>
         </View>
         :
         <View style={styles.selectedWeekContainer}>
-          <Text style={styles.selectedWeekText}>Cuando su solicitud sea revisada se elegirá un día de esa semana disponible para la cita</Text>
+          <Text style={styles.selectedWeekText}>{t('weekDate.text1')}</Text>
         </View>
       }
     </View>

@@ -38,23 +38,25 @@ import { TiDirections } from "react-icons/ti";
 export const MedicalAppoinment = () => {
   const location = useLocation();
   const { patient } = location.state || {};
-  const Doctor_id = JSON.parse(localStorage.getItem("userSession")).id;
 
   let navigate = useNavigate();
   const {
     EndMedicalAppointment,
-    PatientMedicalPrescriptions,
     medicalPrescriptions,
     nextAppointment,
+    errorMessage,
+    setErrorMessage,
   } = useDash();
 
   // Variables utilized by modals
   const [active, setActive] = useState(false);
   const [errorHandler, setErrorHandler] = useState(false);
-  const [errorMessage, setErrorMessage] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
 
   const [chargin, setChargin] = useState(false);
+  const [chargin2, setChargin2] = useState(false);
+  const [isSubmit, setIsSubmit] = useState(false);
+  const [submit, setSubmit] = useState(false);
 
   const [tabSelector, setTabSelector] = useState(1);
 
@@ -99,6 +101,26 @@ export const MedicalAppoinment = () => {
     if (HtmlNotes !== medicalRecord.HtmlNotes) setHtmlNotes(medicalRecord);
     setHeight(medicalRecord.height);
   }, [medicalRecord]);
+
+  useEffect(() => {
+    if (isSubmit) {
+      if (errorMessage.length !== 0) {
+        toggleError();
+        toggle();
+        setIsSubmit(false)
+      } else {
+        setIsSubmit(false);
+        setChargin(true);
+        setTimeout(() => {
+          toggle();
+          setChargin2(true);
+          setTimeout(() => {
+            navigate(-1);
+          }, 5000);
+        }, 5000);
+      }
+    }
+  }, [errorMessage]);
 
   const toggle = () => {
     setActive(!active);
@@ -147,18 +169,24 @@ export const MedicalAppoinment = () => {
     }
 
     if (scheAppoint && scheAppoint.hasSelectedYes) {
-      if (new Date(scheAppoint.Date).getFullYear() < new Date().getFullYear())
+      if (new Date(scheAppoint.Date).getFullYear() < new Date().getFullYear()) { 
         newErrorMessages.push(
           `<p><span class="text-red-500">En la programación de citas:</span><span class="text-[#707070]"> El dato de <i class="font-semibold">'Fecha'</i> no está completo.</span></p>`
         );
-      if (!scheAppoint.Hour)
+        isEmpty = true;
+      }
+      if (!scheAppoint.Hour) {
         newErrorMessages.push(
           `<p><span class="text-red-500">En la programación de citas:</span><span class="text-[#707070]"> El dato de <i class="font-semibold">'Hora'</i> no está completo.</span></p>`
         );
-      if (!scheAppoint.Description)
+        isEmpty = true;
+      }
+      if (!scheAppoint.Description) {
         newErrorMessages.push(
           `<p><span class="text-red-500">En la programación de citas:</span><span class="text-[#707070]"> El dato de <i class="font-semibold">'Motivo de citas'</i> no está completo.</span></p>`
         );
+        isEmpty = true;
+      }
     }
 
     setErrorMessage(newErrorMessages);
@@ -169,42 +197,51 @@ export const MedicalAppoinment = () => {
       toggle();
     }
   };
-  const [chargin2, setChargin2] = useState(false);
+  
   const handleClick = async (e) => {
     e.preventDefault();
     try {
       await EndMedicalAppointment(
+        JSON.parse(localStorage.getItem("userSession")).id,
+        patient.id,
+        patient.Responsible_id,
+        nextAppointment.id,
         {
           height,
           weight,
           temperature,
           notes,
-          Patient_id: patient.id,
-          Doctor_id,
-          Medical_Appointment_id: nextAppointment.id,
           HtmlNotes,
         },
-        { medicalPrescript },
-        scheAppoint
+        medicalPrescript,
+        scheAppoint,
+        {
+          addPrescriptions: medicalPrescript.new_prescriptions[0].hasSelectedYes,
+          editPrescriptions: medicalPrescript.edited_prescriptions > 0 ? true : false,
+          scheduleAppointment: scheAppoint.hasSelectedYes,
+        }
       );
-      setChargin(true);
-      setTimeout(() => {
-        toggle();
-        setChargin2(true);
-        setTimeout(() => {
-          navigate(-1);
-        }, 5000);
-      }, 5000);
+      setIsSubmit(true);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
+  // console.log('errorMessage')
+  // setErrorMessage(errorMessage);
+  // setChargin(true);
+  // setTimeout(() => {
+  //   toggle();
+  //   setIsSubmit(false);
+  //   setTimeout(() => {
+  //     navigate(-1);
+  //   }, 3000);
+  // }, 3000);
 
   return (
     <>
       {
         chargin2 === true ?
-        <div className="absolute top-0 left-0 h-full w-full flex flex-col justify-center items-center">
+        <div className="absolute top-0 left-0 flex flex-col items-center justify-center w-full h-full">
             <PencilCharginAnimation/>
         </div>
         :
@@ -397,13 +434,16 @@ export const MedicalAppoinment = () => {
               </ul>
             </div>
             <div className="pt-[1rem] border-t border-t-[#c6c6c6] mt-[1rem] flex items-end justify-end gap-5">
-            <button
-              className="btn btn-active border border-[#c6c6c6] bg-[#a49bb7] hover:bg-[#9890a9] text-white gap-3"
-              onClick={()=>toggleError()}
-            >
-              <HiBackspace />
-              Si, OK, entiendo
-            </button>
+              <button
+                className="btn btn-active border border-[#c6c6c6] bg-[#a49bb7] hover:bg-[#9890a9] text-white gap-3"
+                onClick={() => {
+                  toggleError();
+                  setErrorMessage([]);
+                }}
+              >
+                <HiBackspace />
+                Si, OK, entiendo
+              </button>
             </div>
           </div>
         </Modal>

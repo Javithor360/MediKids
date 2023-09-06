@@ -98,7 +98,7 @@ export const PatientPerfilScreen = () => {
             <ScrollView style={styles.MainContainer}>
                 <View style={{backgroundColor:'#fff'}}>
                     <ScreenTitle
-                        Label={"Datos del paciente"}
+                        Label={`${t('patientperfil.title')}`}
                         IconName={"account-child"}
                         fontSize={20}
                         textColor={'#FFFFFF'}

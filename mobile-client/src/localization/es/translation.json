@@ -15,7 +15,31 @@
         "text1":"al día",
         "assigned":"Asignado por",
         "medicAct":"Medicamentos Activos",
-        "medicinant":"No hay medicamentos activos actualmente"
+        "medicinant":"No hay medicamentos activos actualmente",
+        "title":"Medicinas"
+
+    },
+    "calendar":{
+        "january":"Enero",
+        "february":"Febrero",
+        "march":"Marzo",
+        "april":"Abril",
+        "may":"Mayo",
+        "june":"Junio",
+        "july":"Julio",
+        "august":"Agosto",
+        "sept":"Septiembre",
+        "oct":"Octubre",
+        "november":"Noviembre",
+        "december":"Diciembre",
+        "dom":"Domingo  ",
+        "lun":"Lunes  ",
+        "mar":"Martes  ",
+        "mie":"Miércoles  ",
+        "jue":"Jueves  ",
+        "vie":"Viernes  ",
+        "sab":"Sábado",
+        "title":"Calendario y recordatorios"
 
     },
     "AppointmentMainScreen":{
@@ -29,7 +53,14 @@
         "schedule":"Agendar cita",
         "history":"Historial de citas",
         "NoRecordhistory":"Todavía no hay registros en el historial.",
-        "View":"Ver historial"
+        "View":"Ver historial",
+        "title":"Citas",
+        "text1":"Especialista en otorrinolaringología",
+        "text2":"Graduado de la universidad de España con más de 30 años de experiencia",
+        "text3":"Especialista en gastroenterología",
+        "text4":"Especialista en gastroenterología graduada de la facultad de Medicina de la UNAM",
+        "text5":"Especialista en neumología",
+        "text6":"Graduado de la Facultad de Medicina de la Universidad Autónoma de Madrid"
     },
 
     "AppointmentPro":{
@@ -38,7 +69,8 @@
         "reviewAndanalysis":"Revisión y análisis de sintomas",
         "assigned":"Tratamiento asignado en un periodo de tiempo",
         "controlAppointment":"Citas de control y seguimiento",
-        "guaranteed":"Atención y calidad garantizadas"
+        "guaranteed":"Atención y calidad garantizadas",
+        "title":"Cita"
     },
 
     "AppointmentHistory":{
@@ -55,7 +87,11 @@
         "temp":"Temperatura",
         "close":"Cerrar",
         "MoreDetails":"Más Detalles",
-        "historyAttended":"Historial de Citas Atendidas"
+        "historyAttended":"Historial de Citas Atendidas",
+        "title":"Historia de Citas",
+        "oto":"Otorrinolaringología",
+        "neu":"Neumología",
+        "gastro":"Gastroenterología"
 
     },
 
@@ -66,7 +102,9 @@
         "changepic":"Cambiar Foto de Perfil",
         "infopatient":"Información del Paciente",
         "changepatient":"Cambiar de Paciente",
-        "signoff":"Cerrar Sesión"
+        "signoff":"Cerrar Sesión",
+        "title":"Mi cuenta"
+
 
     },
 
@@ -79,7 +117,9 @@
         "age":"Edad",
         "VaccinesRecord":"Cartilla de vacunación",
         "Act":"Acciones",
-        "changepic":"Cambiar Foto de Perfil"
+        "changepic":"Cambiar Foto de Perfil",
+        "title":"Datos del paciente"
+     
     },
     "Gastro":{
         "focuson":"¿En que nos enfocamos?",
@@ -194,7 +234,8 @@
         "forgotPass": "Olvidé mi contraseña",
         "loginT": "Iniciar sesión",
         "dontHaveA" : "¿No tienes un cuenta?",
-        "signup": "Registrarse"
+        "signup": "Registrarse",
+        "back":"Atrás"
     },
     "globals": {
         "email": "Email",
@@ -248,7 +289,8 @@
 
     },
     "forgotpassword":{
-        
+        "email":"Ingrese Email",
+        "send":"Enviar",
         "back":"Atrás",
         "iforgot":"Olvidé mi contraseña",
         "instructions":"Recibiras instrucciones para restablecer tu contraseña"
@@ -270,6 +312,92 @@
     },
     "selectPatient":{
         "selectpatient":"Seleccione un paciente",
-        "signoff":"Cerrar Sesión"
+        "signoff":"Cerrar Sesión",
+        "addpatient":"Añadir Paciente"
+    },
+    "requestAppoint":{
+        "text1":"Solicitar cita médica",
+        "text2":"Brinda la siguiente información previa",
+        "text3":"Seleccione una de las semanas disponibles",
+        "request":"Solicitar Cita",
+        "symp":"Síntomas o condición a tratar"
+        
+    },
+    "noti":{
+        "title":"Notificaciones",
+        "text1":"Recientes",
+        "text2":"No hay notificaciones actuales",
+        "text3":"Antiguas",
+        "text4":"No hay notificaciones pasadas",
+        "text5":"No hay ninguna notificación",
+        "deleted":"Eliminar"
+
+    },
+    "weekDate":{
+        "text1":"Cuando su solicitud sea revisada se elegirá un día de esa semana disponible para la cita",
+        "text2":"Semana seleccionada",
+        "text3":"Semana",
+        "to":"al"
+    },
+    "appointmentMedicines":{
+        "text1":"Descripción de la Asignación",
+        "text2":"Dosis",
+        "text3":"Instrucciones",
+        "text4":"Duración",
+        "texxt5":"Al día",
+        "text6":"Medicinas",
+        "text7":"No se asignaron medicamentos"
+    },
+    "appointmentResult":{
+        "text1":"Resultados de la cita",
+        "text2":"Registro de datos",
+        "text3":"Paciente",
+        "text4":"Peso",
+        "text5":"Altura",
+        "text6":"Edad",
+        "text7":"Años",
+        "text8":"Diagnóstico generals"
+    },
+    "appointmentStatus":{
+        "text1":"Especialista en otorrinolaringología",
+        "text2":"Graduado de la universidad de España con más de 30 años de experiencia",
+        "text3":"Especialista en gastroenterología",
+        "text4":"Especialista en gastroenterología graduada de la facultad de Medicina de la UNAM",
+        "text5":"Especialista en Neumologia",
+        "text6":"Graduado de la Facultad de Medicina de la Universidad Autónoma de Madrid",
+        "text7":"Ver más"
+    },
+    "attending":{
+        "text1":"Información de la cita",
+        "text2":"Información Personal",
+        "text3":"Atendiendo paciente",
+        "text4":"Encargado",
+        "text5":"Informacion de la cita",
+        "text6":"Motivo de la cita",
+        "text7":"Fecha y hora de",
+        "text8":"Estado de la cita",
+        "text9":"Tiempo Restante",
+        "text10":"Estado",
+        "text11":"Tiempo Transcurrido"
+    },
+    "next":{
+        "text1":"Cita pendiente",
+        "text2":"Tiene una próxima cita",
+        "text3":"Fecha",
+        "text4":"Hora",
+        "text5":"Médico"
+    },
+    "pending":{
+        "text1":"Confirmación de cita",
+        "text2":"Cuando la cita ha sido confirmada, en este apartado aparece la fecha exacta de la cita y la hora",
+        "text3":"Semana Seleccionada"
+        
+    },
+    "programmed":{
+        "text1":"Scheduled Appointment",
+        "text2":"Tiene una cita Programada",
+        "text3":"Fecha",
+        "text4":"Hora",
+        "text5":"Médico"
     }
 }
