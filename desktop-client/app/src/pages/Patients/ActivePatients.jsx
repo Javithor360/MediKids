@@ -34,7 +34,7 @@ export const ActivePatients = (props) => {
       
 
       {activePatients.length !== 0 ? (
-        <div className="overflow-x-auto w-[80%] rounded-lg border border-[#000000] mx-auto">
+        <div className="overflow-x-auto w-[80%] rounded-lg border border-[#c6c6c6] shadow-md mx-auto">
           <table className="table w-full">
             <thead className="bg-[#a375ff] text-white">
               <tr className="text-center">
@@ -88,8 +88,15 @@ export const ActivePatients = (props) => {
           </table>
         </div>
       ) : (
-        <div>
-          <h2>No tienes ningún paciente con cita pendiente</h2>
+        // <div className="h-[15rem] w-[100%] flex flex-col gap-5 items-center justify-center">
+        //   <img className="w-[10rem]" src={require('../../assets/icons/no_appmt.png')} alt="" />
+        //   <h3 className="text-[#707070]">No tienes ningún paciente con cita pendiente</h3>
+        // </div>
+        <div className="h-[15rem] w-[100%] flex flex-col gap-5 justify-center">
+          <div className="w-fit h-full flex-col gap-5">
+            <img className="w-[10rem] mx-auto block mb-5" src={require('../../assets/icons/no_appmt.png')} alt="" />
+            <h3 className="text-[#707070]">No tienes ningún paciente con cita pendiente</h3>
+          </div>
         </div>
       )}
 
@@ -100,7 +107,7 @@ export const ActivePatients = (props) => {
       </div>
 
       {oldPatients.length !== 0 ? (
-        <div className="overflow-x-auto w-[80%] rounded-lg border border-[#000000] mx-auto">
+        <div className="overflow-x-auto w-[80%] rounded-lg border border-[#c6c6c6] mx-auto shadow-md">
           <table className="table w-full">
             <thead className="bg-[#a375ff] text-white">
               <tr className="text-center">
@@ -146,8 +153,11 @@ export const ActivePatients = (props) => {
           </table>
         </div>
       ) : (
-        <div>
-          <h2>No has atendido a ningún paciente anteriormente</h2>
+        <div className="h-[15rem] w-[100%] flex flex-col gap-5 justify-center">
+          <div className="w-fit h-full flex-col gap-5">
+            <img className="w-[10rem] mx-auto block mb-5" src={require('../../assets/icons/no_prev.png')} alt="" />
+            <h3 className="text-[#707070]">No has atendido a ningún paciente anteriormente</h3>
+          </div>
         </div>
       )}
 

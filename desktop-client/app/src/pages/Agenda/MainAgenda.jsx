@@ -93,7 +93,7 @@ export const MainAgenda = () => {
               selectable={false}
               selectMirror={false}
               dayMaxEvents={true}
-              initialEvents={DoctorEvents(appointments, activePatients)}
+              events={DoctorEvents(appointments, activePatients)}
               eventContent={renderEventContent}
               locale={esLocale}
               eventTimeFormat={{

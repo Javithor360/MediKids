@@ -191,7 +191,7 @@ export const EditExistingMedicalPrescription = ({
                                 setModified(m);
                                 toggle();
                               }}
-                              className={`btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white ${editPrescription ? null : 'opacity-[.5] bg-[#f7f7f7]'}`}
+                              className={`btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white ${editPrescription ? null : 'opacity-[.5] bg-transparent'}`}
                             >
                               Editar
                             </button>
@@ -239,7 +239,7 @@ export const EditExistingMedicalPrescription = ({
                     Nombre del medicamento:
                   </label>
                   <input
-                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-transparent rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="text"
                     name="Editing-Medicine_Name"
                     defaultValue={modified.Medicine_Name}
@@ -251,7 +251,7 @@ export const EditExistingMedicalPrescription = ({
                     Instrucciones:
                   </label>
                   <input
-                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-transparent rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="text"
                     name="Editing-Instructions"
                     defaultValue={modified.Instructions}
@@ -263,7 +263,7 @@ export const EditExistingMedicalPrescription = ({
                     Descripción:
                   </label>
                   <input
-                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-transparent rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="text"
                     name="Editing-Description"
                     defaultValue={modified.Description}
@@ -273,7 +273,7 @@ export const EditExistingMedicalPrescription = ({
                 <div className="flex flex-col mt-3">
                   <label className="font-semibold" htmlFor="Editing-Dose">Dosis:</label>
                   <input
-                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-transparent rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="text"
                     name="Editing-Dose"
                     defaultValue={modified.Dose}
@@ -283,7 +283,7 @@ export const EditExistingMedicalPrescription = ({
                 <div className="flex flex-col mt-3">
                   <label className="font-semibold" htmlFor="Editing-Time_Dose">Dosis por día:</label>
                   <input
-                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-transparent rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="number"
                     name="Editing-Time_Dose"
                     defaultValue={modified.Time_Dose}
@@ -295,7 +295,7 @@ export const EditExistingMedicalPrescription = ({
                     Inicio de la dosis:
                   </label>
                   <input
-                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-transparent rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="date"
                     name="Editing-Starting_Dose_Date"
                     defaultValue={new Date(modified.Starting_Dose_Date)
@@ -309,7 +309,7 @@ export const EditExistingMedicalPrescription = ({
                     Finalización de la dosis:
                   </label>
                   <input
-                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-[#f7f7f7] rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
+                    className="mt-[.3rem] outline-none border border-[#c6c6c6] p-2 bg-transparent rounded-lg text-[#707070] focus:outline-none focus:border-violet-300 focus:ring-violet-300 focus:ring-1 hover:border-violet-300 hover:border-[1px] ease-in duration-200"
                     type="date"
                     name="Editing-Finishing_Dose_Date"
                     defaultValue={new Date(modified.Finishing_Dose_Date)
