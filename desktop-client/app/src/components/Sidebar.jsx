@@ -24,7 +24,7 @@ import Avatar from "../assets/template/avatar.jpg";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export const Sidebar = () => {
-  //const { t } = useTranslation();
+  const { t } = useTranslation();
   const { DoctorInfoQuery, Info } = useDash();
   let navigate = useNavigate();
 
@@ -92,7 +92,7 @@ export const Sidebar = () => {
               className="flex items-center h-12 truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white"
             >
               <AiOutlineHome className="w-6 h-6" />
-              <p className="ml-4 text-lg">Inicio</p>
+              <p className="ml-4 text-lg">{t("sidebar.tittle")}</p>
             </Link>
           </li>
           <li className="relative">
@@ -101,7 +101,7 @@ export const Sidebar = () => {
               className="flex items-center h-12 truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white"
             >
               <AiOutlineMail className="w-6 h-6" />
-              <p className="ml-4 text-lg">Comunicados</p>
+              <p className="ml-4 text-lg">{t("sidebar.tittle1")}</p>
             </Link>
           </li>
           <li className="relative">
@@ -113,7 +113,7 @@ export const Sidebar = () => {
               }}
             >
               <AiTwotoneCalendar className="w-6 h-6" />
-              <p className="ml-4 text-lg">Agenda</p>
+              <p className="ml-4 text-lg">{t("sidebar.tittle2")}</p>
               <span
                 className="absolute right-0 ml-auto mr-[0.8rem] transition-transform duration-300 ease-linear"
                 data-te-sidenav-rotate-icon-ref
@@ -133,7 +133,7 @@ export const Sidebar = () => {
                     className="flex items-center h-12 w-[90%] ml-auto truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white"
                   >
                     <AiOutlineInbox className="w-6 h-6" />
-                    <p className="ml-4 text-lg">Solicitudes de citas</p>
+                    <p className="ml-4 text-lg">{t("sidebar.subtittle")}</p>
                   </Link>
                 </li>
                 <li>
@@ -142,7 +142,7 @@ export const Sidebar = () => {
                     className="flex items-center h-12 w-[90%] ml-auto truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white"
                   >
                     <AiOutlineClockCircle className="w-6 h-6" />
-                    <p className="ml-4 text-lg">Citas programadas</p>
+                    <p className="ml-4 text-lg">{t("sidebar.subtittle1")}</p>
                   </Link>
                 </li>
               </ul>
@@ -157,7 +157,7 @@ export const Sidebar = () => {
               }}
             >
               <IoPeopleOutline className="w-6 h-6" />
-              <p className="ml-4 text-lg">Control de pacientes</p>
+              <p className="ml-4 text-lg">{t("sidebar.tittle3")}</p>
               <span
                 className="absolute right-0 ml-auto mr-[0.8rem] transition-transform duration-300 ease-linear"
                 data-te-sidenav-rotate-icon-ref
@@ -177,7 +177,7 @@ export const Sidebar = () => {
                     className="flex items-center h-12 w-[90%] ml-auto truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white"
                   >
                     <BsPersonCheck className="w-6 h-6" />
-                    <p className="ml-4 text-lg">Mis pacientes</p>
+                    <p className="ml-4 text-lg">{t("sidebar.subtittle2")}</p>
                   </Link>
                 </li>
                 <li>
@@ -186,7 +186,7 @@ export const Sidebar = () => {
                     className="flex items-center h-12 w-[90%] ml-auto truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white"
                   >
                     <MdOutlinePersonSearch className="w-6 h-6" />
-                    <p className="ml-4 text-lg">Buscar expediente</p>
+                    <p className="ml-4 text-lg">{t("sidebar.subtittle3")}</p>
                   </Link>
                 </li>
               </ul>
@@ -202,7 +202,7 @@ export const Sidebar = () => {
             >
               <span className="flex items-center h-12 truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white">
                 <AiOutlineSetting className="w-6 h-6" />
-                <p className="ml-4 text-lg">Configuración</p>
+                <p className="ml-4 text-lg">{t("sidebar.tittle4")}</p>
               </span>
             </li>
             <li
@@ -214,7 +214,7 @@ export const Sidebar = () => {
             >
               <span className="flex items-center h-12 truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#f65151] hover:text-white focus:bg-red-500 focus:text-white">
                 <FiLogOut className="w-6 h-6" />
-                <p className="ml-4 text-lg">Cerrar sesión</p>
+                <p className="ml-4 text-lg">{t("sidebar.tittle5")}</p>
               </span>
             </li>
           </ul>

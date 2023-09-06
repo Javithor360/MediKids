@@ -1,4 +1,4 @@
-export const RouteTranslator = {
+export const RouteTranslatorEs = {
   Index: "Inicio",
   Inbox: "Comunicados",
   Agenda: "Inicio",
@@ -11,3 +11,18 @@ export const RouteTranslator = {
   Appointment_requests: "Solicitudes de cita",
   Calendar: "Citas programadas"
 };
+
+export const RouteTranslatorEn = {
+  Index: "Homepage",
+  Inbox: "Inbox",
+  Agenda: "Homepage",
+  Patients: "Homepage",
+  Active: "Active Patients",
+  Records: "Medical Records",
+  Details: "Details",
+  Patient: "Patient",
+  Appoinment: "Attend Medical Consultation",
+  Appointment_requests: "Medical Appointment Request",
+  Calendar: "Scheduled Appointments"
+};
+ 

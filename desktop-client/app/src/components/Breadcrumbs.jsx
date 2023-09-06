@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { RouteTranslator } from "../assets/js/RouteTranslator";
+import { RouteTranslatorEn, RouteTranslatorEs } from "../assets/js/RouteTranslator";
 import "./assets/scss/breadcrums.css";
 
 export const Breadcrumbs = () => {
@@ -8,8 +8,14 @@ export const Breadcrumbs = () => {
   let currentLink = "";
 
   const assign = (obj) => {
-    if (RouteTranslator[obj]) {
-      return RouteTranslator[obj];
+    if(localStorage.getItem("i18nextLng") === "en") {
+      if (RouteTranslatorEn[obj]) {
+        return RouteTranslatorEn[obj];
+      } 
+    } else {
+      if (RouteTranslatorEs[obj]) {
+        return RouteTranslatorEs[obj];
+      }
     }
     return obj;
   };

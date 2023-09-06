@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useDash } from "../../context/DoctorContext";
 import { getPatientAge } from "../../utils/Functions";
 import PropagateLoader from "react-spinners/PropagateLoader";
 
 export const ActivePatients = (props) => {
+  const { t } = useTranslation();
   const { PatientsClassificator, oldPatients, activePatients } = useDash();
   useEffect(() => {
     PatientsClassificator(JSON.parse(localStorage.getItem("userSession")).id);
@@ -28,7 +30,7 @@ export const ActivePatients = (props) => {
       <>
       <div className="w-fit border-b-[0.1875rem] border-b-[#a375ff] mb-12">
         <h1 className="text-[#a375ff] font-bold text-3xl">
-          Pacientes activos
+        {t("pacients.tittle")}
         </h1>
       </div>
       
@@ -38,11 +40,11 @@ export const ActivePatients = (props) => {
           <table className="table w-full">
             <thead className="bg-[#a375ff] text-white">
               <tr className="text-center">
-                <th className="border-b border-r border-[rgb(187,187,187)]">Paciente</th>
+                <th className="border-b border-r border-[rgb(187,187,187)]">{t("pacients.subtittle")}</th>
                 <th className="border-b border-r border-[#BBBBBB]">
-                  Número de código
+                {t("pacients.subtittle1")}
                 </th>
-                <th className="border-b border-[#BBBBBB]">Detalles</th>
+                <th className="border-b border-[#BBBBBB]">{t("pacients.subtittle2")}</th>
               </tr>
             </thead>
             <tbody>
@@ -77,7 +79,7 @@ export const ActivePatients = (props) => {
                     <td className="border-[#BBBBBB]">
                       <Link to="/patients/active/details" state={{ patient }}>
                         <button className="btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white">
-                          Ver detalles
+                        {t("pacients.button")}
                         </button>
                       </Link>
                     </td>
@@ -95,14 +97,14 @@ export const ActivePatients = (props) => {
         <div className="h-[15rem] w-[100%] flex flex-col gap-5 justify-center">
           <div className="w-fit h-full flex-col gap-5">
             <img className="w-[10rem] mx-auto block mb-5" src={require('../../assets/icons/no_appmt.png')} alt="" />
-            <h3 className="text-[#707070]">No tienes ningún paciente con cita pendiente</h3>
+            <h3 className="text-[#707070]">{t("pacients.tittle2")}</h3>
           </div>
         </div>
       )}
 
       <div className="w-fit border-b-[0.1875rem] border-b-[#a375ff] mt-12 mb-12">
         <h1 className="text-[#a375ff] font-bold text-3xl">
-          Pacientes atentidos previamente
+        {t("pacients.tittle4")}
         </h1>
       </div>
 
@@ -111,9 +113,9 @@ export const ActivePatients = (props) => {
           <table className="table w-full">
             <thead className="bg-[#a375ff] text-white">
               <tr className="text-center">
-                <th className="border-b border-r border-[#BBBBBB]">Paciente</th>
+                <th className="border-b border-r border-[#BBBBBB]">{t("pacients.subtittle")}</th>
                 <th className="border-b border-r border-[#BBBBBB]">
-                  Número de código
+                {t("pacients.subtittle1")}
                 </th>
               </tr>
             </thead>
@@ -156,7 +158,7 @@ export const ActivePatients = (props) => {
         <div className="h-[15rem] w-[100%] flex flex-col gap-5 justify-center">
           <div className="w-fit h-full flex-col gap-5">
             <img className="w-[10rem] mx-auto block mb-5" src={require('../../assets/icons/no_prev.png')} alt="" />
-            <h3 className="text-[#707070]">No has atendido a ningún paciente anteriormente</h3>
+            <h3 className="text-[#707070]">{t("pacients.tittle4")}</h3>
           </div>
         </div>
       )}

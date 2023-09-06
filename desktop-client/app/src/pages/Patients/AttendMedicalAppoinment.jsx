@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import parser from "html-react-parser";
 import { format } from 'date-fns'
@@ -38,6 +39,7 @@ import { TiDirections } from "react-icons/ti";
 export const MedicalAppoinment = () => {
   const location = useLocation();
   const { patient } = location.state || {};
+  const { t } = useTranslation();
 
   let navigate = useNavigate();
   const {
@@ -248,14 +250,14 @@ export const MedicalAppoinment = () => {
         <>
           <div className="flex flex-row justify-between">
         <p className="text-[1.8rem] text-[#707070] mt-[.6rem] ml-7">
-          Atendiendo Paciente:{" "}
+        {t("medical.tittle")}{" "}
         </p>
         <button
           className="flex flex-row items-center justify-center px-3 py-2 border border-[#c6c6c6] bg-[#D8D7FE] rounded-lg self-center gap-2 hover:bg-[#c9c8e8d3] ease-in duration-200"
           onClick={toggleValidator}
         >
           <AiOutlineCheckCircle />
-          Finalizar consulta
+          {t("medical.tittle1")}
         </button>
       </div>
       <div className="inline-flex justify-center items-center gap-3 mt-[.5rem] ml-7">
@@ -274,7 +276,7 @@ export const MedicalAppoinment = () => {
               setTabSelector(1);
             }}
           >
-            Editar expediente
+            {t("medical.tittle2")}
           </div>
 
           <div
@@ -287,7 +289,7 @@ export const MedicalAppoinment = () => {
               setTabSelector(2);
             }}
           >
-            Editar receta
+            {t("medical.tittle3")}
           </div>
 
           <div
@@ -300,7 +302,7 @@ export const MedicalAppoinment = () => {
               setTabSelector(3);
             }}
           >
-            Programar cita
+            {t("medical.tittle4")}
           </div>
         </div>
       </div>
@@ -334,14 +336,14 @@ export const MedicalAppoinment = () => {
           <div className="min-w-[20rem] max-w-[50rem] min-h-[20rem] m-5 p-[2rem]">
             <div className="border-b border-b-[#c6c6c6] mb-[1rem]">
               <p className="text-[1.6rem] text-[#707070] font-semibold flex flex-row gap-2 items-center">
-                <AiOutlineWarning className='text-red-400' /> ADVERTENCIA
+                <AiOutlineWarning className='text-red-400' /> {t("medical.tittle5")}
               </p>
             </div>
             <div className="w-[100%] h-[100%] mx-auto rounded-sm flex bg-[#D8D7FE]">
               <div className="w-[2%] bg-[#A375FF]"> </div>
               <div className="w-[98%] h-full p-[1rem]">
                 <p className="text-[#707070]">
-                  Esta acción de confirmación es irreversible. Por favor asegúrate que todos los datos estén en orden antes de proceder
+                {t("medical.tittle6")}
                 </p>
               </div>
             </div>
@@ -355,14 +357,14 @@ export const MedicalAppoinment = () => {
                   disabled={currentPage === 0}
                   className={`btn btn-sm ${currentPage === 0 ? 'opacity-50' : ''}`}
                 >
-                  <AiFillCaretLeft />Anterior
+                  <AiFillCaretLeft />{t("medical.button")}
                 </button>
                 <button
                   onClick={handleNextPage}
                   disabled={currentPage === pages.length - 1}
                   className={`btn btn-sm ${currentPage === pages.length - 1 ? 'opacity-50' : ''}`}
                 >
-                  Siguiente<AiFillCaretRight />
+                  {t("medical.button1")}<AiFillCaretRight />
                 </button>
               </div>
               <div className="flex flex-row items-center gap-2">
@@ -374,12 +376,12 @@ export const MedicalAppoinment = () => {
                   {chargin === true ? (
                     <>
                       <VscLoading className="animate-spin" />
-                      Procesando
+                      {t("medical.tittle7")}
                     </>
                   ) : (
                     <>
                       <MdSaveAs />
-                      Guardar
+                      {t("medical.tittle8")}
                     </>
                   )}
                 </button>
@@ -388,7 +390,7 @@ export const MedicalAppoinment = () => {
                   onClick={() => toggle()}
                 >
                   <MdCancelPresentation />
-                  Cancelar
+                  {t("medical.tittle9")}
                 </button>
               </div>
             </div>
@@ -404,15 +406,14 @@ export const MedicalAppoinment = () => {
           <div className="w-[35rem] h-[100%] m-5 rounded-lg">
             <div className="border-b border-b-[#c6c6c6] mb-[1rem]">
               <p className="text-[1.6rem] text-red-400 font-semibold flex flex-row gap-2 items-center">
-                <AiOutlineWarning className='text-red-400' /> Error de validación
+                <AiOutlineWarning className='text-red-400' /> {t("medical.tittle10")}
               </p>
             </div>
             <div className="w-[100%] h-[100%] mx-auto rounded-sm flex bg-[#ffe9d9]">
               <div className="w-[2%] bg-red-400"> </div>
               <div className="w-[98%] h-full p-[1rem]">
                 <p className="text-[#707070]">
-                  Parece que hay algunos detalles que revisar antes de finalizar
-                  la consulta:
+                {t("medical.tittle11")}
                 </p>
               </div>
             </div>
@@ -477,24 +478,25 @@ const placeholderChanger = (str) => {
 
 // Modal's first page: Medical record related...
 const MedicalRecordConfirmation = ({ medicalRecord }) => {
+  const { t } = useTranslation();
   return (
     <div className="h-[20rem] overflow-y-auto">
-      <h2 className="text-[#707070] mt-[1rem] mb-[1rem]">1. Información del expediente</h2>
+      <h2 className="text-[#707070] mt-[1rem] mb-[1rem]">{t("medical.tittle12")}</h2>
       <ul>
         <li className="ml-2 text-[#707070] text-[1.2rem] list-none gap-3 flex flex-row items-center mb-[1rem]">
-          <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><GiBodyHeight /> Altura: </div>
+          <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><GiBodyHeight /> {t("medical.tittle13")} </div>
           <span>{medicalRecord.height} mt</span>
         </li>
         <li className="ml-2 text-[#707070] text-[1.2rem] list-none gap-3 flex flex-row items-center mb-[1rem]">
-          <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><FaWeight /> Peso: </div>
+          <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><FaWeight /> {t("medical.tittle14")} </div>
           <span>{medicalRecord.weight} lb</span>
         </li>
         <li className="ml-2 text-[#707070] text-[1.2rem] list-none gap-3 flex flex-row items-center mb-[1rem]">
-          <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><FaTemperatureHigh /> Temperatura: </div>
+          <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><FaTemperatureHigh /> {t("medical.tittle15")} </div>
           <span>{medicalRecord.temperature} °C</span>
         </li>
         <li className="list-none ">
-          <h2 className="text-[#707070] mt-[1rem] mb-[1rem]">2. Anotaciones</h2>
+          <h2 className="text-[#707070] mt-[1rem] mb-[1rem]">{t("medical.tittle16")}</h2>
           <div className="bg-[#f7f7f7] ml-5 mt-[1rem] mb-2 h-[20rem] w-[90%] rounded-md border border-[#bbbbbb] shadow-lg overflow-y-auto p-3">
             <div div className="p-4">
               {parser(medicalRecord.HtmlNotes)}
@@ -510,11 +512,12 @@ const MedicalPrescriptionConfirmation = ({
   medicalPrescript,
   errorMessage,
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="h-[20rem] overflow-y-auto">
-      <h2 className="text-[#707070] mt-[1rem] mb-[1rem]">1. Información de la receta médica</h2>
+      <h2 className="text-[#707070] mt-[1rem] mb-[1rem]">{t("medical.tittle17")}</h2>
       <div>
-        <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center mb-5"><MdOutlineEditNote /> Receta de medicamentos editada: </div>
+        <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center mb-5"><MdOutlineEditNote /> {t("medical.tittle18")} </div>
 
         <div className="h-[15rem] w-[98%] overflow-y-auto p-[1rem] border-[#bbbbbb80] border rounded shadow-md gap-9">
           {medicalPrescript.edited_prescriptions.length > 0 ? (
@@ -527,7 +530,7 @@ const MedicalPrescriptionConfirmation = ({
                     <td className="w-full h-fit flex flex-row justify-center items-center align-middle">
                       <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                         <AiFillMedicineBox />
-                        <span>Nombre del medicamento ({i + 1})</span> 
+                        <span>{t("medical.tittle19")} ({i + 1})</span> 
                       </th>
                     </td>
                   </tr>
@@ -543,13 +546,13 @@ const MedicalPrescriptionConfirmation = ({
                       <th></th>
                       <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                         <MdDescription />
-                        <span>Descripción</span> 
+                        <span>{t("medical.tittle20")}</span> 
                       </th>
                     </td>
                     <td className="w-[50%] h-full flex flex-row justify-center items-center">
                       <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                         <MdIntegrationInstructions />
-                        <span>Instrucciones</span> 
+                        <span>{t("medical.tittle21")}</span> 
                       </th>
                     </td>
                   </tr>
@@ -569,13 +572,13 @@ const MedicalPrescriptionConfirmation = ({
                     <td className="w-[50%] h-full flex flex-row justify-center items-center border-r border-[#c6c6c6]">
                       <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                         <FaRulerVertical />
-                        <span>Dosis</span> 
+                        <span>{t("medical.tittle23")}</span> 
                       </th>
                     </td>
                     <td className="w-[50%] h-full flex flex-row justify-center items-center">
                       <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                         <FaUtensilSpoon />
-                        <span>Dosis por día</span> 
+                        <span>{t("medical.tittle24")}</span> 
                       </th>
                     </td>
                   </tr>
@@ -595,13 +598,13 @@ const MedicalPrescriptionConfirmation = ({
                     <td className="w-[50%] h-full flex flex-row justify-center items-center border-r border-[#c6c6c6]">
                       <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                         <BsCalendarFill />
-                        <span>Fecha de inicio</span> 
+                        <span>{t("medical.tittle25")}</span> 
                       </th>
                     </td>
                     <td className="w-[50%] h-full flex flex-row justify-center items-center">
                       <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                         <BsCalendar2EventFill />
-                        <span>Fecha de finalización</span> 
+                        <span>{t("medical.tittle26")}</span> 
                       </th>
                     </td>
                   </tr>
@@ -626,19 +629,19 @@ const MedicalPrescriptionConfirmation = ({
           ) : (
             <div className="w-full h-full flex-col justify-center items-center gap-5 text-center">
               <img style={{ width: '7rem' }} className="mx-auto block mb-5" src={require('../../assets/icons/no_edit.png')} alt="" />
-              <h3 className="text-[#707070]">No se editó ningún medicamento</h3>
+              <h3 className="text-[#707070]">{t("medical.tittle27")}</h3>
             </div>
           )}
         </div>
 
-        <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center mt-5 mb-5"><AiFillFolderAdd /> Nuevos medicamentos agregados: </div>
+        <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center mt-5 mb-5"><AiFillFolderAdd /> {t("medical.tittle28")} </div>
 
         <div className="h-[15rem] w-[98%] overflow-y-auto p-[1rem] border-[#bbbbbb80] border rounded shadow-md gap-9">
           {medicalPrescript.new_prescriptions.length === 1 &&
           medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (
             <div className="w-full h-full flex-col justify-center items-center gap-5 text-center">
               <img style={{ width: '7rem' }} className="mx-auto block mb-5" src={require('../../assets/icons/no_med.png')} alt="" />
-              <h3 className="text-[#707070]">No se han agregado medicamentos nuevos</h3>
+              <h3 className="text-[#707070]">{t("medical.tittle29")}</h3>
             </div>
           ) : (
             medicalPrescript.new_prescriptions.map((m, i) => {
@@ -650,7 +653,7 @@ const MedicalPrescriptionConfirmation = ({
                         <td className="w-full h-fit flex flex-row justify-center items-center align-middle">
                           <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                             <AiFillMedicineBox />
-                            <span>Nombre del medicamento ({i + 1})</span> 
+                            <span>{t("medical.tittle19")} ({i + 1})</span> 
                           </th>
                         </td>
                       </tr>
@@ -666,13 +669,13 @@ const MedicalPrescriptionConfirmation = ({
                           <th></th>
                           <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                             <MdDescription />
-                            <span>Descripción</span> 
+                            <span>{t("medical.tittle20")}</span> 
                           </th>
                         </td>
                         <td className="w-[50%] h-full flex flex-row justify-center items-center">
                           <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                             <MdIntegrationInstructions />
-                            <span>Instrucciones</span> 
+                            <span>{t("medical.tittle21")}</span> 
                           </th>
                         </td>
                       </tr>
@@ -692,13 +695,13 @@ const MedicalPrescriptionConfirmation = ({
                         <td className="w-[50%] h-full flex flex-row justify-center items-center border-r border-[#c6c6c6]">
                           <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                             <FaRulerVertical />
-                            <span>Dosis</span> 
+                            <span>{t("medical.tittle23")}</span> 
                           </th>
                         </td>
                         <td className="w-[50%] h-full flex flex-row justify-center items-center">
                           <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                             <FaUtensilSpoon />
-                            <span>Dosis por día</span> 
+                            <span>{t("medical.tittle24")}</span> 
                           </th>
                         </td>
                       </tr>
@@ -718,13 +721,13 @@ const MedicalPrescriptionConfirmation = ({
                         <td className="w-[50%] h-full flex flex-row justify-center items-center border-r border-[#c6c6c6]">
                           <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                             <BsCalendarFill />
-                            <span>Fecha de inicio</span> 
+                            <span>{t("medical.tittle25")}</span> 
                           </th>
                         </td>
                         <td className="w-[50%] h-full flex flex-row justify-center items-center">
                           <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
                             <BsCalendar2EventFill />
-                            <span>Fecha de finalización</span> 
+                            <span>{t("medical.tittle26")}</span> 
                           </th>
                         </td>
                       </tr>
@@ -754,18 +757,19 @@ const MedicalPrescriptionConfirmation = ({
 };
 
 const MedicalAppointmentConfirmation = ({ scheAppoint, patient }) => {
+  const { t } = useTranslation();
   const schDate = new Date(scheAppoint.Date);
   return (
     <div className="h-[20rem] overflow-y-auto">
-      <h2 className="text-[#707070] mt-[1rem] mb-[1rem]">1. Información de cita programada</h2>
+      <h2 className="text-[#707070] mt-[1rem] mb-[1rem]">{t("medical.tittle30")}</h2>
       {scheAppoint.hasSelectedYes === true ? (
         <ul>
             <li className="ml-2 text-[#707070] text-[1.2rem] list-none gap-3 flex flex-row items-center mb-[1rem]">
-              <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><FaChild /> Paciente: </div>
+              <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><FaChild /> {t("medical.tittle31")} </div>
               <span>{`${patient.First_Names} ${patient.Last_Names}`}</span>
             </li>
             <li className="ml-2 text-[#707070] text-[1.2rem] list-none gap-3 flex flex-row items-center mb-[1rem]">
-              <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><BsCalendar2EventFill /> Fecha: </div>
+              <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><BsCalendar2EventFill /> {t("medical.tittle32")} </div>
               <span>
                 {`${schDate.getDate()}/${
                   schDate.getMonth() + 1
@@ -778,7 +782,7 @@ const MedicalAppointmentConfirmation = ({ scheAppoint, patient }) => {
               </span>
             </li>
             <li className="ml-2 text-[#707070] text-[1.2rem] list-none gap-3 flex flex-row items-center mb-[1rem]">
-              <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><MdDescription /> Motivo: </div>
+              <div className="text-[#A375FF] font-semibold flex flex-row gap-2 items-center"><MdDescription /> {t("medical.tittle33")} </div>
             </li>
             <div className="ml-7 w-[80%] h-fit p-2 overflow-y-auto border border-[#bbbbbb] bg-[#f7f7f7] mb-3 text-[#707070] rounded-md shadow-md">
               <p>
@@ -789,7 +793,7 @@ const MedicalAppointmentConfirmation = ({ scheAppoint, patient }) => {
       ) : (
         <div style={{marginTop: '3rem'}}className="w-[100%] h-[90%] flex-col justify-center items-center gap-5 text-center">
           <img style={{ width: '7rem' }} className="mx-auto block mb-5" src={require('../../assets/icons/no_programed.png')} alt="" />
-          <h3 className="text-[#707070]">No se programó una cita durante esta sesión</h3>
+          <h3 className="text-[#707070]">{t("medical.tittle34")}</h3>
         </div>
       )}
     </div>

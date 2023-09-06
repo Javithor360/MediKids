@@ -11,7 +11,7 @@ import profileAvatar from "../../assets/template/walt_jr.png";
 import Modal from "../../components/Modal";
 
 import { ViewMedicalRecords } from './PatientsComponents/index.jsx'
-
+import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { useDash } from "../../context/DoctorContext";
 import { ViewMedicalPrescriptions } from "./PatientsComponents/ViewMedicalPrescriptions";
@@ -19,6 +19,7 @@ import { ViewAppointments } from "./PatientsComponents/ViewAppointments";
 import { getPatientAge } from "../../utils/Functions";
 
 export const PatientsDetails = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const { patient } = location.state || {};
 
@@ -74,7 +75,7 @@ export const PatientsDetails = () => {
   return (
     <>
       <p className="text-[1.8rem] text-center text-[#707070]">
-        <span className="font-semibold">Paciente:</span>{" "}
+        <span className="font-semibold">{t("details.tittle")}</span>{" "}
         {`${patient.First_Names} ${patient.Last_Names}`}
       </p>
       <div className="mt-[6rem] mx-auto w-[95%] h-[40rem] rounded-3xl relative border border-[#707070] shadow-md">
@@ -104,14 +105,14 @@ export const PatientsDetails = () => {
               {/* head */}
               <div className="bg-[#d8d7fe] flex flex-row w-[100%] h-[2.4rem] items-center">
                   <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
-                    <span className="h-fit font-semibold text-[1rem] ">Edad</span></div>
+                    <span className="h-fit font-semibold text-[1rem] ">{t("details.tittle2")}</span></div>
                   <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
-                    <span className="font-semibold text-[1rem]">Tipo Sanguíneo</span>
+                    <span className="font-semibold text-[1rem]">{t("details.tittle3")}</span>
                   </div>
                   <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
-                    <span className="font-semibold text-[1rem]">Peso</span></div>
+                    <span className="font-semibold text-[1rem]">{t("details.tittle9")}</span></div>
                   <div className="flex border-b border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
-                    <span className="font-semibold text-[1rem]">Altura</span>
+                    <span className="font-semibold text-[1rem]">{t("details.tittle4")}</span>
                   </div>
               </div>
               <div className="h-[3rem] flex-row flex">
@@ -140,7 +141,7 @@ export const PatientsDetails = () => {
             state={location.state}
           >
             <MdOutlineReceiptLong className="text-[2.8rem] text-[#A375FF]" />
-            <p className="font-semibold text-[#707070]">Ver expendiente</p>
+            <p className="font-semibold text-[#707070]">{t("details.tittle5")}</p>
           </Link>
           <Link
             className="rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
@@ -151,7 +152,7 @@ export const PatientsDetails = () => {
             state={location.state}
           >
             <MdOutlineMedication className="text-[2.8rem] text-[#A375FF]" />
-            <p className="font-semibold text-[#707070]">Ver recetas</p>
+            <p className="font-semibold text-[#707070]">{t("details.tittle6")}</p>
           </Link>
           {/* <Link
             className="rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
@@ -180,7 +181,7 @@ export const PatientsDetails = () => {
               className="text-[2.8rem] text-[#A375FF]"
             />
             <p className="font-semibold text-[#707070]">
-              Ver historial de citas
+            {t("details.tittle7")}
             </p>
           </Link>
           <Link
@@ -189,7 +190,7 @@ export const PatientsDetails = () => {
             state={{ patient }}
           >
             <MdOutlineMedicalInformation className="text-[2.8rem] text-[#A375FF]" />
-            <p className="font-semibold text-[#707070]">Atender consulta</p>
+            <p className="font-semibold text-[#707070]">{t("details.tittle8")}</p>
           </Link>
         </section>
       </div>
