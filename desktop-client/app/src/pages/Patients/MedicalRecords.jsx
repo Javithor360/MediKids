@@ -1,14 +1,19 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../../assets/scss/SearchPatient.scss'
 import { AiOutlineSearch } from 'react-icons/ai'
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PropagateLoader from "react-spinners/PropagateLoader";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export const MedicalRecords = () => {
   const [loadingScreen, setLoadingScreen] = useState(true);
+  const [InputName, setInputName] = useState();
+
   setTimeout(() => {
     setLoadingScreen(false);
   }, 3000);
+
   return (
     <>
     {
@@ -31,16 +36,17 @@ export const MedicalRecords = () => {
           <button className="search-icon-cnt">
             <AiOutlineSearch className="text-[#707070] text-[2rem]"/>
           </button>
-          <input type="text" className="input-search" placeholder="Ingrese el nombre del paciente o el código"/>
+          <input type="text" onChange={(e) => {setInputName(e.target.value)}} className="input-search" placeholder="Ingrese el nombre del paciente"/>
         </div>
 
         <div className="results-box-container shadow-md">
-          {/* <div className="patient-card shadow-md">
+          <div className="patient-card shadow-md">
             <div className="content-container">
               <div className="profile-photo-cnt">
                 <div class="avatar w-[70%]">
                   <div class="w-24 rounded-full">
-                    <img src={require('../../assets/template/walt_jr.png')} alt="" />
+                    {/* <img src={require('../../assets/template/walt_jr.png')} alt="" /> */}
+                    <Skeleton className="h-full w-full"/>
                   </div>
                 </div>
               </div>
@@ -79,11 +85,11 @@ export const MedicalRecords = () => {
                 Historial de citas
               </Link>
             </div>
-          </div> */}
-          <div className="default-search-info-cnt">
+          </div>
+          {/* <div className="default-search-info-cnt">
             <img src={require('../../assets/icons/search.png')} alt="hola" className="search-big-icon"/>
             <p className="text-[#707070]">Los resultados se mostrarán aqui</p>
-          </div>
+          </div> */}
 
           {/* <div className="default-search-info-cnt">
             <img src={require('../../assets/icons/no_search.png')} alt="hola" className="search-big-icon"/>
