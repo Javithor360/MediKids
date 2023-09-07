@@ -1,12 +1,24 @@
 import { useEffect, useState } from 'react'
+<<<<<<< HEAD
 import '../../assets/scss/SearchPatient.scss'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Link, useLocation } from "react-router-dom";
+=======
+>>>>>>> 4def9ca960b43176619495ae399985b995a1d05b
 import PropagateLoader from "react-spinners/PropagateLoader";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
+import '../../assets/scss/SearchPatient.scss'
+import { AiOutlineSearch } from 'react-icons/ai'
+
+import { Link } from "react-router-dom";
+import { useDash } from '../../context/DoctorContext';
+
 export const MedicalRecords = () => {
+
+  const { GetAllPatients, patients } = useDash();
+  
   const [loadingScreen, setLoadingScreen] = useState(true);
   const [InputName, setInputName] = useState();
 
@@ -14,6 +26,16 @@ export const MedicalRecords = () => {
     setLoadingScreen(false);
   }, 3000);
 
+  useEffect(() => {
+    GetAllPatients();
+    setTimeout(() => {
+      setLoadingScreen(false);
+    }, 3000);
+  }, [])
+
+  useEffect(() => {
+    console.log(patients)
+  }, [patients])
   return (
     <>
     {
@@ -32,7 +54,7 @@ export const MedicalRecords = () => {
             Buscar paciente
           </h1>
         </div>
-        <div className="search-box-container shadow-md">
+        <div className="shadow-md search-box-container">
           <button className="search-icon-cnt">
             <AiOutlineSearch className="text-[#707070] text-[2rem]"/>
           </button>

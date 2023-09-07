@@ -14,6 +14,7 @@ import {
   declineAppointment,
   appointmentsHistory,
   getDoctors,
+  getPatients,
   endMedicalAppointment,
 } from "../api/queries";
 
@@ -42,12 +43,9 @@ export const DoctorProvider = ({ children }) => {
   const [medicalPrescriptions, setMedicalPrescriptions] = useState([]);
 
   const [doctors, setDoctors] = useState([]);
+  const [patients, setPatients] = useState([]);
 
   const [errorMessage, setErrorMessage] = useState([""]);
-
-  useEffect(() => {
-    console.log(errorMessage);
-  }, [errorMessage]);
 
   const PrivateConfig = {
     header: {
@@ -161,7 +159,7 @@ export const DoctorProvider = ({ children }) => {
       );
       setErrorMessage([]);
     } catch (error) {
-      console.log(error.response.data.error)
+      console.log(error)
       if (error.response.data.error) { //! VALIDAR SI EL ERROR ES DEL ERRORHANDLER U OTRO
         const entries = error.response.data.error.split(",");
         setErrorMessage((prevData) => [...prevData, ...entries]);
@@ -273,6 +271,15 @@ export const DoctorProvider = ({ children }) => {
     }
   };
 
+  const GetAllPatients = async () => {
+    try {
+      const res = await getPatients(PrivateConfig);
+      setPatients(res.data.body);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <dashContext.Provider
       value={{
@@ -304,6 +311,8 @@ export const DoctorProvider = ({ children }) => {
         setMedicalPrescriptions,
         doctors,
         setDoctors,
+        patients,
+        setPatients,
         errorMessage,
         setErrorMessage,
         DoctorInfoQuery,
@@ -322,6 +331,7 @@ export const DoctorProvider = ({ children }) => {
         DeclineAppointmentRequest,
         AppointmentsHistory,
         AllDoctors,
+        GetAllPatients
       }}
     >
       {children}

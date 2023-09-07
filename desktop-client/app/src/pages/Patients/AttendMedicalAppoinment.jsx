@@ -203,6 +203,7 @@ export const MedicalAppoinment = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
+      console.log(nextAppointment.id)
       await EndMedicalAppointment(
         JSON.parse(localStorage.getItem("userSession")).id,
         patient.id,
@@ -351,7 +352,7 @@ export const MedicalAppoinment = () => {
               {pages[currentPage]}
             </div>
             <div className="border-t border-t-[#c6c6c6] flex items-center justify-between pt-[1rem] mt-[1rem]">
-              <div className="gap-2 flex flex-row">
+              <div className="flex flex-row gap-2">
                 <button
                   onClick={handlePreviousPage}
                   disabled={currentPage === 0}
@@ -527,15 +528,15 @@ const MedicalPrescriptionConfirmation = ({
               <div key={i} className="overflow-hidden h-fit w-full rounded-md border border-[#c6c6c6]">
                 <table className="w-full font-normal text-[1rem] h-fit">
                   <tr className="w-full bg-[#D8D7FE] border-b border-[#c6c6c6] h-[2.5rem] flex items-center">
-                    <td className="w-full h-fit flex flex-row justify-center items-center align-middle">
-                      <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                    <td className="flex flex-row items-center justify-center w-full align-middle h-fit">
+                      <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                         <AiFillMedicineBox />
                         <span>{t("medical.tittle19")} ({i + 1})</span> 
                       </th>
                     </td>
                   </tr>
                   <tr className="border-b border-[#c6c6c6] h-[2.5rem] flex items-center">
-                    <td className="w-full h-full flex flex-row justify-center items-center">
+                    <td className="flex flex-row items-center justify-center w-full h-full">
                       <p>
                         {m.Medicine_Name}
                       </p>
@@ -544,13 +545,13 @@ const MedicalPrescriptionConfirmation = ({
                   <tr className="w-full bg-[#f7f7f7] shadow-md flex flex-row h-[2.5rem] items-center">
                     <td className="w-[50%] h-full flex flex-row justify-center items-center border-r border-[#c6c6c6]">
                       <th></th>
-                      <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                      <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                         <MdDescription />
                         <span>{t("medical.tittle20")}</span> 
                       </th>
                     </td>
                     <td className="w-[50%] h-full flex flex-row justify-center items-center">
-                      <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                      <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                         <MdIntegrationInstructions />
                         <span>{t("medical.tittle21")}</span> 
                       </th>
@@ -570,13 +571,13 @@ const MedicalPrescriptionConfirmation = ({
                   </tr>
                   <tr className="w-full bg-[#f7f7f7] shadow-md flex flex-row h-[2.5rem] items-center">
                     <td className="w-[50%] h-full flex flex-row justify-center items-center border-r border-[#c6c6c6]">
-                      <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                      <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                         <FaRulerVertical />
                         <span>{t("medical.tittle23")}</span> 
                       </th>
                     </td>
                     <td className="w-[50%] h-full flex flex-row justify-center items-center">
-                      <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                      <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                         <FaUtensilSpoon />
                         <span>{t("medical.tittle24")}</span> 
                       </th>
@@ -596,13 +597,13 @@ const MedicalPrescriptionConfirmation = ({
                   </tr>
                   <tr className="w-full bg-[#f7f7f7] shadow-md flex flex-row h-[2.5rem] items-center">
                     <td className="w-[50%] h-full flex flex-row justify-center items-center border-r border-[#c6c6c6]">
-                      <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                      <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                         <BsCalendarFill />
                         <span>{t("medical.tittle25")}</span> 
                       </th>
                     </td>
                     <td className="w-[50%] h-full flex flex-row justify-center items-center">
-                      <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                      <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                         <BsCalendar2EventFill />
                         <span>{t("medical.tittle26")}</span> 
                       </th>
@@ -627,8 +628,8 @@ const MedicalPrescriptionConfirmation = ({
               );
             })
           ) : (
-            <div className="w-full h-full flex-col justify-center items-center gap-5 text-center">
-              <img style={{ width: '7rem' }} className="mx-auto block mb-5" src={require('../../assets/icons/no_edit.png')} alt="" />
+            <div className="flex-col items-center justify-center w-full h-full gap-5 text-center">
+              <img style={{ width: '7rem' }} className="block mx-auto mb-5" src={require('../../assets/icons/no_edit.png')} alt="" />
               <h3 className="text-[#707070]">{t("medical.tittle27")}</h3>
             </div>
           )}
@@ -639,8 +640,8 @@ const MedicalPrescriptionConfirmation = ({
         <div className="h-[15rem] w-[98%] overflow-y-auto p-[1rem] border-[#bbbbbb80] border rounded shadow-md gap-9">
           {medicalPrescript.new_prescriptions.length === 1 &&
           medicalPrescript.new_prescriptions[0].hasSelectedYes === false ? (
-            <div className="w-full h-full flex-col justify-center items-center gap-5 text-center">
-              <img style={{ width: '7rem' }} className="mx-auto block mb-5" src={require('../../assets/icons/no_med.png')} alt="" />
+            <div className="flex-col items-center justify-center w-full h-full gap-5 text-center">
+              <img style={{ width: '7rem' }} className="block mx-auto mb-5" src={require('../../assets/icons/no_med.png')} alt="" />
               <h3 className="text-[#707070]">{t("medical.tittle29")}</h3>
             </div>
           ) : (
@@ -650,15 +651,15 @@ const MedicalPrescriptionConfirmation = ({
                   <div key={i} className="overflow-hidden h-fit w-full rounded-md border border-[#c6c6c6]">
                     <table className="w-full font-normal text-[1rem] h-fit">
                       <tr className="w-full bg-[#D8D7FE] border-b border-[#c6c6c6] h-[2.5rem] flex items-center">
-                        <td className="w-full h-fit flex flex-row justify-center items-center align-middle">
-                          <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                        <td className="flex flex-row items-center justify-center w-full align-middle h-fit">
+                          <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                             <AiFillMedicineBox />
                             <span>{t("medical.tittle19")} ({i + 1})</span> 
                           </th>
                         </td>
                       </tr>
                       <tr className="border-b border-[#c6c6c6] h-[2.5rem] flex items-center">
-                        <td className="w-full h-full flex flex-row justify-center items-center">
+                        <td className="flex flex-row items-center justify-center w-full h-full">
                           <p>
                             {m.data.Medicine_Name}
                           </p>
@@ -667,13 +668,13 @@ const MedicalPrescriptionConfirmation = ({
                       <tr className="w-full bg-[#f7f7f7] shadow-md flex flex-row h-[2.5rem] items-center">
                         <td className="w-[50%] h-full flex flex-row justify-center items-center border-r border-[#c6c6c6]">
                           <th></th>
-                          <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                          <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                             <MdDescription />
                             <span>{t("medical.tittle20")}</span> 
                           </th>
                         </td>
                         <td className="w-[50%] h-full flex flex-row justify-center items-center">
-                          <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                          <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                             <MdIntegrationInstructions />
                             <span>{t("medical.tittle21")}</span> 
                           </th>
@@ -693,13 +694,13 @@ const MedicalPrescriptionConfirmation = ({
                       </tr>
                       <tr className="w-full bg-[#f7f7f7] shadow-md flex flex-row h-[2.5rem] items-center">
                         <td className="w-[50%] h-full flex flex-row justify-center items-center border-r border-[#c6c6c6]">
-                          <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                          <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                             <FaRulerVertical />
                             <span>{t("medical.tittle23")}</span> 
                           </th>
                         </td>
                         <td className="w-[50%] h-full flex flex-row justify-center items-center">
-                          <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                          <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                             <FaUtensilSpoon />
                             <span>{t("medical.tittle24")}</span> 
                           </th>
@@ -719,13 +720,13 @@ const MedicalPrescriptionConfirmation = ({
                       </tr>
                       <tr className="w-full bg-[#f7f7f7] shadow-md flex flex-row h-[2.5rem] items-center">
                         <td className="w-[50%] h-full flex flex-row justify-center items-center border-r border-[#c6c6c6]">
-                          <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                          <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                             <BsCalendarFill />
                             <span>{t("medical.tittle25")}</span> 
                           </th>
                         </td>
                         <td className="w-[50%] h-full flex flex-row justify-center items-center">
-                          <th className="flex flex-row gap-2 justify-center items-center h-fit w-fit">
+                          <th className="flex flex-row items-center justify-center gap-2 h-fit w-fit">
                             <BsCalendar2EventFill />
                             <span>{t("medical.tittle26")}</span> 
                           </th>
@@ -792,7 +793,7 @@ const MedicalAppointmentConfirmation = ({ scheAppoint, patient }) => {
         </ul>
       ) : (
         <div style={{marginTop: '3rem'}}className="w-[100%] h-[90%] flex-col justify-center items-center gap-5 text-center">
-          <img style={{ width: '7rem' }} className="mx-auto block mb-5" src={require('../../assets/icons/no_programed.png')} alt="" />
+          <img style={{ width: '7rem' }} className="block mx-auto mb-5" src={require('../../assets/icons/no_programed.png')} alt="" />
           <h3 className="text-[#707070]">{t("medical.tittle34")}</h3>
         </div>
       )}
