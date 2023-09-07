@@ -22,8 +22,8 @@ export const Inbox = () => {
         <div className='heading shadow-sm'>
           <div className='avatar-container'>
             <div class="avatar __avatar">
-              <div class="w-24 mask mask-squircle">
-                <img src={require('../assets/template/avatar.jpg')} alt=''/>
+              <div class="mask mask-squircle bg-contain">
+                <img src={require('../assets/template/avatar.jpg')} className="cover" alt=''/>
               </div>
             </div>
             <span className='text-[#707070] font-semibold'>
