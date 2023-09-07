@@ -285,7 +285,7 @@ export const DoctorProvider = ({ children }) => {
   const GetAnnouncements = async (Doctor_id) => {
     try {
       const res = await getAnnouncements(Doctor_id, PrivateConfig);
-      setAnnouncements(res.data.body);
+      setAnnouncements(res.data.body.reverse());
     } catch (error) {
       console.log(error)
     }
