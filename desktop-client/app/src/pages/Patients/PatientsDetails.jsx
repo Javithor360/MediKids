@@ -57,11 +57,17 @@ export const PatientsDetails = () => {
   }, [nextAppointment.Hour]);
 
   const [active, setActive] = useState(false);
+  const [activeError, setActiveError] = useState(false);
   const [canAttendConsult, setCanAttendConsult] = useState(false);
   const isModal = true;
 
   const toggle = () => {
     setActive(!active);
+  };
+  const toggleError = () => {
+    if (canAttendConsult === false || nextAppointment.State !== 3) {
+      setActiveError(!activeError);
+    }
   };
   const [numbercomp, setNumbercomp] = useState(0);
 
@@ -194,15 +200,6 @@ export const PatientsDetails = () => {
               {t("details.tittle6")}
             </p>
           </Link>
-          {
-            canAttendConsult ? (
-              <div>XDDDDDDDDDDDDDDDDDDDDDDD</div>
-            )
-            :
-            (
-              <div>?????????????????????? </div>
-            )
-          }
           {/* <Link
             className="rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
             onClick={() => {
@@ -234,13 +231,19 @@ export const PatientsDetails = () => {
             </p>
           </Link>
           <Link
-            className="rounded-2xl text-center border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
-            to={"/patients/active/details/appoinment"}
+            className={`${
+              canAttendConsult && nextAppointment.State === 3
+                ? "hover:bg-[#d8d7fec0] hover:text-[#707070]"
+                : "bg-gray-200 cursor-default"
+            } rounded-2xl text-center border border-[#BBBBBB] flex flex-col justify-center items-center gap-3  ease-out transition-all`}
+            to={
+              canAttendConsult && nextAppointment.State === 3
+                ? "/patients/active/details/appoinment"
+                : null
+            }
+            onClick={toggleError}
             state={{ patient }}
           >
-            {/* {console.log(new Date().getTime())} */}
-            {/* {console.log()} */}
-            {/* {console.log(appDate.toLocaleDateString() == new Date().toLocaleDateString())} */}
             <MdOutlineMedicalInformation className="text-[2.8rem] text-[#A375FF]" />
             <p className="font-semibold text-[#707070]">
               {t("details.tittle8")}
@@ -256,6 +259,19 @@ export const PatientsDetails = () => {
           state={patient}
         >
           {modalContent()}
+        </Modal>
+      )}
+      {toggleError && (
+        <Modal
+          active={activeError}
+          toggle={toggleError}
+          onRequestClose={toggleError}
+          state={patient}
+        >
+          <div>
+            Parece que no puedes atender esta consulta aún, por favor espera a
+            la fecha y hora indicada.
+          </div>
         </Modal>
       )}
     </>
