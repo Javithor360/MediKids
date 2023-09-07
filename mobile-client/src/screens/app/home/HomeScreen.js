@@ -22,11 +22,12 @@ const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 export const HomeScreen = () => {
   const { t } = useTranslation();
-  const navigation = useNavigation()
+  const lng = useSelector(state => state.starter.Language);
+  const navigation = useNavigation();
   const Info = useSelector(state => state.responsible);
   const Patient = useSelector(state => state.patient);
   const jwtToken = useSelector(state => state.responsible.jwtToken);
-  const isFocused = useIsFocused()
+  const isFocused = useIsFocused();
 
   //! States for the modals.
   const [view,setView] = useState(false);
@@ -105,13 +106,13 @@ export const HomeScreen = () => {
   const getStateString = (state) => {
     switch (state) {
       case 0:
-        return 'Programada';
+        return lng ? 'Programada' : 'Programed';
       case 1:
-        return 'Solicitada';
+        return lng ? 'Solicitada' : 'requested';
       case 2:
-        return 'confirmada';
+        return lng ? 'confirmada' : 'confirmed';
       case 3:
-        return 'Ejecutandose';
+        return lng ? 'Ejecutandose' : 'Running';
     }
   }
 
@@ -122,12 +123,12 @@ export const HomeScreen = () => {
       const Months = differenceInMonths(new Date(), date);
       const Days = differenceInDays(new Date(), date);
       if (Days > 31) {
-        return `${Months} ${Months > 1 ? 'Meses' : 'Mes'}`
+        return `${Months} ${Months > 1 ? `${lng ? 'Meses' : 'Months'}` : `${lng ? 'Mes' : 'Month'}`}`
       } else {
-        return `${Days} ${Days > 1 ? 'Días' : 'Día'}`
+        return `${Days} ${Days > 1 ? `${lng ? 'Días' : 'Days'}` : `${lng ? 'Dia' : 'Day'}`}`
       }
     } else {
-      return`${ag} ${ag > 1 ? 'años' : 'año'}`
+      return`${ag} ${ag > 1 ? `${lng ? 'Años' : 'Years'}` : `${lng ? 'Año' : 'Year'}`}`
     }
   }
 

@@ -147,21 +147,21 @@ const Gastro = () => {
                 </View>
               </View>
 
-              <View style={styles.doctorTitle}>
-                <View style={{height: '100%', alignItems: 'center', justifyContent: 'center',}}>
+              <View style={[styles.doctorTitle, {width: '85%'}]}>
+                <View style={{height: '100%', alignItems: 'center', justifyContent: 'center'}}>
                   <MaterialIcons name="stars" size={25} color="#707070" />
                 </View>
-                <View style={{height: '100%', justifyContent: 'center'}}>
-                  <Text style={{ color: '#707070'}}>{t('Gastro.text11')}.</Text>
+                <View style={{height: '100%', justifyContent: 'center', width: '75%'}}>
+                  <Text style={{ color: '#707070', textAlign: 'center'}}>{t('Gastro.text11')}.</Text>
                 </View>
               </View>
 
-              <View style={styles.doctorTitle}>
+              <View style={[styles.doctorTitle, {width: '90%'}]}>
                 <View style={{height: '100%', alignItems: 'center', justifyContent: 'center'}}>
                   <MaterialIcons name="medical-services" size={25} color="#707070" />
                 </View>
-                <View style={{height: '100%', justifyContent: 'center'}}>
-                  <Text style={{ color: '#707070'}}>{t('Gastro.text12')}.</Text>
+                <View style={{height: '100%', justifyContent: 'center', width: '90%'}}>
+                  <Text style={{ color: '#707070', textAlign: 'center'}}>{t('Gastro.text12')}.</Text>
                 </View>
               </View>
 
@@ -392,6 +392,7 @@ const styles = {
     marginTop: 5,
     flexDirection: 'row',
     gap: 10,
+    justifyContent: 'center',
   },
   separator2: {
     width: '100%',

@@ -211,7 +211,7 @@ const upload_pf_patient = async (req, res, next) => {
     const {Patient_id, FileName} = req.body;
 
     //? Reference to the storage to get the url of the image.
-    const storageRef = ref(storage, `perfil_photos/${FileName}`);
+    const storageRef = ref(storage, `patient_pf/${FileName}`);
   
     //? Get the url from the snapshot.
     const url = await getDownloadURL(storageRef);

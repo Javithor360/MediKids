@@ -32,12 +32,12 @@
         "oct":"Octubre",
         "november":"Noviembre",
         "december":"Diciembre",
-        "dom":"Domingo  ",
-        "lun":"Lunes  ",
-        "mar":"Martes  ",
-        "mie":"Miércoles  ",
-        "jue":"Jueves  ",
-        "vie":"Viernes  ",
+        "dom":"Domingo",
+        "lun":"Lunes",
+        "mar":"Martes",
+        "mie":"Miércoles",
+        "jue":"Jueves",
+        "vie":"Viernes",
         "sab":"Sábado",
         "title":"Calendario y recordatorios"
 

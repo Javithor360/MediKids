@@ -7,8 +7,8 @@ import { createPool } from 'mysql2/promise';
 
 //>> DABASE CONNECT
 const pool = createPool({
-    host: 'localhost',
-    user: 'root',
+    host: '34.121.94.168',
+    user: 'alvin_root',
     password: "12345",
     port: "3306",
     database: 'medikids_db',
