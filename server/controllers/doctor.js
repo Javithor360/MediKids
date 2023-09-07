@@ -527,6 +527,44 @@ const get_patients = async (req, res, next) => {
   }
 };
 
+// ! @route POST api/doctor/get_announcements
+// ! @desc Gets all doctor's announcements
+// ! @access private
+
+const get_announcements = async (req, res, next) => {
+  try {
+    const { Doctor_id } = req.body;
+
+    if (!Doctor_id) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    const [query_check] = await pool.query(
+      "SELECT * FROM doctors WHERE id = ?",
+      [Doctor_id]
+    );
+
+    if (query_check.length != 1) {
+      return res.status(500).json({
+        success: false,
+        message: "Provided doctor doesn't exist",
+      });
+    }
+
+    const [announcements_info] = await pool.query(
+      `SELECT * FROM notices WHERE Doctor_id = ?`,
+      [Doctor_id]
+    );
+
+    return res.status(200).json({ success: true, body: announcements_info });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
 // ! @route POST api/doctor/end_medical_appointment
 // ! @desc Handles all the data put during the appointment process
 // ! @access private
@@ -934,5 +972,6 @@ export {
   get_appointments_history,
   get_doctors,
   get_patients,
+  get_announcements,
   end_medical_appointment,
 };
