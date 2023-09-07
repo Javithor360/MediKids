@@ -22,28 +22,25 @@
     },
     "calendar":{
         "january":"January",
-        "february":"February ",
-        "march":"March ",
-        "april":"April ",
-        "may":"May ",
-        "june":"June ",
-        "july":"July ",
+        "february":"February",
+        "march":"March",
+        "april":"April",
+        "may":"May",
+        "june":"June",
+        "july":"July",
         "august":"August ",
         "sept":"September ",
         "oct":"October",
-        "november":"November ",
+        "november":"November",
         "december":"December",
-        "dom":"Sunday ",
-        "lun":"Monday ",
-        "mar":"Tuesday ",
-        "mie":"Wednesday ",
-        "jue":"Thursday ",
-        "vie":"Friday ",
+        "dom":"Sunday",
+        "lun":"Monday",
+        "mar":"Tuesday",
+        "mie":"Wednesday",
+        "jue":"Thursday",
+        "vie":"Friday",
         "sab":"Saturday",
         "title":"Calendar and reminders"
-
-
-
     },
     "AppointmentMainScreen":{
         "choose":"Choose the specialty in which to schedule an appointment",
@@ -75,7 +72,7 @@
         "assigned":"Treatment assigned in a period of time",
         "controlAppointment":"Control and follow-up appointments",
         "guaranteed":"Guaranteed care and quality",
-        "title":"Appointment"
+        "title":"Appmt."
 
     },
 
@@ -143,7 +140,7 @@
         "text9":"When I see the smile of my patients, that is the true reward ",
         "text10":"Gastroenterology specialist",
         "text11":"Graduated from the Faculty of Medicine of the UNAM",
-        "text12":"She is active in gastroenterology medical societies ",
+        "text12":"She is active in gastroenterology medical societies",
         "schedule":"Schedule appointment"
 
     },
@@ -328,7 +325,7 @@
         "text1":"Request medical appointment",
         "text2":"Provide the following prior information",
         "text3":"Select one of the available weeks",
-        "request":"Request appointment",
+        "request":"Request appmt.",
         "symp":"Symptoms or condition to treat"
     },
     "noti":{

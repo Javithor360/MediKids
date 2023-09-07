@@ -1,3 +1,4 @@
+import { differenceInMinutes } from "date-fns";
 import { pool } from "../utils/db.js";
 
 import ErrorResponse from "../utils/error_message.js";
@@ -130,7 +131,7 @@ const get_appointments = async (req, res, next) => {
         const givenDate = new Date(obj.Date);
         const giveHour = obj.Hour.split(":");
         const nDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate(), parseInt(giveHour[0]), parseInt(giveHour[1]), parseInt(giveHour[2]))
-        if ((obj.State === 2 || obj.State === 3) && (new Date - nDate >= 0 && new Date() - nDate <= 5 * 60 * 60 * 1000)) {
+        if ((obj.State === 2 || obj.State === 3) && (differenceInMinutes(new Date(), nDate) >= 180)) {
           expired_appointments.push(obj);
         }
       }
@@ -614,8 +615,6 @@ const end_medical_appointment = async (req, res, next) => {
       toggles,
     } = req.body;
     let errorMessages = [];
-
-    console.log(Appointment_id);
 
     if (
       !Doctor_id ||

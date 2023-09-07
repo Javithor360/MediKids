@@ -51,7 +51,7 @@ export const HistorialAppointment = ({ route }) => {
         if (Object.keys(obj).length != 0) {
             let string = '';
             for (let i = 0; i < Object.keys(obj).length; i++) {
-                string += `${obj[i]}${i > 0 && i < Object.keys(obj).length ? ',' : ''} `;
+                string += `${obj[i]}${i >= 0 && i+1 < Object.keys(obj).length ? ',' : ''} `;
             }
             return string;
         } else {

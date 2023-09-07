@@ -22,9 +22,10 @@ const { height } = Dimensions.get('window');
 const ShimmerPlaceHolder = createShimmerPlaceholder(LinearGradient);
 
 export const PatientPerfilScreen = () => {
+    const { t } = useTranslation();
+    const lng = useSelector(state => state.starter.Language);
     const navigation = useNavigation();
     const PatientData = useSelector(state => state.patient);
-    const { t } = useTranslation();
     //! State tp Vaccines Array.
     const [ShowVaccines, setShowVaccines] = useState(null);
 
@@ -37,16 +38,16 @@ export const PatientPerfilScreen = () => {
     //! Get Patient Age
     const getPatientAge = (ag, bd) => {
         if (ag <= 0) {
-        let date = new Date(bd);
-        const Months = differenceInMonths(new Date(), date);
-        const Days = differenceInDays(new Date(), date);
-        if (Days > 31) {
-            return `${Months} ${Months > 1 ? 'Meses' : 'Mes'}`
+            let date = new Date(bd);
+            const Months = differenceInMonths(new Date(), date);
+            const Days = differenceInDays(new Date(), date);
+            if (Days > 31) {
+              return `${Months} ${Months > 1 ? `${lng ? 'Meses' : 'Months'}` : `${lng ? 'Mes' : 'Month'}`}`
+            } else {
+              return `${Days} ${Days > 1 ? `${lng ? 'Días' : 'Days'}` : `${lng ? 'Dia' : 'Day'}`}`
+            }
         } else {
-            return `${Days} ${Days > 1 ? 'Días' : 'Día'}`
-        }
-        } else {
-            return`${ag} ${ag > 1 ? 'años' : 'año'}`
+            return`${ag} ${ag > 1 ? `${lng ? 'Años' : 'Years'}` : `${lng ? 'Año' : 'Year'}`}`
         }
     }
 
@@ -56,13 +57,13 @@ export const PatientPerfilScreen = () => {
             const {data} = await getImmunizationRecord(PatientData.id);
             setShowVaccines([
                 {Name: 'Hepatitis A', State: data.immunization_record[0].Vaccine_Hepatitis_A},
-                {Name: 'Vacuna BCG', State: data.immunization_record[0].Vaccine_BGC},
+                {Name: `${lng ? 'Vacuna BCG' : 'BCG Vaccine'}`, State: data.immunization_record[0].Vaccine_BGC},
                 {Name: 'Poliomielitis', State: data.immunization_record[0].Vaccine_Poliomielitis},
                 {Name: 'Pentavalente', State: data.immunization_record[0].Vaccine_Pentavalente},
                 {Name: 'Rotavirus', State: data.immunization_record[0].Vaccine_Rotavirus},
                 {Name: 'Neumococo', State: data.immunization_record[0].Vaccine_Neumococo},
-                {Name: 'Vacuna DPT', State: data.immunization_record[0].Vaccine_DPT},
-                {Name: 'Vacuna Polio Oral', State: data.immunization_record[0].Vaccine_Polio_Oral},
+                {Name: `${lng ? 'Vacuna DPT' : 'DPT Vaccine'}`, State: data.immunization_record[0].Vaccine_DPT},
+                {Name: `${lng ? 'Vacuna Polio Oral' : 'Polio Oral Vaccine'}`, State: data.immunization_record[0].Vaccine_Polio_Oral},
                 {Name: 'Antitetanica', State: data.immunization_record[0].Vaccine_Antitetanica},
                 {Name: 'Triple Viral SPR', State: data.immunization_record[0].Vaccine_Triple_Viral_SPR},
             ])

@@ -1,8 +1,11 @@
 import axios from "axios";
 
+const host = 'http://localhost:5005';
+// const host = 'https://medikids-server.uc.r.appspot.com'
+
 export const login = async (User, Password, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/auth/doctor_login`,
+    `${host}/api/auth/doctor_login`,
     { User, Password },
     PrivateConfig
   );
@@ -10,7 +13,7 @@ export const login = async (User, Password, PrivateConfig) => {
 
 export const getDoctorInfo = async (Doctor_id, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_info`,
+    `${host}/api/doctor/get_info`,
     { Doctor_id },
     PrivateConfig
   );
@@ -18,7 +21,7 @@ export const getDoctorInfo = async (Doctor_id, PrivateConfig) => {
 
 export const getActivePatients = async (Doctor_id, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/active_patients`,
+    `${host}/api/doctor/active_patients`,
     { Doctor_id },
     PrivateConfig
   );
@@ -26,7 +29,7 @@ export const getActivePatients = async (Doctor_id, PrivateConfig) => {
 
 export const getAllApointments = async (Doctor_id, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_appointments`,
+    `${host}/api/doctor/get_appointments`,
     { Doctor_id },
     PrivateConfig
   );
@@ -34,7 +37,7 @@ export const getAllApointments = async (Doctor_id, PrivateConfig) => {
 
 export const getPatientAppointmentWithDoctor = async (data, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_patient_appointment_with_specific_doctor`,
+    `${host}/api/doctor/get_patient_appointment_with_specific_doctor`,
     data,
     PrivateConfig
   );
@@ -42,7 +45,7 @@ export const getPatientAppointmentWithDoctor = async (data, PrivateConfig) => {
 
 export const getResponsibleInfo = async (Responsible_id, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_responsible_info`,
+    `${host}/api/doctor/get_responsible_info`,
     { Responsible_id },
     PrivateConfig
   );
@@ -50,7 +53,7 @@ export const getResponsibleInfo = async (Responsible_id, PrivateConfig) => {
 
 export const getPatientMedicalRecords = async (Patient_id, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_patient_medical_record`,
+    `${host}/api/doctor/get_patient_medical_record`,
     { Patient_id },
     PrivateConfig
   );
@@ -58,7 +61,7 @@ export const getPatientMedicalRecords = async (Patient_id, PrivateConfig) => {
 
 export const getPatientVaccines = async (Patient_id, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_patient_vaccines`,
+    `${host}/api/doctor/get_patient_vaccines`,
     { Patient_id },
     PrivateConfig
   );
@@ -69,7 +72,7 @@ export const getPatientMedicalPrescription = async (
   PrivateConfig
 ) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_medical_prescriptions`,
+    `${host}/api/doctor/get_medical_prescriptions`,
     { Patient_id },
     PrivateConfig
   );
@@ -77,7 +80,7 @@ export const getPatientMedicalPrescription = async (
 
 export const appointmentRequests = async (data, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_appointment_requests`,
+    `${host}/api/doctor/get_appointment_requests`,
     data,
     PrivateConfig
   );
@@ -85,7 +88,7 @@ export const appointmentRequests = async (data, PrivateConfig) => {
 
 export const getResponsibles = async (PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_responsibles`,
+    `${host}/api/doctor/get_responsibles`,
     {},
     PrivateConfig
   );
@@ -93,7 +96,7 @@ export const getResponsibles = async (PrivateConfig) => {
 
 export const acceptAppointment = async (data, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/accept_appointment_request`,
+    `${host}/api/doctor/accept_appointment_request`,
     data,
     PrivateConfig
   );
@@ -101,7 +104,7 @@ export const acceptAppointment = async (data, PrivateConfig) => {
 
 export const declineAppointment = async (id, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/decline_appointment_request`,
+    `${host}/api/doctor/decline_appointment_request`,
     id,
     PrivateConfig
   );
@@ -109,7 +112,7 @@ export const declineAppointment = async (id, PrivateConfig) => {
 
 export const appointmentsHistory = async (Patient_id, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_appointments_history`,
+    `${host}/api/doctor/get_appointments_history`,
     Patient_id,
     PrivateConfig
   );
@@ -117,7 +120,7 @@ export const appointmentsHistory = async (Patient_id, PrivateConfig) => {
 
 export const getDoctors = async (PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_doctors`,
+    `${host}/api/doctor/get_doctors`,
     {},
     PrivateConfig
   );
@@ -125,7 +128,7 @@ export const getDoctors = async (PrivateConfig) => {
 
 export const getPatients = async (PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_patients`,
+    `${host}/api/doctor/get_patients`,
     {},
     PrivateConfig
   );
@@ -133,7 +136,7 @@ export const getPatients = async (PrivateConfig) => {
 
 export const getAnnouncements = async (Doctor_id, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/get_announcements`,
+    `${host}/api/doctor/get_announcements`,
     { Doctor_id },
     PrivateConfig
   );
@@ -141,7 +144,7 @@ export const getAnnouncements = async (Doctor_id, PrivateConfig) => {
 
 export const endMedicalAppointment = async (data, PrivateConfig) => {
   return await axios.post(
-    `http://localhost:5005/api/doctor/end_medical_appointment`,
+    `${host}/api/doctor/end_medical_appointment`,
     data,
     PrivateConfig
   );
