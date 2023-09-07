@@ -15,6 +15,7 @@ import {
   appointmentsHistory,
   getDoctors,
   getPatients,
+  getAnnouncements,
   endMedicalAppointment,
 } from "../api/queries";
 
@@ -34,6 +35,7 @@ export const DoctorProvider = ({ children }) => {
   const [appointments, setAppointments] = useState([]);
   const [appointmentRequest, setAppointmentRequest] = useState([]);
   const [appointmentHistory, setAppointmentHistory] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
 
   const [nextAppointment, setNextAppointment] = useState({});
   const [responsibleInfo, setResponsibleInfo] = useState({});
@@ -280,6 +282,15 @@ export const DoctorProvider = ({ children }) => {
     }
   }
 
+  const GetAnnouncements = async (Doctor_id) => {
+    try {
+      const res = await getAnnouncements(Doctor_id, PrivateConfig);
+      setAnnouncements(res.data.body);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <dashContext.Provider
       value={{
@@ -299,6 +310,8 @@ export const DoctorProvider = ({ children }) => {
         setNextAppointment,
         appointmentHistory,
         setAppointmentHistory,
+        announcements,
+        setAnnouncements,
         responsibleInfo,
         setResponsibleInfo,
         responsibles,
@@ -331,7 +344,8 @@ export const DoctorProvider = ({ children }) => {
         DeclineAppointmentRequest,
         AppointmentsHistory,
         AllDoctors,
-        GetAllPatients
+        GetAllPatients,
+        GetAnnouncements
       }}
     >
       {children}

@@ -10,7 +10,7 @@ import medicalHistory from "../../assets/icons/overview_FILL0_wght400_GRAD0_opsz
 import profileAvatar from "../../assets/template/walt_jr.png";
 import Modal from "../../components/Modal";
 
-import { ViewMedicalRecords } from './PatientsComponents/index.jsx'
+import { ViewMedicalRecords } from "./PatientsComponents/index.jsx";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { useDash } from "../../context/DoctorContext";
@@ -38,8 +38,28 @@ export const PatientsDetails = () => {
     ResponsibleInformation(patient.Responsible_id);
   }, []);
 
+  useEffect(() => {
+    if (nextAppointment.Hour) {
+      const timeDate = nextAppointment.Hour.split(":");
+      let newTimeDate = new Date(
+        appDate.getFullYear(),
+        appDate.getMonth(),
+        appDate.getDate(),
+        parseInt(timeDate[0]),
+        parseInt(timeDate[1]),
+        parseInt(timeDate[2])
+      );
+      setCanAttendConsult(
+        new Date() - newTimeDate >= 0 &&
+          new Date() - newTimeDate <= 3 * 60 * 60 * 1000
+      );
+    }
+  }, [nextAppointment.Hour]);
+
   const [active, setActive] = useState(false);
+  const [canAttendConsult, setCanAttendConsult] = useState(false);
   const isModal = true;
+
   const toggle = () => {
     setActive(!active);
   };
@@ -92,10 +112,14 @@ export const PatientsDetails = () => {
             <p className="flex items-center justify-center gap-3 font-semibold">
               <MdNotifications className="text-[#a375ff] text-[1.8rem]" />
               Proxima cita el:{" "}
-              {`${appDate.getDate()}/${appDate.getMonth() + 1}/${appDate.getFullYear()} (${new Date(`1970-01-01T${nextAppointment.Hour}`).toLocaleTimeString(
-                [],
-                { hour: "2-digit", minute: "2-digit" }
-              )})`}
+              {`${appDate.getDate()}/${
+                appDate.getMonth() + 1
+              }/${appDate.getFullYear()} (${new Date(
+                `1970-01-01T${nextAppointment.Hour}`
+              ).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })})`}
             </p>
           </div>
         </section>
@@ -104,29 +128,41 @@ export const PatientsDetails = () => {
             <table className="table w-[100%]">
               {/* head */}
               <div className="bg-[#d8d7fe] flex flex-row w-[100%] h-[2.4rem] items-center">
-                  <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
-                    <span className="h-fit font-semibold text-[1rem] ">{t("details.tittle2")}</span></div>
-                  <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
-                    <span className="font-semibold text-[1rem]">{t("details.tittle3")}</span>
-                  </div>
-                  <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
-                    <span className="font-semibold text-[1rem]">{t("details.tittle9")}</span></div>
-                  <div className="flex border-b border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
-                    <span className="font-semibold text-[1rem]">{t("details.tittle4")}</span>
-                  </div>
+                <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
+                  <span className="h-fit font-semibold text-[1rem] ">
+                    {t("details.tittle2")}
+                  </span>
+                </div>
+                <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
+                  <span className="font-semibold text-[1rem]">
+                    {t("details.tittle3")}
+                  </span>
+                </div>
+                <div className="flex border-b border-r border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
+                  <span className="font-semibold text-[1rem]">
+                    {t("details.tittle9")}
+                  </span>
+                </div>
+                <div className="flex border-b border-[#BBBBBB] w-[33.33%] h-full justify-center items-center text-center">
+                  <span className="font-semibold text-[1rem]">
+                    {t("details.tittle4")}
+                  </span>
+                </div>
               </div>
               <div className="h-[3rem] flex-row flex">
                 {/* row 1 */}
-                  <div className="flex w-[33.33%] h-full justify-center items-center text-center border-r border-[#BBBBBB]">
+                <div className="flex w-[33.33%] h-full justify-center items-center text-center border-r border-[#BBBBBB]">
                   {getPatientAge(patient.Age, patient.Birthdate)}
-                  </div>
-                  <div className="flex w-[33.33%] h-full justify-center items-center text-center border-r border-[#BBBBBB]">
-                    {patient.Blood_Type}
-                  </div>
-                  <div className="flex w-[33.33%] h-full justify-center items-center text-center border-r border-[#BBBBBB]">
-                    {patient.Weight} lb
-                  </div>
-                  <div className="flex w-[33.33%] h-full justify-center items-center text-center">{patient.Height} m</div>
+                </div>
+                <div className="flex w-[33.33%] h-full justify-center items-center text-center border-r border-[#BBBBBB]">
+                  {patient.Blood_Type}
+                </div>
+                <div className="flex w-[33.33%] h-full justify-center items-center text-center border-r border-[#BBBBBB]">
+                  {patient.Weight} lb
+                </div>
+                <div className="flex w-[33.33%] h-full justify-center items-center text-center">
+                  {patient.Height} m
+                </div>
               </div>
             </table>
           </div>
@@ -141,7 +177,9 @@ export const PatientsDetails = () => {
             state={location.state}
           >
             <MdOutlineReceiptLong className="text-[2.8rem] text-[#A375FF]" />
-            <p className="font-semibold text-[#707070]">{t("details.tittle5")}</p>
+            <p className="font-semibold text-[#707070]">
+              {t("details.tittle5")}
+            </p>
           </Link>
           <Link
             className="rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
@@ -152,8 +190,19 @@ export const PatientsDetails = () => {
             state={location.state}
           >
             <MdOutlineMedication className="text-[2.8rem] text-[#A375FF]" />
-            <p className="font-semibold text-[#707070]">{t("details.tittle6")}</p>
+            <p className="font-semibold text-[#707070]">
+              {t("details.tittle6")}
+            </p>
           </Link>
+          {
+            canAttendConsult ? (
+              <div>XDDDDDDDDDDDDDDDDDDDDDDD</div>
+            )
+            :
+            (
+              <div>?????????????????????? </div>
+            )
+          }
           {/* <Link
             className="rounded-2xl border border-[#BBBBBB] flex flex-col justify-center items-center gap-3 hover:bg-[#d8d7fec0] hover:text-[#707070] ease-out transition-all"
             onClick={() => {
@@ -181,7 +230,7 @@ export const PatientsDetails = () => {
               className="text-[2.8rem] text-[#A375FF]"
             />
             <p className="font-semibold text-[#707070]">
-            {t("details.tittle7")}
+              {t("details.tittle7")}
             </p>
           </Link>
           <Link
@@ -189,8 +238,13 @@ export const PatientsDetails = () => {
             to={"/patients/active/details/appoinment"}
             state={{ patient }}
           >
+            {/* {console.log(new Date().getTime())} */}
+            {/* {console.log()} */}
+            {/* {console.log(appDate.toLocaleDateString() == new Date().toLocaleDateString())} */}
             <MdOutlineMedicalInformation className="text-[2.8rem] text-[#A375FF]" />
-            <p className="font-semibold text-[#707070]">{t("details.tittle8")}</p>
+            <p className="font-semibold text-[#707070]">
+              {t("details.tittle8")}
+            </p>
           </Link>
         </section>
       </div>
