@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
-<<<<<<< HEAD
 import '../../assets/scss/SearchPatient.scss'
 import { AiOutlineSearch } from 'react-icons/ai'
 import { Link, useLocation } from "react-router-dom";
-=======
->>>>>>> 4def9ca960b43176619495ae399985b995a1d05b
 import PropagateLoader from "react-spinners/PropagateLoader";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
