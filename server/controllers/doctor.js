@@ -789,7 +789,7 @@ const end_medical_appointment = async (req, res, next) => {
           `<p><span class="text-red-500">En la programación de consulta médica: </span><span class="text-[#707070]"> Parece ser que este paciente <i class="font-semibold">ya tiene otra cita programada.</i></span></p>`
         );
       }
-      if (medical_appointment.Description.length < 20 && medical_appointment.Description.length > 150) {
+      if (medical_appointment.Description.length < 20 || medical_appointment.Description.length > 150) {
         errorMessages.push(
           `<p><span class="text-red-500">En la programación de consulta médica: </span><span class="text-[#707070]"> El motivo de la cita debe tener <i class="font-semibold">mínimo 20 y máximo 150 letras.</i></span></p>`
         );
