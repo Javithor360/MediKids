@@ -1,13 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../assets/scss/Inbox.scss'
 import { BsFillCalendarEventFill } from 'react-icons/bs'
 import PropagateLoader from "react-spinners/PropagateLoader";
+import { useDash } from '../context/DoctorContext';
 
 export const Inbox = () => {
+  const { GetAnnouncements, announcements } = useDash();
+  
   const [loadingScreen, setLoadingScreen] = useState(true);
-  setTimeout(() => {
-    setLoadingScreen(false);
-  }, 3000);
+
+  useEffect(() => {
+    GetAnnouncements(JSON.parse(localStorage.getItem("userSession")).id);
+    setTimeout(() => {
+      setLoadingScreen(false);
+    }, 3000);
+  })
+
+  useEffect(() => {
+    console.log(announcements)
+  }, [announcements])
   return (
     <>
     {

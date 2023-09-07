@@ -4,7 +4,6 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import PropagateLoader from "react-spinners/PropagateLoader";
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-
 import { Link } from "react-router-dom";
 import { useDash } from '../../context/DoctorContext';
 
@@ -215,9 +214,6 @@ export const MedicalRecords = () => {
                     <p className="text-[#707070]">Los resultados se mostrarán aqui</p>
                   </div>
           }
-
-
-
         </div>
       </>
     }

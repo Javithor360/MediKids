@@ -131,6 +131,14 @@ export const getPatients = async (PrivateConfig) => {
   );
 };
 
+export const getAnnouncements = async (Doctor_id, PrivateConfig) => {
+  return await axios.post(
+    `http://localhost:5005/api/doctor/get_announcements`,
+    { Doctor_id },
+    PrivateConfig
+  );
+};
+
 export const endMedicalAppointment = async (data, PrivateConfig) => {
   return await axios.post(
     `http://localhost:5005/api/doctor/end_medical_appointment`,
