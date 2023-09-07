@@ -55,6 +55,10 @@ export const DoctorProvider = ({ children }) => {
     },
   };
 
+  useEffect(() => {
+    console.log(nextAppointment)
+  }, [nextAppointment])
+
   const DoctorInfoQuery = async (Doctor_id) => {
     try {
       const query = await getDoctorInfo(Doctor_id, PrivateConfig);

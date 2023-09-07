@@ -118,10 +118,35 @@ const get_appointments = async (req, res, next) => {
       });
     }
 
-    const [appointments_info] = await pool.query(
+    let [appointments_info] = await pool.query(
       `SELECT * FROM medical_appointment WHERE Doctor_id = ?`,
       [Doctor_id]
     );
+
+    let expired_appointments = [];
+
+    appointments_info.forEach((obj) => {
+      if(obj.Date && obj.Hour) {
+        const givenDate = new Date(obj.Date);
+        const giveHour = obj.Hour.split(":");
+        const nDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate(), parseInt(giveHour[0]), parseInt(giveHour[1]), parseInt(giveHour[2]))
+        if ((obj.State === 2 || obj.State === 3) && (new Date - nDate >= 0 && new Date() - nDate <= 5 * 60 * 60 * 1000)) {
+          expired_appointments.push(obj);
+        }
+      }
+    });
+
+    if (expired_appointments.length > 0) {
+      expired_appointments.forEach(async (obj) => {
+        await pool.query("DELETE FROM medical_appointment WHERE id = ?", [
+          obj.id,
+        ]);
+      });
+      [appointments_info] = await pool.query(
+        `SELECT * FROM medical_appointment WHERE Doctor_id = ?`,
+        [Doctor_id]
+      );
+    }
 
     return res.status(200).json({ success: true, body: appointments_info });
   } catch (error) {
@@ -167,9 +192,16 @@ const get_patient_appointment_with_specific_doctor = async (req, res, next) => {
     }
 
     const [appointment_info] = await pool.query(
-      "SELECT * FROM medical_appointment WHERE Doctor_id = ? AND Patient_id = ?",
-      [Doctor_id, Patient_id]
+      "SELECT * FROM medical_appointment WHERE Doctor_id = ? AND Patient_id = ? AND State IN (?, ?)",
+      [Doctor_id, Patient_id, 2, 3]
     );
+
+    // let nearest_appointment = appointment_info.reduce((prev, act) => {
+    //   let difPrev = Math.abs(new Date() - new Date(prev.Date));
+    //   let difAct = Math.abs(new Date() - new Date(act.Date));
+
+    //   return difAct < difPrev ? act : prev;
+    // })
 
     return res.status(200).json({ success: true, body: appointment_info });
   } catch (error) {
@@ -583,7 +615,7 @@ const end_medical_appointment = async (req, res, next) => {
     } = req.body;
     let errorMessages = [];
 
-    console.log(Appointment_id)
+    console.log(Appointment_id);
 
     if (
       !Doctor_id ||
@@ -704,7 +736,9 @@ const end_medical_appointment = async (req, res, next) => {
             new Date(np.data.Starting_Dose_Date))
         ) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${i + 1}° medicamento'</i> no puede tener fechas de inicio y finalización de dosis menores a la fecha actual.</span></p>`
+            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> no puede tener fechas de inicio y finalización de dosis menores a la fecha actual.</span></p>`
           );
         }
 
@@ -713,7 +747,9 @@ const end_medical_appointment = async (req, res, next) => {
           new Date(np.data.Finishing_Dose_Date)
         ) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${i + 1}° medicamento'</i> no puede tener una fecha de inicio de dosis mayor a la fecha de finalización de dosis.</span></p>`
+            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> no puede tener una fecha de inicio de dosis mayor a la fecha de finalización de dosis.</span></p>`
           );
         }
 
@@ -723,31 +759,41 @@ const end_medical_appointment = async (req, res, next) => {
           )
         ) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> El nombre del <i class="font-semibold">'${i + 1}° medicamento'</i> no debe ser muy extenso y tampoco debe contener caracteres especiales</span></p>`
+            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> El nombre del <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> no debe ser muy extenso y tampoco debe contener caracteres especiales</span></p>`
           );
         }
 
         if (!/.{10,}/.test(np.data.Instructions)) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> Las instrucciones del <i class="font-semibold">'${i + 1}° medicamento'</i> deben ser detalladas</span></p>`
+            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> Las instrucciones del <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> deben ser detalladas</span></p>`
           );
         }
 
         if (!/.{10,}/.test(np.data.Description)) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> La descripción del <i class="font-semibold">'${i + 1}° medicamento'</i> debe estar más detallada</span></p>`
+            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> La descripción del <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> debe estar más detallada</span></p>`
           );
         }
 
         if (!/^.{10,45}$/.test(np.data.Dose)) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> La explicación de la dosis del <i class="font-semibold">'${i + 1}° medicamento'</i> debe ser breve pero concisa</span></p>`
+            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> La explicación de la dosis del <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> debe ser breve pero concisa</span></p>`
           );
         }
 
         if (np.data.Time_Dose > 9) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${i + 1}° medicamento'</i> no debe tener una cantidad de dosis por día tan elevada.</span></p>`
+            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> no debe tener una cantidad de dosis por día tan elevada.</span></p>`
           );
         }
       });
@@ -764,7 +810,9 @@ const end_medical_appointment = async (req, res, next) => {
           (new Date(ep.Finishing_Dose_Date) || new Date(ep.Starting_Dose_Date))
         ) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${i + 1}° medicamento'</i> no puede tener fechas de inicio y finalización de dosis menores a la fecha actual.</span></p>`
+            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> no puede tener fechas de inicio y finalización de dosis menores a la fecha actual.</span></p>`
           );
         }
 
@@ -772,7 +820,9 @@ const end_medical_appointment = async (req, res, next) => {
           new Date(ep.Starting_Dose_Date) > new Date(ep.Finishing_Dose_Date)
         ) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${i + 1}° medicamento'</i> no puede tener una fecha de inicio de dosis mayor a la fecha de finalización de dosis.</span></p>`
+            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> no puede tener una fecha de inicio de dosis mayor a la fecha de finalización de dosis.</span></p>`
           );
         }
 
@@ -782,31 +832,41 @@ const end_medical_appointment = async (req, res, next) => {
           )
         ) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> El nombre del <i class="font-semibold">'${i + 1}° medicamento'</i> no debe ser muy extenso y tampoco debe contener caracteres especiales</span></p>`
+            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> El nombre del <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> no debe ser muy extenso y tampoco debe contener caracteres especiales</span></p>`
           );
         }
 
         if (!/.{10,}/.test(ep.Instructions)) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> Las instrucciones del <i class="font-semibold">'${i + 1}° medicamento'</i> deben ser más especificas</span></p>`
+            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> Las instrucciones del <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> deben ser más especificas</span></p>`
           );
         }
 
         if (!/.{10,}/.test(ep.Description)) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> La descripción del <i class="font-semibold">'${i + 1}° medicamento'</i> debe estar más detallada</span></p>`
+            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> La descripción del <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> debe estar más detallada</span></p>`
           );
         }
 
         if (!/^.{10,45}$/.test(ep.Dose)) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> La explicación de la dosis del <i class="font-semibold">'${i + 1}° medicamento'</i> debe ser breve pero concisa</span></p>`
+            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> La explicación de la dosis del <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> debe ser breve pero concisa</span></p>`
           );
         }
 
         if (ep.Time_Dose > 9) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${i + 1}° medicamento'</i> no debe tener una cantidad de dosis por día tan elevada.</span></p>`
+            `<p><span class="text-red-500">En la edición de receta médica: </span><span class="text-[#707070]"> El <i class="font-semibold">'${
+              i + 1
+            }° medicamento'</i> no debe tener una cantidad de dosis por día tan elevada.</span></p>`
           );
         }
       });
@@ -827,7 +887,10 @@ const end_medical_appointment = async (req, res, next) => {
           `<p><span class="text-red-500">En la programación de consulta médica: </span><span class="text-[#707070]"> Parece ser que este paciente <i class="font-semibold">ya tiene otra cita programada.</i></span></p>`
         );
       }
-      if (medical_appointment.Description.length < 20 || medical_appointment.Description.length > 150) {
+      if (
+        medical_appointment.Description.length < 20 ||
+        medical_appointment.Description.length > 150
+      ) {
         errorMessages.push(
           `<p><span class="text-red-500">En la programación de consulta médica: </span><span class="text-[#707070]"> El motivo de la cita debe tener <i class="font-semibold">mínimo 20 y máximo 150 letras.</i></span></p>`
         );
@@ -843,16 +906,15 @@ const end_medical_appointment = async (req, res, next) => {
       }
     }
 
-
     //? ERROR HANDLER VALIDATOR
     if (errorMessages.length > 0) {
       return next(new ErrorResponse(errorMessages, 400, "error"));
     } else {
       let Prescriptions_Names_Add = [];
       let Prescriptions_Names_Obj = {};
-      
+
       //* NEW MEDICAL PRESCRIPTION FINAL QUERY *//
-      if(toggles.addPrescriptions) {
+      if (toggles.addPrescriptions) {
         medical_prescription.new_prescriptions.map(async (np) => {
           const patient_code = patientCode();
           Prescriptions_Names_Add.push(np.data.Medicine_Name);
@@ -894,9 +956,8 @@ const end_medical_appointment = async (req, res, next) => {
         Prescriptions_Names: Prescriptions_Names_Final,
       });
 
-
       //* EDIT MEDICAL PRESCRIPTION FINAL QUERY *//
-      if(toggles.editPrescriptions) {
+      if (toggles.editPrescriptions) {
         medical_prescription.edited_prescriptions.map(async (ep) => {
           await pool.query(
             `UPDATE medical_prescription SET Medicine_Name = ?, Instructions = ?, Description = ?, Starting_Dose_Date = ?, Finishing_Dose_Date = ?, Dose = ?, Time_Dose = ? WHERE Medical_Prescription_Code = ?`,
@@ -915,7 +976,7 @@ const end_medical_appointment = async (req, res, next) => {
       }
 
       //* SCHEDULE APPOINTMENT FINAL QUERY *//
-      if(toggles.scheduleAppointment) {
+      if (toggles.scheduleAppointment) {
         await pool.query("INSERT INTO medical_appointment SET ?", {
           Doctor_id,
           Responsible_id,
@@ -944,12 +1005,10 @@ const end_medical_appointment = async (req, res, next) => {
       });
     }
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: `Medical appointment ${Appointment_id} has been closed successfully.`,
-      });
+    return res.status(200).json({
+      success: true,
+      message: `Medical appointment ${Appointment_id} has been closed successfully.`,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: error.message });
