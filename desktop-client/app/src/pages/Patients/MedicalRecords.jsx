@@ -1,14 +1,28 @@
-import { useState } from 'react'
-import '../../assets/scss/SearchPatient.scss'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react'
 import PropagateLoader from "react-spinners/PropagateLoader";
 
+import '../../assets/scss/SearchPatient.scss'
+import { AiOutlineSearch } from 'react-icons/ai'
+
+import { Link } from "react-router-dom";
+import { useDash } from '../../context/DoctorContext';
+
 export const MedicalRecords = () => {
+
+  const { GetAllPatients, patients } = useDash();
+  
   const [loadingScreen, setLoadingScreen] = useState(true);
-  setTimeout(() => {
-    setLoadingScreen(false);
-  }, 3000);
+  
+  useEffect(() => {
+    GetAllPatients();
+    setTimeout(() => {
+      setLoadingScreen(false);
+    }, 3000);
+  }, [])
+
+  useEffect(() => {
+    console.log(patients)
+  }, [patients])
   return (
     <>
     {
@@ -27,15 +41,15 @@ export const MedicalRecords = () => {
             Buscar paciente
           </h1>
         </div>
-        <div className="search-box-container shadow-md">
+        <div className="shadow-md search-box-container">
           <button className="search-icon-cnt">
             <AiOutlineSearch className="text-[#707070] text-[2rem]"/>
           </button>
           <input type="text" className="input-search" placeholder="Ingrese el nombre del paciente o el código"/>
         </div>
 
-        <div className="results-box-container shadow-md">
-          {/* <div className="patient-card shadow-md">
+        <div className="shadow-md results-box-container">
+          {/* <div className="shadow-md patient-card">
             <div className="content-container">
               <div className="profile-photo-cnt">
                 <div class="avatar w-[70%]">

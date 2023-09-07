@@ -123,6 +123,14 @@ export const getDoctors = async (PrivateConfig) => {
   );
 };
 
+export const getPatients = async (PrivateConfig) => {
+  return await axios.post(
+    `http://localhost:5005/api/doctor/get_patients`,
+    {},
+    PrivateConfig
+  );
+};
+
 export const endMedicalAppointment = async (data, PrivateConfig) => {
   return await axios.post(
     `http://localhost:5005/api/doctor/end_medical_appointment`,
@@ -130,3 +138,4 @@ export const endMedicalAppointment = async (data, PrivateConfig) => {
     PrivateConfig
   );
 };
+

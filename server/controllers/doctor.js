@@ -512,6 +512,21 @@ const get_doctors = async (req, res, next) => {
   }
 };
 
+// ! @route POST api/doctor/get_patients
+// ! @desc Gets all patients
+// ! @access private
+
+const get_patients = async (req, res, next) => {
+  try {
+    const [patients] = await pool.query("SELECT * FROM patient");
+
+    return res.status(200).json({ success: true, body: patients });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error });
+  }
+};
+
 // ! @route POST api/doctor/end_medical_appointment
 // ! @desc Handles all the data put during the appointment process
 // ! @access private
@@ -529,6 +544,8 @@ const end_medical_appointment = async (req, res, next) => {
       toggles,
     } = req.body;
     let errorMessages = [];
+
+    console.log(Appointment_id)
 
     if (
       !Doctor_id ||
@@ -566,6 +583,7 @@ const end_medical_appointment = async (req, res, next) => {
       return res.status(400).json({
         success: false,
         message: "Provided patient does not exist",
+        error: "Tal parece que el paciente de esta cita no existe",
       });
     }
 
@@ -578,6 +596,7 @@ const end_medical_appointment = async (req, res, next) => {
       return res.status(400).json({
         success: false,
         message: "Provided doctor does not exist",
+        error: "Tal parece que el doctor encargado de esta cita no existe",
       });
     }
 
@@ -590,6 +609,7 @@ const end_medical_appointment = async (req, res, next) => {
       return res.status(400).json({
         success: false,
         message: "Provided responsible does not exist",
+        error: "Tal parece que el adulto responsable del paciente no existe",
       });
     }
 
@@ -602,6 +622,7 @@ const end_medical_appointment = async (req, res, next) => {
       return res.status(400).json({
         success: false,
         message: "Provided appointment does not exist",
+        error: "Tal parece que la cita actual no existe",
       });
     }
 
@@ -670,10 +691,7 @@ const end_medical_appointment = async (req, res, next) => {
 
         if (!/.{10,}/.test(np.data.Instructions)) {
           errorMessages.push(
-            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> El nombre del <i class="font-semibold">'${i + 1}° medicamento'</i> no debe ser muy extenso y tampoco debe contener caracteres especiales</span></p>`
-            `En la asignación de nueva receta médica: Las instrucciones del ${
-              i + 1
-            }° deben ser más especificas`
+            `<p><span class="text-red-500">En la asignación de nueva receta médica: </span><span class="text-[#707070]"> Las instrucciones del <i class="font-semibold">'${i + 1}° medicamento'</i> deben ser detalladas</span></p>`
           );
         }
 
@@ -896,7 +914,7 @@ const end_medical_appointment = async (req, res, next) => {
       });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error });
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -915,5 +933,6 @@ export {
   decline_appointment_request,
   get_appointments_history,
   get_doctors,
+  get_patients,
   end_medical_appointment,
 };
