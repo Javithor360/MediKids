@@ -12,23 +12,28 @@ import { ChangeSBColor } from '../../store/slices/starterSlice';
 
 export const SplashScreen = () => {
   const State = useSelector(state => state.starter.State);
+  const Responsible = useSelector(state => state.responsible);
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
 
   //>> Navigation to the corresponding component.
   useEffect(() => {
-    if(State !== null) {
+    if(State !== null && Responsible !== null) {
       setTimeout(() => {
-        if(State) {
-          navigation.replace('SelectPatientScreen');
-        } else {
+        if (!State) {
           navigation.navigate('WelcomeScreen');
+        } else if (Responsible.Email_Verify_code != null) {
+          navigation.replace('SplashVerifyCode', {goDash: true, goSP: Responsible.ProfilePhotoUrl == 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216' ? true : false});
+        } else if (Responsible.ProfilePhotoUrl == 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216') {
+          navigation.replace('SplashSelectProfilePhoto', {haveButton: false, goDash: true});
+        } else if(State) {
+          navigation.replace('SelectPatientScreen');
         }
         dispatch(ChangeSBColor('#e4e2ff'))
       }, 4000);
     }
-  }, [State]);
+  }, [State, Responsible]);
 
   return (
     <View style={styles.root}>

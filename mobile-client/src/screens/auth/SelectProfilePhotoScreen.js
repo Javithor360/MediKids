@@ -39,6 +39,9 @@ export const SelectProfilePhotoScreen = () => {
     //! States for set if we have the button
     const [HaveBtn, setHaveBtn] = useState(true);
 
+    //! State to redirect to the dashboard
+    const [GoDash, setGoDash] = useState(false);
+
     //! State For disable the button
     const [DisableButton, setDisableButton] = useState(false);
 
@@ -86,7 +89,9 @@ export const SelectProfilePhotoScreen = () => {
                     setIsLoading(false);
                     setSuccess(true);
                     setTimeout(() => {
-                        if(HaveBtn){
+                        if (GoDash) {
+                            navigation.replace('SelectPatientScreen');
+                        } else if(HaveBtn){
                             navigation.goBack();
                         } else {
                             navigation.navigate('RegisterPatientScreen');
@@ -115,6 +120,7 @@ export const SelectProfilePhotoScreen = () => {
     useEffect(() => {
         if (route.params != undefined) {
             setHaveBtn(route.params.haveButton);
+            setGoDash(route.params.goDash);
             if(HaveBtn != undefined){
                 BackHandler.addEventListener('hardwareBackPress', () => {
                     return true;

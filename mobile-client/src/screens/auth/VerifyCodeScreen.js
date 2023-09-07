@@ -12,7 +12,8 @@ import { CustomButton, SetLabel, ShowToast, verifyCodeResponsible } from '../../
 import InputCodeField from '../../components/InputCodeField';
 
 
-export const VerifyCodeScreen = () => {
+export const VerifyCodeScreen = ({ route }) => {
+    const { goDash, goSP } = route.params;
     const { t } = useTranslation();
     const navigation = useNavigation();
     const lng = useSelector(state => state.starter.Language);
@@ -50,7 +51,13 @@ export const VerifyCodeScreen = () => {
                 setIsLoading(false);
                 setSuccess(true);
                     setTimeout(() => {
-                        navigation.navigate('LoginScreen', {swipeBack: false});
+                        if (goSP) {
+                            navigation.replace('SelectProfilePhotoScreen', {haveButton: false, goDash: true});
+                        } else if (goDash) {
+                            navigation.replace('SelectPatientScreen');
+                        } else {
+                            navigation.navigate('LoginScreen', {swipeBack: false});
+                        }
                     }, 3000);
                 }, 4000);
             }

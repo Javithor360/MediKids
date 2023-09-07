@@ -47,10 +47,11 @@
     height: 12rem;
     width: 35rem;
     background-color: #f7f7f7;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     border: 1px solid #bbbbbb;
     border-radius: 20px;
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -109,15 +110,17 @@
     flex-direction: column;
     justify-content: center;
     padding-left: 1rem;
+    padding-right: 1rem;
     border-right: 1px solid #bbbbbb;
 }
 .patient-info-row-col-2 {
-    width: 30%;
+    width: 25%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 1rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 .actions-container {
     height: 30%;

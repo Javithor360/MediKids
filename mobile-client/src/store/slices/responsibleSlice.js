@@ -12,6 +12,7 @@ const initialState = {
   Profile_Photo_Name: null,
   Birthdate: null,
   jwtToken: null,
+  Email_Verify_code: null,
 }
 
 //! Configure actions of the Slice.
@@ -20,7 +21,7 @@ const responsibleSlice = createSlice({
   initialState,
   reducers: {
     setLogginValues: (state, action) => {
-      const {FirstNames, LastNames, Email, Phone, DUI, Age, ProfilePhotoUrl, Birthdate, jwtToken } = action.payload;
+      const {FirstNames, LastNames, Email, Phone, DUI, Age, ProfilePhotoUrl, Birthdate, jwtToken, Email_Verify_code } = action.payload;
       state.FirstNames = FirstNames; 
       state.LastNames = LastNames;
       state.Email = Email;
@@ -30,6 +31,7 @@ const responsibleSlice = createSlice({
       state.ProfilePhotoUrl = ProfilePhotoUrl;
       state.Birthdate = Birthdate;
       state.jwtToken = jwtToken;
+      state.Email_Verify_code = Email_Verify_code;
     },
     changePerfilPhoto: (state, action) => {
       const {ProfilePhotoUrl, Profile_Photo_Name} = action.payload;
