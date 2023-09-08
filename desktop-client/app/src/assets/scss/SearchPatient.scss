@@ -8,6 +8,7 @@
     overflow: hidden;
     transition: all .3s;
     border: 2px solid transparent;
+    margin: auto
 }
 .search-box-container:hover {
     border: 2px solid #bbbbbb;
@@ -34,7 +35,7 @@
     background: transparent;
 }
 .results-box-container {
-    margin-top: 2rem;
+    margin: 2rem auto 0 auto;
     height: 60%;
     width: 80%;
     // background: rgb(236, 236, 236);

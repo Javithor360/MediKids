@@ -9,7 +9,7 @@ import {
 import medicalHistory from "../../assets/icons/overview_FILL0_wght400_GRAD0_opsz48.svg";
 import profileAvatar from "../../assets/template/walt_jr.png";
 import Modal from "../../components/Modal";
-
+import { AiOutlineWarning } from "react-icons/ai"
 import { ViewMedicalRecords } from "./PatientsComponents/index.jsx";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
@@ -268,9 +268,20 @@ export const PatientsDetails = () => {
           onRequestClose={toggleError}
           state={patient}
         >
-          <div>
-            Parece que no puedes atender esta consulta aún, por favor espera a
-            la fecha y hora indicada.
+          <div className="h-[100%] w-[38rem] p-[3rem]">
+            <div className="border-b border-b-[#c6c6c6] mb-[1rem]">
+              <p className="text-[1.6rem] text-red-400 font-semibold flex flex-row gap-2 items-center">
+                <AiOutlineWarning className='text-red-400' /> Advertencia
+              </p>
+            </div>
+            <div className="w-[100%] h-[100%] mx-auto rounded-sm flex bg-[#ffe9d9]">
+              <div className="w-[2%] bg-red-400"> </div>
+              <div className="w-[98%] h-full p-[1rem]">
+                <p className="text-[#707070]">
+                  Parece que no puedes atender esta consulta aún, por favor espera la fecha y hora indicada.
+                </p>
+              </div>
+            </div>
           </div>
         </Modal>
       )}
