@@ -352,7 +352,7 @@ const get_notifications = async (req, res, next) => {
     //\\ CREATE 3 AND 4 NOTIFICATION TYPE.
     const [appmts] = await pool.query('SELECT * FROM medical_appointment WHERE patient_id = ?', [Patient_id])
     appmts.map(async (appmt_el, i) => {
-      if (appmt_el.State == 2 || appmt_el.State == 3) {
+      if ( appmt_el.State == 2 || appmt_el.State == 3 ) {
         let HoursSQL = appmt_el.Hour.split(':');
         let appointment_hour = new Date(appmt_el.Date);
 
@@ -366,13 +366,13 @@ const get_notifications = async (req, res, next) => {
         const ExistType3 = validating_notis.filter(el => el.Type == 3);
         const ExistType4 = validating_notis.filter(el => el.Type == 4);
 
-
         //? TYPE 3;
         //>> FIRST CASE
         if (ExistDeletedType3.length != 0) {
           let createNoti3 = false;
+          const notExist = ExistType3.filter(el => {return el.Element_id == appmt_el.id && el.Type == 3});
           ExistDeletedType3.map(async (d_3) => {
-            if (d_3.Element_id != appmt_el.id) {
+            if (d_3.Element_id != appmt_el.id && notExist.length == 0) {
               if (!createNoti3) {
 
                 if(differenceInMinutes(appointment_hour, new Date()) <= 90 && differenceInMinutes(appointment_hour, new Date()) >= 0){
@@ -387,8 +387,9 @@ const get_notifications = async (req, res, next) => {
         //>> SECOND CASE
         else if (ExistType3.length != 0) {
           let createNoti3 = false;
+          const notExist = ExistType3.filter(el => {return el.Element_id == appmt_el.id && el.Type == 3});
           ExistType3.map(async (e_3) => {
-            if ( e_3.Element_id != appmt_el.id) {
+            if ( e_3.Element_id != appmt_el.id && notExist.length == 0 ) {
               if (!createNoti3){
 
                 if(differenceInMinutes(appointment_hour, new Date()) <= 90 && differenceInMinutes(appointment_hour, new Date()) >= 0){
@@ -413,8 +414,9 @@ const get_notifications = async (req, res, next) => {
         //>> FIRST CASE
         if (ExistDeletedType4.length != 0) {
           let createNoti4 = false;
+          const notExist = ExistType4.filter(el => {return el.Element_id == appmt_el.id && el.Type == 4});
           ExistDeletedType4.map(async (d_4) => {
-            if (d_4.Element_id != appmt_el.id) {
+            if (d_4.Element_id != appmt_el.id && notExist.length == 0) {
               if (!createNoti4) {
 
                 if(differenceInMinutes(appointment_hour, new Date()) <= 0){
@@ -429,8 +431,9 @@ const get_notifications = async (req, res, next) => {
         //>> SECOND CASE
         else if (ExistType4.length != 0) {
           let createNoti4 = false;
+          const notExist = ExistType4.filter(el => {return el.Element_id == appmt_el.id && el.Type == 4});
           ExistType4.map(async (e_4) => {
-            if ( e_4.Element_id != appmt_el.id) {
+            if ( e_4.Element_id != appmt_el.id && notExist.length == 0 ) {
               if (!createNoti4){
 
                 if(differenceInMinutes(appointment_hour, new Date()) <= 0){
