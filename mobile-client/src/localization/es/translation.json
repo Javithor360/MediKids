@@ -394,10 +394,11 @@
         
     },
     "programmed":{
-        "text1":"Scheduled Appointment",
+        "text1":"Agendar Citas",
         "text2":"Tiene una cita Programada",
         "text3":"Fecha",
         "text4":"Hora",
         "text5":"Médico"
     }
+   
 }
