@@ -18,7 +18,7 @@ export const Inbox = () => {
 
   const AnnouncCard = ({values}) => {
     return (
-      <div className='message-card shadow-md'>
+      <div className='message-card shadow-md mx-auto'>
         <div className='heading shadow-sm'>
           <div className='avatar-container'>
             <div class="avatar __avatar">
@@ -59,8 +59,9 @@ export const Inbox = () => {
               return <AnnouncCard key={i} values={el} />
             })
             :
-            <div>
-              NO TIENE MENSAJES
+            <div className='w-[100%] h-[90%] flex flex-col gap-4 justify-center items-center'>
+              <img src={require("../assets/icons/no_messages.png")} className="w-[20%] h-auto" alt="" />
+              <p className="text-[#707070] font-semibold  text-[1.6rem]">No tiene mensajes</p>
             </div>
         }
       </>

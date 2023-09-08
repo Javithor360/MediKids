@@ -75,8 +75,8 @@ export const MainAgenda = () => {
           />
         </div>
         :
-        <div className='main-container'>
-          <div className='content-container'>
+        <div className='calendar-main-container'>
+          <div className='calendar-container'>
             <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
               headerToolbar={{
@@ -87,7 +87,7 @@ export const MainAgenda = () => {
               initialView='dayGridMonth'
               initialDate={currentMonth} 
               datesSet={(info) => {
-                setCurrentMonth(info.view.currentStart); // Actualiza el estado cuando cambie el mes
+                setCurrentMonth(info.view.currentStart);
               }}
               editable={false}
               selectable={false}
