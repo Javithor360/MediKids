@@ -9,12 +9,14 @@ import {
   AiOutlineInbox,
   AiOutlineClockCircle,
   AiOutlineSetting,
+  AiOutlineWarning,
+  AiFillSetting
 } from "react-icons/ai";
 import { BsPersonCheck } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoPeopleOutline } from "react-icons/io5";
-import { MdOutlineAssignmentInd, MdOutlinePersonSearch } from "react-icons/md";
+import { MdLanguage, MdOutlinePersonSearch } from "react-icons/md";
 import Modal from "../components/Modal"
 
 import { useDash } from "../context/DoctorContext";
@@ -50,20 +52,20 @@ export const Sidebar = () => {
          className="h-9 w-10 bg-red-500"
         >
         <div  className="min-w-[40rem] max-w-[45rem] min-h-[10rem] m-5 rounded-lg ">
-          <h3 className="flex items-center justify-center">Configuración</h3>
-          <div className="inline-flex items-center gap-3 mt-5 ml-40 ">
-          <p className="text-xl ">Foto de perfil</p> 
-          <button class="btn ml-20">Cambiar</button>
-          </div>
-          <div className="mt-5 ml-40 inline-flex items-center gap-3">
-          <p className="text-xl">Idioma del sistema</p> 
-          <LanguageSwitcher />
           
-
+          {/* <div className="inline-flex items-center gap-3 mt-5 ml-40 ">
+            <p className="text-xl ">Foto de perfil</p> 
+            <button class="btn ml-20">Cambiar</button>
+          </div> */}
+          <div className="border-b border-b-[#c6c6c6] mb-[1rem]">
+            <p className="text-[1.6rem] text-[#707070] font-semibold flex flex-row gap-2 items-center">
+              <AiFillSetting className='text-[#A375FF]' /> {t("settings.tittle")}
+            </p>
           </div>
-          
-       
-
+          <div className="mt-5 w-full mx-auto inline-flex justify-center items-center gap-3">
+            <div className="text-xl flex flex-row items-center justify-center gap-2"><MdLanguage className="#A375FF"/> {t("settings.tittle2")}</div> 
+            <LanguageSwitcher />
+          </div>
         </div>
         </Modal>
       )}
@@ -201,8 +203,7 @@ export const Sidebar = () => {
           <div className="h-[1px] my-[.5rem] w-[90%] mx-auto bg-[#e6e6e6] "></div>
           <ul className="relative m-0 list-none px-[0.2rem] align-bottom">
             <li className="relative"
-            onClick={()=> {toggle();}}
-
+              onClick={()=> {toggle();}}
             >
               <span className="flex items-center h-12 truncate cursor-pointer rounded-[5px] px-6 py-4 text-base text-gray-600 transition duration-300 ease-linear hover:bg-[#a375ff83] focus:bg-[#A375FF] focus:text-white">
                 <AiOutlineSetting className="w-6 h-6" />

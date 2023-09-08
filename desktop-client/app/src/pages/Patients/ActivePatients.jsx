@@ -94,7 +94,7 @@ export const ActivePatients = (props) => {
         //   <img className="w-[10rem]" src={require('../../assets/icons/no_appmt.png')} alt="" />
         //   <h3 className="text-[#707070]">No tienes ningún paciente con cita pendiente</h3>
         // </div>
-        <div className="h-[15rem] w-[100%] flex flex-col gap-5 justify-center">
+        <div className="h-[15rem] w-[100%] flex flex-col gap-5 justify-center items-center">
           <div className="w-fit h-full flex-col gap-5">
             <img className="w-[10rem] mx-auto block mb-5" src={require('../../assets/icons/no_appmt.png')} alt="" />
             <h3 className="text-[#707070]">{t("pacients.tittle2")}</h3>
@@ -104,7 +104,7 @@ export const ActivePatients = (props) => {
 
       <div className="w-fit border-b-[0.1875rem] border-b-[#a375ff] mt-12 mb-12">
         <h1 className="text-[#a375ff] font-bold text-3xl">
-        {t("pacients.tittle4")}
+        {t("pacients.tittle3")}
         </h1>
       </div>
 
@@ -155,7 +155,7 @@ export const ActivePatients = (props) => {
           </table>
         </div>
       ) : (
-        <div className="h-[15rem] w-[100%] flex flex-col gap-5 justify-center">
+        <div className="h-[15rem] w-[100%] flex flex-col gap-5 justify-center items-center">
           <div className="w-fit h-full flex-col gap-5">
             <img className="w-[10rem] mx-auto block mb-5" src={require('../../assets/icons/no_prev.png')} alt="" />
             <h3 className="text-[#707070]">{t("pacients.tittle4")}</h3>

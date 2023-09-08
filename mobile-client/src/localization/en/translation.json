@@ -33,13 +33,13 @@
         "oct":"October",
         "november":"November",
         "december":"December",
-        "dom":"Sunday",
-        "lun":"Monday",
-        "mar":"Tuesday",
-        "mie":"Wednesday",
-        "jue":"Thursday",
-        "vie":"Friday",
-        "sab":"Saturday",
+        "dom":"Sun.",
+        "lun":"Mon.",
+        "mar":"Tue.",
+        "mie":"Wed.",
+        "jue":"Thu.",
+        "vie":"Fri.",
+        "sab":"Sat.",
         "title":"Calendar and reminders"
     },
     "AppointmentMainScreen":{
@@ -90,7 +90,7 @@
         "temp":"Temperature",
         "close":"Close",
         "MoreDetails":"More details",
-        "historyAttended":"History of Attended Appointments",
+        "historyAttended":"History of Attended Appmts.",
         "title":"Dating History",
         "oto":"Otorhinolaryngology",
         "neu":"Pneumology",
@@ -403,6 +403,13 @@
         "text3":"Date",
         "text4":"Time",
         "text5":"Doctor"
+    },
+    "tabNav": {
+        "inicio": "Home",
+        "Calendario": "Calendar",
+        "Citas": "Appmts",
+        "Medicinas": "Medicines",
+        "Mi_Cuenta": "My Account"
     }
  
 }
