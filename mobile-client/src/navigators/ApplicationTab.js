@@ -12,15 +12,7 @@ import { CalendarStack } from '../navigators/Dashboard/CalendarStack';
 import { AppointmentStack } from '../navigators/Dashboard/AppointmentStack';
 import { MyAccountStack } from './Dashboard/MyAccountStack';
 import { MedicinasStack } from './Dashboard/MedicinasStack';
-
-//>>Tab items props array
-const TabProps = [
-  {route: 'HomeStack', label: 'Inicio', iconName: 'home-variant', component: HomeStack, color: 'red'},
-  {route: 'Calendar', label: 'Calendario', iconName: 'calendar-clock', component: CalendarStack, color: 'red'},
-  {route: 'Appointment', label: 'Citas', iconName: 'clipboard-text', component: AppointmentStack, color: 'red'},
-  {route: 'Medicinas', label: 'Medicinas', iconName: 'pill', component: MedicinasStack, color: 'red'},
-  {route: 'MyAccount', label: 'Mi cuenta', iconName: 'account-circle', component: MyAccountStack, color: 'red'},
-]
+import { useTranslation } from 'react-i18next';
 
 const Tab = createTabNav();
 
@@ -121,6 +113,16 @@ const TabButton = (props) => {
 }
 
 export const ApplicationTab = () => {
+  const { t } = useTranslation();
+  //>>Tab items props array
+  const TabProps = [
+    {route: 'HomeStack', label: `${t('tabNav.inicio')}`, iconName: 'home-variant', component: HomeStack, color: 'red'},
+    {route: 'Calendar', label: `${t('tabNav.Calendario')}`, iconName: 'calendar-clock', component: CalendarStack, color: 'red'},
+    {route: 'Appointment', label: `${t('tabNav.Citas')}`, iconName: 'clipboard-text', component: AppointmentStack, color: 'red'},
+    {route: 'Medicinas', label: `${t('tabNav.Medicinas')}`, iconName: 'pill', component: MedicinasStack, color: 'red'},
+    {route: 'MyAccount', label: `${t('tabNav.Mi_Cuenta')}`, iconName: 'account-circle', component: MyAccountStack, color: 'red'},
+  ]
+
   return (
     <Tab.Navigator
       initialRouteName="HomeStack"
