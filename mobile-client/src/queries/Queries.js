@@ -1,8 +1,7 @@
 import axios from "axios";
-import ip from "../ip";
 
 //! host Direction of the server.
-const host = ip();
+const host = 'https://medikids-server.uc.r.appspot.com';
 
 //\\ const of headers
 const headers_public = { headers: {'Content-Type': 'application/json'} }
