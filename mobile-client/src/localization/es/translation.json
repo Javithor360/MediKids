@@ -394,7 +394,7 @@
         
     },
     "programmed":{
-        "text1":"Scheduled Appointment",
+        "text1":"Agendar Citas",
         "text2":"Tiene una cita Programada",
         "text3":"Fecha",
         "text4":"Hora",
@@ -407,4 +407,5 @@
         "Medicinas": "Medicinas",
         "Mi_Cuenta": "Mi Cuenta"
     }
+   
 }
