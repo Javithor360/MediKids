@@ -69,9 +69,9 @@ export const DownloadApp = () => {
                             </Link>
                         </div>
                         <div className='w-1/2 h-full'>
-                            <img src={AppImages("./icons/qr-download.png")} alt="" className='w-[15rem] block mx-auto'/>
-                            <Link className='flex justify-center items-center gap-3 h-[3rem] w-[10rem] bg-white __button-shadow rounded-md mx-auto mt-4' to="/">
-                                <AiFillApple className='text-[2.5rem]'/> <span>iOS</span>
+                            <img src={AppImages("./icons/qr-download.png")} alt="" className='w-[15rem] block mx-auto blur-sm'/>
+                            <Link className='flex justify-center items-center gap-3 h-[3rem] w-fit px-2 bg-white __button-shadow rounded-md mx-auto mt-4' to="/">
+                                <AiFillApple className='text-[2.5rem]'/> <span>iOS (Deshabilitado)</span>
                             </Link>
                         </div>
                     </div>
