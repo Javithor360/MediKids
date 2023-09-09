@@ -63,13 +63,13 @@ export const DownloadApp = () => {
                     </p>
                     <div className='w-[100%]  h-[20rem] flex mt-6'>
                         <div className='w-1/2 h-full '>
-                            <img src={AppImages("./icons/qr-download.png")} alt="" className='w-[15rem] block mx-auto'/>
+                            <img src={AppImages("./icons/qr-download-an.jpg")} alt="" className='w-[15rem] block mx-auto'/>
                             <Link className='flex justify-center items-center gap-3 h-[3rem] w-[10rem] bg-white __button-shadow mx-auto mt-4' to="/">
                                 <MdAndroid className='text-[2.5rem]'/> <span>Android*</span>
                             </Link>
                         </div>
                         <div className='w-1/2 h-full'>
-                            <img src={AppImages("./icons/qr-download.png")} alt="" className='w-[15rem] block mx-auto blur-sm'/>
+                            <img src={AppImages("./icons/qr-download-ios.png")} alt="" className='w-[15rem] block mx-auto blur-sm'/>
                             <Link className='flex justify-center items-center gap-3 h-[3rem] w-fit px-2 bg-white __button-shadow rounded-md mx-auto mt-4' to="/">
                                 <AiFillApple className='text-[2.5rem]'/> <span>iOS (Deshabilitado)</span>
                             </Link>

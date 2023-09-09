@@ -80,7 +80,10 @@ export const SelectProfilePhotoScreen = () => {
             const {data} = await uploadPFResponsible(FileName, responsible.Email);
             
             if(data.success){
-                dispatch(changePerfilPhoto(data.url));
+                dispatch(changePerfilPhoto({
+                    ProfilePhotoUrl: data.url,
+                    Profile_Photo_Name: FileName,
+                }));
                 ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Foto subida correctamente' : 'Photo uploaded Correctly.');
                 setTimeout(() => {
                     setIsLoading(false);
