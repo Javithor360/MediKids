@@ -4,6 +4,7 @@ import inquirer from 'inquirer';
 import clear from 'clear';
 import { createSpinner } from 'nanospinner';
 import { createPool } from 'mysql2/promise';
+import datePicker from 'inquirer-datepicker-prompt';
 
 //>> DABASE CONNECT
 const pool = createPool({
@@ -112,6 +113,7 @@ switch (index.Empezar) {
         choices: [
           'Enviar Mensaje a un doctor.',
           'Registrar nuevo DUI.',
+          'Modificar Fehca y Hora de una Cita',
           'Cerrar Sesión.',
         ]
       })
@@ -288,6 +290,74 @@ switch (index.Empezar) {
             await sleep(2000);
             ClearSpace();
             closeMenu = true;
+            break;
+
+
+          case 'Modificar Fehca y Hora de una Cita':
+            let idApp, AppDatTime;
+            let bApp = true;
+            let bApp2 = true;
+            do {
+              clear();
+              console.log(' + Modificar Fehca y Hora de una Cita ');
+              console.log(' - Ingrese "cancelar" para salir. ');
+              console.log('');
+
+              //! GET THE ID NUMBER
+              const appmtId = await inquirer.prompt({
+                name: 'id',
+                type: 'input',
+                message: 'Ingrese el Numero de ID de la cita:'
+              })
+
+              idApp = appmtId.id;
+              if (idApp != 'cancelar' && idApp != 'Cancelar') {
+                const spinnerID = createSpinner('Validando Id...').start();
+                const [idMatch] = await pool.query('SELECT * FROM medical_appointment WHERE id = ?', [idApp])
+                await sleep(4500);
+
+                if (!idMatch.length != 0){
+                  spinnerID.error({text: ' ID INVALIDA'});
+                  await sleep(2000);
+                  ClearSpace();
+                } else {
+                  spinnerID.success({text: ' ID Verificado...'});
+                  await sleep(2000);
+                  ClearSpace();
+
+                  //! GET THE DUI NUMBER
+                  ClearSpace();
+                  inquirer.registerPrompt('datePicker',datePicker);
+                  const dateQ = [
+                    {
+                      type: 'datePicker',
+                      name: 'fechaHora',
+                      message: 'Seleccione la fecha y la hora nueva de la cita:'
+                    }
+                  ]
+
+                  const dateAws = await inquirer.prompt(dateQ);
+                  const spinnerSaveApp = createSpinner('Guardando Información...').start();
+                  await sleep(4500);
+
+                  //! GET THE TIME
+                  const fecha = new Date(dateAws.fechaHora);
+                  const hours = new Date(dateAws.fechaHora).getHours();
+                  const minutes = new Date(dateAws.fechaHora).getMinutes();
+                  const seconds = new Date(dateAws.fechaHora).getSeconds();
+                  const formattedHour = `${hours}:${minutes}:${seconds}`;
+
+
+                  //! SAVE THE INFO IN THE DB
+                  await pool.query('UPDATE medical_appointment SET Date = ?, Hour = ? WHERE id = ?',[fecha, formattedHour, idApp]);
+
+                  spinnerSaveApp.success({text: ' ¡Información Guardada Correctamente!'});
+                  await sleep(2000);
+                  ClearSpace();
+                  bApp = false;
+                }
+              }
+            } while (bApp);
             break;
       }
       //>> -------------------------------- END SWITCH
