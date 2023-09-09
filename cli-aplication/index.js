@@ -113,7 +113,7 @@ switch (index.Empezar) {
         choices: [
           'Enviar Mensaje a un doctor.',
           'Registrar nuevo DUI.',
-          'Modificar Fehca y Hora de una Cita',
+          'Modificar Fecha y Hora de una Cita',
           'Cerrar Sesión.',
         ]
       })
