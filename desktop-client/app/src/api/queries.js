@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const host = 'http://localhost:5005';
-const host = 'https://medikids-server.uc.r.appspot.com'
+const host = 'http://localhost:5005';
+// const host = 'https://medikids-server.uc.r.appspot.com'
 
 export const login = async (User, Password, PrivateConfig) => {
   return await axios.post(
