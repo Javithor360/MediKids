@@ -881,11 +881,12 @@ const end_medical_appointment = async (req, res, next) => {
         [Patient_id, Doctor_id, Responsible_id, 0, 1, 2]
       );
 
-      // if (scheduleAppointment_check.length > 0) {
-      //   errorMessages.push(
-      //     `<p><span class="text-red-500">En la programación de consulta médica: </span><span class="text-[#707070]"> Parece ser que este paciente <i class="font-semibold">ya tiene otra cita programada.</i></span></p>`
-      //   );
-      // }
+      if (scheduleAppointment_check.length > 0) {
+        errorMessages.push(
+          `<p><span class="text-red-500">En la programación de consulta médica: </span><span class="text-[#707070]"> Parece ser que este paciente <i class="font-semibold">ya tiene otra cita programada.</i></span></p>`
+        );
+      }
+      
       if (
         medical_appointment.Description.length < 20 ||
         medical_appointment.Description.length > 150

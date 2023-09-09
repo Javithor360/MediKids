@@ -117,7 +117,7 @@ export const MedicalAppoinment = () => {
           toggle();
           setChargin2(true);
           setTimeout(() => {
-            navigate(-1);
+            navigate(-2);
           }, 5000);
         }, 5000);
       }
