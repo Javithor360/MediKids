@@ -4,7 +4,6 @@ import { MaterialIcons, MaterialCommunityIcons as MaterialCommIcons } from '@exp
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTranslation } from 'react-i18next';
 //>> Importing components
 import { AuthStylesGlobal } from '../../../assets/AuthStyles';
@@ -56,10 +55,6 @@ export const LoginScreen = () => {
       if(data.success){
         //! Show success message.
         ShowToast('my_success', lng ? 'Éxito' : 'Success', lng ? 'Inicio de Sesion completo.' : 'Logged in successfully.');
-
-        //! Set the Async Storage Logged In State.
-        const userSession = { Email: Email, isLoggedIn: true, jwtToken: data.token };
-        await AsyncStorage.setItem('userSession', JSON.stringify(userSession));
 
         //! SET THE RESPONSIBLE SLICE IN REDUX
         dispatch(setLogginValues({

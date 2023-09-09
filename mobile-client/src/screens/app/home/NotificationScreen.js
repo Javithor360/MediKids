@@ -22,6 +22,7 @@ import { ShowToast, deleteNotification } from '../../../index'
     \ 3 - Appointment reminder (1:30h before)
     \ 4 - Appointment starting
     \ 5 - Appointment finished
+    \ 6 - non-atttendance appmt
 */
 
 export const NotificationScreen = ({route}) => {
@@ -61,7 +62,7 @@ export const NotificationScreen = ({route}) => {
             case 5:
                 return <FontAwesome name="calendar-check-o" size={38} color="white" />
             case 6:
-                return <Fontisto name="drug-pack" size={38} color="white" />
+                return <MaterialCommunityIcons name="file-cancel" size={38} color="white" />
         }
     }
 
@@ -79,7 +80,7 @@ export const NotificationScreen = ({route}) => {
                 case 5:
                     return 'Cita Finalizada';
                 case 6:
-                    return `Tomar ${Title}`;
+                    return `Inasistencia`;
             }
         } else {
             switch (Type) {
@@ -94,7 +95,7 @@ export const NotificationScreen = ({route}) => {
                 case 5:
                     return 'Appmt. Finished';
                 case 6:
-                    return `Take ${Title}`
+                    return `non-attendance`
             }
         }
     }
@@ -113,7 +114,7 @@ export const NotificationScreen = ({route}) => {
                 case 5:
                     return `Cita en ${Title} finalizada de manera correcta, verifique el historial.`;
                 case 6:
-                    return `Recordar tomar la proxima dosis de "${Title}".`;
+                    return `Usted no asistió a su cita en ${Title}, por lo cual se cancelo.`;
             }
         } else {
             switch (Type) {
@@ -128,7 +129,7 @@ export const NotificationScreen = ({route}) => {
                 case 5:
                     return `Appointment in ${Title} completed successfully, check the history`;
                 case 6:
-                    return `Remember to take the next dose of "${Title}"`;
+                    return `You did not attend your appointment at ${Title}, so it was cancelled.`;
             }
         }
     }

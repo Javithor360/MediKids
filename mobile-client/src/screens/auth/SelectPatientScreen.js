@@ -53,6 +53,14 @@ export const SelectPatientScreen = () => {
     setTimeout(() => { setShimmerTime(true) }, 1000);
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      //! Set the Async Storage Logged In State.
+      const userSession = { Email: Resp.Email, isLoggedIn: true, jwtToken: Resp.jwtToken };
+      await AsyncStorage.setItem('userSession', JSON.stringify(userSession));
+    })()
+  }, []);
+
 
   const renderItem = ({ item }) => {
     if (item.id === 'addPatient') {
