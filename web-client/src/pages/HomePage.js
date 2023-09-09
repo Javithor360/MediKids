@@ -69,7 +69,7 @@ export const HomePage = () => {
                             <p>{t("index.list3")}</p>
                         </div>
                         <div className="btnRight">
-                            <Link className="readMoreBtn bgBtn2" to="/citas">{t("index.boton3")}</Link>
+                            <Link id='especialtiesLink' className="readMoreBtn bgBtn2" to="/citas">{t("index.boton3")}</Link>
                         </div>
                     </div>
                 </div>

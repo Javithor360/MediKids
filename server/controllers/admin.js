@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { pool } from "../utils/db.js";
-import { create_code } from "../utils/functions.js";
+import { create_code, send_verify_web_page } from "../utils/functions.js";
 
 // ! @route POST api/admin/new_doctor
 // ! @desc Simple doctor account register
@@ -292,4 +292,21 @@ const create_appointment = async (req, res, next) => {
   }
 };
 
-export { create_doctor, create_patient, doctor_assign_patient, create_appointment };
+// ! @route POST api/admin/send_web_email
+// ! @desc SEND THE EMAIL IN THE WEB.
+// ! @access public
+
+const send_web_email = async (req, res, next) => {
+  try {
+    const {Email, Message} = req.body;
+
+    send_verify_web_page(Message, Email, res);
+
+    return res.status(200).json({success: true});
+  } catch (error) {
+    return res.status(500).json({error})
+  }
+}
+
+
+export { create_doctor, create_patient, doctor_assign_patient, create_appointment, send_web_email };
