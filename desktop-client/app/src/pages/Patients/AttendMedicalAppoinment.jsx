@@ -203,7 +203,6 @@ export const MedicalAppoinment = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      console.log(medicalPrescript.edited_prescriptions.length > 0)
       await EndMedicalAppointment(
         JSON.parse(localStorage.getItem("userSession")).id,
         patient.id,
