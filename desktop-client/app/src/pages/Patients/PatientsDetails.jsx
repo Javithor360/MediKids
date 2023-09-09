@@ -17,6 +17,7 @@ import { useDash } from "../../context/DoctorContext";
 import { ViewMedicalPrescriptions } from "./PatientsComponents/ViewMedicalPrescriptions";
 import { ViewAppointments } from "./PatientsComponents/ViewAppointments";
 import { getPatientAge } from "../../utils/Functions";
+import { differenceInDays, differenceInMinutes } from "date-fns";
 
 export const PatientsDetails = () => {
   const { t } = useTranslation();
@@ -50,8 +51,7 @@ export const PatientsDetails = () => {
         parseInt(timeDate[2])
       );
       setCanAttendConsult(
-        new Date() - newTimeDate >= 0 &&
-          new Date() - newTimeDate <= 3 * 60 * 60 * 1000
+        differenceInMinutes(new Date(), newTimeDate) <= 180 && differenceInDays(new Date(), newTimeDate) === 0
       );
     }
   }, [nextAppointment.Hour]);
