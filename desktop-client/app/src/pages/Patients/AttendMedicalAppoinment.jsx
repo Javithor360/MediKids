@@ -203,7 +203,7 @@ export const MedicalAppoinment = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     try {
-      console.log(nextAppointment.id)
+      console.log(medicalPrescript.edited_prescriptions.length > 0)
       await EndMedicalAppointment(
         JSON.parse(localStorage.getItem("userSession")).id,
         patient.id,
@@ -220,7 +220,7 @@ export const MedicalAppoinment = () => {
         scheAppoint,
         {
           addPrescriptions: medicalPrescript.new_prescriptions[0].hasSelectedYes,
-          editPrescriptions: medicalPrescript.edited_prescriptions > 0 ? true : false,
+          editPrescriptions: medicalPrescript.edited_prescriptions.length > 0,
           scheduleAppointment: scheAppoint.hasSelectedYes,
         }
       );
