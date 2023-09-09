@@ -1,4 +1,4 @@
-import { differenceInMinutes } from "date-fns";
+import { differenceInDays, differenceInMinutes } from "date-fns";
 import { pool } from "../utils/db.js";
 
 import ErrorResponse from "../utils/error_message.js";
@@ -124,31 +124,71 @@ const get_appointments = async (req, res, next) => {
       [Doctor_id]
     );
 
+    let updated_appointments = [];
     let expired_appointments = [];
+    let final_appointments = [];
 
-    appointments_info.forEach((obj) => {
+    // UPDATES APPOINTMENTS STATE IF DATE AND HOUR ARE THE SAME
+    appointments_info.map((obj) => {
       if(obj.Date && obj.Hour) {
         const givenDate = new Date(obj.Date);
         const giveHour = obj.Hour.split(":");
         const nDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate(), parseInt(giveHour[0]), parseInt(giveHour[1]), parseInt(giveHour[2]))
-        if ((obj.State === 2 || obj.State === 3) && (differenceInMinutes(new Date(), nDate) >= 180)) {
-          expired_appointments.push(obj);
+        if(obj.State === 2 && differenceInMinutes(new Date(), nDate) <= 180 && differenceInDays(new Date(), nDate) === 0) {
+          updated_appointments.push(obj);
         }
       }
-    });
+    })
 
-    if (expired_appointments.length > 0) {
-      expired_appointments.forEach(async (obj) => {
-        await pool.query("DELETE FROM medical_appointment WHERE id = ?", [
-          obj.id,
-        ]);
-      });
+    if(updated_appointments.length > 0) {
+      updated_appointments.map(async (obj) => {
+        await pool.query("UPDATE medical_appointment SET State = ? WHERE id = ?", [3, obj.id])
+      })
       [appointments_info] = await pool.query(
         `SELECT * FROM medical_appointment WHERE Doctor_id = ?`,
         [Doctor_id]
       );
     }
 
+    // DELETES ALL APPOINTMENTS THAT WERE NOT ATTENDED AFTER 5H OF WAITING
+    appointments_info.map((obj) => {
+      if(obj.Date && obj.Hour) {
+        const givenDate = new Date(obj.Date);
+        const giveHour = obj.Hour.split(":");
+        const nDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate(), parseInt(giveHour[0]), parseInt(giveHour[1]), parseInt(giveHour[2]))
+        if ((obj.State === 2 || obj.State === 3) && (differenceInMinutes(new Date(), nDate) >= 300)) {
+          expired_appointments.push(obj);
+        }
+      }
+    });
+
+    if (expired_appointments.length > 0) {
+      const appointments2delete = expired_appointments.map(async (obj, i) => {
+        console.log(i)
+        await pool.query("DELETE FROM medical_appointment WHERE id = ?", [
+          obj.id,
+        ]);
+        await pool.query("INSERT INTO notifications SET ?", {
+          Doctor_id: obj.Doctor_id,
+          Patient_id: obj.Patient_id,
+          Title: getSpecialty(obj.Doctor_id),
+          DateTime: new Date(),
+          Type: 6,
+          Element_id: obj.id,
+        });
+        const matchDeleted = appointments_info.find((item) => item.id === obj.id);
+        if(!matchDeleted) {
+          return obj;
+        }
+        appointments_info.splice(appointments_info.indexOf(matchDeleted), 1);
+        return undefined;
+      });
+      final_appointments = appointments2delete.filter((obj) => obj !== undefined);
+    } else {
+      final_appointments = appointments_info;
+    }
+
+    console.log(final_appointments)
     return res.status(200).json({ success: true, body: appointments_info });
   } catch (error) {
     console.log(error);
@@ -711,7 +751,7 @@ const end_medical_appointment = async (req, res, next) => {
       );
     }
 
-    if (medical_record.temperature <= 0 || medical_record.temperature > 45) {
+    if (medical_record.temperature <= 30 || medical_record.temperature > 45) {
       errorMessages.push(
         `<p><span class="text-red-500">En el registro de expediente: </span><span class="text-[#707070]"> El valor de la <i class="font-semibold">'temperatura'</i> ingresada no es un valor realista.</span></p>`
       );
@@ -886,7 +926,7 @@ const end_medical_appointment = async (req, res, next) => {
           `<p><span class="text-red-500">En la programación de consulta médica: </span><span class="text-[#707070]"> Parece ser que este paciente <i class="font-semibold">ya tiene otra cita programada.</i></span></p>`
         );
       }
-      
+
       if (
         medical_appointment.Description.length < 20 ||
         medical_appointment.Description.length > 150
