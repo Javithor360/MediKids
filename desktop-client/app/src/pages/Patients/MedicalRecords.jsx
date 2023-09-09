@@ -6,6 +6,9 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { Link } from "react-router-dom";
 import { useDash } from '../../context/DoctorContext';
+import Modal from '../../components/Modal';
+import { SearchViewRecord } from './PatientsComponents/SearchViewRecord';
+import { SearchViewAppointmentHistory } from './PatientsComponents/SearchViewAppointmentHistory';
 
 const AnimatedCard = () => {
   return (
@@ -58,7 +61,33 @@ const AnimatedCard = () => {
 }
 
 const InfoCard = ({ values }) => {
+  const [active, setActive] = useState(false);
+  const [numbercomp, setNumbercomp] = useState(0);
+  const isModal = true;
+  const toggle = () => {
+    setActive(!active);
+  };
+
+  const modalContent = () => {
+    switch (numbercomp) {
+      case 1:
+        return (
+          <div isModal={isModal} className="m-10">
+            <SearchViewRecord values={values}/> 
+          </div>
+        );
+      case 2:
+        return (
+          <div isModal={isModal} className="m-10">
+            <SearchViewAppointmentHistory values={values} />
+          </div>
+        );
+      default:
+        return <p>A</p>;
+    }
+  };
   return (
+    <>
     <div className="patient-card shadow-md">
       <div className="content-container">
         <div className="profile-photo-cnt">
@@ -96,14 +125,34 @@ const InfoCard = ({ values }) => {
         </div>
       </div>
       <div className="actions-container">
-        <Link className="btn btn-sm bg-[#a49bb7] hover:bg-[#9890a9] text-white">
+        <Link className="btn btn-sm bg-[#a49bb7] hover:bg-[#9890a9] text-white"
+          onClick={() => {
+            toggle();
+            setNumbercomp(1);
+          }}
+        >
           Ver Expediente
         </Link>
-        <Link className="btn btn-sm bg-[#a49bb7] hover:bg-[#9890a9] text-white">
+        <Link className="btn btn-sm bg-[#a49bb7] hover:bg-[#9890a9] text-white"
+          onClick={() => {
+            toggle();
+            setNumbercomp(2);
+          }}
+        >
           Historial de citas
         </Link>
       </div>
     </div>
+    {toggle && (
+        <Modal
+          active={active}
+          toggle={toggle}
+          onRequestClose={toggle}
+        >
+          {modalContent()}
+        </Modal>
+    )}
+    </>
   )
 }
 
@@ -145,6 +194,11 @@ export const MedicalRecords = () => {
           obj.Responsible_Name = `${item.First_Names} ${item.Last_Names}`;
           obj.Patient_Code = el.Patient_Code;
           obj.Perfil_Photo = el.Profile_Photo_Url;
+          obj.Blood_Type = el.Blood_Type;
+          obj.Weight = el.Weight;
+          obj.Height = el.Height;
+          obj.Phone = item.Phone;
+          obj.Birthdate = el.Birthdate;
           f_p_i.push(obj);
         }
       })

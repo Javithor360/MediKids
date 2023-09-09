@@ -25,6 +25,15 @@ export const MainAgenda = () => {
   useEffect(() => {
     PatientsClassificator(JSON.parse(localStorage.getItem("userSession")).id);
   }, [])
+
+  const slotLabelContent = (arg) => {
+    const date = arg.date;
+    const hour = date.getHours();
+    const ampm = hour >= 12 ? 'pm' : 'am';
+    const formattedHour = hour % 12 || 12;
+    return `${formattedHour}${ampm}`;
+  };
+  
   const renderEventContent = (eventInfo) => (
     <Tooltip
       position="top-start"
@@ -104,6 +113,7 @@ export const MainAgenda = () => {
               eventLimit={2}
               height={'75vh'}
               width={'100%'}
+              slotLabelContent={slotLabelContent}
             />
           </div>
         </div>
