@@ -1,6 +1,17 @@
 let eventGuid = 0;
 // const todayStr = new Date().toISOString().replace(/T.*$/, '')
 
+const createAppmtDateTime = (date, hour) => {
+  let HoursSQL = hour.split(':');
+  let appointment_hour = new Date(date);
+
+  appointment_hour.setHours(HoursSQL[0]);
+  appointment_hour.setMinutes(HoursSQL[1]);
+  appointment_hour.setSeconds(HoursSQL[2]);
+
+  return appointment_hour;
+}
+
 export const DoctorEvents = (appointments, patient) => {
   let events = [];
   appointments.map((app) => {
@@ -14,7 +25,7 @@ export const DoctorEvents = (appointments, patient) => {
               title: `Consulta con paciente`,
               description: `${app.Description}`,
               patient: `${item.First_Names} ${item.Last_Names}`,
-              start: new Date(app.Date),
+              start: createAppmtDateTime(app.Date, app.Hour),
             });
           }
         }

@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "MediKids_App",
-    "slug": "MediKids_App",
+    "name": "MediKids",
+    "slug": "medikids-app",
+    "description": "Sistema Móvil de Gestión del Responsable, Clínica pediátrica MediKids",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -19,13 +20,19 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logos/adaptive-icon.png",
+        "foregroundImage": "./assets/logos/adaptive-icon-an.png",
         "backgroundColor": "#ffffff"
       },
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "package": "com.albumdev.medikidsapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2907cd57-88a9-4308-9d15-5e215c57e109"
+      }
     }
   }
 }

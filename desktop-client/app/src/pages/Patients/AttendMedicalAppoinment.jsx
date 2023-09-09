@@ -337,7 +337,7 @@ export const MedicalAppoinment = () => {
           <div className="min-w-[20rem] max-w-[50rem] min-h-[20rem] m-5 p-[2rem]">
             <div className="border-b border-b-[#c6c6c6] mb-[1rem]">
               <p className="text-[1.6rem] text-[#707070] font-semibold flex flex-row gap-2 items-center">
-                <AiOutlineWarning className='text-red-400' /> {t("medical.tittle5")}
+                <AiOutlineWarning className='text-red-400' /> {t("settings.tittle")}
               </p>
             </div>
             <div className="w-[100%] h-[100%] mx-auto rounded-sm flex bg-[#D8D7FE]">

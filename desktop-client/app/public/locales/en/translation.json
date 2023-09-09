@@ -11,19 +11,19 @@
         "tittle1":"Good evening",
         "tittle2":"Good night",
         "tittle3":"Patients attended",
-        "tittle4":"Pending applications",
-        "tittle5":"Scheduled consultations",
+        "tittle4":"Pending requests",
+        "tittle5":"Scheduled appointments",
         "subtittle":"The services provided to the MediKids clinic have resulted in the care of various patients that to date total:",
-        "subtittle1":"In the request panel allows you to review the patients who want to schedule an appointment. The number of pending applications is:",
-        "subtittle2":"The calendar allows to organize and keep control of the consultations to be attended, for the moment the number of consultations to be attended is:",
+        "subtittle1":"In the request panel allows you to review the patients who want to schedule an appointment. The number of pending requests is:",
+        "subtittle2":"The calendar allows to organize and keep control of the appointments to be attended, for the moment the number of appointments to be attended is:",
         "button":"See more"
     },
     "sidebar":{
         "tittle":"Homepage",
-        "tittle1":"Releases",
+        "tittle1":"Inbox",
         "tittle2":"Agenda",
-        "subtittle":"Consultations Requests",
-        "subtittle1":"Scheduled Consultations",
+        "subtittle":"Appointment Requests",
+        "subtittle1":"Scheduled Appointment",
         "tittle3":"Patient monitoring",
         "subtittle2":"My Patients",
         "subtittle3":"Search file",
@@ -45,14 +45,14 @@
         "tittle4":"You have not attended any patient before"
     },
     "settings":{
-        "tittle":"Setting",
+        "tittle":"Settings",
         "tittle1":"Profile picture",
         "button":"Change",
-        "tittle2":"system language"
+        "tittle2":"System language"
     },
     "medical":{
         "tittle":"Attending Patient:",
-        "tittle1":"End consultation",
+        "tittle1":"End Appointment",
         "tittle2":" Edit file",
         "tittle3":"Edit prescription",
         "tittle4":"Schedule an appointment",
@@ -89,15 +89,15 @@
         "tittle34":"No appointment was scheduled during this session"
     },
     "details":{
-        "tittle":"Paciente",
-        "tittle1":"Proxima cita el:",
-        "tittle2":"Edad",
-        "tittle3":"Tipo Sanguíneo",
-        "tittle4":"Altura",
-        "tittle9":"Peso",
-        "tittle5":"Ver expendiente",
-        "tittle6":"Ver recetas",
-        "tittle7":" Ver historial de citas",
-        "tittle8":"Atender consulta"
+        "tittle":"Patient",
+        "tittle1":"Next appointment on:",
+        "tittle2":"Age",
+        "tittle3":"Blood Type",
+        "tittle4":"Height",
+        "tittle9":"Weight",
+        "tittle5":"See file",
+        "tittle6":"See recipes",
+        "tittle7":" View appointment history",
+        "tittle8":"Attend appointment"
     }
 }

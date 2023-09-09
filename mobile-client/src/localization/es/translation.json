@@ -32,13 +32,13 @@
         "oct":"Octubre",
         "november":"Noviembre",
         "december":"Diciembre",
-        "dom":"Domingo",
-        "lun":"Lunes",
-        "mar":"Martes",
-        "mie":"Miércoles",
-        "jue":"Jueves",
-        "vie":"Viernes",
-        "sab":"Sábado",
+        "dom":"Dom.",
+        "lun":"Lu.",
+        "mar":"Ma.",
+        "mie":"Mié.",
+        "jue":"Jue.",
+        "vie":"Vie.",
+        "sab":"Sáb.",
         "title":"Calendario y recordatorios"
 
     },
@@ -374,7 +374,7 @@
         "text4":"Encargado",
         "text5":"Informacion de la cita",
         "text6":"Motivo de la cita",
-        "text7":"Fecha y hora de",
+        "text7":"Fecha y hora",
         "text8":"Estado de la cita",
         "text9":"Tiempo Restante",
         "text10":"Estado",
@@ -394,10 +394,18 @@
         
     },
     "programmed":{
-        "text1":"Scheduled Appointment",
+        "text1":"Agendar Citas",
         "text2":"Tiene una cita Programada",
         "text3":"Fecha",
         "text4":"Hora",
         "text5":"Médico"
+    },
+    "tabNav": {
+        "inicio": "inicio",
+        "Calendario": "Calendario",
+        "Citas": "Citas",
+        "Medicinas": "Medicinas",
+        "Mi_Cuenta": "Mi Cuenta"
     }
+   
 }

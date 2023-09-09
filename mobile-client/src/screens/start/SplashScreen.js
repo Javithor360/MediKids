@@ -11,24 +11,23 @@ import { ChangeSBColor } from "../../store/slices/starterSlice";
 
 export const SplashScreen = () => {
   const State = useSelector((state) => state.starter.State);
-  const Responsible = useSelector((state) => state.responsible);
   const dispatch = useDispatch();
 
   const navigation = useNavigation();
 
   //>> Navigation to the corresponding component.
   useEffect(() => {
-    if (State !== null && Responsible !== null) {
+    if (State !== null) {
       setTimeout(() => {
-        if (State) {
-          navigation.replace("SelectPatientScreen");
-        } else {
+        if (!State) {
           navigation.navigate("WelcomeScreen");
+        } else {
+          navigation.navigate("SelectPatientScreen");
         }
         dispatch(ChangeSBColor("#e4e2ff"));
       }, 4000);
     }
-  }, [State, Responsible]);
+  }, [State]);
 
   return (
     <View style={styles.root}>

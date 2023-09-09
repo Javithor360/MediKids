@@ -41,7 +41,7 @@
         "button":"VER DETALLES",
         "tittle1":"Pacientes atendidos previamente",
         "tittle2":"No tienes ningún paciente con cita pendiente",
-        "tittle3":"Pacientes atentidos previamente",
+        "tittle3":"Pacientes atendidos previamente",
         "tittle4":"No has atendido a ningún paciente anteriormente"
     },
     "settings":{
@@ -89,15 +89,15 @@
         "tittle34":"No se programó una cita durante esta sesión"
     },
     "details":{
-        "tittle":"Patient",
-        "tittle1":"Next appointment on:",
-        "tittle2":"Age",
-        "tittle3":"Blood Type",
-        "tittle4":"Height",
-        "tittle9":"Weight",
-        "tittle5":"See file",
-        "tittle6":"See recipes",
-        "tittle7":" View appointment history",
-        "tittle8":"Attend consultation"
+        "tittle":"Paciente",
+        "tittle1":"Proxima cita el:",
+        "tittle2":"Edad",
+        "tittle3":"Tipo Sanguíneo",
+        "tittle4":"Altura",
+        "tittle9":"Peso",
+        "tittle5":"Ver expendiente",
+        "tittle6":"Ver recetas",
+        "tittle7":" Ver historial de citas",
+        "tittle8":"Atender consulta"
     }
 }
