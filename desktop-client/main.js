@@ -14,6 +14,7 @@ function createMainWindow() {
       contextIsolation: true,
       nodeIntegration: true,
       preload: path.join(__dirname, "preload.js"),
+      devTools: false,
     },
   });
 
@@ -24,7 +25,7 @@ function createMainWindow() {
     protocol: "file",
   });
 
-  mainWindow.loadURL("http://localhost:5000"); // Aquí se cambiará la URL para cuando se suba el proyecto a la nube
+  mainWindow.loadURL("https://medikids-firebase.web.app/login"); // Aquí se cambiará la URL para cuando se suba el proyecto a la nube
 }
 
 app.whenReady().then(createMainWindow);
