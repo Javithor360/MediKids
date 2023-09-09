@@ -163,33 +163,29 @@ const get_appointments = async (req, res, next) => {
     });
 
     if (expired_appointments.length > 0) {
-      const appointments2delete = expired_appointments.map(async (obj, i) => {
-        console.log(i)
-        await pool.query("DELETE FROM medical_appointment WHERE id = ?", [
-          obj.id,
-        ]);
-        await pool.query("INSERT INTO notifications SET ?", {
-          Doctor_id: obj.Doctor_id,
-          Patient_id: obj.Patient_id,
-          Title: getSpecialty(obj.Doctor_id),
-          DateTime: new Date(),
-          Type: 6,
-          Element_id: obj.id,
-        });
-        const matchDeleted = appointments_info.find((item) => item.id === obj.id);
-        if(!matchDeleted) {
-          return obj;
-        }
-        appointments_info.splice(appointments_info.indexOf(matchDeleted), 1);
-        return undefined;
-      });
-      final_appointments = appointments2delete.filter((obj) => obj !== undefined);
-    } else {
-      final_appointments = appointments_info;
-    }
+      expired_appointments.map(async (obj) => {
+        const [checkE_A] = await pool.query('SELECT * FROM medical_appointment');
+        const existDeleted = checkE_A.filter((el) => el.id == obj.id);
+        if(existDeleted.length != 0) {
+          await pool.query("DELETE FROM medical_appointment WHERE id = ?", [
+            obj.id,
+          ]);
 
-    console.log(final_appointments)
-    return res.status(200).json({ success: true, body: appointments_info });
+          await pool.query("INSERT INTO notifications SET ?", {
+            Doctor_id: obj.Doctor_id,
+            Patient_id: obj.Patient_id,
+            Title: getSpecialty(obj.Doctor_id),
+            DateTime: new Date(),
+            Type: 6,
+            Element_id: obj.id,
+          });
+        }
+
+      })
+    }
+    const [newM_A] = await pool.query('SELECT * FROM medical_appointment');
+
+    return res.status(200).json({ success: true, body: newM_A });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error });
