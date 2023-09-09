@@ -18,7 +18,7 @@ export function CalendarPicker({ setDate, hasSelectedYes, restrictedDays, format
     setValue(date);
     setDate(date);
   };
-
+  
   useEffect(() => {
     if (restrictedDays && !isBefore(currentDate, formattedEndDate)) {
       setShowEndDateMessage(true);
