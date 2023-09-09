@@ -134,7 +134,7 @@ const get_appointments = async (req, res, next) => {
         const givenDate = new Date(obj.Date);
         const giveHour = obj.Hour.split(":");
         const nDate = new Date(givenDate.getFullYear(), givenDate.getMonth(), givenDate.getDate(), parseInt(giveHour[0]), parseInt(giveHour[1]), parseInt(giveHour[2]))
-        if(obj.State === 2 && differenceInMinutes(new Date(), nDate) <= 180 && differenceInDays(new Date(), nDate) === 0) {
+        if((obj.State === 0 || obj.State === 2) && differenceInMinutes(new Date(), nDate) <= 180 && differenceInDays(new Date(), nDate) === 0) {
           updated_appointments.push(obj);
         }
       }
@@ -229,8 +229,8 @@ const get_patient_appointment_with_specific_doctor = async (req, res, next) => {
     }
 
     const [appointment_info] = await pool.query(
-      "SELECT * FROM medical_appointment WHERE Doctor_id = ? AND Patient_id = ? AND State IN (?, ?)",
-      [Doctor_id, Patient_id, 2, 3]
+      "SELECT * FROM medical_appointment WHERE Doctor_id = ? AND Patient_id = ? AND State IN (?, ?, ?)",
+      [Doctor_id, Patient_id, 0, 2, 3]
     );
 
     // let nearest_appointment = appointment_info.reduce((prev, act) => {
