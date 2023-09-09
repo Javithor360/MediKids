@@ -293,13 +293,13 @@ switch (index.Empezar) {
             break;
 
 
-          case 'Modificar Fehca y Hora de una Cita':
+          case 'Modificar Fecha y Hora de una Cita':
             let idApp, AppDatTime;
             let bApp = true;
             let bApp2 = true;
             do {
               clear();
-              console.log(' + Modificar Fehca y Hora de una Cita ');
+              console.log(' + Modificar Fecha y Hora de una Cita ');
               console.log(' - Ingrese "cancelar" para salir. ');
               console.log('');
 
