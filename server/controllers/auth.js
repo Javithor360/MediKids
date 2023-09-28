@@ -81,20 +81,21 @@ const register = async (req, res, next) => {
     const HashedPass = await bcrypt.hash(Password, 12);
 
     // GET DEFAULT PERFIL PHOTO FRON FIREBASE
-    const storageRef = ref(storage, `perfil_photos/default.png`);
-    const P_F = await getDownloadURL(storageRef);
+    // const storageRef = ref(storage, `perfil_photos/default.png`);
+    // const P_F = await getDownloadURL(storageRef);
 
     // CREATE EMAIL VERIFY CODE
     const verify_code = create_code();
 
     // SAVE FIELDS
-    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo_Url: P_F, Profile_Photo_Name: null , Reset_Pass_Token: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
+    await pool.query('INSERT INTO responsible SET ?', {First_Names, Last_Names, Email, Password: HashedPass, DUI, Birthdate: BD, Age, Phone, Profile_Photo_Url: '', Profile_Photo_Name: null , Reset_Pass_Token: null, Reset_Pass_Expire: null, Email_Verify_Code: verify_code });
 
     // SEND EMAIL
     send_verify_code_email(verify_code, Email, res);
 
     return res.status(200).json({success: true, Email})
   } catch (error) {
+  console.log(error);
     return res.status(500).json({error: error});
   }
 }
@@ -330,10 +331,10 @@ const register_patients = async (req, res, next) => {
     const Patient_Code = patientCode();
 
     // GET DEFAULT PERFIL PHOTO FRON FIREBASE
-    const storageRef = ref(storage, `perfil_photos/default.png`);
-    const P_F = await getDownloadURL(storageRef);
+    // const storageRef = ref(storage, `perfil_photos/default.png`);
+    // const P_F = await getDownloadURL(storageRef);
 
-    await pool.query('INSERT INTO patient SET ?', {First_Names, Last_Names, Birthdate: BD, Age, Gender, Blood_Type, Weight, Height, Responsible_id: responsible[0].id, Patient_Code, Medical_History_Code: null, Profile_Photo_Url: P_F, Profile_Photo_Name: null});
+    await pool.query('INSERT INTO patient SET ?', {First_Names, Last_Names, Birthdate: BD, Age, Gender, Blood_Type, Weight, Height, Responsible_id: responsible[0].id, Patient_Code, Medical_History_Code: null, Profile_Photo_Url: '', Profile_Photo_Name: null});
 
     return res.status(200).json({success: true, Patient_Code});
   } catch (error) {
