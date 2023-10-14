@@ -78,7 +78,7 @@ export const LoginScreen = () => {
           setTimeout(() => {
             setDisableBack(false)
             //\\ CHECK IF HE ALREADY SET AN PF.
-            if(data.User.Profile_Photo_Url == 'https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=39fd3258-c7df-4596-91f5-9d87b4a86216'){
+            if(data.User.Profile_Photo_Url == 'https://firebasestorage.googleapis.com/v0/b/medikids-b1d14.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=8b5b9e6c-7629-404c-b0cc-9df4d1d1c976&_gl=1*1c1tmav*_ga*MTM1ODc1NDMxMi4xNjk3MzAzMTQ5*_ga_CW55HF8NVT*MTY5NzMwMzE0OS4xLjEuMTY5NzMwNDA4My40MC4wLjA.'){
               navigation.navigate('SelectProfilePhotoScreen', {haveButton: false});
 
             //\\ CHECK IF THE USER ALREADY HAS PATIENTS REGISTERED.

@@ -118,7 +118,7 @@ const login = async (req, res, next) => {
     }
 
     // CHECKING THE PASSWORD
-    if (!await bcrypt.compare(Password,  query_user[0].Password)) {
+    if (!await bcrypt.compare(Password, query_user[0].Password)) {
       return res.status(500).json({success: false, message: {es: 'Contraseña Incorrecta.', en: 'Incorrect Password.'}});
     }
 

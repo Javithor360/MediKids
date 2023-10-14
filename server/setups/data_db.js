@@ -278,7 +278,7 @@ const doctors = [
     Email: "esteban@medikids.com",
     Password: await bcrypt.hash("12345", 12),
     // Profile_Photo: await getDownloadURL(storageRef),
-    Profile_Photo: "https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdr-guzman.png?alt=media&token=7b64d846-106a-4153-9e58-2013e335ceca",
+    Profile_Photo: "https://firebasestorage.googleapis.com/v0/b/medikids-b1d14.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=8b5b9e6c-7629-404c-b0cc-9df4d1d1c976&_gl=1*1c1tmav*_ga*MTM1ODc1NDMxMi4xNjk3MzAzMTQ5*_ga_CW55HF8NVT*MTY5NzMwMzE0OS4xLjEuMTY5NzMwNDA4My40MC4wLjA.",
     Speciality_id: 1,
   },
   {
@@ -287,7 +287,7 @@ const doctors = [
     User: "doc002",
     Email: "adrian@medikids.com",
     Password: await bcrypt.hash("12345", 12),
-    Profile_Photo: "https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdr-flores.png?alt=media&token=8c56578c-0b95-4fc1-bb82-3ab7b2ffd908",
+    Profile_Photo: "https://firebasestorage.googleapis.com/v0/b/medikids-b1d14.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=8b5b9e6c-7629-404c-b0cc-9df4d1d1c976&_gl=1*1c1tmav*_ga*MTM1ODc1NDMxMi4xNjk3MzAzMTQ5*_ga_CW55HF8NVT*MTY5NzMwMzE0OS4xLjEuMTY5NzMwNDA4My40MC4wLjA.",
     Speciality_id: 2,
   },
   {
@@ -296,7 +296,7 @@ const doctors = [
     User: "doc003",
     Email: "fatima@medikids.com",
     Password: await bcrypt.hash("12345", 12),
-    Profile_Photo: "https://firebasestorage.googleapis.com/v0/b/medikids-firebase.appspot.com/o/perfil_photos%2Fdra-garza.png?alt=media&token=ec1dac64-f623-472f-8604-86419eaea3a5",
+    Profile_Photo: "https://firebasestorage.googleapis.com/v0/b/medikids-b1d14.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=8b5b9e6c-7629-404c-b0cc-9df4d1d1c976&_gl=1*1c1tmav*_ga*MTM1ODc1NDMxMi4xNjk3MzAzMTQ5*_ga_CW55HF8NVT*MTY5NzMwMzE0OS4xLjEuMTY5NzMwNDA4My40MC4wLjA.",
     Speciality_id: 3,
   },
 ];
