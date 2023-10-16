@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import parser from "html-react-parser";
@@ -6,6 +6,8 @@ import { format } from 'date-fns'
 import { FaUserAlt } from "react-icons/fa";
 import { MdSaveAs } from "react-icons/md";
 import { AiOutlineCheckCircle } from "react-icons/ai";
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 import Modal from "../../components/Modal.jsx";
 import PencilCharginAnimation from "../../components/PencilCharginAnimation.jsx";
@@ -74,7 +76,7 @@ export const MedicalAppoinment = () => {
   const [scheAppoint, setScheAppoint] = useState({});
 
   const pages = [
-    <MedicalRecordConfirmation medicalRecord={medicalRecord} />,
+    <MedicalRecordConfirmation medicalRecord={medicalRecord} HtmlNotes={HtmlNotes} />,
     <MedicalPrescriptionConfirmation medicalPrescript={medicalPrescript} />,
     <MedicalAppointmentConfirmation
       scheAppoint={scheAppoint}
@@ -199,7 +201,7 @@ export const MedicalAppoinment = () => {
       toggle();
     }
   };
-  
+
   const handleClick = async (e) => {
     e.preventDefault();
     try {
@@ -479,6 +481,22 @@ const placeholderChanger = (str) => {
 // Modal's first page: Medical record related...
 const MedicalRecordConfirmation = ({ medicalRecord }) => {
   const { t } = useTranslation();
+  const location = useLocation();
+  const { patient } = location.state || {};
+
+  const contentRef = useRef(null);
+
+  const generatePDF = () => {
+    const content = contentRef.current;
+
+    html2canvas(content).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('landscape');
+      pdf.addImage(imgData, 'PNG', 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+      pdf.save(`${patient.Patient_Code}-Expediente.pdf`);
+    });
+  };
+
   return (
     <div className="h-[20rem] overflow-y-auto">
       <h2 className="text-[#707070] mt-[1rem] mb-[1rem]">{t("medical.tittle12")}</h2>
@@ -497,11 +515,12 @@ const MedicalRecordConfirmation = ({ medicalRecord }) => {
         </li>
         <li className="list-none ">
           <h2 className="text-[#707070] mt-[1rem] mb-[1rem]">{t("medical.tittle16")}</h2>
-          <div className="bg-[#f7f7f7] ml-5 mt-[1rem] mb-2 h-[20rem] w-[90%] rounded-md border border-[#bbbbbb] shadow-lg overflow-y-auto p-3">
+          <div className="bg-[#f7f7f7] ml-5 mt-[1rem] mb-2 h-[20rem] w-[90%] rounded-md border border-[#bbbbbb] shadow-lg overflow-y-auto p-3" ref={contentRef}>
             <div div className="p-4">
               {parser(medicalRecord.HtmlNotes)}
             </div>
           </div>
+          <div className="flex items-center justify-center my-4"><button className="bg-[#A375FF] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => generatePDF()}>descargar pdf</button></div>
         </li>
       </ul>
     </div>

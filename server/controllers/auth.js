@@ -95,6 +95,7 @@ const register = async (req, res, next) => {
 
     return res.status(200).json({success: true, Email})
   } catch (error) {
+    console.log(error);
     return res.status(500).json({error: error});
   }
 }
@@ -199,7 +200,6 @@ const forgot_password = async (req, res, next) => {
 
     // SEND EMAIL WITH THE TOKEN IN URL (CHANGE)
     send_forgot_pass_email(forgot_pass_tokens.reset_pass_code, Email, res);
-    console.log(forgot_pass_tokens.reset_pass_code);
 
     return res.status(200).json({success: true, message: {es: 'Email Enviado Correctamente.', en: 'Email Sent Successfully.'}});
   } catch (error) {
