@@ -297,7 +297,7 @@ const styles = StyleSheet.create({
   },
   ActiveBoxText: {
     color: 'red',
-    fontWeight: 'bold',
+    fontWeight: "700",
     fontSize: 14,
   }
 })

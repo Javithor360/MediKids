@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     },
     requestMainTitle:{
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: "700",
         alignSelf: 'center',
         marginVertical: 16,
     },
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#D6D6D6',
     },
     patientTitle:{
-        fontWeight: 600,
+        fontWeight: "600",
         color: '#46929B',
         fontSize: 16,
     },
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     eachTitle: {
-        fontWeight: 600,
+        fontWeight: "600",
         color: '#46929B',
         fontSize: 16,
         paddingRight: 10,

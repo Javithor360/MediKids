@@ -100,7 +100,7 @@ export const AppointmentStatus = ({ImageIcon, DoctorName, Specialty, Doctor_id})
                         <Image source={ImageIcon} style={{width: 50, height: 50, resizeMode: 'contain',}}/>
                     </View>
                     <View style={styles.statusContentC}>
-                        <View style={{borderBottomColor: '#c6c6c6', borderBottomWidth: 1,}}><Text style={{fontSize: 18, fontWeight: 'bold', color: '#707070'}}>{Specialty}</Text></View>
+                        <View style={{borderBottomColor: '#c6c6c6', borderBottomWidth: 1,}}><Text style={{fontSize: 18, fontWeight: "700", color: '#707070'}}>{Specialty}</Text></View>
                         <Text style={{color: '#707070',}}>{DoctorName}</Text>
                         <View style={{flexDirection: 'row', gap: 10, alignItems: 'center'}}>
                             <Text style={styles.specificStatusText}>{getAppointmentState()}</Text>
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     },
     requestMainTitle:{
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: "700",
         alignSelf: 'center',
         marginVertical: 16,
     },
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     },
     specificStatusText: {
         color: '#46929B',
-        fontWeight: 'bold',
+        fontWeight: "700",
     },
     moreInfoBtn: {
         marginLeft: 8,

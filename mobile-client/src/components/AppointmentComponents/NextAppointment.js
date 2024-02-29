@@ -42,7 +42,7 @@ export const NextAppointment = ({appointmentInfo, doctor}) => {
 const styles = StyleSheet.create({
     requestMainTitle:{
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: "700",
         color: '#46929B',
         alignSelf: 'center',
         marginVertical: 16,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     },
     textNxt: {
         fontSize: 16,
-        fontWeight: 'bold',
+        fontWeight: "700",
     },
     containerTextDetails: {
         height: '100%',
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         gap: 4
     },
     textsemiBold: {
-        fontWeight: 600,
+        fontWeight: "600",
         color: '#707070',
         fontSize: 15,
     }

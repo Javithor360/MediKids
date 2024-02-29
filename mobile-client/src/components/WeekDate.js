@@ -106,7 +106,7 @@ const WeekDate = ({ setWeek }) => {
             ]}
           >
             <View style={styles.cardTitleWeek}>
-              <Text style={{fontSize: 15, fontWeight: 'bold'}}>{t('weekDate.text3')}:</Text>
+              <Text style={{fontSize: 15, fontWeight: '700'}}>{t('weekDate.text3')}:</Text>
             </View>
             <View style={styles.weekRangeContainer}>
               <Text style={[styles.cardText, selectedWeek === week && styles.selectedCardText]}>
@@ -159,11 +159,11 @@ const styles = StyleSheet.create({
   },
   navigationText: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: '700',
   },
   monthTitle: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "700",
     textAlign: 'center',
     color: '#FFFFFF',
   },
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   selectedCardText: {
-    fontWeight: 'bold',
+    fontWeight: "700",
   },
   selectedWeekContainer: {
     width: '100%',

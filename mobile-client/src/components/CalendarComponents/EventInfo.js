@@ -21,15 +21,15 @@ export const EventInfo = ({EventSelected}) => {
       <View style={{width: '75%', height: 2, marginLeft: 'auto', marginRight: 'auto', backgroundColor: '#666666', borderRadius: 10}}/>
       <View style={{width: '100%', marginTop: 17, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start'}}>
         <FontAwesome name="circle" size={20} color="#ff981c" />
-        <Text style={{fontSize: 18, color: "#ff981c", fontWeight: 600, marginLeft: 8}}>{EventSelected.Event_Name}</Text>
+        <Text style={{fontSize: 18, color: "#ff981c", fontWeight: "600", marginLeft: 8}}>{EventSelected.Event_Name}</Text>
       </View>
       
-      <Text style={{fontWeight: 'bold', marginTop: 20, fontSize: 17}}>Descripción:</Text>
+      <Text style={{fontWeight: "700", marginTop: 20, fontSize: 17}}>Descripción:</Text>
       <View style={{width: '100%', marginTop: 10, backgroundColor: '#eaeaea', paddingHorizontal: 12, paddingVertical: 10, height: 60, borderRadius: 5, elevation: 3, shadowColor: '#000', shadowOffset: {height: 4}, shadowOpacity: 0.1, shadowRadius: 3, alignItems: 'center', justifyContent: 'center'}}>
         <Text style={{fontSize: 16}}>{EventSelected.Description}</Text>
       </View>
 
-      <Text style={{fontWeight: 'bold', marginTop: 40, fontSize: 17}}>Fecha y Hora:</Text>
+      <Text style={{fontWeight: "700", marginTop: 40, fontSize: 17}}>Fecha y Hora:</Text>
       <View style={{width: '100%', marginTop: 10, backgroundColor: '#eaeaea', paddingHorizontal: 12, paddingVertical: 10, height: 60, borderRadius: 5, elevation: 3, shadowColor: '#000', shadowOffset: {height: 4}, shadowOpacity: 0.1, shadowRadius: 3, alignItems: 'center', justifyContent: 'center'}}>
         <Text style={{fontSize: 19}}>{getLocaleDate(EventSelected.Starting_Event_Date)}</Text>
       </View>

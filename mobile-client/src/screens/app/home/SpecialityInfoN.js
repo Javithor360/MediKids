@@ -64,7 +64,7 @@ const SpecialtyInfoN = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}> {t('Neu.title1')}</Text>
+                  <Text style={{fontWeight: "600", fontSize:22, color: '#707070', marginLeft: 10,}}> {t('Neu.title1')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
                   <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}> {t('Neu.text4')}</Text>
@@ -80,7 +80,7 @@ const SpecialtyInfoN = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Neu.title2')}</Text>
+                  <Text style={{fontWeight: "600", fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Neu.title2')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
                   <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Neu.text5')}</Text>
@@ -96,7 +96,7 @@ const SpecialtyInfoN = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Neu.title3')}</Text>
+                  <Text style={{fontWeight: "600", fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Neu.title3')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
                   <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Neu.text6')} </Text>
@@ -112,7 +112,7 @@ const SpecialtyInfoN = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Neu.title4')}</Text>
+                  <Text style={{fontWeight: "600", fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Neu.title4')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
                   <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Neu.text7')} </Text>
@@ -135,7 +135,7 @@ const SpecialtyInfoN = () => {
               <View style={styles.doctorPicContainer}>
                 <ImageBackground source={require('../../../../assets/default-pics/dr-flores.png')} style={{height: '100%', width: '100%', alignSelf: 'center', justifyContent: 'center', resizeMode: 'contain'}}></ImageBackground>
               </View>
-              <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: 600, color: '#707070', fontSize: 21}}>Dr. Adrián Flores</Text>
+              <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: "600", color: '#707070', fontSize: 21}}>Dr. Adrián Flores</Text>
               <Text style={styles.docDescription}>{t('Neu.text9')}</Text>
 
               <View style={styles.doctorTitle}>
@@ -180,7 +180,7 @@ const SpecialtyInfoN = () => {
             </View>
 
               <TouchableOpacity onPress={()=>navigation.navigate("Appointment")} style={styles.programAppointmentBtn}>
-              <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
+              <Text style={{fontSize: 16, fontWeight: "600", color: 'white'}}>
               {t('Neu.schedule')}
               </Text>
           </TouchableOpacity>

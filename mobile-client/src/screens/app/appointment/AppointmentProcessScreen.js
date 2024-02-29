@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   },
   drName: {
     fontSize: 18, 
-    color: '#ffffff', fontWeight: 600, marginLeft: 16
+    color: '#ffffff', fontWeight: "600", marginLeft: 16
   },
   subdivisions:{
     width: '70%', 
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   infoMainTitle: {
     fontSize: 18, 
     color: '#D58C8C', 
-    fontWeight: 'bold', 
+    fontWeight: "700", 
     alignSelf: 'center', marginBottom: 10
   },
   // paragraphFormat:{
@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#D6D6D6',
   },
   pinkText: {
-    color: '#D58C8C', fontWeight: 'bold', marginLeft: 4,
+    color: '#D58C8C', fontWeight: "700", marginLeft: 4,
     marginBottom: 4,
   },
   verticalLine: {

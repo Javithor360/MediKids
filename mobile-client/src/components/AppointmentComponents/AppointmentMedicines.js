@@ -41,13 +41,13 @@ export const AppointmentMedicines = ({RecordCode}) => {
                 </View>
 
                 <View style={{width: '90%', alignSelf: 'center', gap: 10, paddingVertical: 16}}>
-                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>{t('appointmentMedicines.text1')}: </Text>{Medicine.Description}</Text>
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: "600" , color: '#F8991E',}}>{t('appointmentMedicines.text1')}: </Text>{Medicine.Description}</Text>
 
-                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>{t('appointmentMedicines.text2')}: </Text>{Medicine.Dose}, {Medicine.Time_Dose} {t('appointmentMedicines.text5')}</Text>
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: "600" , color: '#F8991E',}}>{t('appointmentMedicines.text2')}: </Text>{Medicine.Dose}, {Medicine.Time_Dose} {t('appointmentMedicines.text5')}</Text>
 
-                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E',}}>{t('appointmentMedicines.text3')}: </Text>{Medicine.Instructions}</Text>
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: "600" , color: '#F8991E',}}>{t('appointmentMedicines.text3')}: </Text>{Medicine.Instructions}</Text>
 
-                    <Text style={{color: '#707070'}}><Text style={{fontWeight: 600 , color: '#F8991E'}}>{t('appointmentMedicines.text4')}: </Text>{getLocaleDateString(Medicine.Starting_Dose_Date)} - {getLocaleDateString(Medicine.Finishing_Dose_Date)}</Text>
+                    <Text style={{color: '#707070'}}><Text style={{fontWeight: "600" , color: '#F8991E'}}>{t('appointmentMedicines.text4')}: </Text>{getLocaleDateString(Medicine.Starting_Dose_Date)} - {getLocaleDateString(Medicine.Finishing_Dose_Date)}</Text>
                 </View>
             </View>
         );
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     },
     requestMainTitle:{
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: "700",
         alignSelf: 'center',
         marginVertical: 16,
     },

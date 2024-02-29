@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
     },
     titleBanner: {
         fontSize: 20,
-        fontWeight: 600,
+        fontWeight: "600",
         color: '#ffffff',
         marginHorizontal: 8,
     },
@@ -395,12 +395,12 @@ const styles = StyleSheet.create({
     },
     spcTitle:{
         color: '#707070',
-        fontWeight: 600,
+        fontWeight: "600",
         fontSize: 16,
     },
     spcDoctor:{
         fontSize: 12,
-        fontWeight: 600,
+        fontWeight: "600",
         color: '#A375FF',
     },
     apptBtn:{
@@ -453,7 +453,7 @@ const styles = StyleSheet.create({
     },
     requestMainTitle:{
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: "700",
         alignSelf: 'center',
         marginVertical: 16,
     },

@@ -8,8 +8,8 @@ import datePicker from 'inquirer-datepicker-prompt';
 
 //>> DABASE CONNECT
 const pool = createPool({
-    host: '34.121.94.168',
-    user: 'alvin_root',
+    host: 'localhost',
+    user: 'root',
     password: "12345",
     port: "3306",
     database: 'medikids_db',

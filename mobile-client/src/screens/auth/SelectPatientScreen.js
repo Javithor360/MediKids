@@ -333,12 +333,12 @@ const styles = StyleSheet.create({
     },
     name: {
       color: '#707070',
-      fontWeight: 'bold',
+      fontWeight: "700",
       fontSize: 16,
     },
     name2: {
       color: '#A1A1A1',
-      fontWeight: 'bold',
+      fontWeight: "700",
       fontSize: 14,
     },
     logoutBtn:{

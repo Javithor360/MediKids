@@ -155,7 +155,7 @@ export const ImmunizationRecord = () => {
             <View style={[AuthStylesGlobal.cont2,]} >
               <Text style={AuthStylesGlobal.TextCount}>{t('immunization.needchildInfo')}</Text>
             </View>
-            <Text style={{fontSize: 16 , fontFamily: 'poppinsRegular'}}> {t('immunization.patient')}: <Text style={{fontWeight: 'bold'}}>{PatientName}</Text></Text>
+            <Text style={{fontSize: 16 , fontFamily: 'poppinsRegular'}}> {t('immunization.patient')}: <Text style={{fontWeight: "700"}}>{PatientName}</Text></Text>
 
             <View style={styles.vaccinesContainer}>
               <Text style={styles.vaccinesTitle}>{t('immunization.select')}</Text>

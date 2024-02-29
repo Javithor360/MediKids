@@ -129,7 +129,7 @@ export const VerifyCodeScreen = ({ route }) => {
               <Text
                 style={{
                   color: "#A375FF",
-                  fontWeight: "bold",
+                  fontWeight: "700",
                   fontStyle: "italic",
                   fontSize: 15,
                 }}

@@ -67,21 +67,21 @@ export const Medicinas = () => {
                     <View>
                         <View style={styles.InfoText} >
                             <Text>
-                                <Text style={{ color: '#A375FF', fontWeight: 'bold', }}>{t('medic.ins')}:</Text>
+                                <Text style={{ color: '#A375FF', fontWeight: "700", }}>{t('medic.ins')}:</Text>
                                 <Text style={{ color: '#707070'}}> {Prescription.Instructions} </Text>
                             </Text>
                             
                         </View>
                         <View style={[styles.InfoText, {flexDirection: 'column', gap: 0}]} >
-                            <Text style={{ color: '#A375FF', fontWeight: 'bold', }} >{t('medic.period')}:</Text>
+                            <Text style={{ color: '#A375FF', fontWeight: "700", }} >{t('medic.period')}:</Text>
                             <Text style={{ color: '#707070',}}>{getLocaleDateString(Prescription.Starting_Dose_Date)} - {getLocaleDateString(Prescription.Finishing_Dose_Date)}</Text>
                         </View>
                         <View style={styles.InfoText} >
-                            <Text style={{ color: '#A375FF', fontWeight: 'bold'}}>Dosis:</Text>
+                            <Text style={{ color: '#A375FF', fontWeight: "700"}}>Dosis:</Text>
                             <Text style={{ color: '#707070',}}>{Prescription.Dose}, {Prescription.Time_Dose}{t('medic.text1')}</Text>
                         </View>
                         <View style={styles.InfoText} >
-                            <Text style={{ color: '#A375FF', fontWeight: 'bold'}}>{t('medic.assigned')}:</Text>
+                            <Text style={{ color: '#A375FF', fontWeight: "700"}}>{t('medic.assigned')}:</Text>
                             <Text style={{ color: '#707070',}}>{getDoctor(Prescription.Doctor_id)}</Text>
                         </View>
                     </View>
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   },
   titleBanner: {
       fontSize: 20,
-      fontWeight: 600,
+      fontWeight: "600",
       color: '#ffffff',
       marginHorizontal: 8,
       bottom:5,
@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
   },
   spcTitle:{
     color: '#707070',
-    fontWeight: 600,
+    fontWeight: "600",
     fontSize: 16,
   },
   apptBtn:{

@@ -64,7 +64,7 @@ const Gastro = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title1')}</Text>
+                  <Text style={{fontWeight: "600", fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title1')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
                   <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Gastro.text4')}  </Text>
@@ -80,7 +80,7 @@ const Gastro = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title2')}</Text>
+                  <Text style={{fontWeight: "600", fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title2')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
                   <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Gastro.text5')}  </Text>
@@ -96,7 +96,7 @@ const Gastro = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title3')}</Text>
+                  <Text style={{fontWeight: "600", fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title3')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
                   <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Gastro.text6')}</Text>
@@ -112,7 +112,7 @@ const Gastro = () => {
               </View>
               <View style={styles.cardContentContainer}>
                 <View style={styles.cardTitle}>
-                  <Text style={{fontWeight: 600, fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title4')}</Text>
+                  <Text style={{fontWeight: "600", fontSize:22, color: '#707070', marginLeft: 10,}}>{t('Gastro.title4')}</Text>
                 </View>
                 <View style={styles.cardDescription}>
                   <Text style={{width: '93%', marginLeft: 10, color: '#707070'}}>{t('Gastro.text7')}</Text>
@@ -135,7 +135,7 @@ const Gastro = () => {
               <View style={styles.doctorPicContainer}>
                 <ImageBackground source={require('../../../../assets/default-pics/dra-garza.png')} style={{height: '100%', width: '100%', alignSelf: 'center', justifyContent: 'center', resizeMode: 'contain'}}></ImageBackground>
               </View>
-              <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: 600, color: '#707070', fontSize: 21}}>Dra. Fátima Garza</Text>
+              <Text style={{alignSelf: 'center', marginVertical: 16, fontWeight: "600", color: '#707070', fontSize: 21}}>Dra. Fátima Garza</Text>
               <Text style={styles.docDescription}>{t('Gastro.text9')}</Text>
 
               <View style={styles.doctorTitle}>
@@ -180,7 +180,7 @@ const Gastro = () => {
             </View>
 
             <TouchableOpacity onPress={()=>navigation.navigate('Appointment') } style={styles.programAppointmentBtn}>
-              <Text style={{fontSize: 16, fontWeight: 600, color: 'white'}}>
+              <Text style={{fontSize: 16, fontWeight: "600", color: 'white'}}>
               {t('Gastro.schedule')}
               </Text>
           </TouchableOpacity>

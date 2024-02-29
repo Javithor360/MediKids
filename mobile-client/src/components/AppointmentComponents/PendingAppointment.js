@@ -27,7 +27,7 @@ export const PendingAppointment = ({appointmentInfo}) => {
 const styles = StyleSheet.create({
     requestMainTitle:{
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: "700",
         color: '#46929B',
         alignSelf: 'center',
         marginVertical: 16,

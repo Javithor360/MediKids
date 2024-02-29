@@ -89,7 +89,7 @@ export const Calendar = () => {
             <TouchableOpacity onPress={() => substractMonth()}>
               <View><AntDesign name="left" size={30} color="#fff" /></View>
             </TouchableOpacity>
-            <Text style={{color: '#fff', fontSize: 25, fontWeight: 'bold'}}>{getMothName(MonthState)} - {YearState}</Text>
+            <Text style={{color: '#fff', fontSize: 25, fontWeight: "700"}}>{getMothName(MonthState)} - {YearState}</Text>
             <TouchableOpacity onPress={() => addMonthState()}>
               <View><AntDesign name="right" size={30} color="#fff" /></View>
             </TouchableOpacity>
@@ -100,14 +100,14 @@ export const Calendar = () => {
               <TouchableOpacity onPress={() => {goBackMonths()}}>
                 <View><Ionicons name="arrow-back" size={26} color="#fff" /></View>
               </TouchableOpacity>
-              <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold', marginLeft: 10}}>{getMothName(MonthState)} - {YearState}</Text>
+              <Text style={{color: '#fff', fontSize: 20, fontWeight: "700", marginLeft: 10}}>{getMothName(MonthState)} - {YearState}</Text>
             </>
             :
             <>
               <TouchableOpacity onPress={() => {goBackEvent()}}>
                 <View><Ionicons name="arrow-back" size={26} color="#fff" /></View>
               </TouchableOpacity>
-              <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold', marginLeft: 10}}>{getTitleDay(EventSelected)}, {getMothName(MonthState)} - {YearState}</Text>
+              <Text style={{color: '#fff', fontSize: 20, fontWeight: "700", marginLeft: 10}}>{getTitleDay(EventSelected)}, {getMothName(MonthState)} - {YearState}</Text>
             </>
         }
       </View>

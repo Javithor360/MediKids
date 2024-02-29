@@ -34,18 +34,18 @@ function LanguageSelector({closeModal}) {
                     styles.languageButton,
                     activeLanguage === 'en' && styles.activeButton,
                 ]}>
-                <Text style={{fontWeight: 600, fontSize: 16, }}>{t('selectLng.lng_name_en')}</Text>
+                <Text style={{fontWeight: "600", fontSize: 16, }}>{t('selectLng.lng_name_en')}</Text>
                 <Text style={{fontSize: 12, color: '#707070',}}>English</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => changeLanguage('es')} style={[
                     styles.languageButton,
                     activeLanguage === 'es' && styles.activeButton,
                 ]}>
-                <Text style={{fontWeight: 600, fontSize: 16, }}>{t('selectLng.lng_name_es')}</Text>
+                <Text style={{fontWeight: "600", fontSize: 16, }}>{t('selectLng.lng_name_es')}</Text>
                 <Text style={{fontSize: 12, color: '#707070',}}>Español</Text>
             </TouchableOpacity>
             <View style={styles.titleC2}>
-                <TouchableOpacity style={styles.doneBtn} onPress={closeModal}><Text style={{marginTop: 16, fontWeight: '600', fontSize: 16, color: '#A375FF', paddingHorizontal: 20,}}>{t('selectLng.btn')}</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.doneBtn} onPress={closeModal}><Text style={{marginTop: 16, fontWeight: "600", fontSize: 16, color: '#A375FF', paddingHorizontal: 20,}}>{t('selectLng.btn')}</Text></TouchableOpacity>
             </View>
         </View>
     </View>
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         fontSize: 18,
         color: '#000000',
-        fontWeight: 600,
+        fontWeight: "600",
     },
     titleC: {
         width: '100%',

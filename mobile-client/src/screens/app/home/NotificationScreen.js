@@ -209,7 +209,7 @@ export const NotificationScreen = ({route}) => {
                         <>
                             {/* NOTIFICACIONES ACTUALES */}
                             <View style={{marginHorizontal: 20, flexDirection: 'row', alignItems: 'center', marginBottom: 20, alignContent: 'center', justifyContent: 'space-between'}}>
-                                <Text style={{fontSize: 24, color: '#707070', fontWeight: 600,}}>{t('noti.text1')}</Text>
+                                <Text style={{fontSize: 24, color: '#707070', fontWeight: "600",}}>{t('noti.text1')}</Text>
                                 <View style={{width: '60%', height: 3, borderRadius: 10, backgroundColor: '#666666'}}/>
                             </View>
                             {
@@ -226,7 +226,7 @@ export const NotificationScreen = ({route}) => {
 
                             {/* NOTIFICACIONES PASADAS */}
                             <View style={{marginHorizontal: 20, flexDirection: 'row', alignItems: 'center', marginBottom: 20, alignContent: 'center', justifyContent: 'space-between', marginTop: 20}}>
-                                <Text style={{fontSize: 24, color: '#707070', fontWeight: 600,}}>{t('noti.text3')}</Text>
+                                <Text style={{fontSize: 24, color: '#707070', fontWeight: "600",}}>{t('noti.text3')}</Text>
                                 <View style={{width: '65%', height: 3, borderRadius: 10, backgroundColor: '#666666'}}/>
                             </View>
                             {

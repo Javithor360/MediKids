@@ -64,16 +64,16 @@ export const RequestAppointmentForm = ({Doctor_id}) => {
         <Text style={styles.requestMainTitle}>{t('requestAppoint.text1')}</Text>
         <View style={styles.sectionIconContainer}>
             <View><MaterialCommunityIcons name="playlist-edit" size={24} color="#46929B" /></View>
-            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: '500',}}>{t('requestAppoint.text2')}</Text></View>
+            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: "500",}}>{t('requestAppoint.text2')}</Text></View>
         </View>
         <TextInput placeholder={`${t('requestAppoint.symp')}`} style={styles.inputSympthoms} onChangeText={text => setDescription(text)} />
         <View style={styles.sectionIconContainer}>
             <View><MaterialCommunityIcons name="calendar-week" size={24} color="#46929B" /></View>
-            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: '500',}}>{t('requestAppoint.text3')}</Text></View>
+            <View><Text style={{fontSize: 16, color: '#46929B', fontWeight: "500",}}>{t('requestAppoint.text3')}</Text></View>
         </View>
         <WeekDate setWeek={setWeek}/>
         <TouchableOpacity disabled={Disable} style={styles.requestApmtBtn} onPress={() => {RequestAppointmentFunct()}}>
-            <Text style={{color: '#ffffff', fontWeight: 600, fontSize: 16,}}><SetLabel isLoading={isLoading} LabelText={`${t('requestAppoint.request')}`} Success={Success}/></Text>
+            <Text style={{color: '#ffffff', fontWeight: "600", fontSize: 16,}}><SetLabel isLoading={isLoading} LabelText={`${t('requestAppoint.request')}`} Success={Success}/></Text>
         </TouchableOpacity>
     </>
   )
@@ -82,7 +82,7 @@ export const RequestAppointmentForm = ({Doctor_id}) => {
 const styles = StyleSheet.create({
     requestMainTitle:{
         fontSize: 20,
-        fontWeight: 'bold',
+        fontWeight: "700",
         color: '#46929B',
         alignSelf: 'center',
         marginVertical: 16,
