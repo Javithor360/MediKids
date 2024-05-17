@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 const WeekDate = ({ setWeek }) => {
   const currentDate = new Date();
   const startDate = currentDate;
-  const endDate = new Date(2023, 11, 31);
+  const endDate = new Date(2024, 11, 31);
   const { t } = useTranslation();
   const startOfCurrentMonth = startOfMonth(currentDate);
   const lng = useSelector(state => state.starter.Language);

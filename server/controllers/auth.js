@@ -81,8 +81,9 @@ const register = async (req, res, next) => {
     const HashedPass = await bcrypt.hash(Password, 12);
 
     // GET DEFAULT PERFIL PHOTO FRON FIREBASE
-    const storageRef = ref(storage, `perfil_photos/default.png`);
-    const P_F = await getDownloadURL(storageRef);
+    // const storageRef = ref(storage, `perfil_photos/default.png`);
+    // const P_F = await getDownloadURL(storageRef);
+    const P_F = 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg';
 
     // CREATE EMAIL VERIFY CODE
     const verify_code = create_code();
@@ -330,8 +331,9 @@ const register_patients = async (req, res, next) => {
     const Patient_Code = patientCode();
 
     // GET DEFAULT PERFIL PHOTO FRON FIREBASE
-    const storageRef = ref(storage, `perfil_photos/default.png`);
-    const P_F = await getDownloadURL(storageRef);
+    // const storageRef = ref(storage, `perfil_photos/default.png`);
+    // const P_F = await getDownloadURL(storageRef);
+    const P_F = 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
 
     await pool.query('INSERT INTO patient SET ?', {First_Names, Last_Names, Birthdate: BD, Age, Gender, Blood_Type, Weight, Height, Responsible_id: responsible[0].id, Patient_Code, Medical_History_Code: null, Profile_Photo_Url: P_F, Profile_Photo_Name: null});
 

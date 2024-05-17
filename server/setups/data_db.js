@@ -15,10 +15,10 @@ const db = mysql.createConnection({
 });
 console.log("[DB] Creating connection to start data insertion...");
 
-initializeApp(firebaseConfig.firebaseConfig);
-const storage = getStorage();
-const storageRef = ref(storage, `perfil_photos/default.png`);
-
+// initializeApp(firebaseConfig.firebaseConfig);
+// const storage = getStorage();
+// const storageRef = ref(storage, `perfil_photos/default.png`);
+const P_F = 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
 const responsibles = [
   {
     First_Names: "Alvin Josué",
@@ -29,7 +29,7 @@ const responsibles = [
     Birthdate: "1976-11-09",
     Age: 46,
     Phone: "7650-7572",
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
     Reset_Pass_Token: null,
     Reset_Pass_Expire: null,
@@ -44,7 +44,7 @@ const responsibles = [
     Birthdate: "1992-06-23",
     Age: 32,
     Phone: "6321-6571",
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
     Reset_Pass_Token: null,
     Reset_Pass_Expire: null,
@@ -59,7 +59,7 @@ const responsibles = [
     Birthdate: "2000-01-01",
     Age: 23,
     Phone: "55555555",
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
     Reset_Pass_Token: null,
     Reset_Pass_Expire: null,
@@ -74,7 +74,7 @@ const responsibles = [
     Birthdate: "1990-01-02",
     Age: 33,
     Phone: "44444444",
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
     Reset_Pass_Token: null,
     Reset_Pass_Expire: null,
@@ -89,7 +89,7 @@ const responsibles = [
     Birthdate: "1980-05-04",
     Age: 43,
     Phone: "33333333",
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
     Reset_Pass_Token: null,
     Reset_Pass_Expire: null,
@@ -110,7 +110,7 @@ const patients = [
     Responsible_id: 1,
     Patient_Code: patientCode(),
     Medical_History_Code: null,
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
   },
   {
@@ -125,7 +125,7 @@ const patients = [
     Responsible_id: 1,
     Patient_Code: patientCode(),
     Medical_History_Code: null,
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
   },
   {
@@ -140,7 +140,7 @@ const patients = [
     Responsible_id: 1,
     Patient_Code: patientCode(),
     Medical_History_Code: null,
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
   },
   {
@@ -155,7 +155,7 @@ const patients = [
     Responsible_id: 2,
     Patient_Code: patientCode(),
     Medical_History_Code: null,
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
   },
   {
@@ -170,7 +170,7 @@ const patients = [
     Responsible_id: 2,
     Patient_Code: patientCode(),
     Medical_History_Code: null,
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
   },
   {
@@ -185,7 +185,7 @@ const patients = [
     Responsible_id: 2,
     Patient_Code: patientCode(),
     Medical_History_Code: null,
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
   },
   {
@@ -200,7 +200,7 @@ const patients = [
     Responsible_id: 3,
     Patient_Code: patientCode(),
     Medical_History_Code: null,
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
   },
   {
@@ -215,7 +215,7 @@ const patients = [
     Responsible_id: 3,
     Patient_Code: patientCode(),
     Medical_History_Code: null,
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
   },
   {
@@ -230,7 +230,7 @@ const patients = [
     Responsible_id: 4,
     Patient_Code: patientCode(),
     Medical_History_Code: null,
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
   },
   {
@@ -245,7 +245,7 @@ const patients = [
     Responsible_id: 4,
     Patient_Code: patientCode(),
     Medical_History_Code: null,
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
   },
   {
@@ -260,7 +260,7 @@ const patients = [
     Responsible_id: 5,
     Patient_Code: patientCode(),
     Medical_History_Code: null,
-    Profile_Photo_Url: await getDownloadURL(storageRef),
+    Profile_Photo_Url: P_F,
     Profile_Photo_Name: null,
   },
 ];
@@ -278,7 +278,7 @@ const doctors = [
     Email: "esteban@medikids.com",
     Password: await bcrypt.hash("12345", 12),
     // Profile_Photo: await getDownloadURL(storageRef),
-    Profile_Photo: "https://firebasestorage.googleapis.com/v0/b/medikids-b1d14.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=8b5b9e6c-7629-404c-b0cc-9df4d1d1c976&_gl=1*1c1tmav*_ga*MTM1ODc1NDMxMi4xNjk3MzAzMTQ5*_ga_CW55HF8NVT*MTY5NzMwMzE0OS4xLjEuMTY5NzMwNDA4My40MC4wLjA.",
+    Profile_Photo: P_F,
     Speciality_id: 1,
   },
   {
@@ -287,7 +287,7 @@ const doctors = [
     User: "doc002",
     Email: "adrian@medikids.com",
     Password: await bcrypt.hash("12345", 12),
-    Profile_Photo: "https://firebasestorage.googleapis.com/v0/b/medikids-b1d14.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=8b5b9e6c-7629-404c-b0cc-9df4d1d1c976&_gl=1*1c1tmav*_ga*MTM1ODc1NDMxMi4xNjk3MzAzMTQ5*_ga_CW55HF8NVT*MTY5NzMwMzE0OS4xLjEuMTY5NzMwNDA4My40MC4wLjA.",
+    Profile_Photo: P_F,
     Speciality_id: 2,
   },
   {
@@ -296,7 +296,7 @@ const doctors = [
     User: "doc003",
     Email: "fatima@medikids.com",
     Password: await bcrypt.hash("12345", 12),
-    Profile_Photo: "https://firebasestorage.googleapis.com/v0/b/medikids-b1d14.appspot.com/o/perfil_photos%2Fdefault.png?alt=media&token=8b5b9e6c-7629-404c-b0cc-9df4d1d1c976&_gl=1*1c1tmav*_ga*MTM1ODc1NDMxMi4xNjk3MzAzMTQ5*_ga_CW55HF8NVT*MTY5NzMwMzE0OS4xLjEuMTY5NzMwNDA4My40MC4wLjA.",
+    Profile_Photo: P_F,
     Speciality_id: 3,
   },
 ];
