@@ -1,0 +1,103 @@
+{
+    "login":{
+        "tittle":"Welcome",
+        "subtittle":"Enter your credentials to access",
+        "subtittle1":"User",
+        "subtitlle2":"password",
+        "button":"Acccess"
+    },
+    "index":{
+        "tittle":"Good morning",
+        "tittle1":"Good evening",
+        "tittle2":"Good night",
+        "tittle3":"Patients attended",
+        "tittle4":"Pending requests",
+        "tittle5":"Scheduled appointments",
+        "subtittle":"The services provided to the MediKids clinic have resulted in the care of various patients that to date total:",
+        "subtittle1":"In the request panel allows you to review the patients who want to schedule an appointment. The number of pending requests is:",
+        "subtittle2":"The calendar allows to organize and keep control of the appointments to be attended, for the moment the number of appointments to be attended is:",
+        "button":"See more"
+    },
+    "sidebar":{
+        "tittle":"Homepage",
+        "tittle1":"Inbox",
+        "tittle2":"Agenda",
+        "subtittle":"Appointment Requests",
+        "subtittle1":"Scheduled Appointment",
+        "tittle3":"Patient monitoring",
+        "subtittle2":"My Patients",
+        "subtittle3":"Search file",
+        "tittle4":"Configuration",
+        "tittle5":"Sign out"
+    },
+    "cites":{
+        "subtittle":"No appointment requests"
+    },
+    "pacients":{
+        "tittle":"Active patients",
+        "subtittle":"PATIENT",
+        "subtittle1":"CODE NUMBER",
+        "subtittle2":"DETALLES",
+        "button":"VER DETALLES",
+        "tittle1":"Pacientes atendidos previamente",
+        "tittle2":"You do not have any patient with a pending appointment",
+        "tittle3":"Previously treated patients",
+        "tittle4":"You have not attended any patient before"
+    },
+    "settings":{
+        "tittle":"Settings",
+        "tittle1":"Profile picture",
+        "button":"Change",
+        "tittle2":"System language"
+    },
+    "medical":{
+        "tittle":"Attending Patient:",
+        "tittle1":"End Appointment",
+        "tittle2":" Edit file",
+        "tittle3":"Edit prescription",
+        "tittle4":"Schedule an appointment",
+        "tittle5":"WARNING",
+        "tittle6":" This confirmation action is irreversible. Please make sure that all data is in order before proceeding.",
+        "button":"Previous",
+        "button1":"Next",
+        "tittle7":"Processing",
+        "tittle8":"Save",
+        "tittle9":"Cancel",
+        "tittle10":"Validation error",
+        "tittle11":"It appears that there are some details to review before finalizing the consultation:",
+        "tittle12":"1. File information",
+        "tittle13":"Height:",
+        "tittle14":"Weight:",
+        "tittle15":"Temperature:",
+        "tittle16":"2. Record",
+        "tittle17":"1. Prescription information",
+        "tittle18":"Edited drug prescription:",
+        "tittle19":"Name of drug",
+        "tittle20":"Description",
+        "tittle21":"Instructions",
+        "tittle23":"Dose",
+        "tittle24":"Dosage per day",
+        "tittle25":"Start date",
+        "tittle26":"Completion date",
+        "tittle27":"No medicine was edited",
+        "tittle28":"New drugs added:",
+        "tittle29":"No new drugs have been added",
+        "tittle30":"1. Scheduled appointment information",
+        "tittle31":"Patient:",
+        "tittle32":"Date:",
+        "tittle33":"Reason:",
+        "tittle34":"No appointment was scheduled during this session"
+    },
+    "details":{
+        "tittle":"Patient",
+        "tittle1":"Next appointment on:",
+        "tittle2":"Age",
+        "tittle3":"Blood Type",
+        "tittle4":"Height",
+        "tittle9":"Weight",
+        "tittle5":"See file",
+        "tittle6":"See recipes",
+        "tittle7":" View appointment history",
+        "tittle8":"Attend appointment"
+    }
+}

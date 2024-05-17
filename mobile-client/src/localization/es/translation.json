@@ -1,0 +1,411 @@
+{
+
+    "ThreePoints":{
+        "options":"Opciones",
+        "signoff":"Cerrar Sesión",
+        "ChangePatient":"Cambiar de Paciente",
+        "ViewProfile":"Ver Perfil",
+        "ViewPatient":"Ver Paciente",
+        "ChangeLangua":"Cambiar Idioma"
+
+    },
+    "medic":{
+        "ins":"Instrucción",
+        "period":"Periodo del tratamiento",
+        "text1":"al día",
+        "assigned":"Asignado por",
+        "medicAct":"Medicamentos Activos",
+        "medicinant":"No hay medicamentos activos actualmente",
+        "title":"Medicinas"
+
+    },
+    "calendar":{
+        "january":"Enero",
+        "february":"Febrero",
+        "march":"Marzo",
+        "april":"Abril",
+        "may":"Mayo",
+        "june":"Junio",
+        "july":"Julio",
+        "august":"Agosto",
+        "sept":"Septiembre",
+        "oct":"Octubre",
+        "november":"Noviembre",
+        "december":"Diciembre",
+        "dom":"Dom.",
+        "lun":"Lu.",
+        "mar":"Ma.",
+        "mie":"Mié.",
+        "jue":"Jue.",
+        "vie":"Vie.",
+        "sab":"Sáb.",
+        "title":"Calendario y recordatorios"
+
+    },
+    "AppointmentMainScreen":{
+        "choose":"Elige la especialidad en la que agendar una cita",
+        "gastro":"Gastroenterología",
+        "Oto":"Otorrinolaringología",
+        "Neu":"Neumología",
+        "OtoInfo":"Diagnóstico y tratamiento de las enfermedades del oído, nariz, garganta y alergías",
+        "NeuInfo":"Diagnóstico y tratamiento de enfermedades del sistema y vías respiratorias y pulmones",
+        "gastroInfo":"Diagnóstico y tratamiento de enfermedades del esófago, el estómago, los intestinos, y el hígado",
+        "schedule":"Agendar cita",
+        "history":"Historial de citas",
+        "NoRecordhistory":"Todavía no hay registros en el historial.",
+        "View":"Ver historial",
+        "title":"Citas",
+        "text1":"Especialista en otorrinolaringología",
+        "text2":"Graduado de la universidad de España con más de 30 años de experiencia",
+        "text3":"Especialista en gastroenterología",
+        "text4":"Especialista en gastroenterología graduada de la facultad de Medicina de la UNAM",
+        "text5":"Especialista en neumología",
+        "text6":"Graduado de la Facultad de Medicina de la Universidad Autónoma de Madrid"
+    },
+
+    "AppointmentPro":{
+        "consider":"A tener en cuenta",
+        "personalized":"Cada uno de nuestros pacientes recibe una atención personalizada, nuestros médicos se encargan de analizar detalladamente cada uno de los casos para brindar el diagnostico adecuado siempre, es por ello que en cada cita se toma en cuenta la siguiente metodología",
+        "reviewAndanalysis":"Revisión y análisis de sintomas",
+        "assigned":"Tratamiento asignado en un periodo de tiempo",
+        "controlAppointment":"Citas de control y seguimiento",
+        "guaranteed":"Atención y calidad garantizadas",
+        "title":"Cita"
+    },
+
+    "AppointmentHistory":{
+        "details":"Detalles de la cita",
+        "regisCod":"Código de Registro",
+        "patient":"Paciente",
+        "Date":"Fecha",
+        "doctor":"Médico",
+        "endtime":"Hora de Finalización",
+        "generaldiag":"Diagnostico General",
+        "prescriptionmedical":"Medicamentos Recetados",
+        "Height":"Altura",
+        "weight":"Weight",
+        "temp":"Temperatura",
+        "close":"Cerrar",
+        "MoreDetails":"Más Detalles",
+        "historyAttended":"Historial de Citas Atendidas",
+        "title":"Historia de Citas",
+        "oto":"Otorrinolaringología",
+        "neu":"Neumología",
+        "gastro":"Gastroenterología"
+
+    },
+
+    "account":{
+        "dataofcharge":"Datos del encargado",
+        "givenNames": "Nombres",
+        "phone":"Teléfono",
+        "changepic":"Cambiar Foto de Perfil",
+        "infopatient":"Información del Paciente",
+        "changepatient":"Cambiar de Paciente",
+        "signoff":"Cerrar Sesión",
+        "title":"Mi cuenta"
+
+
+    },
+
+    "patientperfil":{
+        "givenNames":"Nombres",
+        "patientData":"Datos del Paciente",
+        "cod":"Código",
+        "birthdate":"Fecha de nacimiento",
+        "gen":"Género",
+        "age":"Edad",
+        "VaccinesRecord":"Cartilla de vacunación",
+        "Act":"Acciones",
+        "changepic":"Cambiar Foto de Perfil",
+        "title":"Datos del paciente"
+     
+    },
+    "Gastro":{
+        "focuson":"¿En que nos enfocamos?",
+        "text1":"Profesionales de la medicina que ha recibido formación en el diagnóstico y tratamiento de las enfermedades del estomago, intestino y las paredes.",
+        "text2":"Enfermedades comunes",
+        "text3":"Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con problemas del estomago o paredes intestinales.",
+        "title1":"Apendicitis",
+        "text4":"Es una inflamación del apéndice, una bolsa en forma de dedo que se proyecta desde el colon en el lado inferior derecho del abdomen. ",
+        "title2":"Diarrea",
+        "text5":"Es un aumento en la frecuencia de las deposiciones (más de tres al día) acompañada de una disminución de la consistencia de éstas. ",
+        "title3":"Enfermedad celíaca",
+        "text6":"Los pacientes con enfermedad celíaca no toleran una proteína llamada gluten (trigo, avena, cebada,centeno).",
+        "title4":"Control intestinal",
+        "text7":"Dificultad para aguantar una evacuación intestinal. Tiene goteo de heces sólidas o líquidas cuando menos lo espera.",
+        "text8":"Todos los pacientes son analizados para un diagnóstico más preciso y tratamiento personalizado",
+        "title5":"Nuestro Especialista",
+        "text9":"Cuando veo la sonrisa de mis pacientes, esa es la verdadera recompensa",
+        "text10":"Especialista en Gastroenterología",
+        "text11":"Graduada de la facultad de Medicina de la UNAM",
+        "text12":"Participa activamente en sociedades médicas de gastroenterología ",
+        "schedule":"Agendar cita"
+    },
+    "Oto":{
+        "focuson":"¿En que nos enfocamos?",
+        "text1":"Estos médicos ven una amplia gama de enfermedades y patologías relacionadas con los sentidos, como problemas del olfato y el gusto o trastornos del equilibrio y la audición.",
+        "text2":"Enfermedades comunes",
+        "text3":"  Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con problemas del sentido olfato y auditivo.",
+        "title1":"Hemorragia nasal",
+        "text4":"Irritaciones debido a alergias, resfriados, estornudos o problemas sinusales. Aire muy frío o seco.",
+        "title2":" Pérdida de la audicións",
+        "text5":"La pérdida de audición puede ser leve, moderada, grave o profunda ocasionada por diversos factores",
+        "title3":"Laringitis",
+        "text6":"Es la inflamación de la caja de voz (laringe) por uso excesivo, irritación o infección y que se puede volver crónica",
+        "text7":"Las sinusitis ocurren cuando se acumula líquido en los senos paranasales (cavidades en la cara que están llenas de aire).",
+        "text8":"Todos los pacientes son analizados para un diagnóstico más preciso y tratamiento personalizado",
+        "title5":"Nuestro Especialista",
+        "text9":"My priority is patients and the satisfaction of parents seeing their children grow up healthy",
+        "text10":"Especialista Otorrinolaringología",
+        "text11":"Graduado de la Universidad de españa",
+        "text12":"Es un experto en cirugía de oído medio",
+        "schedule":"Agendar cita"
+    },
+    "Neu":{
+     
+        "focuson":"¿En que nos enfocamos?",
+        "text1":"Profesionales de la medicina que han recibido especializacion en el estudio, diagnóstico y tratamiento de las enfermedades relacionadas con el sistema respiratorio.",
+        "text2":"Enfermedades comunes",
+        "text3":" Estos cirujanos ven una amplia gama de enfermedades y patologías relacionadas con problemas del sistema respiratorio. ",
+        "title1":"Asma",
+        "text4":"El asma causa sibilancias, dificultad para respirar, opresión en el pecho y tos durante la noche o temprano por la mañana.",
+        "title2":"Bronquitis",
+        "text5":"La bronquitis aguda suele ser causada por la inflamación de las vías respiratorias debido a infecciones virales. ",
+        "title3":"Neumonía",
+        "text6":"Infección que afecta un pulmón o los dos. Hace que los sacos de aire, o alvéolos, de los pulmones se llenen de líquido o pus.",
+        "title4":"Tos Crónica",
+        "text7":"La tos crónica se define como tos que perdura más de 3 semanas y puede llegar a provocar bronquitis o complicaciones más graves",
+        "text8":"Todos los pacientes son analizados para un diagnóstico más preciso y tratamiento personalizado",
+        "title5":"Nuestro Especialista",
+        "text9":"La salud es la fuente de la felicidad, y cuidarla desde temprano es mi prioridad",
+        "text10":"Especialista en Neumología",
+        "text11":"Graduado de la Universidad de madrid",
+        "text12":"Miembro activo de sociedades médicas de neumología",
+
+        "schedule":"Agendar cita"
+    },
+
+
+    "homePage": {
+        "welcomeMsg": "¡Hola!",
+        "inCharge":"Encargado",
+        "givenNames": "Nombres",
+        "Age":"Edad",
+        "Cod":"Código",
+        "VPD":"Ver datos del Paciente",
+        "Reminder":"Recordatorio",
+        "Quotes":"Citas",
+        "UP":"Cita próxima",
+        "Date":"Fecha",
+        "State":"Estado",
+        "MoreDetails":"Más Detalles",
+        "NAA":"No hay citas activas",
+        "medicines":"Medicinas",
+        "NameM":"Nombre",
+        "ending":"Finalización",
+        "dose":"Dosis",
+        "noActM":"No hay medicamentos activos",
+        "categories":"Categorías",
+        "gastro":"Gastroenterología",
+        "textCate":"Especialistas capacitados y el mejor equipo para atender a tu hijo/a.",
+        "Oto":"Otorrinolaringología",
+        "Neu":"Neumología"
+
+
+    },
+    "selectLng": {
+        "title": "Seleccionar Idioma",
+        "lng_name_en": "Inglés",
+        "lng_name_es": "Español",
+        "btn": "Aceptar"
+    },
+    "welcomeScn": {
+        "language_title": "ES",
+        "main_title": "¡La mejor atención para los pequeños!",
+        "main_description": "MediKids te ofrece la mejor calidad de atención medica especializada en pediatría.",
+        "login_btn": "Iniciar Sesión",
+        "register_btn": "Registrarse"
+    },
+    "loginScn": {
+        "welcomeT" : "¡Bienvenido!",
+        "emailT": "Email",
+        "passT": "Contraseña",
+        "forgotPass": "Olvidé mi contraseña",
+        "loginT": "Iniciar sesión",
+        "dontHaveA" : "¿No tienes un cuenta?",
+        "signup": "Registrarse",
+        "back":"Atrás"
+    },
+    "globals": {
+        "email": "Email",
+        "pass": "Contraseña",
+        "signup": "Registrarse",
+        "login": "Iniciar sesión",
+        "name": "Nombres",
+        "lastName": "Apellidos",
+        "age": "edad",
+        "cellphone": "Num. Celular",
+        "confirmPassword": "Confirmar contraseña",
+        "logout": "Cerrar sesión"
+    },
+    "register1": {
+        "title": "Datos del encargado",
+        "alreadyAcc": "¿Ya tienes una cuenta?",
+        "back":"Atrás"
+    },
+    "verifyCode": {
+        "title": "Código de verificación",
+        "text2": "Su Email a verificar es: ",
+        "verifyBtn": "Verificar"
+    },
+    "selectPhoto": {
+        "title": "Tu foto de perfil",
+        "text2": "Para mayor seguridad, coloca una fotografía que pueda identificarte.",
+        "selectBtn": "Seleccionar",
+        "changeBtn": "Aceptar",
+        "back":"Atrás",
+        "step1":"Paso 1"
+    },
+    "selectPhotoPatient": {
+        "title": "Foto del Paciente",
+        "text2": "Para mayor eficacia y seguridad, coloca una fotografía que identifique al menor.",
+        "selectBtn": "Seleccionar",
+        "changeBtn": "Aceptar",
+        "back":"Atrás"
+    },
+    "registerPatient": {
+        "title": "Datos del Paciente",
+        "text2": "¡Necesitamos la información del menor para hacer un muy buen trabajo!",
+        "cancel":"Cancelar",
+        "accept":"Aceptar",
+        "back":"Atrás",
+        "step2":"Paso 2"
+    },
+
+
+    "forgotpasswordCod":{
+        "passwordcode":"Código de cambio de contraseña"
+
+    },
+    "forgotpassword":{
+        "email":"Ingrese Email",
+        "send":"Enviar",
+        "back":"Atrás",
+        "iforgot":"Olvidé mi contraseña",
+        "instructions":"Recibiras instrucciones para restablecer tu contraseña"
+    },
+    "immunization":{
+        "step3":"Step 3",
+        "Vaccination":"Registro de vacunación",
+        "needchildInfo":"¡Necesitamos la información del menor para hacer un muy buen trabajo!",
+        "patient":"Paciente",
+        "select":"Seleccione las Vacunas",
+        "polio":"Poliomielitis",
+        "penta":"Pentavalent",
+        "neumococo":"Neumococo Conjugado",
+        "oralPolio":"Polio Oral",
+        "anti":"Antitetánica"
+    },
+    "resetpassword":{
+        "recoverPass":"Recuperar contraseña"
+    },
+    "selectPatient":{
+        "selectpatient":"Seleccione un paciente",
+        "signoff":"Cerrar Sesión",
+        "addpatient":"Añadir Paciente"
+    },
+    "requestAppoint":{
+        "text1":"Solicitar cita médica",
+        "text2":"Brinda la siguiente información previa",
+        "text3":"Seleccione una de las semanas disponibles",
+        "request":"Solicitar Cita",
+        "symp":"Síntomas o condición a tratar"
+        
+    },
+    "noti":{
+        "title":"Notificaciones",
+        "text1":"Recientes",
+        "text2":"No hay notificaciones actuales",
+        "text3":"Antiguas",
+        "text4":"No hay notificaciones pasadas",
+        "text5":"No hay ninguna notificación",
+        "deleted":"Eliminar"
+
+    },
+    "weekDate":{
+        "text1":"Cuando su solicitud sea revisada se elegirá un día de esa semana disponible para la cita",
+        "text2":"Semana seleccionada",
+        "text3":"Semana",
+        "to":"al"
+    },
+    "appointmentMedicines":{
+        "text1":"Descripción de la Asignación",
+        "text2":"Dosis",
+        "text3":"Instrucciones",
+        "text4":"Duración",
+        "texxt5":"Al día",
+        "text6":"Medicinas",
+        "text7":"No se asignaron medicamentos"
+    },
+    "appointmentResult":{
+        "text1":"Resultados de la cita",
+        "text2":"Registro de datos",
+        "text3":"Paciente",
+        "text4":"Peso",
+        "text5":"Altura",
+        "text6":"Edad",
+        "text7":"Años",
+        "text8":"Diagnóstico generals"
+    },
+    "appointmentStatus":{
+        "text1":"Especialista en otorrinolaringología",
+        "text2":"Graduado de la universidad de España con más de 30 años de experiencia",
+        "text3":"Especialista en gastroenterología",
+        "text4":"Especialista en gastroenterología graduada de la facultad de Medicina de la UNAM",
+        "text5":"Especialista en Neumologia",
+        "text6":"Graduado de la Facultad de Medicina de la Universidad Autónoma de Madrid",
+        "text7":"Ver más"
+    },
+    "attending":{
+        "text1":"Información de la cita",
+        "text2":"Información Personal",
+        "text3":"Atendiendo paciente",
+        "text4":"Encargado",
+        "text5":"Informacion de la cita",
+        "text6":"Motivo de la cita",
+        "text7":"Fecha y hora",
+        "text8":"Estado de la cita",
+        "text9":"Tiempo Restante",
+        "text10":"Estado",
+        "text11":"Tiempo Transcurrido"
+    },
+    "next":{
+        "text1":"Cita pendiente",
+        "text2":"Tiene una próxima cita",
+        "text3":"Fecha",
+        "text4":"Hora",
+        "text5":"Médico"
+    },
+    "pending":{
+        "text1":"Confirmación de cita",
+        "text2":"Cuando la cita ha sido confirmada, en este apartado aparece la fecha exacta de la cita y la hora",
+        "text3":"Semana Seleccionada"
+        
+    },
+    "programmed":{
+        "text1":"Agendar Citas",
+        "text2":"Tiene una cita Programada",
+        "text3":"Fecha",
+        "text4":"Hora",
+        "text5":"Médico"
+    },
+    "tabNav": {
+        "inicio": "inicio",
+        "Calendario": "Calendario",
+        "Citas": "Citas",
+        "Medicinas": "Medicinas",
+        "Mi_Cuenta": "Mi Cuenta"
+    }
+   
+}

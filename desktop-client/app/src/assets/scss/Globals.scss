@@ -1,0 +1,31 @@
+.fade-in {
+    animation: fade-in 1.3s ease-in-out;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.custom-shadow{
+    filter: drop-shadow(0px 0px 30px #D8D7FE);
+}
+.react-toggle-track {
+    background-color: #c6c6c6 !important;
+}
+.react-toggle--checked .react-toggle-track {
+    background-color: #9587b9 !important;
+}
+.react-toggle {
+    transform: scale(0.8) !important;
+}
+.react-toggle.react-toggle--checked .react-toggle-thumb {
+    border-color: transparent !important;
+}
+.react-toggle-thumb {
+    box-shadow: none !important;
+}

@@ -1,5 +1,6 @@
 .kid{
     height: 34em;
+    width: auto;
     display: flex;
     margin-left: 2em;
 }
@@ -34,9 +35,11 @@
     background-repeat: no-repeat;
     background-size: 40em;
     background-position: right;
+    display: flex;
     width: 20em;
     height: 41em;
     width: 100%;
+    float: right;
 }
 .sub2{
     text-align: justify;

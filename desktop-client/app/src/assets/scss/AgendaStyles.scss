@@ -1,0 +1,34 @@
+.tippy-tooltip {
+    padding: 0 !important;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+    box-shadow: none !important;
+    background: none !important;
+}
+.fc-prev-button, .fc-button, .fc-button-primary{
+    background:  #A375FF !important;
+    border-radius: 10px !important;
+    border: 1px solid #afacb5 !important;
+    transition: all .3s;
+}
+.fc .fc-button-primary:focus{
+    box-shadow: none !important;
+}
+.fc .fc-button-primary:hover{
+    box-shadow: none !important;
+    background:  #a375ffb5 !important;
+    transition: all .3s;
+}
+.fc-today-button {
+    background: #D8D7FE !important;
+    color: #000000 !important;
+}
+.fc-button-group{
+    gap: 1rem;
+}
+.fc-col-header {
+    background: #f7f7f7 !important;
+}
+.fc-scrollgrid-section-body .fc-day-today{
+    background: #e6e8eba4 !important;
+}

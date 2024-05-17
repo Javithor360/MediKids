@@ -1,0 +1,415 @@
+{
+    "ThreePoints":{
+        "options":"Options",
+        "signoff":"Sign Off",
+        "ChangePatient":"Change patient",
+        "ViewProfile":"View Profile",
+        "ViewPatient":"View Patient",
+        "ChangeLangua":"Change language"
+
+        
+
+    },
+    "medic":{
+        "ins":"Instruction",
+        "period":"Treatment period",
+        "text1":"up to date",
+        "assigned":"assigned by",
+        "medicAct":"Active Medications",
+        "medicinant":"There are no active medical currently",
+        "title":"Medicines"
+
+    },
+    "calendar":{
+        "january":"January",
+        "february":"February",
+        "march":"March",
+        "april":"April",
+        "may":"May",
+        "june":"June",
+        "july":"July",
+        "august":"August ",
+        "sept":"September ",
+        "oct":"October",
+        "november":"November",
+        "december":"December",
+        "dom":"Sun.",
+        "lun":"Mon.",
+        "mar":"Tue.",
+        "mie":"Wed.",
+        "jue":"Thu.",
+        "vie":"Fri.",
+        "sab":"Sat.",
+        "title":"Calendar and reminders"
+    },
+    "AppointmentMainScreen":{
+        "choose":"Choose the specialty in which to schedule an appointment",
+        "Oto":"Otorhinolaryngology",
+        "Neu":"Pneumology",
+        "gastro":"Gastroenterology",
+        "OtoInfo":"Diagnosis and treatment of diseases of the ear, nose, throat and allergies",
+        "NeuInfo":"Diagnosis and treatment of diseases of the system and respiratory tract and lungs",
+        "gastroInfo":"Diagnosis and treatment of diseases of the esophagus, stomach, intestines, and liver",
+        "schedule":"Arrange appmt...",
+        "history":"Appointment History",
+        "NoRecordhistory":"There are no records in the history yet.",
+        "View":"View History",
+        "title":"Appointments",
+        "text1":"Otolaryngology specialist",
+        "text2":"Graduated from the University of Spain with more than 30 years of experience",
+        "text3":"Gastroenterology specialist",
+        "text4":"Specialist in gastroenterology graduated from the Faculty of Medicine of the UNAM",
+        "text5":"Pneumology specialist",
+        "text6":"Graduated from the Faculty of Medicine of the Autonomous University of Madrid"
+
+
+    },
+
+    "AppointmentPro":{
+        "consider":"To consider",
+        "personalized":"Each of our patients receives personalized attention, our doctors are in charge of analyzing each of the cases in detail to always provide the appropriate diagnosis, which is why the following methodology is taken into account at each appointment",
+        "reviewAndanalysis":"Review and analysis of symptoms",
+        "assigned":"Treatment assigned in a period of time",
+        "controlAppointment":"Control and follow-up appointments",
+        "guaranteed":"Guaranteed care and quality",
+        "title":"Appmt."
+
+    },
+
+    "AppointmentHistory":{
+        "details":"appointment details",
+        "regisCod":"Registration Code",
+        "patient":"Patient",
+        "Date":"Date",
+        "doctor":"doctor",
+        "endtime":"Ending time",
+        "generaldiag":"General diagnosis",
+        "prescriptionmedical":"Prescription medical",
+        "Height":"Height",
+        "weight":"Weight",
+        "temp":"Temperature",
+        "close":"Close",
+        "MoreDetails":"More details",
+        "historyAttended":"History of Attended Appmts.",
+        "title":"Dating History",
+        "oto":"Otorhinolaryngology",
+        "neu":"Pneumology",
+        "gastro":"Gastroenterology"
+
+    },
+
+    "account":{
+        "dataofcharge":"Data of the in charge",
+        "givenNames":"Given Names",
+        "phone":"Phone",
+        "changepic":"Change Profile Picture",
+        "infopatient":"Information of the patient",
+        "changepatient":"change patient",
+        "signoff":"Sign Off",
+        "title":"My account"
+
+    },
+    "patientperfil":{
+        "givenNames":"Given Names",
+        "patientData":"Patient's data",
+        "cod":"Code",
+        "birthdate":"Birthdate",
+        "gen":"Gender",
+        "age":"Age",
+        "VaccinesRecord":"Vaccination record",
+        "Act":"Actions",
+        "changepic":"Change Profile Picture",
+        "title":"Patient's data"
+
+    },
+    "Gastro":{
+        "focuson":"What do we focus on?",
+        "text1":"Medical professionals who have received training in the diagnosis and treatment of diseases of the stomach, intestine and walls.",
+        "text2":"Common diseases",
+        "text3":"These surgeons see a wide range of diseases and pathologies related to problems of the stomach or intestinal walls.",
+        "title1":"Appendicitis",
+        "text4":"It is an inflammation of the appendix, a finger-shaped pouch that projects from the colon on the lower right side of the abdomen.",
+        "title2":"Diarrhea",
+        "text5":"It is an increase in the frequency of bowel movements (more than three per day) accompanied by a decrease in their consistency.",
+        "title3":"Celiac Disease",
+        "text6":"Patients with celiac disease do not tolerate a protein called gluten (wheat, oats, barley, rye).",
+        "title4":"bowel control",
+        "text7":"Difficulty holding a bowel movement. You have dribbling of solid or liquid stool when you least expect it.",
+        "text8":"All patients are analyzed for a more accurate diagnosis and personalized treatment",
+        "title5":"Our Specialist",
+        "text9":"When I see the smile of my patients, that is the true reward ",
+        "text10":"Gastroenterology specialist",
+        "text11":"Graduated from the Faculty of Medicine of the UNAM",
+        "text12":"She is active in gastroenterology medical societies",
+        "schedule":"Schedule appointment"
+
+    },
+    "Oto":{
+        "focuson":"What do we focus on?",
+        "text1":"These doctors see a wide range of diseases and pathologies related to the senses, such as smell and taste problems or balance and hearing disorders.",
+        "text2":"Common diseases",
+        "text3":"These surgeons see a wide range of diseases and pathologies related to hearing and smell problems.",
+        "title1":"Nosebleed",
+        "text4":"Irritations due to allergies, colds, sneezing, or sinus problems. Very cold or dry air.",
+        "title2":" Hearing loss",
+        "text5":"Hearing loss can be mild, moderate, severe, or profound caused by a variety of factors.",
+        "title3":"Laryngitis",
+        "text6":"It is the inflammation of the voice box (larynx) due to excessive use, irritation or infection and that can become chronic.",
+        "text7":"Sinusitis occurs when fluid builds up in the sinuses (cavities in the face that are filled with air).",
+        "text8":"All patients are analyzed for a more accurate diagnosis and personalized treatment",
+        "title5":"Our Specialist",
+        "text9":"My priority is patients and the satisfaction of parents seeing their children grow up healthy",
+        "text10":"Otorhinolaryngology specialist",
+        "text11":"Graduated from the University of Spain",
+        "text12":"He is an expert in middle ear surgery",
+        "schedule":"Schedule appointment"
+
+    },
+    "Neu":{
+        "focuson":"What do we focus on?",
+        "text1":"Medical professionals who have received specialization in the study, diagnosis and treatment of diseases related to the respiratory system.",
+        "text2":"Common diseases",
+        "text3":"These surgeons see a wide range of diseases and pathologies related to problems of the respiratory system.",
+        "title1":"Asthma",
+        "text4":"Asthma causes wheezing, shortness of breath, chest tightness, and coughing at night or early in the morning.",
+        "title2":"Bronchitis",
+        "text5":"Acute bronchitis is usually caused by inflammation of the airways due to viral infections.",
+        "title3":"Pneumonia",
+        "text6":"Infection affecting one or both lungs. It causes the air sacs, or alveoli, in the lungs to fill with fluid or pus.",
+        "title4":"Chronic cough",
+        "text7":"Chronic cough is defined as a cough that lasts for more than 3 weeks and can lead to bronchitis or more serious complications.",
+        "text8":"All patients are analyzed for a more accurate diagnosis and personalized treatment",
+        "title5":"Our Specialist",
+        "text9":"Health is the source of happiness, and taking care of it early is my priority",
+        "text10":"Pneumology specialist",
+        "text11":"Graduated from the University of Madrid",
+        "text12":"Active member of pulmonology medical societies",
+
+
+        "schedule":"Schedule appointment"
+        
+    },
+
+    
+    "homePage": {
+        "welcomeMsg": "Hello!",
+        "inCharge":"Responsible",
+        "givenNames":"Given Names",
+        "Age":"Age",
+        "Cod":"Cod",
+        "VPD":"View Patient Data",
+        "Reminder":"Reminder",
+        "Quotes":"Appoint...",
+        "UP":"Next appoint",
+        "Date":"Date",
+        "State":"State",
+        "MoreDetails":"More details",
+        "NAA":"There are no active appointments",
+        "medicines":"Medicines",
+        "NameM":"Name",
+        "ending":"Ending",
+        "dose":"Dose",
+        "noActM":"There are no active Medicines",
+        "categories":"Categories",
+        "gastro":"Gastroenterology",
+        "textCate":"Trained specialists and the best team to care for your child.",
+        "Oto":"Otorhinolaryngology",
+        "Neu":"Pneumology"
+
+
+    },
+   
+    "selectLng": {
+        "title": "Select language",
+        "lng_name_en": "English",
+        "lng_name_es": "Spanish",
+        "btn": "Done"
+    },
+    "welcomeScn": {
+        "language_title": "EN",
+        "main_title": "The best care for the young ones!",
+        "main_description": "Medikids offers you the best quality medical care specialized in pediatrics",
+        "login_btn": "Sign in",
+        "register_btn": "Sign up"
+    },
+    "loginScn": {
+        "welcomeT" : "Welcome!",
+        "emailT": "Email",
+        "passT": "Password",
+        "forgotPass": "Forgot your password?",
+        "loginT": "Log in",
+        "dontHaveA" : "You don't have an account?",
+        "signup": "Sign up",
+        "back":"Back"
+    },
+    "globals": {
+        "email": "Email",
+        "pass": "Password",
+        "signup": "Sign up",
+        "login": "Sign in",
+        "name": "Names",
+        "lastName": "Last names",
+        "age": "age",
+        "cellphone": "Cellphone",
+        "confirmPassword": "Confirm your password",
+        "logout": "Log out"
+    },
+    "register1": {
+        "title": "Parent information",
+        "alreadyAcc": "¿Do you already have an account?",
+        "back":"Back"
+    },
+    "verifyCode": {
+        "title": "Verify Code",
+        "text2": "Your Email to verify is: ",
+        "verifyBtn": "Verify"
+    },
+    "selectPhoto": {
+        "title": "Your profile photo",
+        "text2": "For added security, please upload a photograph that can identify you",
+        "selectBtn": "Select",
+        "changeBtn": "Done",
+        "back":"Back",
+        "step1":"Step 1"
+    },
+    "selectPhotoPatient": {
+        "title": "Patient's photo",
+        "text2": "For greater efficiency and security, place a photograph that identifies the minor.",
+        "selectBtn": "Select",
+        "changeBtn": "Done",
+        "back":"Back"
+    },
+    "registerPatient": {
+        "title": "Patient's information",
+        "text2": "We need the child's information to do a great job!",
+        "cancel":"Cancel",
+        "accept":"Accept",
+        "back":"Back",
+        "step2":"Step 2"
+    },
+    "forgotpasswordCod":{
+        "passwordcode":"password change code"
+
+    },
+    "forgotpassword":{
+        "email":"Enter Email",
+        "send":"Send",
+        "back":"Back",
+        "iforgot":"I forgot my password",
+        "instructions":"You will receive instructions to reset your password"
+    },
+    "immunization":{
+        "step3":"Step 3",
+        "Vaccination":"Vaccination record",
+        "needchildInfo":"¡We need the child's information to do a very good job!",
+        "patient":"Patient",
+        "select":"Select Vaccines",
+        "polio":"Poliomyelitis",
+        "penta":"Pentavalent",
+        "neumococo":"Conjugated pneumococcus",
+        "oralPolio":"Oral polio",
+        "anti":"Antitetanus"
+        
+        
+
+    },
+    "resetpassword":{
+        "recoverPass":"Recover password"
+    },
+    "selectPatient":{
+        "selectpatient":"Select a patient",
+        "signoff":"Sign Off",
+        "addpatient":"Add Patient"
+    },
+    "requestAppoint":{
+        "text1":"Request medical appointment",
+        "text2":"Provide the following prior information",
+        "text3":"Select one of the available weeks",
+        "request":"Request appmt.",
+        "symp":"Symptoms or condition to treat"
+    },
+    "noti":{
+        "title":"Notifications",
+        "text1":"Recent",
+        "text2":"No current notifications",
+        "text3":"Ancient",
+        "text4":"No past notifications",
+        "text5":"There is no notification",
+        "deleted":"Deleted"
+
+    },
+    "weekDate":{
+        "text1":"When your request is reviewed, an available day of that week will be chosen for the appointment",
+        "text2":"selected week",
+        "text3":"Week",
+        "to":"to"
+    },
+    "appointmentMedicines":{
+        "text1":"Assignment Description",
+        "text2":"Dose",
+        "text3":"Instructions",
+        "text4":"Duration",
+        "text5":"Per Day",
+        "text6":"Medicines",
+        "text7":"No medications were assigned"
+    },
+    "appointmentResult":{
+        "text1":"Appointment results",
+        "text2":"Data register",
+        "text3":"Patient",
+        "text4":"Weight",
+        "text5":"Height",
+        "text6":"Age",
+        "text7":"Years",
+        "text8":"General diagnosis"
+    },
+    "appointmentStatus":{
+        "text1":"Otorhinolaryngology Specialist",
+        "text2":"Graduated from the University of Spain with more than 30 years of experience",
+        "text3":"Gastroenterology specialist",
+        "text4":"Specialist in gastroenterology graduated from the Faculty of Medicine of the UNAM",
+        "text5":"Pneumology specialist",
+        "text6":"Graduated from the Faculty of Medicine of the Autonomous University of Madrid",
+        "text7":"View more"
+    },
+    "attending":{
+        "text1":"Appointment information",
+        "text2":"Personal information",
+        "text3":"attending patient",
+        "text4":"Responsible",
+        "text5":"Appointment information",
+        "text6":"Reason for the appointment",
+        "text7":"Date and time of",
+        "text8":"Appointment status",
+        "text9":"Time left",
+        "text10":"State",
+        "text11":"Time elapsed"
+    },
+    "next":{
+        "text1":"Pending appointment",
+        "text2":"Upcoming appointment",
+        "text3":"Date",
+        "text4":"Time",
+        "text5":"Doctor"
+    },
+    "pending":{
+        "text1":"Appointment confirmation",
+        "text2":"When the appointment has been confirmed, this section shows the exact date of the appointment and the time",
+        "text3":"Selected Week"
+    },
+    "programmed":{
+        "text1":"Scheduled Appointment",
+        "text2":"You have a scheduled appointment",
+        "text3":"Date",
+        "text4":"Time",
+        "text5":"Doctor"
+    },
+    "tabNav": {
+        "inicio": "Home",
+        "Calendario": "Calendar",
+        "Citas": "Appmts",
+        "Medicinas": "Medicines",
+        "Mi_Cuenta": "My Account"
+    }
+ 
+}

@@ -1,27 +1,53 @@
 import React from 'react'
 import { NavBar, Footer } from '../components';
+import { useTranslation } from "react-i18next";
+import "./assets/scss/about.scss";
+const Banner = require.context("./assets/img", true);
 export const Sobre = () => {
+  const { t } = useTranslation();
   return (
     <>
-    <NavBar />
+  <NavBar />
             <section className="acc-hero4">
                 <div className="acc-hero-cont">
                     <h1>MediKids</h1>
-                    <p>Cuido y bienestar para los peques del hogar</p>
+                    <p>{t("sobre.banner")}</p>
                 </div>
             </section>
-            <h1 className='next2'>¿Quienes<span> somos</span> ?</h1>
-            <p className='sub3'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ante diam, egestas at nisl at,
-                lobortis lacinia augue. Mauris neque magna, feugiat id vestibulum et, cursus ac risus. Aliquam erat volutpat.
-                Pellentesque non gravida nulla. Integer sed scelerisque lacus. Nam interdum nunc et purus tristique viverra.
-                Integer mauris sem, placerat vel ante at, tincidunt sollicitudin nisi. Nullam porttitor a dolor eu dignissim.
-                Quisque sit amet sodales ante, ultrices sollicitudin massa. Orci varius natoque penatibus et magnis dis parturient
-                montes, nascetur ridiculus mus. Nam in purus quis ipsum suscipit vulputate. Sed eu purus tincidunt, varius lectus id, pretium nibh.
-                Ut lobortis finibus odio, et laoreet neque hendrerit eget. Vivamus accumsan, ante sed varius rutrum, magna arcu rutrum lectus, vel ullamcorper
-                purus elit sit amet nisl.
+            <h1 className='next2'>{t("sobre.ti")}<span> {t("sobre.tle")}</span> </h1>
+            <p className='sub3'>{t("sobre.sub1")}
                 <br /><br /><br />
                 <br /><br />
             </p>
+            <hr />  
+            <h1 className='next2'>{t("sobre.ti2")} <span> {t("sobre.tle2")}</span></h1>
+            <div className='contmot'>
+            <div className='imgcont'><img className='w-[100%] h-[100%] flex items-center' src={Banner('./doctores/docclow.png')} /></div>
+            <div className='pcont'>
+            <p className='sub3'>{t("sobre.sub2")}
+            </p>
+            </div>
+            </div>
+            <hr />
+            <h1 className='next2'>{t("sobre.ti3")}<span>{t("sobre.tle3")}</span></h1>
+            <div className='contmot'>
+            <div className='pcont'>
+            <p className='sub3'>{t("sobre.sub3")}
+            </p>
+            </div>
+            <div className='imgcont'><img className='w-[100%] h-[100%] flex items-center' src={Banner('./doctores/doc2.png')} /></div>
+            </div>
+            <hr />
+            <h1 className='next2'>Vis<span>ión</span></h1>
+            <div className='contmot'>
+            <div className='imgcont'><img className='w-[100%] h-[100%] flex items-center' src={Banner('./doctores/docclo.png')} />
+            </div>  
+            <div className='pcont'>
+            <p className='sub3'>{t("sobre.sub4")}
+            </p>
+            </div>
+            </div>
+            <Footer />
     </>
   )
 }

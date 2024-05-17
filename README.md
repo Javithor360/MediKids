@@ -46,6 +46,10 @@
         </a>
         <br />
 	    <a href="https://github.com/Javithor360/MediKids/commits?author=RealAlvinJS" title="Back-End">🔧</a>
+	    <a href="https://github.com/Javithor360/MediKids/commits?author=RealAlvinJS" title="Mobile Development">📱</a>
+	    <a href="https://github.com/Javithor360/MediKids/commits?author=RealAlvinJS" title="Fron-End">🎨</a>
+	    <a href="https://github.com/Javithor360/MediKids/commits?author=RealAlvinJS" title="Desktop Development">🖥️</a>
+	    <a href="https://github.com/Javithor360/MediKids/commits?author=RealAlvinJS" title="Web Development">🌐</a>
     </td>
     <td align="center">
         <a href="https://github.com/ElvisJua">

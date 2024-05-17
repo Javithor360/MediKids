@@ -1,0 +1,103 @@
+{
+    "login":{
+        "tittle":"BIenvenidos",
+        "subtittle":"Ingrese sus credenciales para acceder",
+        "subtittle1":"Ususairo",
+        "subtitlle2":"Contraseña",
+        "button":"Accceder"
+    },
+    "index":{
+        "tittle":"Buenos dias",
+        "tittle1":"Buenas tardes",
+        "tittle2":"Buenas noches",
+        "tittle3":"Pacientes atendidos",
+        "tittle4":"Solicitudes pendientes",
+        "tittle5":"Consultas agendadas",
+        "subtittle":"Los servicios prestados a la clínica MediKids han resultado en la atención de diversos pacientes que hasta la fecha suman:",
+        "subtittle1":"En el panel de solicitudes permite revisar los pacientes que desean agendar una cita. La cantidad de solicitudes pendientes es de:",
+        "subtittle2":"El calendario permite organizar y llevar control de las consultas a atender, por el momento la cntidad de consultas a atender es de:",
+        "button":"Ver mas"
+    },
+    "sidebar":{
+        "tittle":"Inicio",
+        "tittle1":"Comunicados",
+        "tittle2":"Agenda",
+        "subtittle":"Solicitud de citas",
+        "subtittle1":"Citas programadas",
+        "tittle3":"Control de pacientes",
+        "subtittle2":"Mis pacientes",
+        "subtittle3":"Buscar expediente",
+        "tittle4":"Configuración",
+        "tittle5":"Cerrar sesión"
+    },
+    "cites":{
+        "subtittle":"No hay solicitudes de citas"
+    },
+    "pacients":{
+        "tittle":"Pacientes activos",
+        "subtittle":"PACIENTE",
+        "subtittle1":"NÚMERO DE CÓDIGO",
+        "subtittle2":"DETALLES",
+        "button":"VER DETALLES",
+        "tittle1":"Pacientes atendidos previamente",
+        "tittle2":"No tienes ningún paciente con cita pendiente",
+        "tittle3":"Pacientes atendidos previamente",
+        "tittle4":"No has atendido a ningún paciente anteriormente"
+    },
+    "settings":{
+        "tittle":"Configuración",
+        "tittle1":"Foto de perfil",
+        "button":"Cambiar",
+        "tittle2":"Idioma del sistema"
+    },
+    "medical":{
+        "tittle":"Atendiendo Paciente:",
+        "tittle1":"Finalizar consulta",
+        "tittle2":" Editar expediente",
+        "tittle3":"Editar receta",
+        "tittle4":"Programar cita",
+        "tittle5":"ADVERTENCIA",
+        "tittle6":" Esta acción de confirmación es irreversible. Por favor asegúrate que todos los datos estén en orden antes de proceder",
+        "button":"Anterior",
+        "button1":"Siguiente",
+        "tittle7":"Procesando",
+        "tittle8":"Guardar",
+        "tittle9":"Cancelar",
+        "tittle10":"Error de validación",
+        "tittle11":"Parece que hay algunos detalles que revisar antes de finalizar la consulta:",
+        "tittle12":"1. Información del expediente",
+        "tittle13":"Altura:",
+        "tittle14":"Peso:",
+        "tittle15":"Temperatura:",
+        "tittle16":"2. Expediente",
+        "tittle17":"1. Información de la receta médica",
+        "tittle18":"Receta de medicamentos editada:",
+        "tittle19":"Nombre del medicamento",
+        "tittle20":"Descripción",
+        "tittle21":"Instrucciones",
+        "tittle23":"Dosis",
+        "tittle24":"Dosis por día",
+        "tittle25":"Fecha de inicio",
+        "tittle26":"Fecha de finalización",
+        "tittle27":"No se editó ningún medicamento",
+        "tittle28":"Nuevos medicamentos agregados:",
+        "tittle29":"No se han agregado medicamentos nuevos",
+        "tittle30":"1. Información de cita programada",
+        "tittle31":"Paciente:",
+        "tittle32":"Fecha:",
+        "tittle33":"Motivo:",
+        "tittle34":"No se programó una cita durante esta sesión"
+    },
+    "details":{
+        "tittle":"Paciente",
+        "tittle1":"Proxima cita el:",
+        "tittle2":"Edad",
+        "tittle3":"Tipo Sanguíneo",
+        "tittle4":"Altura",
+        "tittle9":"Peso",
+        "tittle5":"Ver expendiente",
+        "tittle6":"Ver recetas",
+        "tittle7":" Ver historial de citas",
+        "tittle8":"Atender consulta"
+    }
+}

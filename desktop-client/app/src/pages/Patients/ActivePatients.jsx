@@ -1,42 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useDash } from "../../context/DoctorContext";
+import { getPatientAge } from "../../utils/Functions";
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 export const ActivePatients = (props) => {
-  const { ActivePatientsQuery, activePatients } = useDash();
+  const { t } = useTranslation();
+  const { PatientsClassificator, oldPatients, activePatients } = useDash();
   useEffect(() => {
-    ActivePatientsQuery(1);
+    PatientsClassificator(JSON.parse(localStorage.getItem("userSession")).id);
   }, []);
-
+  const [loadingScreen, setLoadingScreen] = useState(true);
+  setTimeout(() => {
+    setLoadingScreen(false);
+  }, 3000);
   return (
     <>
-      <h1 className="text-[#a375ff] font-bold text-3xl mb-12 after:content-[''] after:bg-[#a375ff] after:block after:w-[30%] after:h-[0.1875rem] after:mx-0 after:my-auto">
-        Pacientes activos
-      </h1>
+    {
+      loadingScreen === true ? 
+      <div className="flex items-center justify-center w-full h-full">
+        <PropagateLoader
+          color="#a375ff"
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      </div>
+      :
+      <>
+      <div className="w-fit border-b-[0.1875rem] border-b-[#a375ff] mb-12">
+        <h1 className="text-[#a375ff] font-bold text-3xl">
+        {t("pacients.tittle")}
+        </h1>
+      </div>
+      
 
       {activePatients.length !== 0 ? (
-        <div className="overflow-x-auto w-[80%] rounded-lg border border-[#000000] mx-auto">
+        <div className="overflow-x-auto w-[80%] rounded-lg border border-[#c6c6c6] shadow-md mx-auto">
           <table className="table w-full">
             <thead className="bg-[#a375ff] text-white">
               <tr className="text-center">
-                <th className="border-b border-r border-[#BBBBBB]">Paciente</th>
+                <th className="border-b border-r border-[rgb(187,187,187)]">{t("pacients.subtittle")}</th>
                 <th className="border-b border-r border-[#BBBBBB]">
-                  Número de código
+                {t("pacients.subtittle1")}
                 </th>
-                <th className="border-b border-[#BBBBBB]">Detalles</th>
+                <th className="border-b border-[#BBBBBB]">{t("pacients.subtittle2")}</th>
               </tr>
             </thead>
             <tbody>
               {activePatients.map((patient) => {
-                // setState({
-                //   id: patient.id,
-                //   first_names: patient.First_Names,
-                //   last_names: patient.Last_Names,
-                //   age: patient.Age,
-                //   blood_type: patient.Blood_Type,
-                //   weight: patient.Weight,
-                //   height: patient.Height,
-                // });
                 return (
                   <tr className="text-center" key={patient.id}>
                     <td className="border-r border-[#BBBBBB]">
@@ -47,7 +59,7 @@ export const ActivePatients = (props) => {
                               src={
                                 patient.Profile_Photo == "NULL"
                                   ? require("../../assets/template/avatar.jpg")
-                                  : patient.Profile_Photo
+                                  : patient.Profile_Photo_Url
                               }
                               alt="pfp"
                             />
@@ -57,7 +69,7 @@ export const ActivePatients = (props) => {
                           <div className="font-bold text-left">
                             {`${patient.First_Names} ${patient.Last_Names}`}
                           </div>
-                          <div className="text-sm text-left opacity-50">{`${patient.Age} años`}</div>
+                          <div className="text-sm text-left opacity-50">{getPatientAge(patient.Age, patient.Birthdate)}</div>
                         </div>
                       </div>
                     </td>
@@ -65,14 +77,11 @@ export const ActivePatients = (props) => {
                       {patient.Patient_Code}
                     </td>
                     <td className="border-[#BBBBBB]">
-                      <button className="btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white">
-                        <Link
-                          to="/patients/active/details"
-                          state={{ patient }}
-                        >
-                          Ver detalles
-                        </Link>
-                      </button>
+                      <Link to="/patients/active/details" state={{ patient }}>
+                        <button className="btn btn-outline btn-xs hover:bg-[#a375ff] hover:text-white">
+                        {t("pacients.button")}
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 );
@@ -81,8 +90,76 @@ export const ActivePatients = (props) => {
           </table>
         </div>
       ) : (
-        <div>
-          <h2>No tienes ningún paciente activo</h2>
+        // <div className="h-[15rem] w-[100%] flex flex-col gap-5 items-center justify-center">
+        //   <img className="w-[10rem]" src={require('../../assets/icons/no_appmt.png')} alt="" />
+        //   <h3 className="text-[#707070]">No tienes ningún paciente con cita pendiente</h3>
+        // </div>
+        <div className="h-[15rem] w-[100%] flex flex-col gap-5 justify-center items-center">
+          <div className="w-fit h-full flex-col gap-5">
+            <img className="w-[10rem] mx-auto block mb-5" src={require('../../assets/icons/no_appmt.png')} alt="" />
+            <h3 className="text-[#707070]">{t("pacients.tittle2")}</h3>
+          </div>
+        </div>
+      )}
+
+      <div className="w-fit border-b-[0.1875rem] border-b-[#a375ff] mt-12 mb-12">
+        <h1 className="text-[#a375ff] font-bold text-3xl">
+        {t("pacients.tittle3")}
+        </h1>
+      </div>
+
+      {oldPatients.length !== 0 ? (
+        <div className="overflow-x-auto w-[80%] rounded-lg border border-[#c6c6c6] mx-auto shadow-md">
+          <table className="table w-full">
+            <thead className="bg-[#a375ff] text-white">
+              <tr className="text-center">
+                <th className="border-b border-r border-[#BBBBBB]">{t("pacients.subtittle")}</th>
+                <th className="border-b border-r border-[#BBBBBB]">
+                {t("pacients.subtittle1")}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {oldPatients.map((patient) => {
+                return (
+                  <tr className="text-center" key={patient.id}>
+                    <td className="border-r border-[#BBBBBB]">
+                      <div className="flex items-center space-x-3">
+                        <div className="avatar">
+                          <div className="w-12 h-12 mask mask-squircle">
+                            <img
+                              src={
+                                patient.Profile_Photo == "NULL"
+                                  ? require("../../assets/template/avatar.jpg")
+                                  : patient.Profile_Photo_Url
+                              }
+                              alt="pfp"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <div className="font-bold text-left">
+                            {`${patient.First_Names} ${patient.Last_Names}`}
+                          </div>
+                          <div className="text-sm text-left opacity-50">{getPatientAge(patient.Age, patient.Birthdate)}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="border-r border-[#BBBBBB]">
+                      {patient.Patient_Code}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="h-[15rem] w-[100%] flex flex-col gap-5 justify-center items-center">
+          <div className="w-fit h-full flex-col gap-5">
+            <img className="w-[10rem] mx-auto block mb-5" src={require('../../assets/icons/no_prev.png')} alt="" />
+            <h3 className="text-[#707070]">{t("pacients.tittle4")}</h3>
+          </div>
         </div>
       )}
 
@@ -164,6 +241,8 @@ export const ActivePatients = (props) => {
           </tr>
         </table>
       </div> */}
+      </>
+    }
     </>
   );
 };

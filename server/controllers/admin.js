@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { pool } from "../utils/db.js";
-import { create_code } from "../utils/functions.js";
+import { create_code, send_verify_web_page } from "../utils/functions.js";
 
 // ! @route POST api/admin/new_doctor
 // ! @desc Simple doctor account register
@@ -87,7 +87,6 @@ const create_doctor = async (req, res, next) => {
       .status(200)
       .json({ success: true, message: "New doctor has been created" });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error });
   }
 };
@@ -152,12 +151,12 @@ const create_patient = async (req, res, next) => {
 
     // Gender
     const genders = ["Male", "Female"];
-    if (!genders.includes(Gender)) {
-      return res.status(500).json({
-        success: false,
-        message: "Provided gender is not a valid gender.",
-      });
-    }
+    // if (!genders.includes(Gender)) {
+    //   return res.status(500).json({
+    //     success: false,
+    //     message: "Provided gender is not a valid gender.",
+    //   });
+    // }
 
     // Blood type
     const blood_types = ["A+", "O+", "B+", "AB+", "A-", "O-", "B-", "AB-"];
@@ -170,7 +169,7 @@ const create_patient = async (req, res, next) => {
     // WEIGHT MUST BE IN KILOGRAMS
     // HEIGHT MUST BE IN METERS
 
-    const Profile_Photo = "NULL";
+    const Profile_Photo_Url = "NULL";
     const Patient_Code = create_code();
     const Medical_History_Code = "NULL";
 
@@ -184,7 +183,7 @@ const create_patient = async (req, res, next) => {
       Weight,
       Height,
       Responsible_id,
-      Profile_Photo,
+      Profile_Photo_Url,
       Patient_Code,
       Medical_History_Code,
     });
@@ -193,7 +192,6 @@ const create_patient = async (req, res, next) => {
       .status(200)
       .json({ success: true, message: "New patient has been created" });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error });
   }
 };
@@ -232,16 +230,83 @@ const doctor_assign_patient = async (req, res, next) => {
       Patient_id,
     });
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: `Patient #${Patient_id} in the system was assigned to Doctor's ID ${Doctor_id}`,
-      });
+    return res.status(200).json({
+      success: true,
+      message: `Patient #${Patient_id} in the system was assigned to Doctor's ID ${Doctor_id}`,
+    });
   } catch (error) {
-    console.log(error);
     return res.status(500).json({ error });
   }
 };
 
-export { create_doctor, create_patient, doctor_assign_patient };
+// ! @route POST api/admin/create_appointment
+// ! @desc Create a new appointment
+// ! @access public (temporaly)
+
+const create_appointment = async (req, res, next) => {
+  try {
+    const { Doctor_id, Responsible_id, Patient_id, Description, Date, Hour } =
+      req.body;
+
+    // checking the data
+    if (
+      !Doctor_id ||
+      !Responsible_id ||
+      !Patient_id ||
+      !Description ||
+      !Date ||
+      !Hour
+    ) {
+      return res
+        .status(500)
+        .json({ message: "You must provide every field with a value" });
+    }
+
+    // Checking if appointment already exists
+    const [query_check] = await pool.query(
+      "SELECT * FROM medical_appointment WHERE Doctor_id = ? AND Responsible_id = ? AND Patient_id = ? AND Date = ? AND Hour = ?",
+      [Doctor_id, Responsible_id, Patient_id, Date, Hour]
+    );
+
+    if (query_check.length != 0) {
+      return res
+        .status(500)
+        .json({ success: false, message: "This date is already programmed" });
+    }
+
+    await pool.query("INSERT INTO medical_appointment SET ?", {
+      Doctor_id,
+      Responsible_id,
+      Patient_id,
+      Description,
+      Date,
+      Hour,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: `Appointment for Doctor with ID #${Doctor_id} has been created`,
+    });
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+};
+
+// ! @route POST api/admin/send_web_email
+// ! @desc SEND THE EMAIL IN THE WEB.
+// ! @access public
+
+const send_web_email = async (req, res, next) => {
+  try {
+    const {Email, Message} = req.body;
+
+    send_verify_web_page(Message, Email, res);
+
+    return res.status(200).json({success: true});
+  } catch (error) {
+    return res.status(500).json({error})
+  }
+}
+
+
+export { create_doctor, create_patient, doctor_assign_patient, create_appointment, send_web_email };

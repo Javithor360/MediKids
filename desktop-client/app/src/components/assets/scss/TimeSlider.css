@@ -1,0 +1,26 @@
+.slick-prev,
+.slick-next {
+  color: #707070 !important; /* Cambia el color aquí */
+}
+.time-card {
+    width: 8rem !important;
+    height: 2.4rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.time-card:hover {
+    border: 2px solid #A375FF;
+}
+.time-card.disabled {
+  cursor: default;
+  pointer-events: none;
+  opacity: .6;
+}
+.time-card.disabled:hover {
+  background-color: transparent;
+  border-color: transparent;
+}

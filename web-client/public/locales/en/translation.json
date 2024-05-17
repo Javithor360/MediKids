@@ -1,0 +1,145 @@
+{
+    "navbar": {
+        "services": "Home",
+        "about": "About Us",
+        "contact": "Contact",
+        "download": "Download App"
+    },
+
+    "index":{
+        "banner":"Comprehensive health and childhood",
+        "boton":"Download App",
+        "title":"A clinic, a family to trust",
+        "sub":"Our specialized services provide assertive and effective care to children and adolescents",
+        "boton2":"Read more",
+        "title2":"Schedule an appointment in our app",
+        "sub2":"We know that you may be concerned about the health of your little one, that is why you can count on professional attention by scheduling your appointment that gives you:",
+        "list1":"Quality check-up for disease detection",
+        "list2":"Care necessary for your recovery",
+        "list3":"Quality care for every need",
+        "titles":"Specialties",
+        "sub3":"Specific and direct control for appropriate care",
+        "card":"Otorhinolaryngology",
+        "card2":"Gastroenterology",
+        "card3":"Pneumology",
+        "title3":"Our Doctors",
+        "boton3":"More information",
+        "boton4":"Learn more"
+    },
+    "app":{
+        "title":"Care and good health has never been so accessible",
+        "sub":"Get the best services in the easiest, simplest and friendliest way in our App, in it you will have numerous functionalities to take care of the health of your children",
+        "title2":"Everything you need in one place",
+        "list1":"Get a summary of your child's medical activity",
+        "list2":"Schedule appointments, and receive them virtually through the app",
+        "list3":"Stay up-to-date with reminders and personalized calendar with events",
+        "list4":"And much more...",
+        "title3":"Download now",
+        "sub2":"Just scan the QR code and start being part of the MediKids family",
+        "sub3":"Install the .apk file, but first allow installation from unknown sources and then you can proceed normally with the installation"
+    },
+    "sobre":{
+        "banner":"Care and well-being for the little ones in the home",
+         "ti":"Who we",
+         "tle":"are ?",
+         "sub1":"MediKids is a pediatric clinic specializing in providing quality, personalized medical care to children and adolescents. Our team of highly trained professionals is committed to the health care of their patients and the well-being of their families. At MediKids, we strive to create a welcoming and child-friendly environment where they can feel comfortable and safe during their medical treatment. In addition, we use cutting-edge technology to diagnose and treat our patients effectively and efficiently. In short, at MediKids we care about the health of children and are committed to providing quality and compassionate health care.",
+         "ti2":"You Motivate ",
+         "tle2":"us",
+         "sub2":"At MediKids, our greatest motivation is the health and well-being of your children. We know that as a parent, you want the best for your children, and that's exactly what drives us to provide exceptional healthcare. We strive to be a leading pediatric child care clinic, and to do so, we make sure to listen to your concerns and answer all of your questions. Your trust in us motivates us to continue improving and offering quality services, such as annual physical exams, vaccination services, and diagnostic tests. In short, at MediKids, you motivate us to continue providing quality, personalized health care for your children, and we are committed to meeting your expectations and needs.",
+         "ti3":"Mis",
+         "tle3":"sion",
+         "sub3":"At MediKids, our mission is to provide quality, personalized pediatric health care for children and adolescents, using cutting-edge technology and a team of highly trained professionals committed to the well-being of their patients. We strive to create a welcoming and friendly environment for children and their families, and encourage education on disease prevention and maintaining a healthy lifestyle.",
+         "sub4":"Our vision at MediKids is to be a leading pediatric child care clinic, recognized for our commitment to healthcare excellence, innovation and research in the field of pediatrics. We want to be a clinic that children and their families trust to receive quality and personalized medical care, and in which our team of professionals is proud to work and grow professionally. Our vision is to help children grow and develop healthily so they can reach their full potential."
+    },
+    "contact":{
+        "subtitle":"At MediKids, we understand that taking care of your children's health is a priority, and we know that questions or concerns may arise along the way. Our contact page is designed to give you the support and reassurance you need. Our team of highly trained professionals is ready to clarify all your doubts and provide you with the necessary information about our pediatric services, office hours, medical specialties and any other question you may have. We want to make sure you feel comfortable and confident choosing MediKids as your trusted child care clinic. Do not hesitate to contact us and allow us to help you in the health care of your little ones. We are here for you every step of the way.",
+        "tittle":"Do you still have ",
+        "tittle2":"questions?",
+        "label":"Enter your email",
+        "label2":"type your question",
+        "button":"send"
+    },
+    "cite":{
+        "tittle":"Requirements to schedule an",
+        "tittle1":"appointment",
+        "cont":"To book an appointment at the MediKids pediatric clinic, it is necessary to meet certain requirements. First, it's critical to have the child's information handy, including their full name, date of birth, health insurance number, and any relevant medical history. In addition, a valid contact phone number and email address must be provided, if required. Depending on clinic policy, additional documents may be required, such as insurance cards or medical references. It is also recommended to take into account any prior preparation necessary for the appointment, such as fasting or dietary restrictions. Meeting these requirements will ensure proper scheduling and effective care at the MediKids clinic.",
+        "tittle2":"Remember to take into",
+        "tittle3":"account",
+        "cont2":"When making an appointment at the MediKids pediatric clinic, it is essential to take into account a series of recommendations to ensure a smooth and efficient process. First of all, it is recommended to schedule the appointment in advance using the clinic's scheduling system, either by phone or through its online platform. Make sure you have the child's complete information handy, such as their name, date of birth, and health insurance number. Also, check if any additional documents are required, such as insurance cards, medical references or signed consents. Learn about any prior appointment preparations, such as fasting or dietary restrictions, and make sure you follow them accordingly. It is important to arrive on time on the day of the appointment to allow enough time to complete any required forms and to allow the child to become familiar with the clinic environment. If for any reason you need to cancel or change your appointment, please contact the clinic as far in advance as possible. By following these recommendations, you can enjoy a calm and efficient experience when scheduling an appointment at the MediKids pediatric clinic.",
+        "tittle4":"Steps to schedule an",
+        "tittle5":"appointment",
+        "step1":"Download our mobile app",
+        "step2":"Register by filling in the information that is requested",
+        "step3":"Register the data of your infant.",
+        "step4":"Access our system and schedule an appointment on the date and time of your disposal"
+    },
+    "Doc1":{
+        "tittle":"Otorhinolaryngology",
+        "subtittle":"Care and well-being for the children of the home",
+        "tittle1":"in what we",
+        "tittle2":"we specialize",
+        "subtittle1":"Pediatric otolaryngology focuses on the diagnosis and treatment of disorders related to the ears, nose, throat, and related areas in children, from newborns to adolescents. Some of the most common conditions that pediatric otolaryngology addresses are ear infections, swollen tonsils and adenoids, hearing problems, balance problems, snoring, sleep apnea, birth defects of the head and neck, speech and speech disorders, language; and head and neck trauma.",
+        "s1":"related to the ear, nose and throat in children and adolescentss",
+        "s2":"Voice and hearing disorders",
+        "s3":"Congenital malformations of the ear, nose and throat",
+        "button":"download app"
+    },
+    "Doc2":{
+        "tittle":"gastroenterology",
+        "subtittle":"Care and well-being for the children of the home",
+        "tittle1":"in what we",
+        "tittle2":"we specialize",
+        "subtittle1":"Pulmonology focuses on the diagnosis, treatment, and prevention of respiratory diseases. Pulmonologists are specialists in conditions such as asthma, COPD, lung cancer, and sleep apnea. They also manage mechanical ventilation and intensive care for serious respiratory problems, promoting healthy habits and vaccination.",
+        "s1":"Disorders of digestion and absorption of food",
+        "s2":"Food allergies and sensitivities",
+        "s3":"Congenital malformations of the ear, nose and throat",
+        "button":"download app"
+    },
+    "Doc3":{
+        "tittle":"Neumology",
+        "subtittle":"Care and well-being for the children of the home",
+        "tittle1":"in what we",
+        "tittle2":"we specialize",
+        "subtittle1":"Pulmonology focuses on the diagnosis, treatment, and prevention of respiratory diseases. Pulmonologists are specialists in conditions such as asthma, COPD, lung cancer, and sleep apnea. They also manage mechanical ventilation and intensive care for serious respiratory problems, promoting healthy habits and vaccination.",
+        "s1":"Breathing difficulties caused by congenital abnormalities, such as vascular or tracheoesophageal malformations",
+        "s2":"Autoimmune diseases that affect the lungs, such as systemic lupus erythematosus",
+        "s3":"Sleep disorders, such as sleep apnea and obstructive sleep hypopnea.",
+        "button":"download app"
+    },
+    "DrGarza":{
+        "subtittle":"Dr. Fátima Garza is a gastroenterologist with extensive experience in the diagnosis and treatment of disorders of the gastrointestinal system in children and adolescents. She graduated with honors from the National Autonomous University of Mexico School of Medicine, and is known for her pediatric capacity for effective and alternative treatments.",
+        "subtitle":"Dr. Esteban Gúzman is an Otolaryngologist who treats conditions such as sinusitis, otitis, snoring, balance disorders, etc. He is recognized for his compassionate approach and his skill in performing specialized otolaryngology surgical procedures and treatments on pediatric patients.",
+        "subtitle2":"Dr. Adrián Flores is a pulmonologist with extensive experience in the management of respiratory diseases. He graduated with honors from the Autonomous University of Madrid School of Medicine, throughout his career he has been recognized for his compassionate and patient-centered approach to the pediatric patient.",
+        "tittle":"A doctor in whom you can",
+        "sub":"Know more...",
+        "tittle1":"rely",
+        "tittle2":"Comprehensive care and service",
+        "tittle3":"guaranteed",
+        "tittle4":"Contact",
+        "tittle5":"Download the App to schedule an appointment",
+        "subtittle1":"At our pediatric clinic, we guarantee a comprehensive care service. Our highly-skilled team is committed to providing exceptional, personalized care for each child we serve. From specialized medical exams to a nurturing environment, we're here to ensure your little one's well-being at every stage of their growth.",
+        "subtittle2":"Means of communication to be in contact with the doctor",
+        "subtittle3":"You can see the steps on how to schedule an appointment in our app",
+        "subtittle4":"here",
+        "t1":"Effective Treatment",
+        "t2":"attention and care",
+        "t3":"Control and checks",
+        "li":"Our pediatrician doctor has vast experience in child care, backed by years of practice and training dedicated exclusively to the health of children.",
+        "li1":"Our doctor understands the unique needs of children and their families, establishing empathic connections that foster trust and facilitate open communication."
+    },
+    "footer":{
+        "title":"Home page",
+        "title1":"Contact",
+        "title2":"Download app",
+        "title3":"Service",
+        "title4":"About us",
+        "title5":"Privacy policies"
+    },
+    "error404":{
+        "tittle":"¡Something went ",
+        "tittle1":"wrong",
+        "subtittle":"It seems that you have entered a path that is not valid",
+        "button":"return"
+    }
+    
+}

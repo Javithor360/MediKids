@@ -1,0 +1,80 @@
+.react-calendar__tile--active {
+    background: #A375FF !important;
+}
+.react-calendar {
+    height: 90% !important;
+    width: 70% !important;
+    margin-left: 1.75rem;
+    margin-top: 1.75rem;
+    margin-bottom: .8rem !important;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+}
+.custom-calendar {
+    pointer-events: none;
+    cursor: default; 
+    opacity: .7;
+}
+.react-calendar__tile:disabled{
+    background-color: #e9e9f9 !important;
+    opacity: .4;
+}
+.react-calendar__navigation button:disabled{
+    background-color: #e9e9f9 !important;
+    opacity: .4;
+}
+.react-calendar__navigation{
+    border-bottom: 1px solid #cbcbcb !important;
+    transition: background-color .3s;
+}
+.react-calendar__navigation__arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .8rem;
+    color: #000000;
+}
+.overlapped{
+    position: absolute;
+    top: 0%;
+    left: 1.75rem;
+    background-color: transparent;
+    height: 20%;
+    border-radius: 5px;
+    z-index: 1;
+    width: 70%;
+}
+.react-calendar__month-view__weekdays__weekday > abbr:where([title]) {
+    text-decoration: none;
+}
+.react-calendar__navigation__label__labelText {
+    color: #474646;
+    font-weight: bold;
+}
+.react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus {
+    transition: background-color .3s;
+    background-color: #e9e8fd !important;
+}
+.react-calendar__navigation button:enabled, .react-calendar__navigation button:enabled {
+    transition: background-color .3s;
+}
+.react-calendar button:enabled:hover {
+    transition: .3s;
+}
+.react-calendar button:enabled{
+    transition: .3s;
+}
+.react-calendar__tile--now{
+    background-color: #e2e2e2 !important;
+}
+.react-calendar__tile--hasActive{
+    background-color: #A375FF !important;
+    color: #FFFFFF !important;
+}
+.react-calendar{
+    margin-bottom: 2rem;
+}
+.custom-calendar .react-calendar__navigation{
+    pointer-events: none;
+}

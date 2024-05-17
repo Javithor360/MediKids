@@ -9,7 +9,7 @@ export default class Modal extends Component {
       <Portal>
         {active && (
           <>
-            <div className="fixed w-screen h-full top-0 left-0 bg-black/[.7] overflow-x-hidden overflow-y-auto z-10">
+            <div className="fixed w-screen h-full top-0 left-0 bg-black/[.7] overflow-x-hidden overflow-y-auto z-[100]">
               <div className={`wrapper relative p-5 flex justify-center h-fit`}>
                 <div className="window relative bg-white rounded shadow-md h-fit">
                   <button

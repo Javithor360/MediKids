@@ -1,11 +1,30 @@
 {
-  "name": "medikids-desktop",
+  "name": "medikids",
+  "productName": "MediKids",
   "version": "1.0.0",
   "description": "Aplicación de escritorio para MediKids",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "start:watch": "npx electronmon --trace-warnings ."
+    "start:watch": "npx electronmon --trace-warnings .",
+    "builder": "electron-builder"
+  },
+  "build" : {
+    "appId": "MediKids",
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "installerIcon": "icon.ico",
+      "uninstallerIcon": "icon.ico",
+      "unistallerDisplayName": "MediKids",
+      "license": "license.md",
+      "allowToChangeInstallationDirectory": true
+    }
   },
   "keywords": [
     "desktop"
@@ -13,9 +32,13 @@
   "author": "javithor360",
   "license": "CC-BY-NC-4.0",
   "devDependencies": {
-    "electron": "^23.2.2"
+    "electron": "^23.2.2",
+    "electron-builder": "^24.6.4"
   },
   "dependencies": {
-    "formik": "^2.2.9"
+    "@natscale/react-calendar": "^0.0.0-beta.26",
+    "formik": "^2.2.9",
+    "mousetrap": "^1.6.5",
+    "simple-react-calendar": "^2.2.8"
   }
 }
