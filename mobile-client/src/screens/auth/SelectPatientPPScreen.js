@@ -54,7 +54,7 @@ export const SelectPatientPPScreen = () => {
             })
 
             if(!result.canceled){
-                setImageEl(result.uri);
+                setImageEl(result.assets[0].uri);
             }
         } else {
             //! HOW TO DO THE ERROR HANDLING?

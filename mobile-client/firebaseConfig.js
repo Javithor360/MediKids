@@ -3,12 +3,12 @@ import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import uuid from 'react-native-uuid'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBgF3JdVnTVC8ABW7cl01GCrv91ypLwT48",
-  authDomain: "medikids-b1d14.firebaseapp.com",
-  projectId: "medikids-b1d14",
-  storageBucket: "medikids-b1d14.appspot.com",
-  messagingSenderId: "517626119973",
-  appId: "1:517626119973:web:f6cc9a73bf16da41367ccc"
+  apiKey: "AIzaSyDs-GPoEVQu_moCWRtMYQqeoufG9ikYn4s",
+  authDomain: "medikids-d9650.firebaseapp.com",
+  projectId: "medikids-d9650",
+  storageBucket: "medikids-d9650.appspot.com",
+  messagingSenderId: "380098976169",
+  appId: "1:380098976169:web:535243cac8b15bc78d4cb8"
 };
 
 const appFirebase = initializeApp(firebaseConfig);
