@@ -55,9 +55,9 @@ export const SelectProfilePhotoScreen = () => {
                 aspect: [1,1],
                 quality: 0.5
             })
-
+            
             if(!result.canceled){
-                setImageEl(result.uri);
+                setImageEl(result.assets[0].uri);
             }
         } else {
             //! HOW TO DO THE ERROR HANDLING?

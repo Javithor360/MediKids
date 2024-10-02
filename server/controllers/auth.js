@@ -2,14 +2,14 @@
 //>> IMPORT MODULES
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-import { initializeApp } from 'firebase/app'
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 
 //>> IMPORT CONFIGS & FUNCTIONS
 import {pool} from '../utils/db.js';
 import { create_code, create_jwt, create_reset_code, patientCode, send_forgot_pass_email, send_verify_code_email } from '../utils/functions.js';
-import firebaseConfig from '../utils/firebase.config.js';
 import ErrorResponse from "../utils/error_message.js";
+import { initializeApp } from 'firebase/app';
+import firebaseConfig from '../utils/firebase.config.js';
+import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 
 //? Startup Firebase configuration.
 initializeApp(firebaseConfig.firebaseConfig);
@@ -81,9 +81,8 @@ const register = async (req, res, next) => {
     const HashedPass = await bcrypt.hash(Password, 12);
 
     // GET DEFAULT PERFIL PHOTO FRON FIREBASE
-    // const storageRef = ref(storage, `perfil_photos/default.png`);
-    // const P_F = await getDownloadURL(storageRef);
-    const P_F = 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg';
+    const storageRef = ref(storage, `perfil_photos/default.jpg`);
+    const P_F = await getDownloadURL(storageRef);
 
     // CREATE EMAIL VERIFY CODE
     const verify_code = create_code();
@@ -331,9 +330,8 @@ const register_patients = async (req, res, next) => {
     const Patient_Code = patientCode();
 
     // GET DEFAULT PERFIL PHOTO FRON FIREBASE
-    // const storageRef = ref(storage, `perfil_photos/default.png`);
-    // const P_F = await getDownloadURL(storageRef);
-    const P_F = 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
+    const storageRef = ref(storage, `perfil_photos/default.jpg`);
+    const P_F = await getDownloadURL(storageRef);
 
     await pool.query('INSERT INTO patient SET ?', {First_Names, Last_Names, Birthdate: BD, Age, Gender, Blood_Type, Weight, Height, Responsible_id: responsible[0].id, Patient_Code, Medical_History_Code: null, Profile_Photo_Url: P_F, Profile_Photo_Name: null});
 
